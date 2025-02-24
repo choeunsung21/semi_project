@@ -5,14 +5,14 @@
 #field-no-select option,
 #plan-date-select input,
 #plan-time-select input,
-rule-open-select,
-rule-close-select {
+#rule-open-select,
+#rule-close-select {
 	font-size:14px;
 	color: rgba(0, 0, 0, 1);
 	padding: 10px;
 }
 
-/* insertField */
+/* insertField.jsp */
 #dayoff-select{
 	font-size:14px;
 	color: rgba(88, 88, 88, 0.8);
@@ -21,9 +21,56 @@ rule-close-select {
 	padding-right: 12px;
 }
 
+#dayoff-select p {
+	font-size:11px;
+	color: #124265;
+	font-family: "Raleway",  sans-serif;
+	font-style: italic;
+	
+}
 #dayoff-select legend {
+	font-size:15px;
+	color: #124265;
+	font-family: "Raleway",  sans-serif;
+	font-weight: bold;
+}
+
+#field-limit-input,
+#field-size-width-input,
+#field-size-height-input {
+	font-size:14px;
+	padding: 10px;
+}
+
+#field-name-label,
+#field-addr-label,
+#field-limit-label,
+#field-size-width-label,
+#field-size-height-label,
+#is-indoor-label,
+#field-type-label,
+#is-park-label,
+#is-shower-label,
+#rent-price-label,
+#message-label {
 	font-size:14px;
 	color: #124265;
 	font-family: "Raleway",  sans-serif;
-	font-weight: extra-bold;
+	font-weight: bold;
+}
+
+#is-indoor-select,
+#field-type-select,
+#is-park-select,
+#is-shower-select,
+#message-textarea {
+	font-size:13px;
+	color: rgba(0, 0, 0, 1);
+	padding: 8px;
+}
+
+/* insertField.jsp insertPlan.jsp */
+#chk_terms_p {
+	font-size:14px;
+	color: rgba(0, 0, 0, 1);
 }

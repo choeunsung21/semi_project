@@ -5,6 +5,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <configuration>
 	<properties resource="driver.properties"/>
 	<typeAliases>
+		<typeAlias type="com.gn.field.vo.Field" alias="field"/>
 		<typeAlias type="com.gn.board.vo.Board" alias="board"/>
 	</typeAliases>
 	<environments default="development">
@@ -19,7 +20,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		</environment>
 	</environments>
 	<mappers>
-		<mapper resource="/mappers/user-mapper.xml"/>
+		<mapper resource="/mappers/field-mapper.xml"/>
 		<mapper resource="/mappers/board-mapper.xml"/>
 	</mappers>
 </configuration>
