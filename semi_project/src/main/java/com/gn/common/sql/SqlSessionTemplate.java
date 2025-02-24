@@ -9,27 +9,35 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 public class SqlSessionTemplate {
-	public static SqlSession getSqlSession() {
+	public static SqlSession getSqlSession(boolean flag) {
+		SqlSession session = null;
 		
-		SqlSession session= null;
 		try {
-			// 1. mybatis-config.xml의 설정 정보를 InputStream을 통해 읽어옴
+			// 1. mybatis-config.xml의 설정 정보를 읽어오기
 			String path = "/mybatis-config.xml";
 			InputStream is = Resources.getResourceAsStream(path);
+			
 			// 2. SqlSessionFactoryBuilder 객체 생성
 			SqlSessionFactoryBuilder sfb = new SqlSessionFactoryBuilder();
-			// 3. SqlSessionFactoryBuilder 객체의 build() 메소드 활용
-			// SqlSessionFactory 객체 생성
+			
+			// 3. SqlSessionFactory 객체 생성
 			SqlSessionFactory factory = sfb.build(is);
-			// 4. SqlSessionFactory 객체의 openSession() 메소드 활용
-			// SqlSession 객체 생성
-			// (1) 매개변수 X : AutoCommit X
-			// (2) true : AutoCommit O 
-			// (3) false : AutoCommit X
-			session = factory.openSession(true);
+			
+			// 4. SqlSession 객체 생성
+			// openSession의 매개변수는 AutoCommit를 켜는지 끄는지 결정 -> true || false(default)
+			// 1. 매개변수를 안 쓴다 = false :: AutoCommit을 안 하겠다 = 트랜잭션을 쓰겠다.
+			// 2. 매개변수가 false :: 위와 같음
+			// 3. 매개변수를 true :: AutoCommit을 하겠다
+			// (1) 매개변수 X : AutoCommit X = 트랜잭션을 쓰겠다
+			// (2) false : AutoCommit X
+			// (3) true : AutoCommit O 
+
+			session = factory.openSession(flag);
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 		return session;
 	}
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fieldMapper">
+	<resultMap type="dayoff" id="dayoffMap">
+		<result property="dayoffNo" column="dayoff_no" />
+		<result property="isSun" column="is_sun" />
+		<result property="isMon" column="is_mon" />
+		<result property="isTue" column="is_tue" />
+		<result property="isWed" column="is_wed" />
+		<result property="isThu" column="is_thu" />
+		<result property="isFri" column="is_fri" />
+		<result property="isSat" column="is_sat" />
+	</resultMap>
+</mapper>

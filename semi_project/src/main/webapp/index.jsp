@@ -75,8 +75,10 @@
           <div class="col-md-6 col-lg-3" data-aos="zoom-out" data-aos-delay="400">
             <div class="icon-box">
               <div class="icon"><i class="bi bi-command"></i></div>
-              <h4 class="title"><a href="/index-backup.jsp">Nemo Enim</a></h4>
+              <h4 class="title"><a href="/index-backup.jsp"><img src="/resources/img/dung.png"/></a></h4>
+              <!--
               <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
+              -->
             </div>
           </div><!--End Icon Box -->
           
