@@ -83,7 +83,7 @@
       			<div class="container" data-aos="fade-up" data-aos-delay="100">
 
         			<div class="row gy-4">
-						<form action="#" method="post" class="submit-form" data-aos="fade-up" data-aos-delay="200">
+						<form action="/loginEnd" method="post" class="submit-form" data-aos="fade-up" data-aos-delay="200">
              			 	<div class="row gy-4">
 								
                 				<div class="col-md-12">
