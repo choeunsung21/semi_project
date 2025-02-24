@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-인덱스
+인덱스인덱스
 </body>
 </html>
