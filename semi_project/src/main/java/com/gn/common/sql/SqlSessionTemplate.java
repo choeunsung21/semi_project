@@ -24,10 +24,14 @@ public class SqlSessionTemplate {
 			SqlSessionFactory factory = sfb.build(is);
 			
 			// 4. SqlSession 객체 생성
-			// openSession의 매개변수는 AutoCommit를 켜는지 끄는지 결정 -> true(default) || false
+			// openSession의 매개변수는 AutoCommit를 켜는지 끄는지 결정 -> true || false(default)
 			// 1. 매개변수를 안 쓴다 = false :: AutoCommit을 안 하겠다 = 트랜잭션을 쓰겠다.
 			// 2. 매개변수가 false :: 위와 같음
 			// 3. 매개변수를 true :: AutoCommit을 하겠다
+			// (1) 매개변수 X : AutoCommit X = 트랜잭션을 쓰겠다
+			// (2) false : AutoCommit X
+			// (3) true : AutoCommit O 
+
 			session = factory.openSession(flag);
 			
 		} catch (IOException e) {
