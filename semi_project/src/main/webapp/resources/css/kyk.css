@@ -1,0 +1,63 @@
+@charset "UTF-8";
+/* 전체 페이지 스타일 */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+}
+
+/* 검색 폼 */
+/* .search-form {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    width: 200px
+} */
+
+.search-form, .btn {
+    width: 200px; 
+    height: 40px; 
+    box-sizing: border-box; 
+}
+
+
+
+/* 테이블 스타일 */
+.table-responsive {
+    margin-top: 20px;
+}
+
+.table {
+	table-layout: auto;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table thead {
+    background-color: #343a40;
+    color: white;
+}
+
+/* 게시글 목록 */
+.table tbody tr {
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.table tbody tr:hover {
+    background: #e9ecef;
+}
+
+
+.custom-center {
+    width: 1024px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.minitd{
+ 	display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+}
+
