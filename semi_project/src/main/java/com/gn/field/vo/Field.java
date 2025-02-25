@@ -30,7 +30,6 @@ public class Field {
 	private boolean isShower;
 	private String rentPrice;
 	private int dayoffNo;
-	private int[] dayoffList;
 	private String message;
 	private LocalDateTime regDate;
 	private LocalDateTime modDate;

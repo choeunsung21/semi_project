@@ -10,20 +10,20 @@ import com.gn.field.dao.FieldDao;
 import com.gn.field.vo.Field;
 
 public class FieldService {
-	public int insertField(Field field) {
+	public int insertField(Field field, Dayoff dayoff) {
 		SqlSession session = getSqlSession(false);
 		
 		int result = 0;
 		int resultInsertDayoff = 0;
 		int resultInsertField = 0;
 	
-		resultInsertDayoff = new DayoffDao().insertDayoff(session, field);
+		resultInsertDayoff = new DayoffDao().insertDayoff(session, dayoff);
 		
 		if(resultInsertDayoff > 0) {
-			Dayoff dayoff = new FieldDao().selectDayoff(session);
+			Dayoff selectedDayoff = new FieldDao().selectDayoff(session);
 			
 			if(dayoff != null) {
-				int tmp = dayoff.getDayoffNo();
+				int tmp = selectedDayoff.getDayoffNo();
 				field.setDayoffNo(tmp);
 				
 				resultInsertField = new FieldDao().insertField(session, field);

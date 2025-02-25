@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.gn.dayoff.vo.Dayoff;
 import com.gn.field.service.FieldService;
 import com.gn.field.vo.Field;
 
@@ -21,6 +22,12 @@ public class InsertFieldEndServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String temp = null;
+		
+		int userNo = 0;
+		temp = (String)request.getParameter("user_no");
+		if(temp != null) {
+			userNo = Integer.parseInt(request.getParameter("user_no"));			
+		}
 		
 		String fieldName = (String)request.getParameter("field_name");
 		String fieldAddr = (String)request.getParameter("field_addr");
@@ -76,6 +83,7 @@ public class InsertFieldEndServlet extends HttpServlet {
 		}
 		
 		Field field = Field.builder()
+				.userNo(userNo)
 				.fieldName(fieldName)
 				.fieldAddr(fieldAddr)
 				.fieldLimit(fieldLimit)
@@ -88,19 +96,45 @@ public class InsertFieldEndServlet extends HttpServlet {
 				.message(message)
 				.build();
 		
-		String[] tempArr = (String[])request.getParameterValues("dayoff_list");		
+		Dayoff dayoff = null;
+		String[] tempArr = (String[])request.getParameterValues("dayoff_list");
 		
 		if(tempArr != null && tempArr.length != 0) {
+			dayoff = new Dayoff();
 			int[] chkDayoffList = new int[tempArr.length];
 			
 			for(int i=0; i<tempArr.length; i++) {
 				chkDayoffList[i] = Integer.parseInt(tempArr[i]);
 			}
 			
-			field.setDayoffList(chkDayoffList);
+			for(int i=0; i<chkDayoffList.length; i++) {
+				switch(chkDayoffList[i]) {
+				case 1:
+					dayoff.setSun(true);
+					break;
+				case 2:
+					dayoff.setMon(true);
+					break;
+				case 3:
+					dayoff.setTue(true);
+					break;
+				case 4:
+					dayoff.setWed(true);
+					break;
+				case 5:
+					dayoff.setThu(true);
+					break;
+				case 6:
+					dayoff.setFri(true);
+					break;
+				case 7:
+					dayoff.setSat(true);
+					break;
+				}
+			}
 		}
 		
-		int result = new FieldService().insertField(field);
+		int result = new FieldService().insertField(field, dayoff);
 		
 		if(result > 0) {
 			System.out.println("InsertFieldEndServlet : 트랜잭션에 성공하였습니다.");

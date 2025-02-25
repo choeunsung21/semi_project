@@ -15,9 +15,9 @@
 		<result property="regDate" column="reg_date" />
 		<result property="modDate" column="mod_date" />
 	</resultMap>
-	<insert id="insertDayoffOne" parameterType="field">
+	<insert id="insertDayoffOne" parameterType="dayoff">
 		INSERT INTO `dayoff` (`is_sun` ,`is_mon` ,`is_tue` ,`is_wed` ,`is_thu` ,`is_fri` ,`is_sat`)
-		VALUES (false ,false ,false ,false ,false ,false ,false)
+		VALUES (#{isSun} ,#{isMon} ,#{isTue} ,#{isWed} ,#{isThu} ,#{isFri} ,#{isSat})
 	</insert>
 	<select id="selectDayoffOne" resultMap="dayoffMap">
 		SELECT * FROM `dayoff` ORDER BY `reg_date` DESC LIMIT 1;

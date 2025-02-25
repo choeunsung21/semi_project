@@ -136,7 +136,7 @@
               					<div class="row gy-4">
 									
 									<div class="col-md-12" style="display:none;">
-                  						<input type="text" class="form-control" name="user_no" placeholder="담당 회원번호">
+                  						<input type="text" class="form-control" name="user_no" value="${user.userNo}" placeholder="담당 회원번호">
                 					</div>
 									
                 					<div class="col-md-12" id="dayoff-select">
@@ -164,7 +164,7 @@
                 					</div>
                 					
                 					<div class="col-md-12">
-                						<label for="field-limit-input" id="field-limit-label">최대인원*</label>
+                						<label for="field-limit-input" id="field-limit-label">수용인원*</label>
                   						<input type="number" class="form-control" name="field_limit" id="field-limit-input" min="0" required>
                 					</div>
                 					
@@ -226,16 +226,37 @@
 									
 									<!-- #chk_term 체크되었을 때만 버튼이 눌러지고 아닐경우 alert창을 띄울 예정 -->
                 					<div class="col-md-12 text-center">
-                  						<button type="submit" onclick="test();">구장 등록</button>
+                  						<button type="submit" onclick="insertFieldForm();">구장 등록</button>
                 					</div>
                 					
                 					<script>
-                						const test = function(){
-											let val = $("#chk_terms").is(":checked");
-											if(!val) {
-												alert("약관을 읽고 체크해주세요.");
+                						const insertFieldForm = function(){
+                							const form = document.insert_field_end_form;
+											let chkTerms = $("#chk_terms").is(":checked");
+											
+                							if(!form.field_name.value) {
+                								alert('구장 이름을 입력해주세요.');
+                								form.field_name.focus();
+                							} else if(!form.field_addr.value) {
+                								alert('구장 주소를 입력해주세요.');
+                								form.field_addr.focus();
+                								event.preventDefault();
+                							} else if(!form.field_limit.value) {
+                								alert('수용 인원을 입력해주세요.');
+                								form.field_limit.focus();
+                								event.preventDefault();
+                							} else if(!form.field_size_width.value) {
+                								alert('구장 크기(너비)를 입력해주세요.');
+                								form.field_size_width.focus();
+                								event.preventDefault();
+                							} else if(!form.field_size_height.value) {
+                								alert('구장 크기(길이)를 입력해주세요.');
+                								form.field_size_height.focus();
+                								event.preventDefault();
+                							} else if(!chkTerms) {
+                								alert("약관을 읽고 체크해주세요.");
 												event.preventDefault();
-											}
+                							}
                 						};
                 					</script>
                 					
