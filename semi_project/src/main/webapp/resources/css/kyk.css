@@ -5,13 +5,6 @@ body {
     background-color: #f8f9fa;
 }
 
-/* 검색 폼 */
-/* .search-form {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-    width: 200px
-} */
 
 .search-form, .btn {
     width: 200px; 
@@ -21,7 +14,7 @@ body {
 
 
 
-/* 테이블 스타일 */
+
 .table-responsive {
     margin-top: 20px;
 }
@@ -37,7 +30,7 @@ body {
     color: white;
 }
 
-/* 게시글 목록 */
+
 .table tbody tr {
     cursor: pointer;
     transition: background 0.3s;
