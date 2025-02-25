@@ -17,20 +17,15 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @Builder
-public class Field {
-	private int fieldNo;
-	private int userNo;
-	private String fieldName;
-	private String fieldAddr;
-	private String fieldSize;
-	private int fieldLimit;
-	private String fieldType;
-	private String isIndoor;
-	private boolean isPark;
-	private boolean isShower;
-	private String rentPrice;
+public class Dayoff {
 	private int dayoffNo;
-	private String message;
+	private boolean isSun;
+	private boolean isMon;
+	private boolean isTue;
+	private boolean isWed;
+	private boolean isThu;
+	private boolean isFri;
+	private boolean isSat;
 	private LocalDateTime regDate;
 	private LocalDateTime modDate;
 }
