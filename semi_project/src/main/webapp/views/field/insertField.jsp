@@ -219,7 +219,7 @@
                 						<label for="message-textarea" id="message-label">특이사항</label>
                  						<textarea class="form-control" name="message" id="message-textarea" rows="6"></textarea>
                 					</div>
-
+									
 									<p id="chk_terms_p">
                 						<input id="chk_terms" type="checkbox">&nbsp; 구장 등록 관련 약관입니다.
 									</p>                					
@@ -228,37 +228,6 @@
                 					<div class="col-md-12 text-center">
                   						<button type="submit" onclick="insertFieldForm();">구장 등록</button>
                 					</div>
-                					
-                					<script>
-                						const insertFieldForm = function(){
-                							const form = document.insert_field_end_form;
-											let chkTerms = $("#chk_terms").is(":checked");
-											
-                							if(!form.field_name.value) {
-                								alert('구장 이름을 입력해주세요.');
-                								form.field_name.focus();
-                							} else if(!form.field_addr.value) {
-                								alert('구장 주소를 입력해주세요.');
-                								form.field_addr.focus();
-                								event.preventDefault();
-                							} else if(!form.field_limit.value) {
-                								alert('수용 인원을 입력해주세요.');
-                								form.field_limit.focus();
-                								event.preventDefault();
-                							} else if(!form.field_size_width.value) {
-                								alert('구장 크기(너비)를 입력해주세요.');
-                								form.field_size_width.focus();
-                								event.preventDefault();
-                							} else if(!form.field_size_height.value) {
-                								alert('구장 크기(길이)를 입력해주세요.');
-                								form.field_size_height.focus();
-                								event.preventDefault();
-                							} else if(!chkTerms) {
-                								alert("약관을 읽고 체크해주세요.");
-												event.preventDefault();
-                							}
-                						};
-                					</script>
                 					
               					</div>
             				</form>
@@ -289,17 +258,9 @@
 		  <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
 		  	 
             <div class="services-list">
-              <!--
-              <a href="#" class="active">Web Design</a>
-              <a href="#">Software Development</a>
-              <a href="#">Product Management</a>
-              <a href="#">Graphic Design</a>
-              <a href="#">Marketing</a>
-              -->
               # img 파일을 선택하고 점부를 위한 공간입니다.
             </div>
            
-
             <h4>파일 첨부 규칙</h4>
             <p>10MB 이하의 파일만 업로드 가능하며, .jpg .jpeg .png만을 허용합니다.</p>
           </div>
@@ -311,6 +272,38 @@
     </section><!-- /Service Details Section -->
 
   </main>
+  
+  <script>
+  	const insertFieldForm = function(){
+    	const form = document.insert_field_end_form;
+		let chkTerms = $("#chk_terms").is(":checked");
+											
+        if(!form.field_name.value) {
+        	alert('구장 이름을 입력해주세요.');
+        	form.field_name.focus();
+        	event.preventDefault();
+        } else if(!form.field_addr.value) {
+            alert('구장 주소를 입력해주세요.');
+            form.field_addr.focus();
+            event.preventDefault();
+        } else if(!form.field_limit.value) {
+            alert('수용 인원을 입력해주세요.');
+            form.field_limit.focus();
+            event.preventDefault();
+        } else if(!form.field_size_width.value) {
+            alert('구장 크기(너비)를 입력해주세요.');
+            form.field_size_width.focus();
+            event.preventDefault();
+        } else if(!form.field_size_height.value) {
+            alert('구장 크기(길이)를 입력해주세요.');
+            form.field_size_height.focus();
+            event.preventDefault();
+        } else if(!chkTerms) {
+            alert("약관을 읽고 체크해주세요.");
+			event.preventDefault();
+        }
+  	};
+  </script>
 
   <%@ include file="/views/include/footer.jsp" %>
 

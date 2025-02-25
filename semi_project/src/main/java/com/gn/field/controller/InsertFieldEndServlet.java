@@ -21,6 +21,7 @@ public class InsertFieldEndServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/* Field 객체 꾸리기 */
 		String temp = null;
 		
 		int userNo = 0;
@@ -96,6 +97,8 @@ public class InsertFieldEndServlet extends HttpServlet {
 				.message(message)
 				.build();
 		
+		/* Dayoff 객체 꾸리기 */
+		
 		Dayoff dayoff = null;
 		String[] tempArr = (String[])request.getParameterValues("dayoff_list");
 		
@@ -133,6 +136,8 @@ public class InsertFieldEndServlet extends HttpServlet {
 				}
 			}
 		}
+		
+		/* 서비스로 넘겨서 트랜잭션 처리 */
 		
 		int result = new FieldService().insertField(field, dayoff);
 		
