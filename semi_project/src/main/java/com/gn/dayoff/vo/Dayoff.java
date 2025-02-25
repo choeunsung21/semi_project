@@ -1,5 +1,7 @@
 package com.gn.dayoff.vo;
 
+import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -24,4 +26,6 @@ public class Dayoff {
 	private boolean isThu;
 	private boolean isFri;
 	private boolean isSat;
+	private LocalDateTime regDate;
+	private LocalDateTime modDate;
 }

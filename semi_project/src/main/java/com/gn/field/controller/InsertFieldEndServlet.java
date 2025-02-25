@@ -24,7 +24,7 @@ public class InsertFieldEndServlet extends HttpServlet {
 		
 		String fieldName = (String)request.getParameter("field_name");
 		String fieldAddr = (String)request.getParameter("field_addr");
-
+		
 		int fieldLimit = 0;
 		temp = (String)request.getParameter("field_limit");
 		if(temp != null && temp.length() != 0) {
@@ -63,6 +63,12 @@ public class InsertFieldEndServlet extends HttpServlet {
 			isShower = true;
 		}
 		
+		String rentPrice = "";
+		temp = (String)request.getParameter("rent_price");
+		if(temp != null && temp.length() != 0) {
+			rentPrice = temp;
+		}
+		
 		String message = "";
 		temp = (String)request.getParameter("message");
 		if(temp != null && temp.length() != 0) {
@@ -78,29 +84,29 @@ public class InsertFieldEndServlet extends HttpServlet {
 				.fieldType(fieldType)
 				.isPark(isPark)
 				.isShower(isShower)
+				.rentPrice(rentPrice)
 				.message(message)
 				.build();
 		
-		temp = (String)request.getParameter("rent_price");
-		if(temp != null && temp.length() != 0) {
-			int rentPrice = Integer.parseInt(temp);
-			field.setRentPrice(rentPrice);
-		}
-		
-		String[] tempArr = (String[])request.getParameterValues("chk_dayoff");		
+		String[] tempArr = (String[])request.getParameterValues("dayoff_list");		
 		
 		if(tempArr != null && tempArr.length != 0) {
-			int[] chkDayoff = new int[tempArr.length];
+			int[] chkDayoffList = new int[tempArr.length];
 			
 			for(int i=0; i<tempArr.length; i++) {
-				chkDayoff[i] = Integer.parseInt(tempArr[i]);
+				chkDayoffList[i] = Integer.parseInt(tempArr[i]);
 			}
 			
-			field.setDayoffNo(chkDayoff);
+			field.setDayoffList(chkDayoffList);
 		}
 		
 		int result = new FieldService().insertField(field);
-		System.out.println("InsertFieldEndServlet : " + result);
+		
+		if(result > 0) {
+			System.out.println("InsertFieldEndServlet : 트랜잭션에 성공하였습니다.");
+		} else {
+			System.out.println("InsertFieldEndServlet : 트랜잭션에 실패하였습니다.");
+		}
 }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

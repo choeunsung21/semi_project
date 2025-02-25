@@ -143,13 +143,13 @@
                 						<fieldset>
                 							<legend>휴무요일</legend>
                 							<p>(체크하지 않을 시 모든 요일에 개장함을 의미합니다)</p>
-                							<input type="checkbox" name="chk_dayoff" value="1">일요일 &nbsp;
-                							<input type="checkbox" name="chk_dayoff" value="2">월요일 &nbsp;
-                							<input type="checkbox" name="chk_dayoff" value="3">화요일 &nbsp;
-                							<input type="checkbox" name="chk_dayoff" value="4">수요일 &nbsp;
-                							<input type="checkbox" name="chk_dayoff" value="5">목요일 &nbsp;
-                							<input type="checkbox" name="chk_dayoff" value="6">금요일 &nbsp;
-                							<input type="checkbox" name="chk_dayoff" value="7">토요일 &nbsp;
+                							<input type="checkbox" name="dayoff_list" value="1">일요일 &nbsp;
+                							<input type="checkbox" name="dayoff_list" value="2">월요일 &nbsp;
+                							<input type="checkbox" name="dayoff_list" value="3">화요일 &nbsp;
+                							<input type="checkbox" name="dayoff_list" value="4">수요일 &nbsp;
+                							<input type="checkbox" name="dayoff_list" value="5">목요일 &nbsp;
+                							<input type="checkbox" name="dayoff_list" value="6">금요일 &nbsp;
+                							<input type="checkbox" name="dayoff_list" value="7">토요일 &nbsp;
                 						</fieldset>
                 					</div>
                 					
@@ -211,8 +211,8 @@
                 					</div>
                 					
                 					<div class="col-md-12">
-                						<label for="rent-price-input" id="rent-price-label">풋살화 대여가격* (대여서비스를 제공하지 않을 시 -1을 입력해주세요)</label>
-                  						<input type="number" class="form-control" name="rent_price" id="rent-price-input" min="-1">
+                						<label for="rent-price-input" id="rent-price-label">풋살화 대여가격 (대여서비스를 제공하지 않을 시 비워두시면 됩니다.)</label>
+                  						<input type="number" class="form-control" name="rent_price" id="rent-price-input" min="0">
                 					</div>
 
                 					<div class="col-md-12">
