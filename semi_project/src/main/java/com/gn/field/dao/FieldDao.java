@@ -2,7 +2,7 @@ package com.gn.field.dao;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.gn.dayoff.vo.Dayoff;
+import com.gn.field.vo.Dayoff;
 import com.gn.field.vo.Field;
 
 public class FieldDao {

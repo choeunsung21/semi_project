@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.gn.dayoff.vo.Dayoff;
 import com.gn.field.service.FieldService;
+import com.gn.field.vo.Dayoff;
 import com.gn.field.vo.Field;
 
 @WebServlet("/insertFieldEnd")

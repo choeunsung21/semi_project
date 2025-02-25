@@ -1,4 +1,4 @@
-package com.gn.dayoff.vo;
+package com.gn.field.vo;
 
 import java.time.LocalDateTime;
 

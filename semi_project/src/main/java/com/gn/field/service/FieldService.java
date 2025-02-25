@@ -4,9 +4,9 @@ import static com.gn.common.sql.SqlSessionTemplate.getSqlSession;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.gn.dayoff.dao.DayoffDao;
-import com.gn.dayoff.vo.Dayoff;
+import com.gn.field.dao.DayoffDao;
 import com.gn.field.dao.FieldDao;
+import com.gn.field.vo.Dayoff;
 import com.gn.field.vo.Field;
 
 public class FieldService {
