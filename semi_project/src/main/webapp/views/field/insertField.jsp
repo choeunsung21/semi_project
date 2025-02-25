@@ -35,6 +35,8 @@
   <link href="<%= request.getContextPath() %>/resources/css/include/common.css" rel="stylesheet" type="text/css">
   <link href="<%= request.getContextPath() %>/resources/css/cjs.css" rel="stylesheet" type="text/css">
 
+  <script src="<%= request.getContextPath() %>/resources/js/jquery-3.7.1.js"></script>
+
   <!-- =======================================================
   * Template Name: OnePage
   * Template URL: https://bootstrapmade.com/onepage-multipurpose-bootstrap-template/
@@ -130,7 +132,7 @@
           				</div>
 		
           				<div class="col-lg-8">
-            				<form action="#" method="post" class="submit-form" data-aos="fade-up" data-aos-delay="200">
+            				<form action="/insertFieldEnd" method="post" class="submit-form" name="insert_field_end_form" data-aos="fade-up" data-aos-delay="200">
               					<div class="row gy-4">
 									
 									<div class="col-md-12" style="display:none;">
@@ -140,6 +142,7 @@
                 					<div class="col-md-12" id="dayoff-select">
                 						<fieldset>
                 							<legend>휴무요일</legend>
+                							<p>(체크하지 않을 시 모든 요일에 개장함을 의미합니다)</p>
                 							<input type="checkbox" name="chk_dayoff" value="1">일요일 &nbsp;
                 							<input type="checkbox" name="chk_dayoff" value="2">월요일 &nbsp;
                 							<input type="checkbox" name="chk_dayoff" value="3">화요일 &nbsp;
@@ -151,57 +154,90 @@
                 					</div>
                 					
 									<div class="col-md-12">
-                  						<input type="text" class="form-control" name="field_name" placeholder="구장명" required>
+										<label for="field-name-input" id="field-name-label">구장명*</label>
+                  						<input type="text" class="form-control" name="field_name" id="field-name-input" placeholder="최대 100자까지 입력 가능합니다." required>
                 					</div>
                 					
                 					<div class="col-md-12">
-                  						<input type="text" class="form-control" name="field_addr" placeholder="주소" required>
+                						<label for="field-addr-input" id="field-addr-label">구장주소*</label>
+                  						<input type="text" class="form-control" name="field_addr" id="field-addr-input" placeholder="최대 100자까지 입력 가능합니다." required>
                 					</div>
                 					
                 					<div class="col-md-12">
-                  						<input type="text" class="form-control" name="field_limit" placeholder="수용인원">
+                						<label for="field-limit-input" id="field-limit-label">최대인원*</label>
+                  						<input type="number" class="form-control" name="field_limit" id="field-limit-input" min="0" required>
                 					</div>
                 					
                 					<div class="col-md-6">
-                  						<input type="text" class="form-control" name="field_size_width" placeholder="구장 가로(m)">
+                						<label for="field-size-width-input" id="field-size-width-label">가로(m)*</label>
+                  						<input type="number" class="form-control" name="field_size_width" id="field-size-width-input" min="0" required>
                 					</div>
 	
                 					<div class="col-md-6">
-                  						<input type="text" class="form-control" name="field_size_height" placeholder="구장 세로(m)">
+                						<label for="field-size-height-input" id="field-size-height-label">세로(m)*</label>
+                  						<input type="number" class="form-control" name="field_size_height" id="field-size-height-input" min="0" required>
                 					</div>
           
                 					<div class="col-md-6">
-                  						<input type="text" class="form-control" name="is_indoor" placeholder="실내 / 실외">
+                						<label for="is-indoor-select" id="is-indoor-label">실내/실외</label>
+                  						<select name="is_indoor" id="is-indoor-select">
+                  							<option value="0">실내</option>
+                  							<option value="1">실외</option>
+                  						</select>
                 					</div>
                 					
                 					<div class="col-md-6">
-                  						<input type="text" class="form-control" name="field_type" placeholder="잔디타입">
+                						<label for="field-type-select" id="field-type-label">잔디타입</label>
+                  						<select name="field_type" id="field-type-select">
+                  							<option value="0">인조잔디</option>
+                  							<option value="1">천연잔디</option>
+                  						</select>
                 					</div>
                 					
                 					<div class="col-md-6">
-                  						<input type="text" class="form-control" name="is_park" placeholder="주차장 여부">
+                						<label for="is-park-select" id="is-park-label">주차장여부</label>
+                						<select name="is_park" id="is-park-select">
+                							<option value="0">없음</option>
+                							<option value="1">있음</option>
+                						</select>
                 					</div>
                 					
                 					<div class="col-md-6">
-                  						<input type="text" class="form-control" name="is_shower" placeholder="샤워실 여부">
+                						<label for="is-shower-select" id="is-shower-label">샤워실여부</label>
+                						<select name="is_shower" id="is-shower-select">
+                							<option value="0">없음</option>
+                							<option value="1">있음</option>
+                						</select>
                 					</div>
                 					
                 					<div class="col-md-12">
-                  						<input type="text" class="form-control" name="rent_price" placeholder="풋살화 대여 가격">
+                						<label for="rent-price-input" id="rent-price-label">풋살화 대여가격* (대여서비스를 제공하지 않을 시 -1을 입력해주세요)</label>
+                  						<input type="number" class="form-control" name="rent_price" id="rent-price-input" min="-1">
                 					</div>
 
                 					<div class="col-md-12">
-                 						<textarea class="form-control" name="message" rows="6" placeholder="특이사항"></textarea>
+                						<label for="message-textarea" id="message-label">특이사항</label>
+                 						<textarea class="form-control" name="message" id="message-textarea" rows="6"></textarea>
                 					</div>
 
-									<p>
+									<p id="chk_terms_p">
                 						<input id="chk_terms" type="checkbox">&nbsp; 구장 등록 관련 약관입니다.
 									</p>                					
 									
 									<!-- #chk_term 체크되었을 때만 버튼이 눌러지고 아닐경우 alert창을 띄울 예정 -->
                 					<div class="col-md-12 text-center">
-                  						<button type="submit">구장 등록</button>
+                  						<button type="submit" onclick="test();">구장 등록</button>
                 					</div>
+                					
+                					<script>
+                						const test = function(){
+											let val = $("#chk_terms").is(":checked");
+											if(!val) {
+												alert("약관을 읽고 체크해주세요.");
+												event.preventDefault();
+											}
+                						};
+                					</script>
                 					
               					</div>
             				</form>
