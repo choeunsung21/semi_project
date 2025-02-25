@@ -5,9 +5,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<%@ page import="com.gn.user.vo.User" %>
-<% User u = (User)session.getAttribute("user"); %>
-
 <header id="header" class="header d-flex align-items-center sticky-top">
 	<div class="container-fluid container-xl position-relative d-flex align-items-center">
 		<a href="index.jsp" class="logo d-flex align-items-center me-auto">
@@ -29,12 +26,11 @@
 					<c:otherwise>
 						<!-- 로그인이 되어있는 상태라면 -->
 						<li><a href="#">[알림이미지]</a></li>
-						<li class="dropdown"><a href="#">${userName}님<i class="bi bi-chevron-down toggle-dropdown"></i></a>
+						<li class="dropdown"><a href="#"><c:out value="${user.userName}"/>님<i class="bi bi-chevron-down toggle-dropdown"></i></a>
 							<ul>
 								<!-- 모든 회원에게 보이는 드롭다운 메뉴 -->
 								<li><a href="/myPage">마이페이지</a></li>
-						
-								
+
 								<!-- 작업을 위한 임시 드롭다운 메뉴 -->
 								<li><a href="/selectBoardList">게시판</a></li>
 								<li><a href="/insertBoard">글쓰기</a></li>
@@ -53,8 +49,9 @@
 									</ul>
 								</li>
 								
-								<c:if test="${u.userType} == 1">
-									<!-- 업체 회원이라면 보이는 드롭다운 메뉴 -->
+								<!-- 업체 회원이라면 보이는 드롭다운 메뉴 -->
+								<c:choose>
+									<c:when test="${user.userType eq 1}">
 									<li class="dropdown"><a href="#"><span>구장 및 스케줄</span><i class="bi bi-chevron-down toggle-dropdown"></i></a>
 										<ul>
 											<li><a href="/insertField">구장 등록</a></li>
@@ -65,7 +62,8 @@
 											<!-- <li><a href="#">Deep Dropdown 5</a></li> -->
 										</ul>
 									</li>
-								</c:if>
+									</c:when>
+								</c:choose>
 
 								<!-- <li><a href="#">Dropdown 3</a></li> -->
 								<li><a href="/logout">로그아웃</a></li>

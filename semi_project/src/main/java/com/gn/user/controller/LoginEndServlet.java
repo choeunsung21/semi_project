@@ -39,9 +39,8 @@ public class LoginEndServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			if(session.isNew() || session.getAttribute("user") == null) {
 				session.setAttribute("user", user);
-				session.setMaxInactiveInterval(5);
+				session.setMaxInactiveInterval(60*1);
 				response.sendRedirect("/");
-				System.out.println("생성 성공");
 			}
 		}else {
 			System.out.println("로그인 실패");
