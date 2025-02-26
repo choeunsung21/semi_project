@@ -90,6 +90,7 @@
                 <li><strong>Time </strong> #10:00 ~ 12:00</li>
                 <li><strong>Price </strong> #200,000원</li>
                 <li><strong>URL</strong> <a href="#">www.example.com</a></li>
+                <li><a href="/deleteReservation" class="btn-visit align-self-start" onclick="return confirm('예약을 취소하시겠습니까?')">예약하기</a></li>
               </ul>
             </div>
           </div>

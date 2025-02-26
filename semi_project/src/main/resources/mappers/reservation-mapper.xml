@@ -13,4 +13,7 @@
 		INSERT INTO `reservation` (user_no ,plan_no)
 		VALUES (#{userNo} ,#{planNo})
 	</insert>
+	<delete id="deleteReservationOne" parameterType="reservatioin">
+		DELETE FROM `reservation` WHERE #{reservationNo}
+	</delete>
 </mapper>
