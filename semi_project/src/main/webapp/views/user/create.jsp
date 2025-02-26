@@ -15,7 +15,8 @@
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <!-- 뭔가 문제 생기면 밑에 이거 추가해 주자 맨 끝에 붙히면 됨 crossorigin -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
@@ -27,7 +28,6 @@
 
   <!-- Main CSS File -->
   <link href="<%= request.getContextPath() %>/resources/css/include/common.css" rel="stylesheet">
-
 </head>
 
 <body class="register-page">
@@ -46,13 +46,27 @@
             <!-- 섹션 제목 -->
             <div class="section-title text-center" data-aos="fade-up">
               <h2>회원가입</h2>
-              <p>계정 생성하면 안 잡아먹지이~</p>
+              <p>계정 생성</p>
             </div>
 
             <!-- 회원가입 폼 -->
             <form action="/createEnd" method="post" class="submit-form" data-aos="fade-up" data-aos-delay="200">
               <div class="row gy-4">
-                
+              
+              <div class="col-md-12">
+      			<label>회원 분류</label>
+      			<div class="d-flex justify-content-start">
+        		<div class="form-check me-3">
+          		<input class="form-check-input" type="radio" name="user_type" value="0" id="zero" required>
+          		<label class="form-check-label" for="zero">개인</label>
+        		</div>
+        		<div class="form-check">
+          		<input class="form-check-input" type="radio" name="user_type" value="1" id="one" required>
+          		<label class="form-check-label" for="one">업체</label>
+        		</div>
+      			</div>
+    			</div>
+             
                 <div class="col-md-12">
                   <input type="text" class="form-control" name="user_id" placeholder="아이디" required>
                 </div>
@@ -62,7 +76,7 @@
                 </div>
 
                 <div class="col-md-12">
-                  <input type="password" class="form-control" name="user_pw_confirm" placeholder="비밀번호 확인" required>
+                  <input type="password" class="form-control" name="check_user_pw" placeholder="비밀번호 확인" required>
                 </div>
 
                 <div class="col-md-12">
@@ -70,39 +84,37 @@
                 </div>
 				
 				 <div class="col-md-12">
-                  <input type="text" class="form-control" name="user_name" placeholder="이름" required>
+                  <input type="text" class="form-control" name="user_name" placeholder="이름"  required>
                 </div>
                 
                  <div class="col-md-12">
-                  <input type="tell" class="form-control" name="user_phone" placeholder="전화번호" required>
+                  <input type="tel" class="form-control" name="user_phone" placeholder="전화번호" required>
                 </div>
-                  <div class="col-md-12">
-      <label>성별</label>
-      <div class="d-flex justify-content-start">
-        <div class="form-check me-3">
-          <input class="form-check-input" type="radio" name="user_gender" value="M" id="male" required>
-          <label class="form-check-label" for="male">남성</label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="user_gender" value="F" id="female" required>
-          <label class="form-check-label" for="female">여성</label>
-        </div>
-      </div>
-    </div>
+    			<div class="col-md-12">
+      			<label>성별</label>
+      			<div class="d-flex justify-content-start">
+        		<div class="form-check me-3">
+          		<input class="form-check-input" type="radio" name="user_gender" value="남" id="male" required>
+          		<label class="form-check-label" for="male">남성</label>
+        		</div>
+        		<div class="form-check">
+          		<input class="form-check-input" type="radio" name="user_gender" value="여" id="female" required>
+          		<label class="form-check-label" for="female">여성</label>
+        		</div>
+      			</div>
+    			</div>
                 <div class="col-md-12 text-center">
                   <button type="submit">가입하기</button>
                   <p style="padding-top: 15px;">이미 계정이 있으신가요? <a href="/login">로그인</a></p>
                 </div>
 
               </div>
-            </form>
+          	</form>
 
           </div>
         </div>
-
       </div>
     </section>
-
   </main>
 
   <%@ include file="/views/include/footer.jsp" %>
@@ -123,6 +135,5 @@
 
   <!-- Main JS File -->
   <script src="/resources/js/common.js"></script>
-
 </body>
 </html>

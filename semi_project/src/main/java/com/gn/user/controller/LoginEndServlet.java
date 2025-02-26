@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import com.gn.user.service.UserService;
 import com.gn.user.vo.User;
 
-@WebServlet("/createEnd")
+@WebServlet("/loginEnd")
 public class LoginEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -41,6 +41,7 @@ public class LoginEndServlet extends HttpServlet {
 			}
 		}else {
 			System.out.println("로그인 실패");
+			//여기 수정해야 할 필요 있음.
 		}
 		
 	}
