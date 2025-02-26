@@ -104,9 +104,16 @@
             placeholder="검색">
         <button type="submit" class="btn btn-outline-primary">검색</button>
     </form>
-	<!-- if문으로 세션이 있을 경우 글쓰기로 , 아니면 로그화면  페이지로 -->
+	<!-- if문으로 세션이 있을 경우 글쓰기로 , 아니면 회원가입 페이지로  페이지로 -->
     <!-- 글쓰기 버튼 (오른쪽 정렬) -->
-    <a href="/boardWrite" class="btn btn-success">글쓰기</a>
+    <c:choose>
+    	<c:when test="${not empty user }">
+		    <a href="/boardWrite" class="btn btn-success">글쓰기</a> 	
+    	</c:when>
+    	<c:otherwise>
+    		<a href="/login.jsp" class="btn btn-success">글쓰기</a> 	
+    	</c:otherwise>
+    </c:choose>
 </div>
 </body>
 </html>
