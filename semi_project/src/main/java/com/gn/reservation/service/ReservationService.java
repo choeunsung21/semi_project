@@ -11,10 +11,15 @@ public class ReservationService {
 
 	public int insertReservation(Reservation reservation) {
 		SqlSession session = getSqlSession(true);
-
 		int result = new ReservationDao().insertReservation(session, reservation);
 		session.close();
+		return result;
+	}
 
+	public int deleteReservation(Reservation reservation) {
+		SqlSession session = getSqlSession(true);
+		int result = new ReservationDao().deleteReservation(session, reservation);
+		session.close();
 		return result;
 	}
 

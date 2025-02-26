@@ -9,4 +9,8 @@ public class ReservationDao {
 	public int insertReservation(SqlSession session, Reservation reservation) {
 		return session.insert("reservationMapper.insertReservationOne", reservation);
 	}
+
+	public int deleteReservation(SqlSession session, Reservation reservation) {
+		return session.delete("reservationMapper.deleteReservationOne", reservation);
+	}
 }
