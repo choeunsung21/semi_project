@@ -132,7 +132,7 @@
           				</div>
 		
           				<div class="col-lg-8">
-            				<form action="/insertFieldEnd" method="post" class="submit-form" name="insert_field_end_form" data-aos="fade-up" data-aos-delay="200">
+            				<form action="/insertFieldEnd" method="post" class="submit-form" name="insert_field_end_form" data-aos="fade-up" data-aos-delay="200" enctype="multipart/form-data">
               					<div class="row gy-4">
 									
 									<div class="col-md-12" style="display:none;">
@@ -213,6 +213,11 @@
                 					<div class="col-md-12">
                 						<label for="rent-price-input" id="rent-price-label">풋살화 대여가격 (대여서비스를 제공하지 않을 시 비워두시면 됩니다.)</label>
                   						<input type="number" class="form-control" name="rent_price" id="rent-price-input" min="0">
+                					</div>
+                					
+                					<div class="col-md-12">
+                						<label for="field-img-input" id="field-img-label">구장 대표 이미지</label>
+                  						<input type="file" class="form-control" name="field_img" id="field-img-input" accept=".png, .jpg, .jpeg">
                 					</div>
 
                 					<div class="col-md-12">
@@ -298,6 +303,20 @@
             alert('구장 크기(길이)를 입력해주세요.');
             form.field_size_height.focus();
             event.preventDefault();
+        } else if(!form.field_img.value) {
+			alert('구장 대표 이미지를 선택해주세요.');
+			form.field_img.focus();
+			event.preventDefault();
+        } else if(form.field_img.value) {
+			const val = form.field_img.value;
+			const idx = val.lastIndexOf(".");
+			const type = val.substring(idx+1, val.length);
+			
+			if(!(type == 'png' || type == 'jpg' || type == 'jpeg')) {
+				alert('이미지 파일 형식이 맞지 않습니다.');
+				form.field_img.focus();
+				event.preventDefault();
+			}
         } else if(!chkTerms) {
             alert("약관을 읽고 체크해주세요.");
 			event.preventDefault();

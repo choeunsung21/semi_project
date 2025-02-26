@@ -1,6 +1,9 @@
 package com.gn.field.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,9 +11,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
 import com.gn.field.service.FieldService;
 import com.gn.field.vo.Dayoff;
 import com.gn.field.vo.Field;
+import com.gn.field.vo.FieldAttach;
 
 @WebServlet("/insertFieldEnd")
 public class InsertFieldEndServlet extends HttpServlet {
@@ -21,97 +30,149 @@ public class InsertFieldEndServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/* Field 객체 꾸리기 */
-		String temp = null;
+		Field field = new Field();
+		Dayoff dayoff = new Dayoff();
+		FieldAttach attach = new FieldAttach();
 		
+		String path = "C:\\upload\\field";
+		
+		File dir = new File(path);
+		if(dir.exists() == false) {
+			dir.mkdirs();
+		}
+		
+		DiskFileItemFactory factory = new DiskFileItemFactory();
+		factory.setRepository(dir);
+		factory.setSizeThreshold(1024*1024*10);	// 파일 크기는 10mb로 제한
+		
+		ServletFileUpload upload = new ServletFileUpload(factory);
+		
+		/* 필수로 받을거라서 null 일 수가 없는 속성들 */
 		int userNo = 0;
-		temp = (String)request.getParameter("user_no");
-		if(temp != null) {
-			userNo = Integer.parseInt(request.getParameter("user_no"));			
-		}
-		
-		String fieldName = (String)request.getParameter("field_name");
-		String fieldAddr = (String)request.getParameter("field_addr");
-		
+		String fieldName = "";
+		String fieldAddr = "";
 		int fieldLimit = 0;
-		temp = (String)request.getParameter("field_limit");
-		if(temp != null && temp.length() != 0) {
-			fieldLimit = Integer.parseInt(temp);
-		}
-		
 		String fieldSize = "";
-		temp = (String)request.getParameter("field_size_width");
-		if(temp != null && temp.length() != 0) {
-			fieldSize += temp;
-			temp = (String)request.getParameter("field_size_height");
-			if(temp != null) fieldSize += "*"+temp;			
-		}
 		
+		/* 선택적으로 받을거라서 null 일 수도 있는 속성들*/
 		String isIndoor = "실내";
-		temp = (String)request.getParameter("is_indoor");
-		if("1".equals(temp)) {
-			isIndoor = "실외";
-		}
-		
 		String fieldType = "인조잔디";
-		temp = (String)request.getParameter("field_type");
-		if("1".equals(temp)) {
-			fieldType = "천연잔디";
-		}
-		
 		boolean isPark = false;
-		temp = (String)request.getParameter("is_park");
-		if("1".equals(temp)) {
-			isPark = true;
-		}
-		
 		boolean isShower = false;
-		temp = (String)request.getParameter("is_shower");
-		if("1".equals(temp)) {
-			isShower = true;
-		}
+		String rentPrice = null;
+		String message = null;
+
+		/* 배열 처리를 위한 배열과 리스트 */
+		int[] tempArr = null;
+		List<String> tempList = new ArrayList<>();
 		
-		String rentPrice = "";
-		temp = (String)request.getParameter("rent_price");
-		if(temp != null && temp.length() != 0) {
-			rentPrice = temp;
-		}
-		
-		String message = "";
-		temp = (String)request.getParameter("message");
-		if(temp != null && temp.length() != 0) {
-			message += temp;
-		}
-		
-		Field field = Field.builder()
-				.userNo(userNo)
-				.fieldName(fieldName)
-				.fieldAddr(fieldAddr)
-				.fieldLimit(fieldLimit)
-				.fieldSize(fieldSize)
-				.isIndoor(isIndoor)
-				.fieldType(fieldType)
-				.isPark(isPark)
-				.isShower(isShower)
-				.rentPrice(rentPrice)
-				.message(message)
-				.build();
-		
-		/* Dayoff 객체 꾸리기 */
-		
-		Dayoff dayoff = null;
-		String[] tempArr = (String[])request.getParameterValues("dayoff_list");
-		
-		if(tempArr != null && tempArr.length != 0) {
-			dayoff = new Dayoff();
-			int[] chkDayoffList = new int[tempArr.length];
+		String temp = null;
+		try {
+			List<FileItem> items = upload.parseRequest(request);
 			
-			for(int i=0; i<tempArr.length; i++) {
-				chkDayoffList[i] = Integer.parseInt(tempArr[i]);
+			for(int i=0; i<items.size(); i++) {
+				FileItem fileItem = items.get(i);
+				
+				if(fileItem.isFormField()) {
+					switch(fileItem.getFieldName()) {
+					case "user_no":
+						temp = fileItem.getString("UTF-8");
+						if(temp != null) {
+							userNo = Integer.parseInt(temp);
+						}
+						field.setUserNo(userNo);
+						break;
+					case "field_name":
+						fieldName = fileItem.getString("UTF-8");
+						field.setFieldName(fieldName);
+						break;
+					case "field_addr":
+						fieldAddr = fileItem.getString("UTF-8");
+						field.setFieldAddr(fieldAddr);
+						break;
+					case "field_limit":
+						temp = fileItem.getString("UTF-8");
+						if(temp != null && temp.length() != 0) {
+							fieldLimit = Integer.parseInt(temp);
+						}
+						field.setFieldLimit(fieldLimit);
+						break;
+					case "field_size_width":
+						temp = fileItem.getString("UTF-8");
+						if(temp != null && temp.length() != 0) {
+							fieldSize += temp;
+						}
+						break;
+					case "field_size_height":
+						temp = fileItem.getString("UTF-8");
+						if(temp != null) {
+							fieldSize += "*"+temp;
+						}
+						field.setFieldSize(fieldSize);
+						break;
+					case "is_indoor":
+						temp = fileItem.getString("UTF-8");
+						if("1".equals(temp)) {
+							isIndoor = "실외";
+						}
+						field.setIsIndoor(isIndoor);
+						break;
+					case "field_type":
+						temp = fileItem.getString("UTF-8");
+						if("1".equals(temp)) {
+							fieldType = "천연잔디";
+						}
+						field.setFieldType(fieldType);
+						break;
+					case "is_park":
+						temp = fileItem.getString("UTF-8");
+						if("1".equals(temp)) {
+							isPark = true;
+						}
+						field.setPark(isPark);
+						break;
+					case "is_shower":
+						temp = fileItem.getString("UTF-8");
+						if("1".equals(temp)) {
+							isShower = true;
+						}
+						field.setShower(isShower);
+						break;
+					case "rent_price":
+						temp = fileItem.getString("UTF-8");
+						if(temp != null && temp.length() != 0) {
+							rentPrice = temp;
+						}
+						field.setRentPrice(rentPrice);
+						break;
+					case "message":
+						temp = fileItem.getString("UTF-8");
+						if(temp != null && temp.length() != 0) {
+							message = temp;
+						}
+						field.setMessage(message);
+						break;
+					case "dayoff_list":
+							tempList.add(fileItem.getString("UTF-8"));
+						break;
+					}	
+				} else {
+					
+				}
+			}
+		} catch (FileUploadException e) {
+			e.printStackTrace();
+		}
+		
+		/* dayoff 객체 담아주기 - 배열 관련 후처리 작업*/
+		if(!(tempList.isEmpty() || tempList.size() == 0)) {
+			tempArr = new int[tempList.size()];
+			for(int i=0; i<tempList.size(); i++) {
+				tempArr[i] = Integer.parseInt(tempList.get(i));
 			}
 			
-			for(int i=0; i<chkDayoffList.length; i++) {
-				switch(chkDayoffList[i]) {
+			for(int i=0; i<tempArr.length; i++) {
+				switch(tempArr[i]) {
 				case 1:
 					dayoff.setSun(true);
 					break;
@@ -146,6 +207,131 @@ public class InsertFieldEndServlet extends HttpServlet {
 		} else {
 			System.out.println("InsertFieldEndServlet : 트랜잭션에 실패하였습니다.");
 		}
+		
+		
+		
+		/* Field 객체 담아두기 */
+		
+//		int userNo = 0;
+//		temp = (String)request.getParameter("user_no");
+//		if(temp != null) {
+//			userNo = Integer.parseInt(request.getParameter("user_no"));			
+//		}
+		
+//		String fieldName = (String)request.getParameter("field_name");	
+		
+//		String fieldAddr = (String)request.getParameter("field_addr");	
+		
+//		int fieldLimit = 0;
+//		temp = (String)request.getParameter("field_limit");
+//		if(temp != null && temp.length() != 0) {
+//			fieldLimit = Integer.parseInt(temp);
+//		}		
+		
+//		String fieldSize = "";
+//		temp = (String)request.getParameter("field_size_width");
+//		if(temp != null && temp.length() != 0) {
+//			fieldSize += temp;
+//			temp = (String)request.getParameter("field_size_height");
+//			if(temp != null) fieldSize += "*"+temp;			
+//		}
+
+//		String isIndoor = "실내";
+//		temp = (String)request.getParameter("is_indoor");
+//		if("1".equals(temp)) {
+//			isIndoor = "실외";
+//		}                                               
+
+//		String fieldType = "인조잔디";
+//		temp = (String)request.getParameter("field_type");
+//		if("1".equals(temp)) {
+//			fieldType = "천연잔디";
+//		}	
+
+//		boolean isPark = false;
+//		temp = (String)request.getParameter("is_park");
+//		if("1".equals(temp)) {
+//			isPark = true;
+//		}		
+
+//		boolean isShower = false;
+//		temp = (String)request.getParameter("is_shower");
+//		if("1".equals(temp)) {
+//			isShower = true;
+//		}		
+
+//		String rentPrice = "";
+//		temp = (String)request.getParameter("rent_price");
+//		if(temp != null && temp.length() != 0) {
+//			rentPrice = temp;
+//		}		
+
+//		String message = "";
+//		temp = (String)request.getParameter("message");
+//		if(temp != null && temp.length() != 0) {
+//			message += temp;
+//		}		
+
+//		Field field = Field.builder()
+//		.userNo(userNo)
+//		.fieldName(fieldName)
+//		.fieldAddr(fieldAddr)
+//		.fieldLimit(fieldLimit)
+//		.fieldSize(fieldSize)
+//		.isIndoor(isIndoor)
+//		.fieldType(fieldType)
+//		.isPark(isPark)
+//		.isShower(isShower)
+//		.rentPrice(rentPrice)
+//		.message(message)
+//		.build();		
+
+		/* Dayoff 객체 꾸리기 */
+		
+//		Dayoff dayoff = null;	
+		
+//		String[] tempArr = (String[])request.getParameterValues("dayoff_list");	
+		
+		
+
+
+		
+//		if(tempArr != null && tempArr.length != 0) {
+//			dayoff = new Dayoff();
+//			int[] chkDayoffList = new int[tempArr.length];
+			
+//			for(int i=0; i<tempArr.length; i++) {
+//				chkDayoffList[i] = Integer.parseInt(tempArr[i]);
+//			}
+			
+//			for(int i=0; i<chkDayoffList.length; i++) {
+//				switch(chkDayoffList[i]) {
+//				case 1:
+//					dayoff.setSun(true);
+//					break;
+//				case 2:
+//					dayoff.setMon(true);
+//					break;
+//				case 3:
+//					dayoff.setTue(true);
+//					break;
+//				case 4:
+//					dayoff.setWed(true);
+//					break;
+//				case 5:
+//					dayoff.setThu(true);
+//					break;
+//				case 6:
+//					dayoff.setFri(true);
+//					break;
+//				case 7:
+//					dayoff.setSat(true);
+//					break;
+//				}
+//			}
+//		}
+		
+
 }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
