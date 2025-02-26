@@ -21,6 +21,7 @@ public class DeleteReservationServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String temp = request.getParameter("reservation_no");
 		int reservationNo = 0;
+		if
 	}
 
 
