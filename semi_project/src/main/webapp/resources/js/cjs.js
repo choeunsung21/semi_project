@@ -1,4 +1,4 @@
-const insertRule = function() {
+const consoleTest = function() {
 		console.log("test");
 }
 		

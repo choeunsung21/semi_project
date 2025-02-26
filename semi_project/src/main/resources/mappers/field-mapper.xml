@@ -27,4 +27,7 @@
 	<select id="selectFieldOneRecent" resultMap="fieldMap">
 		SELECT * FROM `field` ORDER BY `reg_date` DESC LIMIT 1;
 	</select>
+	<select id="selectFieldList" parameterType="user" resultMap="fieldMap">
+		SELECT * FROM `field` WHERE `user_no` = #{userNo}
+	</select>
 </mapper>

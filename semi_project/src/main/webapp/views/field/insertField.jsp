@@ -77,7 +77,7 @@
 
           <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
             <h2>구장 등록 : 정보 입력</h2>
-            <p id="h-p">별(*) 표시가 있는 항목은 반드시 입력해야합니다.</p>
+            <p id="h-p">(*) 표시가 있는 항목은 반드시 입력해야합니다.</p>
             
             <!-- Contact Section -->
     		<section id="contact" class="contact section">
@@ -182,7 +182,7 @@
                 					</div>
                 					
                 					<div class="col-md-12">
-                						<label for="rent-price-input" id="rent-price-label">풋살화 대여가격 (대여서비스를 제공하지 않을 시 비워두시면 됩니다.)</label>
+                						<label for="rent-price-input" id="rent-price-label">풋살화 대여가격 <span>(대여서비스를 제공하지 않을 시 비워두시면 됩니다.)</span></label>
                   						<input type="number" class="form-control" name="rent_price" id="rent-price-input" min="0">
                 					</div>
                 					

@@ -9,6 +9,8 @@
 		<result property="newName" column="new_name" />
 		<result property="fieldNo" column="field_no" />
 		<result property="filePath" column="attach_path" />
+		<result property="regDate" column="reg_date"/>
+		<result property="modDate" column="mod_date"/>
 	</resultMap>
 	<insert id="insertAttachOne" parameterType="fieldAttach">
 		INSERT INTO `field_attach` (`ori_name` ,`new_name` ,`field_no` ,`attach_path`)

@@ -2,6 +2,8 @@ package com.gn.field.service;
 
 import static com.gn.common.sql.SqlSessionTemplate.getSqlSession;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 
 import com.gn.field.dao.DayoffDao;
@@ -9,6 +11,7 @@ import com.gn.field.dao.FieldDao;
 import com.gn.field.vo.Dayoff;
 import com.gn.field.vo.Field;
 import com.gn.field.vo.FieldAttach;
+import com.gn.user.vo.User;
 
 public class FieldService {
 	public int insertField(Field field, Dayoff dayoff, FieldAttach attach) {
@@ -56,5 +59,14 @@ public class FieldService {
 		session.close();
 		
 		return result;
+	}
+	
+	public List<Field> selectFieldListByUserNo(User user) {
+		SqlSession session = getSqlSession(true);
+		
+		List<Field> fieldList = new FieldDao().selectFieldListByUserNo(session, user);
+		session.close();
+		
+		return fieldList;
 	}
 }
