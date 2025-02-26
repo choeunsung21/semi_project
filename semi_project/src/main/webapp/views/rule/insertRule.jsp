@@ -134,11 +134,14 @@
               					<div class="row gy-4">
 									
 									<div class="col-md-12" style="display:none;">
-                  						<input type="text" class="form-control" name="user_no" placeholder="담당 회원번호">
+                  						<input type="text" class="form-control" name="user_no" value="${user.userNo}" placeholder="담당 회원번호">
                 					</div>
 									
 									<div class="col-md-12">
 										<select id="field-no-select" name="field_no">
+											<c:forEach var="fieldList" items="${field}">
+											
+											</c:forEach>
 											<option value="0">구장명</option>
 											<option value="1">#구장(1)</option>
 											<option value="2">#구장(2)</option>

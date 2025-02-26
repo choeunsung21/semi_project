@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet("/insertRule")
 public class InsertRuleServlet extends HttpServlet {
@@ -17,8 +18,13 @@ public class InsertRuleServlet extends HttpServlet {
         super();
     }
     
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {\
+		HttpSession session = request.getSession();
+		
+		
 		RequestDispatcher view = request.getRequestDispatcher("/views/rule/insertRule.jsp");
+
+		request.setAttribute("fieldList", fleldList);
 		view.forward(request, response);
 	}
 

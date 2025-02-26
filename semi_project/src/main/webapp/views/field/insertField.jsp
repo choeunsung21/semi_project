@@ -77,6 +77,7 @@
 
           <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
             <h2>구장 등록 : 정보 입력</h2>
+            <p id="h-p">별(*) 표시가 있는 항목은 반드시 입력해야합니다.</p>
             
             <!-- Contact Section -->
     		<section id="contact" class="contact section">
@@ -100,38 +101,8 @@
         			<!-- End Google Maps -->
 	
         			<div class="row gy-4">
-	
-          				<div class="col-lg-4">
-          					<h3 style="text-align:left; padding-bottom:20px;">Contact</h3>
-          					
-            				<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
-            					
-              					<i class="bi bi-geo-alt flex-shrink-0"></i>
-              					<div>
-                					<h3>Address</h3>
-                					<p>#임의의 주소</p>
-              					</div>
-            				</div><!-- End Info Item -->
-		
-            				<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
-              					<i class="bi bi-telephone flex-shrink-0"></i>
-              					<div>
-                					<h3>Call Us</h3>
-                					<p>#임의의 전화번호</p>
-              					</div>
-           					</div><!-- End Info Item -->
-		
-            				<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="500">
-              					<i class="bi bi-envelope flex-shrink-0"></i>
-              					<div>
-                					<h3>Email Us</h3>
-                					<p>#임의의 이메일@example.com</p>
-              					</div>
-            				</div><!-- End Info Item -->
-		
-          				</div>
-		
-          				<div class="col-lg-8">
+
+          				<div class="col-lg-12">
             				<form action="/insertFieldEnd" method="post" class="submit-form" name="insert_field_end_form" data-aos="fade-up" data-aos-delay="200" enctype="multipart/form-data">
               					<div class="row gy-4">
 									
@@ -215,8 +186,9 @@
                   						<input type="number" class="form-control" name="rent_price" id="rent-price-input" min="0">
                 					</div>
                 					
-                					<div class="col-md-12">
-                						<label for="field-img-input" id="field-img-label">구장 대표 이미지</label>
+                					<div class="col-md-12" id="file-img-p">
+                						<label for="field-img-input" id="field-img-label">구장 대표 이미지*</label>
+                						<p>10MB 이하의 파일만 업로드 가능하며, .jpg .jpeg .png만을 허용합니다.</p>
                   						<input type="file" class="form-control" name="field_img" id="field-img-input" accept=".png, .jpg, .jpeg">
                 					</div>
 
@@ -260,14 +232,43 @@
              
           </div>
 
-		  <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-		  	 
+		  <div class="col-lg-4" id="side-box-flex" data-aos="fade-up" data-aos-delay="200">
+
+          		<h3 style="text-align:left; padding-bottom:20px;">Contact</h3>
+          					
+            	<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">	
+              		<i class="bi bi-geo-alt flex-shrink-0"></i>
+              		<div>
+                		<h3>Address</h3>
+                		<p>#임의의 주소</p>
+              		</div>
+            	</div><!-- End Info Item -->
+		
+            	<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
+              		<i class="bi bi-telephone flex-shrink-0"></i>
+              		<div>
+                		<h3>Call Us</h3>
+                		<p>#임의의 전화번호</p>
+              		</div>
+           		</div><!-- End Info Item -->
+		
+            	<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="500">
+              		<i class="bi bi-envelope flex-shrink-0"></i>
+              		<div>
+                		<h3>Email Us</h3>
+                		<p>#임의의 이메일@example.com</p>
+              		</div>
+            	</div><!-- End Info Item -->
+
+		  	<!-- 
             <div class="services-list">
               # img 파일을 선택하고 점부를 위한 공간입니다.
             </div>
            
             <h4>파일 첨부 규칙</h4>
             <p>10MB 이하의 파일만 업로드 가능하며, .jpg .jpeg .png만을 허용합니다.</p>
+             -->
+             
           </div>
 
         </div>

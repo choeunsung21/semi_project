@@ -223,6 +223,13 @@ public class InsertFieldEndServlet extends HttpServlet {
 			System.out.println("InsertFieldEndServlet : 트랜잭션에 성공하였습니다.");
 		} else {
 			System.out.println("InsertFieldEndServlet : 트랜잭션에 실패하였습니다.");
+			
+			String deletePath = attach.getFilePath();
+			File deleteFile = new File(deletePath);
+			
+			if(deleteFile.exists()) {
+				deleteFile.delete();
+			}
 		}
 }
 
