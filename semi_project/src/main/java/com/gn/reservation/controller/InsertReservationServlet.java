@@ -23,7 +23,7 @@ public class InsertReservationServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// int userNo = Integer.parseInt(request.getParameter("user_no"));
 		// int planNo = Integer.parseInt(request.getParameter("plan_no"));
-		int userNo = 1;
+		int userNo = 3;
 		int planNo = 1;
 
 		Reservation reservation = Reservation.builder().userNo(userNo).planNo(planNo).build();
