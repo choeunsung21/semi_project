@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.gn.board.vo.Attach;
 import com.gn.board.vo.Board;
 
 public class BoardDao {
@@ -22,6 +23,18 @@ public class BoardDao {
 	//행을 구하는 메소드
 	public int selectBoardCount(SqlSession session, Board board) {
 		return session.selectOne("boardMapper.selectBoardCount",board);
+	}
+	
+	public int insertBoard(Board board,SqlSession session) {
+		int result =  session.insert("boardMapper.boardWrite",board);
+		System.out.println("인선트write : " + board.getBoardNo());
+		return result;
+	}
+	
+	public int insertAttach(Attach attach, SqlSession session ) {
+		return session.insert("boardMapper.attachFile",attach);
+		
+		
 	}
 
 }

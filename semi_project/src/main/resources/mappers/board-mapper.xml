@@ -11,7 +11,15 @@
 		<result property="userName" column="user_name" />
 		<result property="regDate" column="reg_date" />
 		<result property="modDate" column="mod_date" />
-	</resultMap>	
+	</resultMap>
+	<resultMap type="attach" id="attachMap">
+		<result property="attachNo" column="attach_no" />
+		<result property="oriName" column="ori_name" />
+		<result property="newName" column="new_name" />
+		<result property="boardNo" column="board_no" />
+		<result property="attachPath" column="attach_path" />
+	</resultMap>
+		
 	<select id="boardList" resultMap="boardMap">
 		SELECT b.* ,u.*
 		FROM `board` b
@@ -34,4 +42,14 @@
             </if>
 		</where>
 	</select>
+	
+	<insert id="boardWrite" parameterType="board" useGeneratedKeys="true" keyProperty="boardNo" >
+		INSERT INTO `board`(writer_no ,board_title ,board_content)
+		VALUES(#{writerNo} ,#{boardTitle} ,#{boardContent})		
+	</insert>
+	
+	<insert id="attachFile" parameterType="attach">
+		INSERT INTO `board_attach`(ori_name ,new_name ,board_no ,attach_path)
+		VALUES(#{oriName} ,#{newName} ,#{boardNo} ,#{attachPath})		
+	</insert>
 </mapper>

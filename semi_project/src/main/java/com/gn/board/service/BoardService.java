@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import com.gn.board.dao.BoardDao;
+import com.gn.board.vo.Attach;
 import com.gn.board.vo.Board;
 
 
@@ -20,10 +21,50 @@ public class BoardService {
 		return list;
 	}
 	
-	//행을 구하느 메소드
+	//행을 구하는 메소드
 	public int selectBoardCount(Board board) {
 		SqlSession session = getSqlSession(true);
 		int result = new BoardDao().selectBoardCount(session,board);
+		session.close();
+		return result;
+	}
+	
+	//게시글 작성 등록 메소드
+	public int writeBoard(Board board,Attach attach) {
+		SqlSession session = getSqlSession(false);
+		int result = 0;
+		int attachNo = 0;
+		try {
+			int boardNo = new BoardDao().insertBoard(board,session);
+			
+			if(attach != null) {
+				attach.setBoardNo(board.getBoardNo());
+				attachNo = new BoardDao().insertAttach(attach,session);	
+			}
+			
+			if(attach != null) {
+				if(boardNo != 0 && attachNo != 0) {
+					result = 1;
+					session.commit();
+				}else {
+					session.rollback();
+				}
+				
+			}else {
+				if(boardNo != 0) {
+					result = 1;
+					session.commit();
+				}else {
+					session.rollback();
+				}
+				
+			}
+			
+			
+		
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		session.close();
 		return result;
 	}

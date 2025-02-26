@@ -57,14 +57,14 @@
 					<td>${(page.nowPage-1)*page.numPerPage+ (vs.index + 1) }</td>
 					<td>${list.boardTitle }</td>
 					<td>${list.userName }</td>
-					<fmt:parseDate value="${list.regDate }" pattern="yyyy-MM-dd'T'HH:mm:ss" var="strRegDate"/>
+					<fmt:parseDate value="${list.regDate }" pattern="yyyy-MM-dd'T'HH:mm" var="strRegDate"/>
 					<td><fmt:formatDate value="${strRegDate }" pattern="yy년MM월dd일 HH시mm분" /></td>
 				</tr>
 			</c:forEach> 
 						</c:when>
 					<c:otherwise>
 					 <tr>	
-						<td colspan="4"><p class="minitd">조회된 데이터가 없습니다</p></td>
+						<td colspan="5">조회된 데이터가 없습니다</td>
 					 <tr>	
 					</c:otherwise>
 					
@@ -111,7 +111,7 @@
 		    <a href="/boardWrite" class="btn btn-success">글쓰기</a> 	
     	</c:when>
     	<c:otherwise>
-    		<a href="/login.jsp" class="btn btn-success">글쓰기</a> 	
+    		<a href="/" class="btn btn-success">글쓰기</a> 	
     	</c:otherwise>
     </c:choose>
 </div>
