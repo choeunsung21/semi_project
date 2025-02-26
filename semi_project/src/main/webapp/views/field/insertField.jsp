@@ -136,20 +136,20 @@
               					<div class="row gy-4">
 									
 									<div class="col-md-12" style="display:none;">
-                  						<input type="text" class="form-control" name="user_no" placeholder="담당 회원번호">
+                  						<input type="text" class="form-control" name="user_no" value="${user.userNo}" placeholder="담당 회원번호">
                 					</div>
 									
                 					<div class="col-md-12" id="dayoff-select">
                 						<fieldset>
                 							<legend>휴무요일</legend>
                 							<p>(체크하지 않을 시 모든 요일에 개장함을 의미합니다)</p>
-                							<input type="checkbox" name="chk_dayoff" value="1">일요일 &nbsp;
-                							<input type="checkbox" name="chk_dayoff" value="2">월요일 &nbsp;
-                							<input type="checkbox" name="chk_dayoff" value="3">화요일 &nbsp;
-                							<input type="checkbox" name="chk_dayoff" value="4">수요일 &nbsp;
-                							<input type="checkbox" name="chk_dayoff" value="5">목요일 &nbsp;
-                							<input type="checkbox" name="chk_dayoff" value="6">금요일 &nbsp;
-                							<input type="checkbox" name="chk_dayoff" value="7">토요일 &nbsp;
+                							<input type="checkbox" name="dayoff_list" value="1">일요일 &nbsp;
+                							<input type="checkbox" name="dayoff_list" value="2">월요일 &nbsp;
+                							<input type="checkbox" name="dayoff_list" value="3">화요일 &nbsp;
+                							<input type="checkbox" name="dayoff_list" value="4">수요일 &nbsp;
+                							<input type="checkbox" name="dayoff_list" value="5">목요일 &nbsp;
+                							<input type="checkbox" name="dayoff_list" value="6">금요일 &nbsp;
+                							<input type="checkbox" name="dayoff_list" value="7">토요일 &nbsp;
                 						</fieldset>
                 					</div>
                 					
@@ -164,7 +164,7 @@
                 					</div>
                 					
                 					<div class="col-md-12">
-                						<label for="field-limit-input" id="field-limit-label">최대인원*</label>
+                						<label for="field-limit-input" id="field-limit-label">수용인원*</label>
                   						<input type="number" class="form-control" name="field_limit" id="field-limit-input" min="0" required>
                 					</div>
                 					
@@ -211,33 +211,23 @@
                 					</div>
                 					
                 					<div class="col-md-12">
-                						<label for="rent-price-input" id="rent-price-label">풋살화 대여가격* (대여서비스를 제공하지 않을 시 -1을 입력해주세요)</label>
-                  						<input type="number" class="form-control" name="rent_price" id="rent-price-input" min="-1">
+                						<label for="rent-price-input" id="rent-price-label">풋살화 대여가격 (대여서비스를 제공하지 않을 시 비워두시면 됩니다.)</label>
+                  						<input type="number" class="form-control" name="rent_price" id="rent-price-input" min="0">
                 					</div>
 
                 					<div class="col-md-12">
                 						<label for="message-textarea" id="message-label">특이사항</label>
                  						<textarea class="form-control" name="message" id="message-textarea" rows="6"></textarea>
                 					</div>
-
+									
 									<p id="chk_terms_p">
                 						<input id="chk_terms" type="checkbox">&nbsp; 구장 등록 관련 약관입니다.
 									</p>                					
 									
 									<!-- #chk_term 체크되었을 때만 버튼이 눌러지고 아닐경우 alert창을 띄울 예정 -->
                 					<div class="col-md-12 text-center">
-                  						<button type="submit" onclick="test();">구장 등록</button>
+                  						<button type="submit" onclick="insertFieldForm();">구장 등록</button>
                 					</div>
-                					
-                					<script>
-                						const test = function(){
-											let val = $("#chk_terms").is(":checked");
-											if(!val) {
-												alert("약관을 읽고 체크해주세요.");
-												event.preventDefault();
-											}
-                						};
-                					</script>
                 					
               					</div>
             				</form>
@@ -268,17 +258,9 @@
 		  <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
 		  	 
             <div class="services-list">
-              <!--
-              <a href="#" class="active">Web Design</a>
-              <a href="#">Software Development</a>
-              <a href="#">Product Management</a>
-              <a href="#">Graphic Design</a>
-              <a href="#">Marketing</a>
-              -->
               # img 파일을 선택하고 점부를 위한 공간입니다.
             </div>
            
-
             <h4>파일 첨부 규칙</h4>
             <p>10MB 이하의 파일만 업로드 가능하며, .jpg .jpeg .png만을 허용합니다.</p>
           </div>
@@ -290,6 +272,38 @@
     </section><!-- /Service Details Section -->
 
   </main>
+  
+  <script>
+  	const insertFieldForm = function(){
+    	const form = document.insert_field_end_form;
+		let chkTerms = $("#chk_terms").is(":checked");
+											
+        if(!form.field_name.value) {
+        	alert('구장 이름을 입력해주세요.');
+        	form.field_name.focus();
+        	event.preventDefault();
+        } else if(!form.field_addr.value) {
+            alert('구장 주소를 입력해주세요.');
+            form.field_addr.focus();
+            event.preventDefault();
+        } else if(!form.field_limit.value) {
+            alert('수용 인원을 입력해주세요.');
+            form.field_limit.focus();
+            event.preventDefault();
+        } else if(!form.field_size_width.value) {
+            alert('구장 크기(너비)를 입력해주세요.');
+            form.field_size_width.focus();
+            event.preventDefault();
+        } else if(!form.field_size_height.value) {
+            alert('구장 크기(길이)를 입력해주세요.');
+            form.field_size_height.focus();
+            event.preventDefault();
+        } else if(!chkTerms) {
+            alert("약관을 읽고 체크해주세요.");
+			event.preventDefault();
+        }
+  	};
+  </script>
 
   <%@ include file="/views/include/footer.jsp" %>
 

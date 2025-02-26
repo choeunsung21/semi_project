@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<properties resource="driver.properties"/>
 	<typeAliases>
 		<typeAlias type="com.gn.field.vo.Field" alias="field"/>
-		<typeAlias type="com.gn.dayoff.vo.Dayoff" alias="dayoff"/>
+		<typeAlias type="com.gn.field.vo.Dayoff" alias="dayoff"/>
 		<typeAlias type="com.gn.board.vo.Board" alias="board"/>
 		<typeAlias type="com.gn.user.vo.User" alias="user"/>
 	</typeAliases>

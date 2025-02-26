@@ -77,7 +77,7 @@
       	  		<!-- Section Title -->
       	  		<div class="container section-title" data-aos="fade-up">
         			<h2>로그인</h2>
-        			<p>#.환영메시지</p>
+        			<p>#. 환영메시지 : 저희 페이지에 오신 것을 환영합니다.</p>
       			</div><!-- End Section Title -->
 
       			<div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -91,7 +91,7 @@
                 				</div>
 								
                 				<div class="col-md-12">
-                					 <input type="text" class="form-control" name="user_pw" placeholder="비밀번호" required>
+                					 <input type="password" class="form-control" name="user_pw" placeholder="비밀번호" required>
                 				</div>
 		
 								<!-- 필수정보가 다 입력되었으면 submit 할 수 있게 됨 -->

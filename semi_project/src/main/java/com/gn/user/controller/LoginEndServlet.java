@@ -1,10 +1,7 @@
 package com.gn.user.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,9 +36,8 @@ public class LoginEndServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			if(session.isNew() || session.getAttribute("user") == null) {
 				session.setAttribute("user", user);
-				session.setMaxInactiveInterval(60*30);
-				//response.sendRedirect("/");
-				System.out.println("생성 성공");
+				session.setMaxInactiveInterval(60*1);
+				response.sendRedirect("/");
 			}
 		}else {
 			System.out.println("로그인 실패");

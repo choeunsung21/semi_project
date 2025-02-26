@@ -4,23 +4,23 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="fieldMapper">
 	<resultMap type="field" id="fieldMap">
-		<result property="fieldNo" column="field_no" />
 		<result property="userNo" column="user_no" />
 		<result property="fieldName" column="field_name" />
 		<result property="fieldAddr" column="field_addr" />
 		<result property="fieldSize" column="field_size" />
 		<result property="fieldLimit" column="field_limit" />
+		<result property="rentPrice" column="rent_price" />
 		<result property="fieldType" column="field_type" />
 		<result property="isIndoor" column="is_indoor" />
 		<result property="isPark" column="is_park" />
 		<result property="isShower" column="is_shower" />
-		<result property="rentPrice" column="rent_price" />
+		<result property="dayoffNo" column="dayoff_no" />
 		<result property="message" column="message" />
 		<result property="regDate" column="reg_date" />
 		<result property="modDate" column="mod_date" />
 	</resultMap>
 	<insert id="insertFieldOne" parameterType="field">
-		INSERT INTO `field` (`field_name` ,`field_addr` ,`field_size` ,`field_limit` ,`rent_price`)
-		VALUES (#{fieldName} ,#{fieldAddr} ,#{fieldSize} ,${fieldLimit} ,${rentPrice})
+		INSERT INTO `field` (`user_no` ,`field_name` ,`field_addr` ,`field_size` ,`field_limit` ,`rent_price` ,`field_type` ,`is_indoor` ,`is_park` ,`is_shower` ,`dayoff_no` ,`message`)
+		VALUES (#{userNo} ,#{fieldName} ,#{fieldAddr} ,#{fieldSize} ,#{fieldLimit} ,#{rentPrice} ,#{fieldType} ,#{isIndoor} ,#{isPark} ,${isShower} ,#{dayoffNo} ,#{message})
 	</insert>
 </mapper>
