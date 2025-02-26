@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fieldAttachMapper">
+	<resultMap type="fieldAttach" id="fieldAttachMap">
+		<result property="attachNo" column="attach_no" />
+		<result property="oriName" column="ori_name" />
+		<result property="newName" column="new_name" />
+		<result property="fieldNo" column="field_no" />
+		<result property="filePath" column="attach_path" />
+	</resultMap>
+	<insert id="insertAttachOne" parameterType="fieldAttach">
+		INSERT INTO `field_attach` (`ori_name` ,`new_name` ,`field_no` ,`attach_path`)
+		VALUES (#{oriName} ,#{newName} ,#{fieldNo} ,#{filePath})
+	</insert>
+</mapper>

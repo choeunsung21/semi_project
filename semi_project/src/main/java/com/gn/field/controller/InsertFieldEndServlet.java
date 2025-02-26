@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -157,10 +158,27 @@ public class InsertFieldEndServlet extends HttpServlet {
 						break;
 					}	
 				} else {
-					
+					if(fileItem.getSize() > 0) {
+						String oriName = fileItem.getName();
+						
+						int idx = oriName.lastIndexOf(".");
+						String ext = oriName.substring(idx);
+						
+						String uuid = UUID.randomUUID().toString().replace("-", "");
+						String newName = uuid+ext;
+						
+						File uploadFile = new File(dir, newName);
+						fileItem.write(uploadFile);
+						
+						attach.setOriName(oriName);
+						attach.setNewName(newName);
+						attach.setFilePath(path+"\\"+newName);	// C:\\upload\\field\\새로운이름.확장자 
+					}
 				}
 			}
 		} catch (FileUploadException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
@@ -198,140 +216,14 @@ public class InsertFieldEndServlet extends HttpServlet {
 			}
 		}
 		
-		/* 서비스로 넘겨서 트랜잭션 처리 */
-		
-		int result = new FieldService().insertField(field, dayoff);
+		/* 서비스로 넘겨서 트랜잭션 처리 */		
+		int result = new FieldService().insertField(field, dayoff, attach);
 		
 		if(result > 0) {
 			System.out.println("InsertFieldEndServlet : 트랜잭션에 성공하였습니다.");
 		} else {
 			System.out.println("InsertFieldEndServlet : 트랜잭션에 실패하였습니다.");
 		}
-		
-		
-		
-		/* Field 객체 담아두기 */
-		
-//		int userNo = 0;
-//		temp = (String)request.getParameter("user_no");
-//		if(temp != null) {
-//			userNo = Integer.parseInt(request.getParameter("user_no"));			
-//		}
-		
-//		String fieldName = (String)request.getParameter("field_name");	
-		
-//		String fieldAddr = (String)request.getParameter("field_addr");	
-		
-//		int fieldLimit = 0;
-//		temp = (String)request.getParameter("field_limit");
-//		if(temp != null && temp.length() != 0) {
-//			fieldLimit = Integer.parseInt(temp);
-//		}		
-		
-//		String fieldSize = "";
-//		temp = (String)request.getParameter("field_size_width");
-//		if(temp != null && temp.length() != 0) {
-//			fieldSize += temp;
-//			temp = (String)request.getParameter("field_size_height");
-//			if(temp != null) fieldSize += "*"+temp;			
-//		}
-
-//		String isIndoor = "실내";
-//		temp = (String)request.getParameter("is_indoor");
-//		if("1".equals(temp)) {
-//			isIndoor = "실외";
-//		}                                               
-
-//		String fieldType = "인조잔디";
-//		temp = (String)request.getParameter("field_type");
-//		if("1".equals(temp)) {
-//			fieldType = "천연잔디";
-//		}	
-
-//		boolean isPark = false;
-//		temp = (String)request.getParameter("is_park");
-//		if("1".equals(temp)) {
-//			isPark = true;
-//		}		
-
-//		boolean isShower = false;
-//		temp = (String)request.getParameter("is_shower");
-//		if("1".equals(temp)) {
-//			isShower = true;
-//		}		
-
-//		String rentPrice = "";
-//		temp = (String)request.getParameter("rent_price");
-//		if(temp != null && temp.length() != 0) {
-//			rentPrice = temp;
-//		}		
-
-//		String message = "";
-//		temp = (String)request.getParameter("message");
-//		if(temp != null && temp.length() != 0) {
-//			message += temp;
-//		}		
-
-//		Field field = Field.builder()
-//		.userNo(userNo)
-//		.fieldName(fieldName)
-//		.fieldAddr(fieldAddr)
-//		.fieldLimit(fieldLimit)
-//		.fieldSize(fieldSize)
-//		.isIndoor(isIndoor)
-//		.fieldType(fieldType)
-//		.isPark(isPark)
-//		.isShower(isShower)
-//		.rentPrice(rentPrice)
-//		.message(message)
-//		.build();		
-
-		/* Dayoff 객체 꾸리기 */
-		
-//		Dayoff dayoff = null;	
-		
-//		String[] tempArr = (String[])request.getParameterValues("dayoff_list");	
-		
-		
-
-
-		
-//		if(tempArr != null && tempArr.length != 0) {
-//			dayoff = new Dayoff();
-//			int[] chkDayoffList = new int[tempArr.length];
-			
-//			for(int i=0; i<tempArr.length; i++) {
-//				chkDayoffList[i] = Integer.parseInt(tempArr[i]);
-//			}
-			
-//			for(int i=0; i<chkDayoffList.length; i++) {
-//				switch(chkDayoffList[i]) {
-//				case 1:
-//					dayoff.setSun(true);
-//					break;
-//				case 2:
-//					dayoff.setMon(true);
-//					break;
-//				case 3:
-//					dayoff.setTue(true);
-//					break;
-//				case 4:
-//					dayoff.setWed(true);
-//					break;
-//				case 5:
-//					dayoff.setThu(true);
-//					break;
-//				case 6:
-//					dayoff.setFri(true);
-//					break;
-//				case 7:
-//					dayoff.setSat(true);
-//					break;
-//				}
-//			}
-//		}
-		
-
 }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
