@@ -294,7 +294,7 @@
   $(function(){
 		$('#field-no-select').change(function(){
 			const fieldIndex = $('#field-no-select option:selected').val();
-			
+
 			$.ajax({
 				url : "/selectFieldEnd",
 				type : "post",
@@ -315,7 +315,15 @@
 					document.getElementById("rent-price-span").innerText = data["rentPrice"];
 				},
 				error : function(){
-					alert('서버 요청 중 오류가 발생하였습니다.');
+					document.getElementById("field-name-span").innerText = "";
+					document.getElementById("field-addr-span").innerText = "";
+					document.getElementById("field-size-span").innerText = "";
+					document.getElementById("field-limit-span").innerText = "";
+					document.getElementById("field-type-span").innerText = "";
+					document.getElementById("is-indoor-span").innerText = "";
+					document.getElementById("is-park-span").innerText = "";
+					document.getElementById("is-shower-span").innerText = "";
+					document.getElementById("rent-price-span").innerText = "";
 				}
 			});
 		});

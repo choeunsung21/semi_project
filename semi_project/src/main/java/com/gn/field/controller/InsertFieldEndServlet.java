@@ -101,13 +101,13 @@ public class InsertFieldEndServlet extends HttpServlet {
 					case "field_size_width":
 						temp = fileItem.getString("UTF-8");
 						if(temp != null && temp.length() != 0) {
-							fieldSize += temp;
+							fieldSize += temp + "(m)";
 						}
 						break;
 					case "field_size_height":
 						temp = fileItem.getString("UTF-8");
 						if(temp != null) {
-							fieldSize += "*"+temp;
+							fieldSize += " x "+temp +"(m)";
 						}
 						field.setFieldSize(fieldSize);
 						break;
