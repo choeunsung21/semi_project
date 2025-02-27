@@ -18,8 +18,8 @@ public class UserDao {
 		return result;
 	}
 	
-	public User selectIdList(SqlSession session, User checkId){
-		User user = session.selectOne("userMapper.checkIdUser",checkId);		
-		return user;
+	public int checkIdUser(SqlSession session, String id){
+		int result = session.selectOne("userMapper.checkIdUser",id);
+		return result;
 	}
 }

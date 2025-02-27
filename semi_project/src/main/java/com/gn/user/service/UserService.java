@@ -2,8 +2,6 @@ package com.gn.user.service;
 
 import static com.gn.common.sql.SqlSessionTemplate.getSqlSession;
 
-import java.util.List;
-
 import org.apache.ibatis.session.SqlSession;
 
 import com.gn.user.dao.UserDao;
@@ -25,10 +23,11 @@ public class UserService {
 		return result;
 	}
 	
-	public User selectIdList(User checkId){
+	public int checkIdUser(String id) {
 		SqlSession session = getSqlSession(true);
-		User resultId = new UserDao().selectIdList(session,checkId);
+		int result = new UserDao().checkIdUser(session, id);
 		session.close();
-		return resultId;
+		return result;
 	}
+	
 }

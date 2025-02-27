@@ -35,18 +35,7 @@ public class CreateEndUserServlet extends HttpServlet {
 	          System.out.println("비밀번호 불일치");
 	          // 수정 해야 함
 	        }
-		 //아이디 중복 기능 추가할 예정
-		 User checkId = User.builder()
-				 .userId(id)
-				 .build();
-		 
-		 User checkUser = new UserService().selectIdList(checkId);
-		 
-		 if(checkUser != null) {
-			 request.setAttribute("error", "이미 존재하는 아이디야 비응ㅅ아아");
-			 return;
-		 }
-		 
+
 		User createUser = new User();
 		createUser.setUserId(id);
 		createUser.setUserPw(pw);
@@ -58,11 +47,6 @@ public class CreateEndUserServlet extends HttpServlet {
 		createUser.setUserType(type);
 		 
 		int result = new UserService().createUser(createUser);	
-		
-		
-
-		//request.setAttribute("checkIdList", checkIdList);
-		
 		
 	}
 
