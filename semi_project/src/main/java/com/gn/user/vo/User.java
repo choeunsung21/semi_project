@@ -1,6 +1,6 @@
 package com.gn.user.vo;
 
-import java.security.Timestamp;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,6 +27,6 @@ public class User {
 	 private String userEmail;
 	 private int userType;
 	 private int isManager;
-	 private Timestamp regDate;
-	 private Timestamp modDate;	 
+	 private LocalDateTime regDate;
+	 private LocalDateTime modDate;	 
 }

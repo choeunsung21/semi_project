@@ -4,6 +4,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="fieldMapper">
 	<resultMap type="field" id="fieldMap">
+		<result property="fieldNo" column="field_no" />
 		<result property="userNo" column="user_no" />
 		<result property="fieldName" column="field_name" />
 		<result property="fieldAddr" column="field_addr" />
@@ -23,4 +24,10 @@
 		INSERT INTO `field` (`user_no` ,`field_name` ,`field_addr` ,`field_size` ,`field_limit` ,`rent_price` ,`field_type` ,`is_indoor` ,`is_park` ,`is_shower` ,`dayoff_no` ,`message`)
 		VALUES (#{userNo} ,#{fieldName} ,#{fieldAddr} ,#{fieldSize} ,#{fieldLimit} ,#{rentPrice} ,#{fieldType} ,#{isIndoor} ,#{isPark} ,${isShower} ,#{dayoffNo} ,#{message})
 	</insert>
+	<select id="selectFieldOneRecent" resultMap="fieldMap">
+		SELECT * FROM `field` ORDER BY `reg_date` DESC LIMIT 1;
+	</select>
+	<select id="selectFieldList" parameterType="user" resultMap="fieldMap">
+		SELECT * FROM `field` WHERE `user_no` = #{userNo}
+	</select>
 </mapper>
