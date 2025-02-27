@@ -137,7 +137,15 @@
               					<div class="row gy-4">
 									
 									<div class="col-md-12" style="display:none;">
-                  						<input type="text" class="form-control" name="user_no" value="${user.userNo}" placeholder="담당 회원번호">
+                  						<input type="text" class="form-control" name="user_no" id="user-no-input" value="${user.userNo}" placeholder="담당 회원번호">
+                					</div>
+                					
+                					<div class="col-md-12" style="display:none">
+                						<c:forEach var="field_list" items="${fieldList}" varStatus="vs">
+
+											<input id="" value=""/>
+
+										</c:forEach>
                 					</div>
 
 									<div class="col-md-12">
@@ -145,14 +153,13 @@
 										<select id="field-no-select" name="field_no">
 											<option value="0">구장선택</option>
 											<c:forEach var="field_list" items="${fieldList}" varStatus="vs">
-												<option value="${field_list.fieldNo}">
+												<option value="${field_list.fieldNo}" id="field-no">
 													<c:out value="(${vs.index+1}) ${field_list.fieldName}"/>
 												</option>
 											</c:forEach>
-											
 										</select>
                 					</div>
-                					
+									
                 					<div class="col-md-6" id="rule-open-select">
                 						<label for="rule-open-input" id="rule-open-label">오픈시간*</label>
                   						<input type="time" class="form-control" name="rule_open" id="rule-open-input" required>
@@ -211,7 +218,7 @@
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
 		  	 
             <div class="services-list">
-              <a href="" class="active">구장명 : </a>
+              <a href="" class="active">구장명 : <c:out value="${field}"/></a>
               <a href="">주소 : </a>
               <a href="">구장크기 : </a>
               <a href="">수용인원 : </a>
@@ -282,6 +289,31 @@
   <!-- Main JS File -->
   <script src="/resources/js/common.js"></script>
 
+  <script>
+  $(function(){
+		$('#field-no-select').change(function(){
+			const userNo = $('#user-no-input').val();
+			const fieldIndex = $('#field-no-select option:selected').val();
+
+			alert("userNo : " + userNo);
+			alert("fieldIndex : " + fieldIndex);
+
+			$.ajax({
+				url : "/selectFieldEnd",
+				type : "post",
+				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+				data : {userNo:userNo, fieldIndex:fieldIndex},
+				dataType : "JSON",
+				success : function(data){
+					alert('테스트');
+				},
+				error : function(){
+					alert('서버 요청 중 오류가 발생하였습니다.');
+				}
+			});
+		});
+	});
+  </script>
 </body>
 
 </html>
