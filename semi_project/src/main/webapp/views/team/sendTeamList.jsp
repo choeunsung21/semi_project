@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>보낸 가입 신청 목록</title>
-<link href='<%=request.getContextPath()%>/resources/css/kdy.css' rel="stylesheet" type="text/css">
-<script src="<%=request.getContextPath()%>/resources/js/jquery-3.7.1.js"></script>
+    <link href='<%=request.getContextPath()%>/resources/css/kdy.css' rel="stylesheet" type="text/css">
+    <script src="<%=request.getContextPath()%>/resources/js/jquery-3.7.1.js"></script>
 </head>
 <body>
     <h1>보낸 가입 신청 목록</h1>
@@ -33,6 +33,6 @@
             </c:forEach>
         </tbody>
     </table>
-    <a href="insertTeam.jsp">팀 생성하기</a> <!-- 팀 생성 페이지로 링크 -->
+    <a href="<c:url value='/insertTeam.jsp'/>">팀 생성하기</a>
 </body>
 </html>

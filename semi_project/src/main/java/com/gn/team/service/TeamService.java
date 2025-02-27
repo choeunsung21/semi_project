@@ -1,33 +1,79 @@
 package com.gn.team.service;
-import static com.gn.common.sql.SqlSessionTemplate.getSqlSession;
-
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
+import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import com.gn.team.dao.TeamDao;
 import com.gn.team.vo.Team;
 
 public class TeamService {
-	// 팀 생성
 	public int insertTeam(Team team) {
-		SqlSession session = getSqlSession(true);
-		int result = new TeamDao().insertTeam(session,team);
-		session.close();
-		return result;
+	    SqlSession session = getSqlSession();
+	    if (session == null) {
+	        throw new RuntimeException("SqlSession이 null입니다."); // 예외 처리
+	    }
+	    int result = 0;
+
+	    try {
+	        result = new TeamDao().insertTeam(session, team);
+	        if (result > 0) {
+	            session.commit();
+	        } else {
+	            session.rollback();
+	        }
+	    } catch (Exception e) {
+	        session.rollback();
+	        e.printStackTrace();
+	    } finally {
+	        session.close(); // 세션 종료
+	    }
+
+	    return result;
 	}
-	// 보낸 팀 가입 신청 목록 조회
-	public List<Team> sendTeamList(int userNo){
-		SqlSession session = getSqlSession(true);
-		List<Team> teamList = new TeamDao().sendTeamList(session, userNo);
-		session.close();
-		return teamList;
+
+	private SqlSession getSqlSession() {
+		return sqlSessionFactory.openSession();
 	}
-	// 받은 팀 가입 신청 목록 조회
-    public List<Team> receiveTeamList(int teamNo) {
-        SqlSession session = getSqlSession(true);
-        List<Team> teamList = new TeamDao().receiveTeamList(session, teamNo);
-        session.close();
-        return teamList;
-    }
+	private SqlSessionFactory sqlSessionFactory;
+
+	public void init() {
+	    try {
+	        // MyBatis 설정 파일 로드
+	        InputStream inputStream = Resources.getResourceAsStream("mybatis-config.xml");
+	        sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	}
+	public TeamService() {
+        try {
+            InputStream inputStream = Resources.getResourceAsStream("mybatis-config.xml");
+            sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        } catch (IOException e) {
+        	 // 오류 로그 출력
+            e.printStackTrace();
+            throw new RuntimeException("MyBatis 설정 파일을 로드하는 데 실패했습니다.");
+        }
+	}
 }
+//	    public List<Team> getReceivedJoinRequests() {
+//	        TeamDao teamDao = new TeamDao();
+//	     // 받은 가입 신청 목록 조회
+//	        return teamDao.receiveTeamListServlet(); 
+//	    }
+//
+//	    public List<Team> getSentJoinRequests() {
+//	        TeamDao teamDao = new TeamDao();
+//	     // 보낸 가입 신청 목록 조회
+//	        return teamDao.sendTeamListServlet(); 
+//	    }
+//	}
+
+
+
+

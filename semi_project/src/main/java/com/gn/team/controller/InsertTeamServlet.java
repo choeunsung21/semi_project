@@ -1,6 +1,9 @@
 package com.gn.team.controller;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,21 +18,18 @@ import com.gn.team.vo.Team;
 // 팀 생성
 @WebServlet("/insertTeam")
 public class InsertTeamServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
+    private static final long serialVersionUID = 1L;
+    
     public InsertTeamServlet() {
-        super();
+    	super();
     }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
-		RequestDispatcher view = request.getRequestDispatcher("/views/team/insertTeam.jsp");
-		view.forward(request, response);
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
-		doGet(request, response);
-	}
-
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	RequestDispatcher view = request.getRequestDispatcher("/views/team/insertTeam.jsp");
+    	view.forward(request, response); 
+    }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+       doGet(request, response);
+    }
 }
+// 여기까지가 맞는 코드

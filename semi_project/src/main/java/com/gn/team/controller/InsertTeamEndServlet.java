@@ -1,89 +1,76 @@
 package com.gn.team.controller;
 
-import java.io.IOException;
 
+import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONObject;
-
 import com.gn.team.service.TeamService;
 import com.gn.team.vo.Team;
 
-// 팀 생성 프론트 작업할 예정
+// 팀 생성 프론트
 @WebServlet("/insertTeamEnd")
 public class InsertTeamEndServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
+    private static final long serialVersionUID = 1L;
+    
     public InsertTeamEndServlet() {
-        super();
+    	super();
+    }
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	doPost(request,response);
     }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		  try {
-	            // 요청시 전달된 데이터를 담을 바구니
-	            String teamName = request.getParameter("team_name");
-	            String teamArea = request.getParameter("team_area");
-	            String userGender = request.getParameter("user_gender");
-	            String teamLevel = request.getParameter("team_level");
-	            int teamCount = Integer.parseInt(request.getParameter("team_count"));
-	            String teamExplanation = request.getParameter("team_explanation");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8"); // 한글 인코딩 설정
 
-	            // Team 객체 생성 및 데이터 세팅
-	            Team team = new Team();
-	            team.setTeamName(teamName);
-	            team.setTeamArea(teamArea);
-	            team.setUserGender(userGender);
-	            team.setTeamLevel(teamLevel);
-	            team.setTeamCount(teamCount);
-	            team.setTeamExplanation(teamExplanation);
+        int leaderNo = Integer.parseInt(request.getParameter("user_no")); // 팀장 번호
+        String teamName = request.getParameter("team_name"); // 팀 이름
+        String teamArea = request.getParameter("team_area"); // 팀 지역
+        String preferGender = request.getParameter("prefer_gender"); // 성별
 
-	            // 팀 생성 서비스 호출
-	            int result = new TeamService().insertTeam(team);
+        int teamLevel = 1; // 기본값 설정
+        String temp = request.getParameter("team_level");
+        if (temp != null && !temp.isEmpty()) {
+            teamLevel = Integer.parseInt(temp); // 팀 실력 파싱
+        }
 
-	            // 결과 처리
-	            if (result > 0) {
-	                // 성공적으로 생성된 경우 팀 목록 페이지로 리다이렉트
-	                response.sendRedirect("teamList.jsp");
-	            } else {
-	                // 실패한 경우 에러 페이지로 리다이렉트 또는 에러 메시지 처리
-	                request.setAttribute("errorMessage", "팀 생성에 실패했습니다.");
-	                request.getRequestDispatcher("errorPage.jsp").forward(request, response);
-	            }
-	        } catch (NumberFormatException e) {
-	            // 숫자 형식 오류 처리
-	            request.setAttribute("errorMessage", "최대 인원 수는 숫자여야 합니다.");
-	            request.getRequestDispatcher("errorPage.jsp").forward(request, response);
-	        } catch (Exception e) {
-	            // 기타 오류 처리
-	            request.setAttribute("errorMessage", "알 수 없는 오류가 발생했습니다.");
-	            request.getRequestDispatcher("errorPage.jsp").forward(request, response);
-	        }
-	    }
-//		// 1. 요청시 전달된 데이터를 담을 바구니
-//		String teamName = request.getParameter("team_name");
-//		String teamArea = request.getParameter("team_area");
-//		String userGender = request.getParameter("user_gender");
-//		String teamLevel = request.getParameter("team_level");
-//		int teamCount = Integer.parseInt(request.getParameter("team_count"));
-//		String teamExplanation = request.getParameter("team_explanation");
-//		
-//		Team team = new Team();
-//		team.setTeamName(teamName);
-//		team.setTeamArea(teamArea);
-//		team.setUserGender(userGender);
-//		team.setTeamLevel(teamLevel);
-//		team.setTeamCount(teamCount);
-//		team.setTeamExplanation(teamExplanation);
-//		int result = new TeamService().insertTeam(team);
-//		System.out.println(team);
-//	}
+        int teamCount = 0; // 기본값 설정
+        temp = request.getParameter("team_count");
+        if (temp != null && !temp.isEmpty()) {
+            teamCount = Integer.parseInt(temp); // 팀 인원 파싱
+        }
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-	}
+        int teamLimit = 0; // 기본값 설정
+        temp = request.getParameter("team_limit");
+        if (temp != null && !temp.isEmpty()) {
+            teamLimit = Integer.parseInt(temp); // 팀 정원 파싱
+        }
 
+        String teamExplanation = request.getParameter("team_explanation"); // 팀 설명
+
+        // Team 객체 생성
+        Team team = Team.builder()
+                .leaderNo(leaderNo)
+                .teamName(teamName)
+                .teamArea(teamArea)
+                .preferGender(preferGender)
+                .teamLevel(teamLevel)
+                .teamCount(teamCount)
+                .teamLimit(teamLimit)
+                .teamExplanation(teamExplanation)
+                .build();
+
+        // 서비스 호출
+        int result = new TeamService().insertTeam(team);
+
+        if (result > 0) {
+            response.sendRedirect(request.getContextPath() + "/views/team/success.jsp"); // 성공 페이지로 리다이렉트
+        } else {
+            response.sendRedirect(request.getContextPath() + "/views/team/error.jsp"); // 실패 페이지로 리다이렉트
+        }
+    }
 }
+// 여기까지가 맞는 코드
