@@ -13,6 +13,8 @@
 		<result property="userEmail" column="user_email"/>
 		<result property="userType" column="user_type"/>
 		<result property="isManager" column="is_manager"/>
+		<result property="regDate" column="reg_date"/>
+		<result property="modDate" column="mod_date"/>
 	</resultMap>
 	<select id="userLogin" parameterType="user" resultMap="userMap">
 		SELECT *

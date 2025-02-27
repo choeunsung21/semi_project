@@ -41,9 +41,9 @@
 								<li class="dropdown"><a href="#"><span>팀 관리</span><i class="bi bi-chevron-down toggle-dropdown"></i></a>
 									<ul>
 										<li><a href="/insertTeam">새로운 팀 생성</a></li>
-										<li><a href="#">팀 가입신청</a></li>
-										<li><a href="#">받은 가입신청 목록</a></li>
-										<li><a href="#">보낸 가입신청 목록</a></li>
+								   		<li><a href="/createTeam">팀 가입신청</a></li>
+										<li><a href="/receiveTeamList">받은 가입신청 목록</a></li>
+										<li><a href="/sendTeamList">보낸 가입신청 목록</a></li>
 										<li><a href="/updateTeam">팀 정보 수정</a></li>
 										<li><a href="/deleteTeam">팀 탈퇴 및 삭제</a></li>
 									</ul>
@@ -56,7 +56,24 @@
 										<ul>
 											<li><a href="/insertField">구장 등록</a></li>
 											<li><a href="/insertPlan">스케줄 직접 등록</a></li>
+
 											<li><a href="/insertRule">스케줄 등록 규칙 설정</a></li>
+											
+											
+											
+											
+											
+											<!-- 헤더 변경 부분 -->
+											<li><a href="/selectRegisteredPlanList">등록한 일정 조회</a></li>
+											
+											
+											
+											
+											
+											
+											
+											
+
 											<li><a href="/selectPlanDetail">스케줄 상세 조회</a></li>
 											<!-- <li><a href="#">Deep Dropdown 4</a></li> -->
 											<!-- <li><a href="#">Deep Dropdown 5</a></li> -->

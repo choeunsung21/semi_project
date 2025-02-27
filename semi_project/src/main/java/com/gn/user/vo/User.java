@@ -31,6 +31,5 @@ public class User {
 	 private int isManager;
 	 private LocalDateTime regDate;
 	 private LocalDateTime modDate;	 
-
 }
 

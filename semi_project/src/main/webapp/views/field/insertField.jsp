@@ -77,6 +77,7 @@
 
           <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
             <h2>구장 등록 : 정보 입력</h2>
+            <p id="h-p">(*) 표시가 있는 항목은 반드시 입력해야합니다.</p>
             
             <!-- Contact Section -->
     		<section id="contact" class="contact section">
@@ -100,39 +101,9 @@
         			<!-- End Google Maps -->
 	
         			<div class="row gy-4">
-	
-          				<div class="col-lg-4">
-          					<h3 style="text-align:left; padding-bottom:20px;">Contact</h3>
-          					
-            				<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
-            					
-              					<i class="bi bi-geo-alt flex-shrink-0"></i>
-              					<div>
-                					<h3>Address</h3>
-                					<p>#임의의 주소</p>
-              					</div>
-            				</div><!-- End Info Item -->
-		
-            				<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
-              					<i class="bi bi-telephone flex-shrink-0"></i>
-              					<div>
-                					<h3>Call Us</h3>
-                					<p>#임의의 전화번호</p>
-              					</div>
-           					</div><!-- End Info Item -->
-		
-            				<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="500">
-              					<i class="bi bi-envelope flex-shrink-0"></i>
-              					<div>
-                					<h3>Email Us</h3>
-                					<p>#임의의 이메일@example.com</p>
-              					</div>
-            				</div><!-- End Info Item -->
-		
-          				</div>
-		
-          				<div class="col-lg-8">
-            				<form action="/insertFieldEnd" method="post" class="submit-form" name="insert_field_end_form" data-aos="fade-up" data-aos-delay="200">
+
+          				<div class="col-lg-12">
+            				<form action="/insertFieldEnd" method="post" class="submit-form" name="insert_field_end_form" data-aos="fade-up" data-aos-delay="200" enctype="multipart/form-data">
               					<div class="row gy-4">
 									
 									<div class="col-md-12" style="display:none;">
@@ -161,6 +132,7 @@
                 					<div class="col-md-12">
                 						<label for="field-addr-input" id="field-addr-label">구장주소*</label>
                   						<input type="text" class="form-control" name="field_addr" id="field-addr-input" placeholder="최대 100자까지 입력 가능합니다." required>
+                  						<input type="button" onClick="goPopup();" value="주소검색">
                 					</div>
                 					
                 					<div class="col-md-12">
@@ -211,8 +183,14 @@
                 					</div>
                 					
                 					<div class="col-md-12">
-                						<label for="rent-price-input" id="rent-price-label">풋살화 대여가격 (대여서비스를 제공하지 않을 시 비워두시면 됩니다.)</label>
+                						<label for="rent-price-input" id="rent-price-label">풋살화 대여가격 <span>(대여서비스를 제공하지 않을 시 비워두시면 됩니다.)</span></label>
                   						<input type="number" class="form-control" name="rent_price" id="rent-price-input" min="0">
+                					</div>
+                					
+                					<div class="col-md-12" id="file-img-p">
+                						<label for="field-img-input" id="field-img-label">구장 대표 이미지*</label>
+                						<p>10MB 이하의 파일만 업로드 가능하며, .jpg .jpeg .png만을 허용합니다.</p>
+                  						<input type="file" class="form-control" name="field_img" id="field-img-input" accept=".png, .jpg, .jpeg">
                 					</div>
 
                 					<div class="col-md-12">
@@ -255,14 +233,43 @@
              
           </div>
 
-		  <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-		  	 
+		  <div class="col-lg-4" id="side-box-flex" data-aos="fade-up" data-aos-delay="200">
+
+          		<h3 style="text-align:left; padding-bottom:20px;">Contact</h3>
+          					
+            	<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">	
+              		<i class="bi bi-geo-alt flex-shrink-0"></i>
+              		<div>
+                		<h3>Address</h3>
+                		<p>#임의의 주소</p>
+              		</div>
+            	</div><!-- End Info Item -->
+		
+            	<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
+              		<i class="bi bi-telephone flex-shrink-0"></i>
+              		<div>
+                		<h3>Call Us</h3>
+                		<p>#임의의 전화번호</p>
+              		</div>
+           		</div><!-- End Info Item -->
+		
+            	<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="500">
+              		<i class="bi bi-envelope flex-shrink-0"></i>
+              		<div>
+                		<h3>Email Us</h3>
+                		<p>#임의의 이메일@example.com</p>
+              		</div>
+            	</div><!-- End Info Item -->
+
+		  	<!-- 
             <div class="services-list">
               # img 파일을 선택하고 점부를 위한 공간입니다.
             </div>
            
             <h4>파일 첨부 규칙</h4>
             <p>10MB 이하의 파일만 업로드 가능하며, .jpg .jpeg .png만을 허용합니다.</p>
+             -->
+             
           </div>
 
         </div>
@@ -298,6 +305,20 @@
             alert('구장 크기(길이)를 입력해주세요.');
             form.field_size_height.focus();
             event.preventDefault();
+        } else if(!form.field_img.value) {
+			alert('구장 대표 이미지를 선택해주세요.');
+			form.field_img.focus();
+			event.preventDefault();
+        } else if(form.field_img.value) {
+			const val = form.field_img.value;
+			const idx = val.lastIndexOf(".");
+			const type = val.substring(idx+1, val.length);
+			
+			if(!(type == 'png' || type == 'jpg' || type == 'jpeg')) {
+				alert('이미지 파일 형식이 맞지 않습니다.');
+				form.field_img.focus();
+				event.preventDefault();
+			}
         } else if(!chkTerms) {
             alert("약관을 읽고 체크해주세요.");
 			event.preventDefault();
@@ -313,6 +334,46 @@
   <!-- Preloader -->
   <div id="preloader"></div>
 
+  <!-- Api Hidden -->
+  
+  <form name="form" id="form" method="post">
+	
+	<input type="button" onClick="goPopup();" value="주소검색"/>
+	<div id="list"></div>
+		<div id="callBackDiv">
+			<table>
+				<tr><td>도로명주소 전체</td><td><input type="text"  style="width:500px;" id="roadFullAddr"  name="roadFullAddr" /></td></tr>
+				<!-- 
+				<tr><td>도로명주소           </td><td><input type="text"  style="width:500px;" id="roadAddrPart1"  name="roadAddrPart1" /></td></tr>
+				<tr><td>고객입력 상세주소    </td><td><input type="text"  style="width:500px;" id="addrDetail"  name="addrDetail" /></td></tr>
+				<tr><td>참고주소             </td><td><input type="text"  style="width:500px;" id="roadAddrPart2"  name="roadAddrPart2" /></td></tr>
+				<tr><td>영문 도로명주소      </td><td><input type="text"  style="width:500px;" id="engAddr"  name="engAddr" /></td></tr>
+				<tr><td>지번                 </td><td><input type="text"  style="width:500px;" id="jibunAddr"  name="jibunAddr" /></td></tr>
+				<tr><td>우편번호             </td><td><input type="text"  style="width:500px;" id="zipNo"  name="zipNo" /></td></tr>
+				<tr><td>행정구역코드        </td><td><input type="text"  style="width:500px;" id="admCd"  name="admCd" /></td></tr>
+				<tr><td>도로명코드          </td><td><input type="text"  style="width:500px;" id="rnMgtSn"  name="rnMgtSn" /></td></tr>
+				<tr><td>건물관리번호        </td><td><input type="text"  style="width:500px;" id="bdMgtSn"  name="bdMgtSn" /></td></tr>
+				<tr><td>상세번물명        	</td><td><input type="text"  style="width:500px;" id="detBdNmList"  name="detBdNmList" /></td></tr>
+				<tr><td>건물명        		</td><td><input type="text"  style="width:500px;" id="bdNm"  name="bdNm" /></td></tr>
+				<tr><td>공동주택여부       </td><td><input type="text"  style="width:500px;" id="bdKdcd"  name="bdKdcd" /></td></tr>
+				<tr><td>시도명        		</td><td><input type="text"  style="width:500px;" id="siNm"  name="siNm" /></td></tr>
+				<tr><td>시군구명        	</td><td><input type="text"  style="width:500px;" id="sggNm"  name="sggNm" /></td></tr>
+				<tr><td>읍면동명        	</td><td><input type="text"  style="width:500px;" id="emdNm"  name="emdNm" /></td></tr>
+				<tr><td>법정리명        	</td><td><input type="text"  style="width:500px;" id="liNm"  name="liNm" /></td></tr>
+				<tr><td>도로명        		</td><td><input type="text"  style="width:500px;" id="rn"  name="rn" /></td></tr>
+				<tr><td>지하여부        	</td><td><input type="text"  style="width:500px;" id="udrtYn"  name="udrtYn" /></td></tr>
+				<tr><td>건물본번        	</td><td><input type="text"  style="width:500px;" id="buldMnnm"  name="buldMnnm" /></td></tr>
+				<tr><td>건물부번        	</td><td><input type="text"  style="width:500px;" id="buldSlno"  name="buldSlno" /></td></tr>
+				<tr><td>산여부        		</td><td><input type="text"  style="width:500px;" id="mtYn"  name="mtYn" /></td></tr>
+				<tr><td>지번본번(번지)     </td><td><input type="text"  style="width:500px;" id="lnbrMnnm"  name="lnbrMnnm" /></td></tr>
+				<tr><td>지번부번(호)       </td><td><input type="text"  style="width:500px;" id="lnbrSlno"  name="lnbrSlno" /></td></tr>
+				<tr><td>읍면동일련번호       </td><td><input type="text"  style="width:500px;" id="emdNo"  name="emdNo" /></td></tr>
+				-->
+			</table>
+		</div>
+
+	</form>
+
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
@@ -324,8 +385,55 @@
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
 
   <!-- Main JS File -->
-  <script src="/resources/js/common.js"></script>
+  <script src="<%= request.getContextPath() %>/resources/js/common.js"></script>
 
+	<!-- !important script -->
+	<script>
+	
+	/* 도로명주소 api */
+	function goPopup(){
+		// 주소검색을 수행할 팝업 페이지를 호출합니다.
+		// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(https://business.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
+		var pop = window.open("/popup/jusoPopup.jsp","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
+		
+		// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(https://business.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
+	    //var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
+	}
+	
+	function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo){
+		// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
+		document.form.roadFullAddr.value = roadFullAddr;
+		document.form.roadAddrPart1.value = roadAddrPart1;
+		document.form.roadAddrPart2.value = roadAddrPart2;
+		document.form.addrDetail.value = addrDetail;
+		document.form.engAddr.value = engAddr;
+		document.form.jibunAddr.value = jibunAddr;
+		document.form.zipNo.value = zipNo;
+		document.form.admCd.value = admCd;
+		document.form.rnMgtSn.value = rnMgtSn;
+		document.form.bdMgtSn.value = bdMgtSn;
+		document.form.detBdNmList.value = detBdNmList;
+		/** 2017년 2월 추가제공 **/
+		document.form.bdNm.value = bdNm;
+		document.form.bdKdcd.value = bdKdcd;
+		document.form.siNm.value = siNm;
+		document.form.sggNm.value = sggNm;
+		document.form.emdNm.value = emdNm;
+		document.form.liNm.value = liNm;
+		document.form.rn.value = rn;
+		document.form.udrtYn.value = udrtYn;
+		document.form.buldMnnm.value = buldMnnm;
+		document.form.buldSlno.value = buldSlno;
+		document.form.mtYn.value = mtYn;
+		document.form.lnbrMnnm.value = lnbrMnnm;
+		document.form.lnbrSlno.value = lnbrSlno;
+		/** 2017년 3월 추가제공 **/
+		document.form.emdNo.value = emdNo;
+		
+		insertInput();
+		
+	}
+	</script>
 </body>
 
 </html>

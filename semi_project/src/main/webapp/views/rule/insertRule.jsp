@@ -35,6 +35,8 @@
   <link href="<%= request.getContextPath() %>/resources/css/include/common.css" rel="stylesheet" type="text/css">
   <link href="<%= request.getContextPath() %>/resources/css/cjs.css" rel="stylesheet" type="text/css">
 
+  <script src="<%= request.getContextPath() %>/resources/js/jquery-3.7.1.js"></script>
+  
   <!-- =======================================================
   * Template Name: OnePage
   * Template URL: https://bootstrapmade.com/onepage-multipurpose-bootstrap-template/
@@ -75,6 +77,7 @@
 
           <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
             <h2>스케줄 등록 : 규칙 설정</h2>
+            <p id="h-p">(*) 표시가 있는 항목은 반드시 입력해야합니다.</p>
             	
             <!-- Contact Section -->
     		<section id="contact" class="contact section">
@@ -130,36 +133,44 @@
           				</div>
 		
           				<div class="col-lg-8">
-            				<form action="#" method="post" class="submit-form" data-aos="fade-up" data-aos-delay="200">
+            				<form action="#" method="post" class="submit-form" name="insert_rule_end_form" data-aos="fade-up" data-aos-delay="200">
               					<div class="row gy-4">
 									
 									<div class="col-md-12" style="display:none;">
-                  						<input type="text" class="form-control" name="user_no" placeholder="담당 회원번호">
+                  						<input type="text" class="form-control" name="user_no" value="${user.userNo}" placeholder="담당 회원번호">
                 					</div>
-									
+
 									<div class="col-md-12">
+										<label for="field-no-select" id="field-no-select-label">구장 선택*</label>
 										<select id="field-no-select" name="field_no">
-											<option value="0">구장명</option>
-											<option value="1">#구장(1)</option>
-											<option value="2">#구장(2)</option>
-											<option value="3">#구장(3)</option>
+											<option value="0">구장선택</option>
+											<c:forEach var="field_list" items="${fieldList}" varStatus="vs">
+												<option value="${field_list.fieldNo}">
+													<c:out value="(${vs.index+1}) ${field_list.fieldName}"/>
+												</option>
+											</c:forEach>
+											
 										</select>
                 					</div>
                 					
                 					<div class="col-md-6" id="rule-open-select">
-                  						<input type="time" class="form-control" name="rule_open" placeholder="오픈시간" required>
+                						<label for="rule-open-input" id="rule-open-label">오픈시간*</label>
+                  						<input type="time" class="form-control" name="rule_open" id="rule-open-input" required>
                 					</div>
                 					
                 					<div class="col-md-6" id="rule-close-select">
-                  						<input type="time" class="form-control" name="rule_close" placeholder="마감시간" required>
+                						<label for="rule-close-input" id="rule-close-label">마감시간*</label>
+                  						<input type="time" class="form-control" name="rule_close" id="rule-close-input" required>
                 					</div>
                 					
                 					<div class="col-md-12">
-                  						<input type="text" class="form-control" name="rule_usetime" placeholder="이용시간 (입력하지 않으면 2시간 기본입니다.)">
+                						<label for="rule-usetime-input" id="rule-usetime-label">이용시간 <span>(입력하지 않으면 2시간 기본입니다.)</span></label>
+                  						<input type="text" class="form-control" name="rule_usetime" id="rule-usetime-input">
                 					</div>
                 					
                 					<div class="col-md-12">
-                  						<input type="text" class="form-control" name="rule_price" placeholder="가격 (입력하지 않으면 무료입니다.)">
+                						<label for="rule-price-input" id="rule-price-label">가격 <span>(입력하지 않으면 무료입니다.)</span></label>
+                  						<input type="text" class="form-control" name="rule_price" id="rule-price-input">
                 					</div>
 
 									<p>
@@ -168,7 +179,7 @@
 									
 									<!-- #chk_term 체크되었을 때만 버튼이 눌러지고 아닐경우 alert창을 띄울 예정 -->
                 					<div class="col-md-12 text-center">
-                  						<button type="submit">스케줄 등록</button>
+                  						<button type="submit" onclick="insertRuleForm();">스케줄 등록</button>
                 					</div>
                 					
               					</div>
@@ -223,6 +234,32 @@
     </section><!-- /Service Details Section -->
 
   </main>
+  
+    <script>
+  	const insertRuleForm = function(){
+    	const form = document.insert_rule_end_form;
+		let chkTerms = $("#chk_terms").is(":checked");
+							
+		console.log(form.field_no.value);
+		
+        if(form.field_no.value == "0") {
+        	alert('구장을 선택해주세요.');
+        	form.field_no.focus();
+        	event.preventDefault();
+        } else if(!form.rule_open.value) {
+        	alert('오픈 시간을 선택해주세요.');
+        	form.rule_open.focus();
+        	event.preventDefault();
+        } else if(!form.rule_close.value) {
+        	alert('마감 시간을 선택해주세요.');
+        	form.rule_close.focus();
+        	event.preventDefault();
+        } else if(!chkTerms) {
+            alert("약관을 읽고 체크해주세요.");
+			event.preventDefault();
+        }
+  	};
+  </script>
 
   <%@ include file="/views/include/footer.jsp" %>
 
