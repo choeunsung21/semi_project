@@ -217,15 +217,16 @@
 
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
 		  	 
-            <div class="services-list">
-              <a href="" class="active">구장명 : <c:out value="${field}"/></a>
-              <a href="">주소 : </a>
-              <a href="">구장크기 : </a>
-              <a href="">수용인원 : </a>
-              <a href="">잔디타입 : </a>
-              <a href="">실내/실외 : </a>
-              <a href="">주차장 : </a>
-              <a href="">풋살화대여 : </a>
+            <div class="services-list" id="services-list-div">
+              <a href="" class="active">구장명 : <span id="field-name-span"></span></a>
+              <a href="" class="active">주소 : <span id="field-addr-span"></span></a>
+              <a href="" class="active">구장크기 : <span id="field-size-span"></span></a>
+              <a href="" class="active">수용인원 : <span id="field-limit-span"></span></a>
+              <a href="" class="active">잔디타입 : <span id="field-type-span"></span></a>
+              <a href="" class="active">실내/실외 : <span id="is-indoor-span"></span></a>
+              <a href="" class="active">주차장 : <span id="is-park-span"></span></a>
+              <a href="" class="active">샤워실 : <span id="is-shower-span"></span></a>
+              <a href="" class="active">풋살화대여 : <span id="rent-price-span"></span></a>
             </div>
            
 			<!-- 
@@ -292,20 +293,26 @@
   <script>
   $(function(){
 		$('#field-no-select').change(function(){
-			const userNo = $('#user-no-input').val();
 			const fieldIndex = $('#field-no-select option:selected').val();
-
-			alert("userNo : " + userNo);
-			alert("fieldIndex : " + fieldIndex);
-
+			
 			$.ajax({
 				url : "/selectFieldEnd",
 				type : "post",
 				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-				data : {userNo:userNo, fieldIndex:fieldIndex},
+				data : {
+					"fieldIndex":fieldIndex
+				},
 				dataType : "JSON",
 				success : function(data){
-					alert('테스트');
+					document.getElementById("field-name-span").innerText = data["fieldName"];
+					document.getElementById("field-addr-span").innerText = data["fieldAddr"];
+					document.getElementById("field-size-span").innerText = data["fieldSize"];
+					document.getElementById("field-limit-span").innerText = data["fieldLimit"];
+					document.getElementById("field-type-span").innerText = data["fieldType"];
+					document.getElementById("is-indoor-span").innerText = data["isIndoor"];
+					document.getElementById("is-park-span").innerText = data["isPark"];
+					document.getElementById("is-shower-span").innerText = data["isShower"];
+					document.getElementById("rent-price-span").innerText = data["rentPrice"];
 				},
 				error : function(){
 					alert('서버 요청 중 오류가 발생하였습니다.');
