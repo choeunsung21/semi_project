@@ -41,6 +41,7 @@ public class LoginEndServlet extends HttpServlet {
 			}
 		}else {
 			System.out.println("로그인 실패");
+			//여기 수정해야 할 필요 있음.
 		}
 		
 	}

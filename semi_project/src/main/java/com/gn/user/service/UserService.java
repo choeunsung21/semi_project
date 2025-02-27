@@ -15,4 +15,19 @@ public class UserService {
 		session.close();
 		return user;
 	}
+	
+	public int createUser(User createUser) {
+		SqlSession session = getSqlSession(true);
+		int result = new UserDao().createUser(session, createUser);
+		session.close();
+		return result;
+	}
+	
+	public int checkIdUser(String id) {
+		SqlSession session = getSqlSession(true);
+		int result = new UserDao().checkIdUser(session, id);
+		session.close();
+		return result;
+	}
+	
 }
