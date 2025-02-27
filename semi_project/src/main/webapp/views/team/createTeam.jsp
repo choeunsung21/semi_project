@@ -9,7 +9,7 @@
 </head>
 <body>
     <h1>팀 가입 신청</h1>
-    <form action="<c:url value='/'/>" method="post">
+    <form action="<c:url value='/teamList'/>" method="post">
         <fieldset>
             <legend>가입 정보 입력</legend>
             <label for="teamNo">팀 번호:</label>

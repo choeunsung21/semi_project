@@ -60,19 +60,22 @@ public class TeamService {
             throw new RuntimeException("MyBatis 설정 파일을 로드하는 데 실패했습니다.");
         }
 	}
-}
-//	    public List<Team> getReceivedJoinRequests() {
-//	        TeamDao teamDao = new TeamDao();
-//	     // 받은 가입 신청 목록 조회
-//	        return teamDao.receiveTeamListServlet(); 
-//	    }
-//
-//	    public List<Team> getSentJoinRequests() {
-//	        TeamDao teamDao = new TeamDao();
-//	     // 보낸 가입 신청 목록 조회
-//	        return teamDao.sendTeamListServlet(); 
-//	    }
-//	}
+	    public List<Team> receiveTeamListServlet() {
+	    	SqlSession session = getSqlSession();
+	        TeamDao teamDao = new TeamDao();
+	        session.close();
+	     // 받은 가입 신청 목록 조회
+	        return teamDao.receiveTeamListServlet(); 
+	    }
+	    
+	    public List<Team> sendTeamListServlet() {
+	    	SqlSession session = getSqlSession();
+	        TeamDao teamDao = new TeamDao();
+	        session.close();
+	     // 보낸 가입 신청 목록 조회
+	        return teamDao.sendTeamListServlet(); 
+	    }
+	}
 
 
 

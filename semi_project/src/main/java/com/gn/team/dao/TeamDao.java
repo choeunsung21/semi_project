@@ -10,7 +10,7 @@ public class TeamDao {
 	        return session.insert("teamMapper.insertTeam", team);
 	    }
 	 
-	 public List<Team> getReceivedJoinRequests() {
+	 public List<Team> receiveTeamListServlet() {
 	    SqlSession session = getSqlSession();
 	    List<Team> receivedRequests = null;
 	        try {
@@ -21,7 +21,7 @@ public class TeamDao {
 	        return receivedRequests;
 	    }
 
-	public List<Team> getSentJoinRequests() {
+	public List<Team> sendTeamListServlet() {
 	    SqlSession session = getSqlSession();
 	    List<Team> sentRequests = null;
 	        try {
@@ -36,14 +36,6 @@ public class TeamDao {
 			return null;
 		}
 	}
-//    public List<Team> selectTeamList(SqlSession session) {
-//        return session.selectList("teamMapper.selectTeamList");
-//    }
-//
-//    public Team selectTeamById(SqlSession session, int teamNo) {
-//        return session.selectOne("teamMapper.selectTeamById", teamNo);
-//    }
-//
 //    public int updateTeam(SqlSession session, Team team) {
 //        return session.update("teamMapper.updateTeam", team);
 //    }

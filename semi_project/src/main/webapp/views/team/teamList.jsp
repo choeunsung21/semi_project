@@ -5,10 +5,10 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>목록 출력</title>
+    <title>팀 목록</title>
 </head>
 <body>
-    <form action="<c:url value='/teamList'/>" id="searchFrm">
+    <form action="<c:url value='/receiveTeamList'/>" id="searchFrm">
         <fieldset>
             <legend>검색하기</legend>
             <input type="text" name="user_title" placeholder="제목">
@@ -20,14 +20,14 @@
             <legend>정렬하기</legend>
             <select name="order_type" id="order_type">
                 <option value="-1">선택</option>
-                <option value="1">최신순</option>
-                <option value="2">오래된순</option>
+                <option value="2">최신순</option>
+                <option value="3">오래된순</option>
             </select>
         </fieldset>
     </form>
     <script>
         const orderType = document.getElementById('order_type');
-        orderType.onchange = function() {
+        	orderType.onchange = function() {
             document.getElementById('searchFrm').submit();
         }
     </script>
