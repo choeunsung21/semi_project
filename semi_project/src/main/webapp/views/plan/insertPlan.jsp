@@ -244,7 +244,6 @@
 
   <!-- Main JS File -->
   <script src="<%= request.getContextPath() %>/resources/js/common.js"></script>
-  <script src="<%= request.getContextPath() %>/resources/js/cjs.js"></script>
 
 </body>
 
