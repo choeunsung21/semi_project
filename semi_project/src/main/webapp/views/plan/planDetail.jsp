@@ -34,6 +34,11 @@
   <!-- Main CSS File -->
   <link href="<%= request.getContextPath() %>/resources/css/include/common.css" rel="stylesheet" type="text/css">
   <link href="<%= request.getContextPath() %>/resources/css/cjs.css" rel="stylesheet" type="text/css">
+  <style>
+  	.portfolio-details .portfolio-info .btn-visit {
+  		background: crimson;
+  	}
+  </style>
 
   <!-- =======================================================
   * Template Name: OnePage
@@ -54,7 +59,7 @@
     <section id="portfolio-details" class="portfolio-details section">
 
       <div class="container" data-aos="fade-up">
-
+<!-- 
 		<div class="portfolio-details-slider swiper init-swiper">
           <script type="application/json" class="swiper-config">
             {
@@ -98,7 +103,7 @@
           <div class="swiper-button-next"></div>
           <div class="swiper-pagination"></div>
         </div>
-
+-->
         <div class="row justify-content-between gy-4 mt-4">
 
           <div class="col-lg-8" data-aos="fade-up">
@@ -107,12 +112,12 @@
               
               <div class="col-lg-3" data-aos="fade-up" data-aos-delay="100" style="inline-block;">
             	<div class="portfolio-info">
-                    <h3>Basic Info.</h3>
+                    <h3>구장 정보</h3>
               		<ul>
-               	 		<li><strong>구장 크기</strong> #37x20m</li>
-                		<li><strong>수용 인원</strong> #40명</li>
-                		<li><strong>실내/실외</strong> #실내</li>
-                		<li><strong>잔디 타입</strong> #인공잔디</li>
+               	 		<li><strong>구장 크기</strong> ${plan.field.fieldSize }</li>
+                		<li><strong>수용 인원</strong> ${plan.field.fieldLimit }</li>
+                		<li><strong>실내/실외</strong> ${plan.field.isIndoor }</li>
+                		<li><strong>잔디 타입</strong> ${plan.field.fieldType }</li>
               		</ul>
             	</div>
           	  </div>
@@ -121,9 +126,9 @@
             	<div class="portfolio-info">
                     <h3 style="visibility:hidden">Basic Info.</h3> 
               		<ul>                		
-              			<li><strong>샤워실</strong> #O</li>
-                		<li><strong>주차장</strong> #X</li>
-                		<li><strong>풋살화 대여</strong> #4000원</li>
+              			<li><strong>샤워실</strong>null</li>
+                		<li><strong>주차장</strong>null</li>
+                		<li><strong>풋살화 대여</strong> ${plan.field.rentPrice }</li>
               		</ul>
             	</div>
           	  </div>
@@ -139,6 +144,7 @@
               -->
 
             </div>
+            <!--
             <div class="portfolio-description">
             	<div>
           	  		<div class="col-lg-3" data-aos="fade-up" data-aos-delay="100">
@@ -162,18 +168,21 @@
                 	</div>
              	</div>
              </div>
+             -->
           </div>
 
           <div class="col-lg-3" data-aos="fade-up" data-aos-delay="300">
             <div class="portfolio-info">
-              <h3>#구장명</h3>
+              <h3>${plan.field.fieldName}</h3>
               <ul>
-                <li><strong>Location </strong> #서울특별시 금천구 가산디지털2로 95 <span><strong>지도보기</strong></span></li>
-                <li><strong>Date </strong> #01 March, 2020</li>
-                <li><strong>Time </strong> #10:00 ~ 12:00</li>
-                <li><strong>Price </strong> #200,000원</li>
+                <li><strong>Location </strong> ${plan.field.fieldAddr } <span><strong>지도보기</strong></span></li>
+                <li><strong>Date </strong> ${plan.planDate }</li>
+                <li><strong>Time </strong> ${plan.planTime }</li>
+                <li><strong>Price </strong> ${plan.planPrice }</li>
+                <!-- 
                 <li><strong>URL</strong> <a href="#">www.example.com</a></li>
-                <li><a href="/insertReservation" class="btn-visit align-self-start" onclick="return confirm('예약하시겠습니까?')">예약하기</a></li>
+                 -->
+                <li><a href="/deletePlan?planNo=${plan.planNo}" class="btn-visit align-self-start" onclick="return confirm('해당 일정을 삭제하시겠습니까?')">등록취소</a></li>
               </ul>
             </div>
           </div>

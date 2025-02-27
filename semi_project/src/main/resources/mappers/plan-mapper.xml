@@ -5,24 +5,55 @@
 <mapper namespace="planMapper">
 	<resultMap type="plan" id="planMap">
 		<result property="planNo" column="plan_no" />
-		<result property="fieldNo" column="field_no" />
+		<result property="userNo" column="user_no" />
 		<result property="planDate" column="plan_date" />
 		<result property="planTime" column="plan_time" />
 		<result property="planPrice" column="plan_price" />
 		<result property="useTime" column="use_time" />
 		<result property="regDate" column="reg_date" />
 		<result property="modDate" column="mod_date" />
+		
+		<association property="field" javaType="field">
+			<result property="fieldNo" column="field_no" />
+			<result property="fieldName" column="field_name" />
+			<result property="fieldSize" column="field_size" />
+			<result property="fieldAddr" column="field_addr" />
+			<result property="fieldLimit" column="field_limit" />
+			<result property="fieldType" column="field_type" />
+			<result property="isIndoor" column="is_indoor" />
+			<result property="isPark" column="is_park" />
+			<result property="isShower" column="is_shower" />
+			<result property="rentPrice" column="rent_price" />
+			<result property="dayoffNo" column="dayoff_no" />
+			<result property="message" column="message" />
+			<result property="regDate" column="reg_date" />
+			<result property="modDate" column="mod_date" />
+		</association>
 	</resultMap>
 	<insert id="insertPlanOne" parameterType="plan">
 		INSERT INTO `plan`
 		(field_no ,plan_date ,plan_time ,plan_price ,use_time)
 		VALUES (#{fieldNo} ,#{planDate} ,#{planTime} ,#{planPrice} ,#{useTime})
 	</insert>
-	<select id="selectRegisteredPlanList" resultMap="planMap" parameterType="plan">
+	<select id="selectRegisteredPlanList" resultMap="planMap" parameterType="user">
 		SELECT p.plan_no ,f.field_name ,p.plan_date ,p.plan_time ,p.use_time  
 		FROM `plan` p
 		JOIN `field` f ON p.field_no = f.field_no
 		JOIN `user` u ON u.user_no = f.user_no
 		WHERE f.user_no = #{userNo}
 	</select>
+	<select id="selectRegisteredPlanDetail" resultMap="planMap" parameterType="_int">
+		SELECT * FROM `plan`
+		WHERE plan_no = #{planNo}
+	</select>
+	<select id="selectPlanDetail" resultMap="planMap" parameterType="_int">
+		SELECT *
+		FROM `plan` p
+		JOIN `field` f ON p.field_no = f.field_no
+		WHERE p.plan_no = #{planNo}
+	</select>
+	<delete id="deletePlan" parameterType="plan">
+		DELETE FROM `plan`
+		WHERE plan_no = #{planNo}
+	</delete>
 </mapper>

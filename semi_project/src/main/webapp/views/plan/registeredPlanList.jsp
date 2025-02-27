@@ -9,18 +9,44 @@
 <html lang="en">
 
 <head>
-  <style>
-        table { width: 80%; margin: 20px auto; border-collapse: collapse; }
-        th, td { border: 1px solid black; padding: 10px; text-align: center; }
-        th { background-color: #f4f4f4; }
-  </style>
-  
-  
-  
-  
-  
-  
-  
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 18px;
+        text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    thead {
+        background-color: #2487ce;
+        color: white;
+    }
+    
+    th, td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    
+    tr:hover {
+        background-color: rgba(36, 135, 206, 0.1);
+        transition: background 0.3s ease;
+    }
+    
+    th {
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+    
+    td {
+        color: #333;
+    }
+</style>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>Starter Page - OnePage Bootstrap Template</title>
@@ -45,6 +71,7 @@
 
   <!-- Main CSS File -->
   <link href="<%= request.getContextPath() %>/resources/css/include/common.css" rel="stylesheet" type="text/css">
+  <script src="<%=request.getContextPath()%>/resources/js/jquery-3.7.1.js"></script>
 
   <!-- =======================================================
   * Template Name: OnePage
@@ -64,10 +91,10 @@
     <!-- Page Title -->
     <div class="page-title accent-background">
       <div class="container">
-        <h1>등록한 목록 조회</h1>
+        <h1>등록한 일정</h1>
         <nav class="breadcrumbs">
           <ol>
-            <li><a href="index.html">Home</a></li>
+            <li><a href="index.jsp">Home</a></li>
           </ol>
         </nav>
       </div>
@@ -78,7 +105,6 @@
 
       <div class="container" data-aos="fade-up">
       <!-- 본문 작성 -->
-      
       <table>
         <thead>
             <tr>
@@ -87,36 +113,32 @@
                 <th>일정 날짜</th>
                 <th>일정 시간</th>
                 <th>이용 시간</th>
+                <th>예약 상태</th>
             </tr>
         </thead>
         <tbody>
-            <c:forEach var="plan" items="${registeredPlanList}">
-                <tr>
-                    <td>${registeredPlanList.planNo}</td>
-                    <td>${registeredPlanList.fieldName}</td>
-                    <td>${registeredPlanList.planDate}</td>
-                    <td>${registeredPlanList.planTime}</td>
-                    <td>${registeredPlanList.useTime}시간</td>
-                </tr>
-            </c:forEach>
+        <c:choose>
+        	<c:when test="${not empty registeredPlanList}">
+        		<c:forEach var="plan" items="${registeredPlanList}">
+	                <tr class="plan-row" data-plan-no="${plan.planNo}" onclick="location.href='/selectPlanDetail?planNo=${plan.planNo}'">
+	                    <td>${plan.planNo}</td>
+	                    <td>${plan.field.fieldName}</td>
+	                    <td>${plan.planDate}</td>
+	                    <td>${plan.planTime}</td>
+	                    <td>${plan.useTime}시간</td>
+	                    <td>null</td>
+	                </tr>
+            	</c:forEach>
+        	</c:when>
+        	<c:otherwise>
+        		<tr>
+					<td colspan="6">등록한 일정이 없습니다.</td>
+				</tr>
+        	</c:otherwise>
+        </c:choose>
+            
         </tbody>
-    </table>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
+      </table>  
       </div>
 
     </section><!-- /Starter Section Section -->
@@ -143,7 +165,5 @@
 
   <!-- Main JS File -->
   <script src="/resources/js/common.js"></script>
-
 </body>
-
 </html>

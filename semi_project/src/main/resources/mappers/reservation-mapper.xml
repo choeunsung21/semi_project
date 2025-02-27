@@ -14,6 +14,7 @@
 		VALUES (#{userNo} ,#{planNo})
 	</insert>
 	<delete id="deleteReservationOne" parameterType="reservation">
-		DELETE FROM `reservation` WHERE #{reservationNo}
+		DELETE FROM `reservation`
+		WHERE reservation_no = #{reservationNo}
 	</delete>
 </mapper>

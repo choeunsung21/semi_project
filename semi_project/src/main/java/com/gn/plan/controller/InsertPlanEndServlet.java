@@ -22,10 +22,9 @@ public class InsertPlanEndServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String temp = request.getParameter("field_no");
-//		int fieldNo = 0;
-//		if(temp != null)
-//			fieldNo = Integer.parseInt(temp);
-		int fieldNo = 1;
+		int fieldNo = 0;
+		if(temp != null)
+			fieldNo = Integer.parseInt(temp);
 		String planDate = request.getParameter("plan_date");
 		String planTime = request.getParameter("plan_time");
 		String planPrice = request.getParameter("plan_price");

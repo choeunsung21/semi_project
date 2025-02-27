@@ -2,7 +2,7 @@ package com.gn.plan.vo;
 
 import java.time.LocalDateTime;
 
-import com.gn.reservation.vo.Reservation;
+import com.gn.field.vo.Field;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,7 +21,6 @@ import lombok.ToString;
 @Builder
 public class Plan {
 	private int planNo;
-	private int fieldNo;
 	private String planDate;
 	private String planTime;
 	private String planPrice;
@@ -30,4 +29,7 @@ public class Plan {
 	private LocalDateTime modDate;
 	private String fieldName;
 	private int userNo;
+	private int fieldNo;
+	
+	private Field field;
 }

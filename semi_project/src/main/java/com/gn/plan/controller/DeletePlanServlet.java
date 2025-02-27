@@ -1,7 +1,6 @@
 package com.gn.plan.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,32 +15,39 @@ import com.gn.plan.vo.Plan;
 import com.gn.user.vo.User;
 
 
-@WebServlet("/selectRegisteredPlanList")
-public class SelectRegisteredPlanListServlet extends HttpServlet {
+@WebServlet("/deletePlan")
+public class DeletePlanServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
-    public SelectRegisteredPlanListServlet() {
+    public DeletePlanServlet() {
         super();
     }
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 일정번호, 구장이름, 일정날짜, 일정시간, 이용시간 가져올것임
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("user");
+		int userNo = user.getUserNo();
+		System.out.println(userNo);
 		
-		if(session != null && session.getAttribute("user") != null) {
-			User user = (User)session.getAttribute("user");
-			
-			List<Plan> registeredPlanList = new PlanService().selelctRegisteredPlanList(user);
-			
-			RequestDispatcher view = request.getRequestDispatcher("/views/plan/registeredPlanList.jsp");
-			request.setAttribute("registeredPlanList", registeredPlanList);
-			view.forward(request, response);
+		String temp = request.getParameter("planNo");
+		int planNo = 0;
+		if(temp != null)
+			planNo = Integer.parseInt(temp);
+		Plan plan = new Plan();
+		plan.setPlanNo(planNo);
+		
+		int result = new PlanService().deletePlan(plan);
+		System.out.println("deletePlanServlet : " + result);
+		if(result != 0) {
+			response.sendRedirect("/selectRegisteredPlanList");
 		} else {
-			System.out.println("InsertRuleServlet : 세션에 유저정보가 존재하지 않습니다.");
+			RequestDispatcher view = request.getRequestDispatcher("/views/plan/deleteFail.jsp");
+			view.forward(request, response);
 		}
 	}
+
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

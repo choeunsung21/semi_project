@@ -1,6 +1,7 @@
 package com.gn.plan.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,6 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.gn.field.service.FieldService;
+import com.gn.field.vo.Field;
+import com.gn.user.vo.User;
 
 @WebServlet("/insertPlan")
 public class InsertPlanServlet extends HttpServlet {
@@ -18,8 +24,21 @@ public class InsertPlanServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher view = request.getRequestDispatcher("/views/plan/insertPlan.jsp");
-		view.forward(request, response);
+		HttpSession session = request.getSession(false);
+		
+		if(session != null && session.getAttribute("user") != null) {
+			// 세션이 정상적으로 생성
+			User user = (User)session.getAttribute("user");
+			
+			List<Field> fieldList = new FieldService().selectFieldListByUserNo(user);
+			
+			RequestDispatcher view = request.getRequestDispatcher("/views/plan/insertPlan.jsp");
+			request.setAttribute("fieldList", fieldList);
+			view.forward(request, response);
+			
+		} else {
+			System.out.println("InsertRuleServlet : 세션에 유저정보가 존재하지 않습니다.");
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
