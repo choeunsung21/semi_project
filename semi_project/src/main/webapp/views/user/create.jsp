@@ -126,7 +126,7 @@
       			</div>
     			</div>
                 <div class="col-md-12 text-center">
-                  <button id="joinMembership"type="submit">가입하기</button>
+                  <button id="joinMembership"type="button">가입하기</button>
                   <p style="padding-top: 15px;">이미 계정이 있으신가요? <a href="/login">로그인</a></p>
                 </div>
 
@@ -273,16 +273,24 @@
 	
 	<!--회원가입 정상적으로 동작하기. -->
 	document.getElementById("joinMembership").addEventListener("click",function(event){
-	if(!true_false){
+		const form = document.querySelector("form[name='check_id_form']");
+		
+		if(!true_false){
 		alert("모든 입력란에 양식이 알맞지 않으면 회원가입이 불가능합니다.")
-		event.preventDefault();
-	}else if(true_false){
-		alert("회원가입이 성공적으로 이루어졌습니다.")
-		<!--alert 창이 뜨면 서버가 멈추기 때문에 setTimeout을 걸어줘야함 -->
+		return;
+		}
+		
+		<!--checkValidity() 체크항목들 확인하는 메서드 -->
+		if(!form.checkValidity()){
+			alert("입력되지 않은 항목이 있습니다.");
+			return;
+		}
+		
+		alert("회원가입이 성공적으로 이루어졌습니다.");
 		setTimeout(function() {
+            form.submit();
             window.location.href = "index.jsp";
         }, 5); 
-	} 
 	})
   </script>
 </body>
