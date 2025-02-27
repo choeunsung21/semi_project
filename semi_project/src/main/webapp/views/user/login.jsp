@@ -98,7 +98,7 @@
                 				<div class="col-md-12 text-center">
                   					<button type="submit">로그인</button>
                   					<p style="padding-top:25px;">비밀번호 찾기</p>
-                  					<p>계정이 없으신가요? <span>회원가입</span></p>
+                  					<p>계정이 없으신가요? <a href="/signup">회원가입</a></p>
                 				</div>
 	
               				</div>

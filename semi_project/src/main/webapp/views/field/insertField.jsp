@@ -77,6 +77,7 @@
 
           <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
             <h2>구장 등록 : 정보 입력</h2>
+            <p id="h-p">(*) 표시가 있는 항목은 반드시 입력해야합니다.</p>
             
             <!-- Contact Section -->
     		<section id="contact" class="contact section">
@@ -100,39 +101,9 @@
         			<!-- End Google Maps -->
 	
         			<div class="row gy-4">
-	
-          				<div class="col-lg-4">
-          					<h3 style="text-align:left; padding-bottom:20px;">Contact</h3>
-          					
-            				<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
-            					
-              					<i class="bi bi-geo-alt flex-shrink-0"></i>
-              					<div>
-                					<h3>Address</h3>
-                					<p>#임의의 주소</p>
-              					</div>
-            				</div><!-- End Info Item -->
-		
-            				<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
-              					<i class="bi bi-telephone flex-shrink-0"></i>
-              					<div>
-                					<h3>Call Us</h3>
-                					<p>#임의의 전화번호</p>
-              					</div>
-           					</div><!-- End Info Item -->
-		
-            				<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="500">
-              					<i class="bi bi-envelope flex-shrink-0"></i>
-              					<div>
-                					<h3>Email Us</h3>
-                					<p>#임의의 이메일@example.com</p>
-              					</div>
-            				</div><!-- End Info Item -->
-		
-          				</div>
-		
-          				<div class="col-lg-8">
-            				<form action="/insertFieldEnd" method="post" class="submit-form" name="insert_field_end_form" data-aos="fade-up" data-aos-delay="200">
+
+          				<div class="col-lg-12">
+            				<form action="/insertFieldEnd" method="post" class="submit-form" name="insert_field_end_form" data-aos="fade-up" data-aos-delay="200" enctype="multipart/form-data">
               					<div class="row gy-4">
 									
 									<div class="col-md-12" style="display:none;">
@@ -211,8 +182,14 @@
                 					</div>
                 					
                 					<div class="col-md-12">
-                						<label for="rent-price-input" id="rent-price-label">풋살화 대여가격 (대여서비스를 제공하지 않을 시 비워두시면 됩니다.)</label>
+                						<label for="rent-price-input" id="rent-price-label">풋살화 대여가격 <span>(대여서비스를 제공하지 않을 시 비워두시면 됩니다.)</span></label>
                   						<input type="number" class="form-control" name="rent_price" id="rent-price-input" min="0">
+                					</div>
+                					
+                					<div class="col-md-12" id="file-img-p">
+                						<label for="field-img-input" id="field-img-label">구장 대표 이미지*</label>
+                						<p>10MB 이하의 파일만 업로드 가능하며, .jpg .jpeg .png만을 허용합니다.</p>
+                  						<input type="file" class="form-control" name="field_img" id="field-img-input" accept=".png, .jpg, .jpeg">
                 					</div>
 
                 					<div class="col-md-12">
@@ -255,14 +232,43 @@
              
           </div>
 
-		  <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-		  	 
+		  <div class="col-lg-4" id="side-box-flex" data-aos="fade-up" data-aos-delay="200">
+
+          		<h3 style="text-align:left; padding-bottom:20px;">Contact</h3>
+          					
+            	<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">	
+              		<i class="bi bi-geo-alt flex-shrink-0"></i>
+              		<div>
+                		<h3>Address</h3>
+                		<p>#임의의 주소</p>
+              		</div>
+            	</div><!-- End Info Item -->
+		
+            	<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
+              		<i class="bi bi-telephone flex-shrink-0"></i>
+              		<div>
+                		<h3>Call Us</h3>
+                		<p>#임의의 전화번호</p>
+              		</div>
+           		</div><!-- End Info Item -->
+		
+            	<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="500">
+              		<i class="bi bi-envelope flex-shrink-0"></i>
+              		<div>
+                		<h3>Email Us</h3>
+                		<p>#임의의 이메일@example.com</p>
+              		</div>
+            	</div><!-- End Info Item -->
+
+		  	<!-- 
             <div class="services-list">
               # img 파일을 선택하고 점부를 위한 공간입니다.
             </div>
            
             <h4>파일 첨부 규칙</h4>
             <p>10MB 이하의 파일만 업로드 가능하며, .jpg .jpeg .png만을 허용합니다.</p>
+             -->
+             
           </div>
 
         </div>
@@ -298,6 +304,20 @@
             alert('구장 크기(길이)를 입력해주세요.');
             form.field_size_height.focus();
             event.preventDefault();
+        } else if(!form.field_img.value) {
+			alert('구장 대표 이미지를 선택해주세요.');
+			form.field_img.focus();
+			event.preventDefault();
+        } else if(form.field_img.value) {
+			const val = form.field_img.value;
+			const idx = val.lastIndexOf(".");
+			const type = val.substring(idx+1, val.length);
+			
+			if(!(type == 'png' || type == 'jpg' || type == 'jpeg')) {
+				alert('이미지 파일 형식이 맞지 않습니다.');
+				form.field_img.focus();
+				event.preventDefault();
+			}
         } else if(!chkTerms) {
             alert("약관을 읽고 체크해주세요.");
 			event.preventDefault();
@@ -324,7 +344,7 @@
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
 
   <!-- Main JS File -->
-  <script src="/resources/js/common.js"></script>
+  <script src="<%= request.getContextPath() %>/resources/js/common.js"></script>
 
 </body>
 

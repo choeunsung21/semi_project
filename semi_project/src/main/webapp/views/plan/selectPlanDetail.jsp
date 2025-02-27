@@ -173,7 +173,7 @@
                 <li><strong>Time </strong> #10:00 ~ 12:00</li>
                 <li><strong>Price </strong> #200,000원</li>
                 <li><strong>URL</strong> <a href="#">www.example.com</a></li>
-                <li><a href="#" class="btn-visit align-self-start">예약하기</a></li>
+                <li><a href="/insertReservation" class="btn-visit align-self-start" onclick="return confirm('예약하시겠습니까?')">예약하기</a></li>
               </ul>
             </div>
           </div>
@@ -205,7 +205,7 @@
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
 
   <!-- Main JS File -->
-  <script src="/resources/js/common.js"></script>
+  <script src="<%= request.getContextPath() %>/resources/js/common.js"></script>
 
 </body>
 

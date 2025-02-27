@@ -34,6 +34,7 @@
   <!-- Main CSS File -->
   <link href="<%= request.getContextPath() %>/resources/css/include/common.css" rel="stylesheet" type="text/css">
   <link href="<%= request.getContextPath() %>/resources/css/cjs.css" rel="stylesheet" type="text/css">
+  <link href="<%= request.getContextPath() %>/resources/css/ces.css" rel="stylesheet" type="text/css">
 
   <!-- =======================================================
   * Template Name: OnePage
@@ -138,6 +139,7 @@
                 					</div>
 									
 									<div class="col-md-12">
+										<label for="field-no-select" id="field-no-label">구장 선택</label>
 										<select id="field-no-select" name="field_no">
 											<option value="0">구장명</option>
 											<option value="1">#구장(1)</option>
@@ -147,19 +149,43 @@
                 					</div>
                 					
                 					<div class="col-md-6" id="plan-date-select">
-                  						<input type="date" class="form-control" name="plan_date" placeholder="날짜" required>
+                						<label for="plan-date-select" id="plan-date-label">날짜 선택</label>
+                  						<input type="date" class="form-control" id="plan-date-select" name="plan_date" placeholder="날짜" required>
                 					</div>
                 					
                 					<div class="col-md-6" id="plan-time-select">
+                					<!-- 
                   						<input type="time" class="form-control" name="plan_time" placeholder="시간" required>
+                  					 -->
+	                  					<label for="plan-time-select" id="plan-time-label">시작 시간</label>
+	                  					<select id="plan-time-select" name="plan_time">
+										    <%
+										        for (int i = 0; i < 24; i++) {
+										            String hour = String.format("%02d:00", i);
+										    %>
+										            <option value="<%= hour %>"><%= hour %></option>
+										    <%
+										        }
+										    %>
+										</select>
                 					</div>
                 					
                 					<div class="col-md-12">
+                  						<!-- 
                   						<input type="text" class="form-control" name="rule_usetime" placeholder="이용시간 (입력하지 않으면 2시간 기본입니다.)">
+                  						 -->
+                  						 <label for="use-time-select" id="use-time-label">이용 시간</label>
+                  						 <select id="use-time-select" name="use_time">
+										     <option value="1">1시간</option>
+										     <option value="2" selected="selected">2시간</option>
+										     <option value="3">3시간</option>
+										     <option value="4">4시간</option>
+										</select>
                 					</div>
                 					
                 					<div class="col-md-12">
-                  						<input type="text" class="form-control" name="plan_price" placeholder="가격 (입력하지 않으면 무료입니다.)">
+                						<label for="plan-price-int" id="plan-price-label">이용료</label>
+                  						<input type="number" class="form-control" name="plan_price" min="0" value="0">
                 					</div>
 
 									<p>
@@ -243,7 +269,7 @@
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
 
   <!-- Main JS File -->
-  <script src="/resources/js/common.js"></script>
+  <script src="<%= request.getContextPath() %>/resources/js/common.js"></script>
 
 </body>
 

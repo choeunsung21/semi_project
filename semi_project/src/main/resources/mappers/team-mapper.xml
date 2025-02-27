@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="teamMapper">
+    <resultMap type="com.gn.team.vo.Team" id="teamMap">
+        <result property="teamNo" column="team_no"/>
+        <result property="teamName" column="team_name"/>
+        <result property="leaderNo" column="leader_no"/>
+        <result property="teamArea" column="team_area"/>
+        <result property="preferGender" column="prefer_gender"/>
+        <result property="teamLevel" column="team_level"/>
+        <result property="teamCount" column="team_count"/>
+        <result property="teamLimit" column="team_limit"/>
+        <result property="teamExplanation" column="team_explanation"/>
+        <result property="regDate" column="reg_date"/>
+        <result property="modDate" column="mod_date"/>
+    </resultMap>
+	    <insert id="insertTeam" parameterType="Team" useGeneratedKeys="true" keyProperty="teamNo">
+        	INSERT INTO `team` (team_name, leader_no, team_area, prefer_gender, team_level, team_count, team_limit, team_explanation, reg_date)
+        	VALUES (#{teamName}, #{leaderNo}, #{teamArea}, #{preferGender}, #{teamLevel}, #{teamCount}, #{teamLimit}, #{teamExplanation}, NOW());
+    	</insert>
+</mapper>
