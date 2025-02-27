@@ -83,5 +83,13 @@
 		VALUES(#{writerNo} ,#{boardNo} ,#{replyContent})
 	</insert>
 	
+	<select id="selectReply" parameterType="_int" resultMap="replyMap">
+		SELECT *
+		FROM `reply` r
+		JOIN `user` u ON r.writer_no = u.user_no
+		JOIN `board` b ON r.board_no = b.board_no
+		WHERE r.board_no = #{boardNo}
+	</select>
+	
 
 </mapper>

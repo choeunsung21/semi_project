@@ -55,6 +55,8 @@ public class AddReplyEndServlet extends HttpServlet {
 		}
 		response.setContentType("application/json; charset=utf-8");
 		response.getWriter().print(obj);
+		
+		
 	}
 
 	

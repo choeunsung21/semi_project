@@ -90,6 +90,13 @@ public class BoardService {
 		return result;
 	}
 	
+	public List<Reply> selctReplyList(int boardNo) {
+		SqlSession session = getSqlSession(true);
+		List<Reply> reply = new BoardDao().selctReplyList(session,boardNo);
+		session.close();
+		return reply;
+	}
+	
 
 
 }

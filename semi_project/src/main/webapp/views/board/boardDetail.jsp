@@ -128,6 +128,19 @@
             	</div>
           	  </div>
           	  
+          	       <div class="col-lg-3" data-aos="fade-up" data-aos-delay="100" style="inline-block;">
+            	<div class="portfolio-info">
+                    <h2>댓글 목록</h2>
+              		<ul id="replayList">
+               	 	<%-- 	 <li><strong>제목</strong> ${board.boardTitle }</li>
+                		<li><strong>작성자</strong>${board.userId }</li>
+                		<fmt:parseDate value="${board.regDate }" pattern="yyyy-MM-dd'T'HH:mm:ss" var="thisDate" />
+                		<li><strong>등록일</strong><fmt:formatDate value="${thisDate }" pattern="yyyy-MM-dd" /></li>
+                		<li><strong>내용</strong> ${board.boardContent }</li>  --%>
+              		</ul>
+            	</div>
+          	  </div>
+          	  
          <div class="form-box">
           	  <h2>댓글</h2>
           	  <form action="addReplyEndServlet" name="addReply" method="get">
@@ -145,6 +158,20 @@
           	  </form>
          </div> 	
          <script type="text/javascript">
+         $(document).ready(function(){
+        	 const boardNo = $('#boardNo').val();
+        	 console.log(boardNo)
+        	 $.ajax({
+        		 url:"/selectReplyList",
+        		 type:"get",
+        		 data:{"boardNo" : boardNo},
+        		 dataType:"json",
+        		 success:function(data){
+        			$("#replyList").append("<li>" + "작성자:" + data.userId + " " + data.replyContent + "</li>" )
+        		 	console.log(data);        			 
+        		 }
+        	 })
+         })
          
          const writeReply = function(){
         	event.preventDefault();

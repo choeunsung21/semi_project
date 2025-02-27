@@ -47,4 +47,8 @@ public class BoardDao {
 		return session.insert("boardMapper.insertReply",reply);
 	}
 	
+	public List<Reply> selctReplyList(SqlSession session, int boardNo) {
+		return session.selectList("boardMapper.selectReply",boardNo);
+	}
+	
 }
