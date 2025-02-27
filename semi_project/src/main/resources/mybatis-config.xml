@@ -7,9 +7,11 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<typeAliases>
 		<typeAlias type="com.gn.field.vo.Field" alias="field"/>
 		<typeAlias type="com.gn.field.vo.Dayoff" alias="dayoff"/>
-		<typeAlias type="com.gn.field.vo.FieldAttach" alias="fieldAttach"/>
 		<typeAlias type="com.gn.board.vo.Board" alias="board"/>
+		<typeAlias type="com.gn.reservation.vo.Reservation" alias="reservation"/>
+		<typeAlias type="com.gn.field.vo.FieldAttach" alias="fieldAttach"/>
 		<typeAlias type="com.gn.user.vo.User" alias="user"/>
+		<typeAlias type="com.gn.plan.vo.Plan" alias="plan"/>
 		<typeAlias type="com.gn.board.vo.Attach" alias="attach"/>
 	</typeAliases>
 	<environments default="development">
@@ -26,8 +28,10 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<mappers>
 		<mapper resource="/mappers/field-mapper.xml"/>
 		<mapper resource="/mappers/dayoff-mapper.xml"/>
-		<mapper resource="/mappers/field-attach-mapper.xml"/>
 		<mapper resource="/mappers/board-mapper.xml"/>
+		<mapper resource="/mappers/reservation-mapper.xml"/>
+		<mapper resource="/mappers/field-attach-mapper.xml"/>
 		<mapper resource="/mappers/user-mapper.xml"/>
+		<mapper resource="/mappers/plan-mapper.xml"/>
 	</mappers>
 </configuration>
