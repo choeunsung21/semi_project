@@ -67,7 +67,7 @@
           <div class="col-md-6 col-lg-3" data-aos="zoom-out" data-aos-delay="300">
             <div class="icon-box">
               <div class="icon"><i class="bi bi-geo-alt"></i></div>
-              <h4 class="title"><a href="/portfolio-details.jsp">자유게시판</a></h4>
+              <h4 class="title"><a href="/selectBoardList">자유게시판</a></h4>
               <p class="description">Bulletin board</p>
             </div>
           </div><!--End Icon Box -->
