@@ -39,7 +39,11 @@ public class SelectReplyList extends HttpServlet {
 		//reply를 set해준다 그리고 넘겨준다
 		//jason오브젝트로
 		JSONObject obj = new JSONObject();
-		obj.put("reply", reply);
+		for(Reply replylist : reply) {
+			obj.put("writerNo", replylist.getBoardNo());
+			obj.put("boardNo", replylist.getBoardNo());
+			obj.put("replyContent", replylist.getReplyContent());
+		}
 		
 		response.setContentType("application/json; charset = utf-8");
 		response.getWriter().print(obj);
