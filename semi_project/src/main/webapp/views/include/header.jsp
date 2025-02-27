@@ -56,6 +56,7 @@
 										<ul>
 											<li><a href="/insertField">구장 등록</a></li>
 											<li><a href="/insertPlan">스케줄 직접 등록</a></li>
+
 											<li><a href="/insertRule">스케줄 등록 규칙 설정</a></li>
 											
 											
@@ -72,6 +73,7 @@
 											
 											
 											
+
 											<li><a href="/selectPlanDetail">스케줄 상세 조회</a></li>
 											<!-- <li><a href="#">Deep Dropdown 4</a></li> -->
 											<!-- <li><a href="#">Deep Dropdown 5</a></li> -->
