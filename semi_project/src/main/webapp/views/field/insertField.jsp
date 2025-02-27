@@ -430,9 +430,9 @@
 		/** 2017년 3월 추가제공 **/
 		document.form.emdNo.value = emdNo;
 		
-		$("field-addr-input").val = roadFullAddr;
+		insertInput();
+		
 	}
-
 	</script>
 </body>
 
