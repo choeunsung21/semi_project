@@ -23,6 +23,13 @@
 	font-weight: bold;
 }
 
+#services-list-div a span {
+	font-size:14px;
+	color: rgba(88, 88, 88, 0.8);
+	font-family: "Raleway",  sans-serif;
+	font-weight: bold;
+}
+
 #service-details h2 {
 	text-align:center;
 }

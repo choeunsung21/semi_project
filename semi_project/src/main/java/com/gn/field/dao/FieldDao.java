@@ -26,7 +26,7 @@ public class FieldDao {
 		return session.insert("fieldAttachMapper.insertAttachOne", attach);
 	}
 	
-	public List<Field> selectFieldListByUserNo(SqlSession session, User user) {
+	public List<Field> selectFieldListByUser(SqlSession session, User user) {
 		return session.selectList("fieldMapper.selectFieldList", user);
 	}
 }
