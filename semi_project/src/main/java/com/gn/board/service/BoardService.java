@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.gn.board.dao.BoardDao;
 import com.gn.board.vo.Attach;
 import com.gn.board.vo.Board;
+import com.gn.board.vo.Reply;
 
 
 public class BoardService {
@@ -58,13 +59,33 @@ public class BoardService {
 					session.rollback();
 				}
 				
-			}
-			
-			
-		
+			}			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		session.close();
+		return result;
+	}
+	
+	//상세조회를 했을 때의 메소드
+	public Board selectBoardOne(int boardNo) {
+		SqlSession session = getSqlSession(true);
+		Board board = new BoardDao().selectBoardOne(session , boardNo);
+		session.close();
+		return board;
+	}
+	
+	public Attach selectAttachOne(int attachNo) {
+		SqlSession session = getSqlSession(true);
+		Attach attach = new BoardDao().selectAttachOne(session,attachNo);
+		session.close();
+		return attach;
+	}
+	
+	//댓글 등록 메소드
+	public int insertReply(Reply reply) {
+		SqlSession session = getSqlSession(true);
+		int result = new BoardDao().insertReply(session,reply);
 		session.close();
 		return result;
 	}

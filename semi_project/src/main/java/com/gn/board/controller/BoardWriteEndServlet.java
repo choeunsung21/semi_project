@@ -101,11 +101,11 @@ public class BoardWriteEndServlet extends HttpServlet {
 			JSONObject obj = new JSONObject();
 			
 			//null체크
-			if(result > 0) {
-				System.out.println("게시글이 작성 완료!");
-			}else {
-				System.out.println("게시글이 작성 실패 ㅠㅠ");
-			}
+//			if(result > 0) {
+//				System.out.println("(BoardWriterEndServlet에 있습니다)게시글이 작성 완료!");
+//			}else {
+//				System.out.println("게시글이 작성 실패 ㅠㅠ");
+//			}
 			if(result > 0) {
 				obj.put("res_code", 200);
 				obj.put("res_msg", "정삭적으로 게시글이 등록되었습니다");

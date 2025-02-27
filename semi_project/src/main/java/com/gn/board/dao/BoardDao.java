@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.gn.board.vo.Attach;
 import com.gn.board.vo.Board;
+import com.gn.board.vo.Reply;
 
 public class BoardDao {
 	
@@ -15,26 +16,35 @@ public class BoardDao {
 		return session.selectList("boardMapper.boardList",board);
 	}
 	
-	/*
-	 * //게시판 검색 버튼에 제목을 입력했을때 public Board searchList(SqlSession session , String
-	 * boardTitle) { return session.selectOne(boardTitle); }
-	 */
-	
+
 	//행을 구하는 메소드
 	public int selectBoardCount(SqlSession session, Board board) {
 		return session.selectOne("boardMapper.selectBoardCount",board);
 	}
 	
+	//게시판 등록 메소드
 	public int insertBoard(Board board,SqlSession session) {
 		int result =  session.insert("boardMapper.boardWrite",board);
-		System.out.println("인선트write : " + board.getBoardNo());
+		System.out.println("(BoardDao에 있습니다)인선트write : " + board.getBoardNo());
 		return result;
 	}
 	
+	//게시판 이미지 등록 트랜직션
 	public int insertAttach(Attach attach, SqlSession session ) {
-		return session.insert("boardMapper.attachFile",attach);
-		
-		
+		return session.insert("boardMapper.attachFile",attach);			
 	}
-
+	
+	//게시판 상세조회 메소드 -> 아이디,제목,등록일
+	public Board selectBoardOne(SqlSession session, int boardNo) {
+		return session.selectOne("boardMapper.selectDetail",boardNo);
+	}
+	
+	public Attach selectAttachOne(SqlSession session , int attachNo) {
+		return session.selectOne("boardMapper.selectAttach",attachNo);
+	}
+	
+	public int insertReply(SqlSession session, Reply reply) {
+		return session.insert("boardMapper.insertReply",reply);
+	}
+	
 }

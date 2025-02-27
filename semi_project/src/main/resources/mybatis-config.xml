@@ -10,6 +10,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.gn.board.vo.Board" alias="board"/>
 		<typeAlias type="com.gn.user.vo.User" alias="user"/>
 		<typeAlias type="com.gn.board.vo.Attach" alias="attach"/>
+		<typeAlias type="com.gn.board.vo.Reply" alias="reply"/>
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">
