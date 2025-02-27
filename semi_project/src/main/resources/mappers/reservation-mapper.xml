@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reservationMapper">
+	<resultMap type="reservation" id="reservationMap">
+		<result property="reservationNo" column="reservation_no" />
+		<result property="userNo" column="user_no" />
+		<result property="planNo" column="plan_no" />
+		<result property="regDate" column="reg_date" />
+	</resultMap>
+	<insert id="insertReservationOne" parameterType="reservation">
+		INSERT INTO `reservation` (user_no ,plan_no)
+		VALUES (#{userNo} ,#{planNo})
+	</insert>
+	<delete id="deleteReservationOne" parameterType="reservation">
+		DELETE FROM `reservation` WHERE #{reservationNo}
+	</delete>
+</mapper>

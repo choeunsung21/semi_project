@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="planMapper">
+	<resultMap type="plan" id="planMap">
+		<result property="planNo" column="plan_no" />
+		<result property="fieldNo" column="field_no" />
+		<result property="planDate" column="plan_date" />
+		<result property="planTime" column="plan_time" />
+		<result property="planPrice" column="plan_price" />
+		<result property="useTime" column="use_time" />
+		<result property="regDate" column="reg_date" />
+		<result property="modDate" column="mod_date" />
+	</resultMap>
+	<insert id="insertPlanOne" parameterType="plan">
+		INSERT INTO `plan`
+		(field_no ,plan_date ,plan_time ,plan_price ,use_time)
+		VALUES (#{fieldNo} ,#{planDate} ,#{planTime} ,#{planPrice} ,#{useTime})
+	</insert>
+	<select id="selectRegisteredPlanList" resultMap="planMap" parameterType="plan">
+		SELECT p.plan_no ,f.field_name ,p.plan_date ,p.plan_time ,p.use_time  
+		FROM `plan` p
+		JOIN `field` f ON p.field_no = f.field_no
+		JOIN `user` u ON u.user_no = f.user_no
+		WHERE f.user_no = #{userNo}
+	</select>
+</mapper>

@@ -1,12 +1,12 @@
-package com.gn.board.vo;
+package com.gn.plan.vo;
 
 import java.time.LocalDateTime;
 
-import com.gn.board.page.Paging;
+import com.gn.reservation.vo.Reservation;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,15 +17,17 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode
 @Builder
-
-//board클래스에서 memberName에서 -> userName으로 수정
-public class Board extends Paging  {
-	private int boardNo;
-	private int writerNo;
-	private String boardTitle;
-	private String boardContent;
+public class Plan {
+	private int planNo;
+	private int fieldNo;
+	private String planDate;
+	private String planTime;
+	private String planPrice;
+	private String useTime;
 	private LocalDateTime regDate;
 	private LocalDateTime modDate;
-	private String userName;
+	private String fieldName;
+	private int userNo;
 }
