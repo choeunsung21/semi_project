@@ -13,10 +13,10 @@ import org.json.simple.JSONObject;
 import com.gn.user.service.UserService;
 
 @WebServlet("/checkIdServlet")
-public class checkIdServlet extends HttpServlet {
+public class CheckUserIdServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
-    public checkIdServlet() {
+    public CheckUserIdServlet() {
         super();
       
     }
@@ -29,7 +29,7 @@ public class checkIdServlet extends HttpServlet {
 		int result = new UserService().checkIdUser(id);
 		
 		JSONObject obj = new JSONObject();
-		obj.put("res_cods","사용 가능한 아이다잉~");
+		obj.put("res_cods","사용 가능한 아이디다잉~");
 		obj.put("res_msg", "사용 가능한 아이디 입니다.");
 		
 		if(result > 0) {

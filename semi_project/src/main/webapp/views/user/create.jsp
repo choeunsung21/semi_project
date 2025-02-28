@@ -28,9 +28,7 @@
 
   <!-- Main CSS File -->
   <link href="<%= request.getContextPath() %>/resources/css/include/common.css" rel="stylesheet">
-  <!-- 버튼 CSS 지울수도 있음-->
-  <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&display=swap" rel="stylesheet">
+
 </head>
 
 <body class="register-page">
@@ -81,7 +79,7 @@
                   <input type="password" id="userPw" class="form-control" name="user_pw" placeholder="비밀번호" required>
                 	<button type="button" id="togglePassword1" class="btn btn-outline-secondary ms-2" 
           			style="border: none; background: transparent;">
-    				👁️
+    				👁️‍🗨️
   					</button>
   					</div>
   					<div>
@@ -94,7 +92,7 @@
                   <input type="password" id="checkUserPw" class="form-control" name="check_user_pw" placeholder="비밀번호 확인" required>
                 	<button type="button" id="togglePassword2" class="btn btn-outline-secondary ms-2" 
           			style="border: none; background: transparent;">
-    				👁️
+    				👁️‍🗨️
   					</button>
                 </div>
                 <div>
