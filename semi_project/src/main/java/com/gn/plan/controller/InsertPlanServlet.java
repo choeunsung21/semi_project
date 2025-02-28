@@ -25,9 +25,8 @@ public class InsertPlanServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-		
+		// 세션확인
 		if(session != null && session.getAttribute("user") != null) {
-			// 세션이 정상적으로 생성
 			User user = (User)session.getAttribute("user");
 			
 			List<Field> fieldList = new FieldService().selectFieldListByUserNo(user);

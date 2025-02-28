@@ -12,8 +12,10 @@
 		<result property="useTime" column="use_time" />
 		<result property="regDate" column="reg_date" />
 		<result property="modDate" column="mod_date" />
-		
-		<association property="field" javaType="field">
+		<association property="field" resultMap="fieldMap" />
+	</resultMap>
+	
+	<resultMap type="field" id="fieldMap">
 			<result property="fieldNo" column="field_no" />
 			<result property="fieldName" column="field_name" />
 			<result property="fieldSize" column="field_size" />
@@ -28,32 +30,69 @@
 			<result property="message" column="message" />
 			<result property="regDate" column="reg_date" />
 			<result property="modDate" column="mod_date" />
-		</association>
 	</resultMap>
+	
+	<!-- 일정 등록 -->
 	<insert id="insertPlanOne" parameterType="plan">
 		INSERT INTO `plan`
 		(field_no ,plan_date ,plan_time ,plan_price ,use_time)
 		VALUES (#{fieldNo} ,#{planDate} ,#{planTime} ,#{planPrice} ,#{useTime})
 	</insert>
-	<select id="selectRegisteredPlanList" resultMap="planMap" parameterType="user">
+	
+	<!-- 특정 업체가 등록한 일정 목록 조회 -->
+	<select id="selectRegisteredPlanList" resultMap="planMap" parameterType="plan">
 		SELECT p.plan_no ,f.field_name ,p.plan_date ,p.plan_time ,p.use_time  
 		FROM `plan` p
 		JOIN `field` f ON p.field_no = f.field_no
 		JOIN `user` u ON u.user_no = f.user_no
 		WHERE f.user_no = #{userNo}
+		ORDER BY p.plan_no DESC
+		LIMIT #{limitPageNo} ,#{numPerPage}
 	</select>
+	
+	<!-- 특정 업체가 등록한 일정 목록 페이징 -->
+	<select id="selectRegPlanCount" resultType="int" parameterType="plan">
+		SELECT COUNT(*)
+		FROM `plan` p
+		JOIN `field` f
+		ON p.field_no = f.field_no
+		WHERE f.user_no = #{userNo}
+	</select>
+	
+	<!-- 특정 업체가 등록한 일정 상세 조회 -->
 	<select id="selectRegisteredPlanDetail" resultMap="planMap" parameterType="_int">
 		SELECT * FROM `plan`
 		WHERE plan_no = #{planNo}
 	</select>
+	
+	<!-- 특정 업체가 등록한 일정 삭제 -->
+	<delete id="deletePlan" parameterType="plan">
+		DELETE FROM `plan`
+		WHERE plan_no = #{planNo}
+	</delete>
+	
+	<!-- 일정 목록 조회 -->
+	<select id="selectPlanList" resultMap="planMap" parameterType="plan">
+		SELECT * FROM `plan` p
+		JOIN `field` f ON p.field_no = f.field_no
+		ORDER BY p.plan_date
+		LIMIT #{limitPageNo} ,#{numPerPage}
+	</select>	
+	
+	<!-- 일정 목록 페이징 -->
+	<select id="selectPlanListCount" resultType="int" parameterType="plan">
+		SELECT COUNT(*)
+		FROM `plan` p
+		JOIN `field` f
+		ON p.field_no = f.field_no
+	</select>
+	
+	<!-- 일정 상세 조회 -->
 	<select id="selectPlanDetail" resultMap="planMap" parameterType="_int">
 		SELECT *
 		FROM `plan` p
 		JOIN `field` f ON p.field_no = f.field_no
 		WHERE p.plan_no = #{planNo}
 	</select>
-	<delete id="deletePlan" parameterType="plan">
-		DELETE FROM `plan`
-		WHERE plan_no = #{planNo}
-	</delete>
+	
 </mapper>

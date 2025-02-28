@@ -19,9 +19,9 @@ public class PlanService {
 		return result;
 	}
 
-	public List<Plan> selelctRegisteredPlanList(User user) {
+	public List<Plan> selelctRegisteredPlanList(Plan plan) {
 		SqlSession session = getSqlSession(true);
-		List<Plan> planList = new PlanDao().selectRegisteredPlanList(session, user);
+		List<Plan> planList = new PlanDao().selectRegisteredPlanList(session, plan);
 		session.close();
 		return planList;
 	}
@@ -36,6 +36,27 @@ public class PlanService {
 	public int deletePlan(Plan plan) {
 		SqlSession session = getSqlSession(true);
 		int result = new PlanDao().deletePlan(session, plan);
+		session.close();
+		return result;
+	}
+
+	public int selectRegPlanCount(Plan option) {
+		SqlSession session = getSqlSession(true);
+		int result = new PlanDao().selectRegPlanCount(session, option);
+		session.close();
+		return result;
+	}
+
+	public List<Plan> selectPlanList(Plan option) {
+		SqlSession session = getSqlSession(true);
+		List<Plan> planList = new PlanDao().selectPlanList(session, option);
+		session.close();
+		return planList;
+	}
+
+	public int selectPlanCount(Plan option) {
+		SqlSession session = getSqlSession(true);
+		int result = new PlanDao().selectPlanCount(session, option);
 		session.close();
 		return result;
 	}

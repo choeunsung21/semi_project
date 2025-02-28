@@ -19,7 +19,7 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @Builder
-public class Plan {
+public class Plan extends PagingPlan {
 	private int planNo;
 	private String planDate;
 	private String planTime;

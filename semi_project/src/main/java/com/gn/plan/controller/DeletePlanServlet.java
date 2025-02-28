@@ -26,26 +26,31 @@ public class DeletePlanServlet extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		User user = (User)session.getAttribute("user");
-		int userNo = user.getUserNo();
-		System.out.println(userNo);
-		
-		String temp = request.getParameter("planNo");
-		int planNo = 0;
-		if(temp != null)
-			planNo = Integer.parseInt(temp);
-		Plan plan = new Plan();
-		plan.setPlanNo(planNo);
-		
-		int result = new PlanService().deletePlan(plan);
-		System.out.println("deletePlanServlet : " + result);
-		if(result != 0) {
-			response.sendRedirect("/selectRegisteredPlanList");
-		} else {
-			RequestDispatcher view = request.getRequestDispatcher("/views/plan/deleteFail.jsp");
-			view.forward(request, response);
-		}
+		HttpSession session = request.getSession(false);
+    	// 세션확인
+    	if(session != null && session.getAttribute("user") != null) {
+    		// 세션 유저정보 get
+    		// User user = (User)session.getAttribute("user");
+    		// int userNo = user.getUserNo();
+    		
+    		String temp = request.getParameter("planNo");
+    		int planNo = 0;
+    		if(temp != null)
+    			planNo = Integer.parseInt(temp);
+    		Plan plan = new Plan();
+    		plan.setPlanNo(planNo);
+    		
+    		int result = new PlanService().deletePlan(plan);
+    		System.out.println("deletePlanServlet : " + result);
+    		if(result != 0) {
+    			response.sendRedirect("/selectRegisteredPlanList");
+    		} else {
+    			RequestDispatcher view = request.getRequestDispatcher("/views/plan/deleteFail.jsp");
+    			view.forward(request, response);
+    		}
+    	} else {
+    		System.out.println("InsertRuleServlet : 세션에 유저정보가 존재하지 않습니다.");
+    	}
 	}
 
 

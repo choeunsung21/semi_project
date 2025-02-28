@@ -13,8 +13,8 @@ public class PlanDao {
 		return session.insert("planMapper.insertPlanOne", plan);
 	}
 
-	public List<Plan> selectRegisteredPlanList(SqlSession session, User user) {
-		return session.selectList("planMapper.selectRegisteredPlanList", user);
+	public List<Plan> selectRegisteredPlanList(SqlSession session, Plan plan) {
+		return session.selectList("planMapper.selectRegisteredPlanList", plan);
 	}
 
 	public Plan selectPlanDetail(SqlSession session, int planNo) {
@@ -25,4 +25,16 @@ public class PlanDao {
 		return session.delete("planMapper.deletePlan", plan);
 	}
 
+	public int selectRegPlanCount(SqlSession session, Plan option) {
+		return session.selectOne("planMapper.selectRegPlanCount", option);
+	}
+
+	public List<Plan> selectPlanList(SqlSession session, Plan option) {
+		return session.selectList("planMapper.selectPlanList", option);
+	}
+
+	public int selectPlanCount(SqlSession session, Plan option) {
+		return session.selectOne("planMapper.selectPlanListCount", option);
+	}
+	
 }

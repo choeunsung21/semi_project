@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.gn.plan.service.PlanService;
+import com.gn.plan.vo.PagingPlan;
 import com.gn.plan.vo.Plan;
 import com.gn.user.vo.User;
 
@@ -32,14 +33,27 @@ public class SelectRegisteredPlanListServlet extends HttpServlet {
 		
 		if(session != null && session.getAttribute("user") != null) {
 			User user = (User)session.getAttribute("user");
+			int userNo = user.getUserNo();
 			
-			List<Plan> registeredPlanList = new PlanService().selelctRegisteredPlanList(user);
+			String nowPageParam = request.getParameter("nowPage");
+			int nowPage = (nowPageParam != null) ? Integer.parseInt(nowPageParam) : 1;
+            int numPerPage = 10;
+            Plan option = new Plan();
+            option.setUserNo(userNo);
+            option.setNowPage(nowPage);
+            option.setNumPerPage(numPerPage);
+            int totalData = new PlanService().selectRegPlanCount(option);
+            option.setTotalData(totalData);
+            
+			
+			List<Plan> registeredPlanList = new PlanService().selelctRegisteredPlanList(option);
 			
 			RequestDispatcher view = request.getRequestDispatcher("/views/plan/registeredPlanList.jsp");
 			request.setAttribute("registeredPlanList", registeredPlanList);
+			request.setAttribute("paging", option);
 			view.forward(request, response);
 		} else {
-			System.out.println("InsertRuleServlet : 세션에 유저정보가 존재하지 않습니다.");
+			System.out.println("SelectRegPlanList : 세션에 유저정보가 존재하지 않습니다.");
 		}
 	}
 
