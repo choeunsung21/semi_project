@@ -23,9 +23,13 @@
 		<result property="attachPath" column="attach_path" />
 	</resultMap>
 	<resultMap type="reply" id="replyMap">
+		<result property="replyNo" column="reply_no" />
 		<result property="writerNo" column="writer_no" />
 		<result property="boardNo" column="board_no" />
+		<result property="userId" column="user_id" />
 		<result property="replyContent" column="reply_content" />
+		<result property="regDate" column="reg_date" />
+		<result property="modDate" column="mod_date" />
 	</resultMap>
 		
 	<select id="boardList" resultMap="boardMap">
@@ -84,7 +88,7 @@
 	</insert>
 	
 	<select id="selectReply" parameterType="_int" resultMap="replyMap">
-		SELECT *
+		SELECT r.* ,u.*
 		FROM `reply` r
 		JOIN `user` u ON r.writer_no = u.user_no
 		JOIN `board` b ON r.board_no = b.board_no

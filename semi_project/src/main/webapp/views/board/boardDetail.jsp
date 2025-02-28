@@ -100,6 +100,45 @@
           <div class="swiper-button-next"></div>
           <div class="swiper-pagination"></div>
         </div>
+        <style>
+        	.reply-list {
+    list-style: none; /* 기본 점 제거 */
+    padding: 0;
+    margin: 0;
+}
+
+.reply-list li {
+    padding: 15px; 
+    margin-bottom: 10px; 
+    background-color: #f9f9f9; 
+    border-radius: 8px; 
+    border: 1px solid #e0e0e0; /
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); 
+    transition: all 0.3s ease; 
+}
+
+.reply-list li:hover {
+    background-color: #f1f1f1; 
+    transform: translateY(-2px); 
+}
+
+.reply-list .writer {
+    font-weight: bold; 
+    color: #333; /
+    margin-right: 10px; 
+}
+
+.reply-list .content {
+    color: #666; 
+}
+
+/* 반응형 조정 */
+@media (max-width: 768px) {
+    .reply-list li {
+        padding: 10px;
+        font-size: 14px;
+    }
+        </style>
 
 
               
@@ -115,6 +154,15 @@
               		</ul>
             	</div>
           	  </div>
+          	  <div>
+          	  <!-- 게시글을 쓴 사람만 삭제 수정버튼을 보이게 함  -->
+          	  	<c:if test="${sessionScope.user.userNo eq board.writerNo }">
+          	  	<a href="/boardUpdate?boardNo=${board.boardNo }&boardTitle=${board.boardTitle}&boardContent=${board.boardContent}&writerNo=${board.writerNo}&attachNo=${board.attachNo}" class="btn btn-outline-primary">글 수정</a>
+          	  	<a href="/login" class="btn btn-outline-primary">글 삭제</a>
+          	  	</c:if>
+          	  </div>
+          	  	<br><br>
+          	  	
           	  	
           	 <div class="col-lg-3" data-aos="fade-up" data-aos-delay="100" style="display:inline-block;">
             	<div class="portfolio-info">
@@ -131,12 +179,8 @@
           	       <div class="col-lg-3" data-aos="fade-up" data-aos-delay="100" style="inline-block;">
             	<div class="portfolio-info">
                     <h2>댓글 목록</h2>
-              		<ul id="replayList">
-               	 	<%-- 	 <li><strong>제목</strong> ${board.boardTitle }</li>
-                		<li><strong>작성자</strong>${board.userId }</li>
-                		<fmt:parseDate value="${board.regDate }" pattern="yyyy-MM-dd'T'HH:mm:ss" var="thisDate" />
-                		<li><strong>등록일</strong><fmt:formatDate value="${thisDate }" pattern="yyyy-MM-dd" /></li>
-                		<li><strong>내용</strong> ${board.boardContent }</li>  --%>
+              		<ul id="replayList" class="reply-list">
+               
               		</ul>
             	</div>
           	  </div>
@@ -145,6 +189,7 @@
           	  <h2>댓글</h2>
           	  <form action="addReplyEndServlet" name="addReply" method="get">
           	  	<input type=hidden id="boardNo" name="boardNo" value="${board.boardNo }">
+          	  	<input type=hidden id="attachNo" name="attachNo" value="${board.attachNo }">
           	  	<input type=hidden id="writerNo" name="writerNo" value="${sessionScope.user.userNo }">
           	  	<textarea name="replyContent" rows="2" cols="50" id="replyContent" placeholder="댓글을 입력하세요"></textarea> <br>
           	  	<c:choose>
@@ -160,15 +205,36 @@
          <script type="text/javascript">
          $(document).ready(function(){
         	 const boardNo = $('#boardNo').val();
-        	 console.log(boardNo)
+        	 console.log(boardNo);
+        	
         	 $.ajax({
         		 url:"/selectReplyList",
-        		 type:"get",
+        		 type:"post",
         		 data:{"boardNo" : boardNo},
         		 dataType:"json",
+				contentType: "application/x-www-form-urlencoded; charset=UTF-8",
         		 success:function(data){
-        			$("#replyList").append("<li>" + "작성자:" + data.userId + " " + data.replyContent + "</li>" )
-        		 	console.log(data);        			 
+        			
+        			 console.log(data);	
+        			 if(data.list.length === 0){
+        				 $("#replayList").append("<li>"+"댓글이 없습니다"+"</li>")
+        			 }else{
+        				 for (let i = 0; i < data.list.length; i++) {
+        					 $("#replayList").append("<li>" +
+        							    "<span class='writer'>작성자: " + data.list[i].userId + "</span> " +
+        							    "<span class='content'>" + data.list[i].replyContent + "</span>" +
+        							    "<span class='regdate'>" + data.list[i].regDate + "</span>" +
+        							"</li>");
+        					 
+        						 }
+        	                }
+        			 
+        		 },
+        		 complete:function(){
+        			 console.log("확인");
+        		 },
+        		 error:function(){
+        			 console.log("에러");
         		 }
         	 })
          })
