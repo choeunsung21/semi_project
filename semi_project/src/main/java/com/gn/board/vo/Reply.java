@@ -22,4 +22,5 @@ public class Reply {
 	private String replyContent;
 	private LocalDateTime regDate;
 	private LocalDateTime modDate;	
+	private String userId;
 }
