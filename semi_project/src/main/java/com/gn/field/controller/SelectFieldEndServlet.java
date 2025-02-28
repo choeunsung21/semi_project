@@ -54,14 +54,14 @@ public class SelectFieldEndServlet extends HttpServlet {
 				}
 				
 				String isPark = "";
-				if(field.isPark()) {
+				if(field.getIsPark()) {
 					isPark = "주차장 있음";
 				} else {
 					isPark = "주차장 없음";
 				}
 				
 				String isShower = "";
-				if(field.isShower()) {
+				if(field.getIsShower()) {
 					isShower = "샤워실 있음";
 				} else {
 					isShower = "샤워실 없음";

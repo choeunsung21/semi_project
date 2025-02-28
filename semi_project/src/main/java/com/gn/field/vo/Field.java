@@ -26,8 +26,8 @@ public class Field {
 	private int fieldLimit;
 	private String fieldType;
 	private String isIndoor;
-	private boolean isPark;
-	private boolean isShower;
+	private Boolean isPark;
+	private Boolean isShower;
 	private String rentPrice;
 	private int dayoffNo;
 	private String message;
