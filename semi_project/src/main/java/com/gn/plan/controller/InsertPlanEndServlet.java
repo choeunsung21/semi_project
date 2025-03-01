@@ -40,7 +40,7 @@ public class InsertPlanEndServlet extends HttpServlet {
 				.useTime(useTime)
 				.build();
 		
-		int result = new PlanService().InsertPlan(plan);
+		int result = new PlanService().insertPlan(plan);
 		if (result > 0) {
 			// 일정 목록 만들어야함
 			RequestDispatcher view = request.getRequestDispatcher("/views/plan/planList.jsp");
