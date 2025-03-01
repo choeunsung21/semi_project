@@ -42,13 +42,12 @@ public class InsertRuleEndServlet extends HttpServlet {
 				.price(price)
 				.build();
 						
-		System.out.println(planRule);
 		int result = new PlanRuleService().insertPlanRule(planRule);
 		
 		if(result > 0) {
-			System.out.println("정상적으로 등록이 된 상황");
+			System.out.println("InsertRuleEndServlet : 정상적으로 등록이 된 상황");
 		} else {
-			System.out.println("정상적으로 등록이 되지 않은 상황");
+			System.out.println("InsertRuleEndServlet : 정상적으로 등록이 되지 않은 상황");
 		}
 	}
 
