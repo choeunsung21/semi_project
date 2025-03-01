@@ -182,7 +182,7 @@
                 					</div>
                 					
                 					<div class="col-md-12">
-                						<label for="rent-price-input" id="rent-price-label">풋살화 대여가격 <span>(대여서비스를 제공하지 않을 시 비워두시면 됩니다.)</span></label>
+                						<label for="rent-price-input" id="rent-price-label">풋살화 대여가격 <span>(대여서비스를 제공하지 않을 경우 비워두시면 됩니다.)</span></label>
                   						<input type="number" class="form-control" name="rent_price" id="rent-price-input" min="0">
                 					</div>
                 					

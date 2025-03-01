@@ -53,41 +53,43 @@ public class SelectFieldEndServlet extends HttpServlet {
 					}
 				}
 				
-				String isPark = "";
-				if(field.getIsPark()) {
-					isPark = "주차장 있음";
-				} else {
-					isPark = "주차장 없음";
+				if(field != null) {
+					String isPark = "";
+					if(field.getIsPark()) {
+						isPark = "주차장 있음";
+					} else {
+						isPark = "주차장 없음";
+					}
+					
+					String isShower = "";
+					if(field.getIsShower()) {
+						isShower = "샤워실 있음";
+					} else {
+						isShower = "샤워실 없음";
+					}
+					
+					String rentPrice = "";
+					if(field.getRentPrice() == null) {
+						rentPrice = "대여 불가";
+					} else {
+						rentPrice = field.getRentPrice() + "원";
+					}
+					
+					JSONObject obj = new JSONObject();
+					obj.put("fieldName", field.getFieldName());
+					obj.put("fieldAddr", field.getFieldAddr());
+					obj.put("fieldSize", field.getFieldSize());
+					obj.put("fieldLimit", field.getFieldLimit()+"명");
+					obj.put("fieldType", field.getFieldType());
+					obj.put("isIndoor", field.getIsIndoor());
+					obj.put("isPark", isPark);
+					obj.put("isShower", isShower);
+					obj.put("rentPrice", rentPrice);
+					
+					response.setContentType("application/json;charset=utf-8");
+					response.getWriter().print(obj);
 				}
-				
-				String isShower = "";
-				if(field.getIsShower()) {
-					isShower = "샤워실 있음";
-				} else {
-					isShower = "샤워실 없음";
-				}
-				
-				String rentPrice = "";
-				if(field.getRentPrice() == null) {
-					rentPrice = "대여 불가";
-				} else {
-					rentPrice = field.getRentPrice() + "원";
-				}
-				
-				JSONObject obj = new JSONObject();
-				obj.put("fieldName", field.getFieldName());
-				obj.put("fieldAddr", field.getFieldAddr());
-				obj.put("fieldSize", field.getFieldSize());
-				obj.put("fieldLimit", field.getFieldLimit()+"명");
-				obj.put("fieldType", field.getFieldType());
-				obj.put("isIndoor", field.getIsIndoor());
-				obj.put("isPark", isPark);
-				obj.put("isShower", isShower);
-				obj.put("rentPrice", rentPrice);
-				
-				response.setContentType("application/json;charset=utf-8");
-				response.getWriter().print(obj);
-				
+
 			} else {
 				/* 
 				 * 로그인 되어있는 유저가 구장을 등록하지 않은 상황임

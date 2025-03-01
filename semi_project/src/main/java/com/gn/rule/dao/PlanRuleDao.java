@@ -12,4 +12,8 @@ public class PlanRuleDao {
 		List<PlanRule> resultList = session.selectList("planRuleMapper.selectPlanRuleAll");
 		return resultList;
 	}
+	
+	public int insertPlanRule(SqlSession session, PlanRule planRule) {
+		return session.insert("planRuleMapper.insertPlanRule", planRule);
+	}
 }

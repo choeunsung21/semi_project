@@ -18,17 +18,17 @@ public class APIScheduler extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	
 	// Quartz 스케줄러를 위한 SchedulerFactory 및 Scheduler 객체 선언
-	private SchedulerFactory schedulerFactory;  
-	private Scheduler scheduler;  
-
+	private SchedulerFactory schedulerFactory;
+	private Scheduler scheduler;
+	
 	// APIScheduler의 기본 생성자
 	// 스케줄러 팩토리를 생성하고, 스케줄러 팩토리의 도움을 받아 스케줄러를 생성
-	public APIScheduler() {  
-		try {  
+	public APIScheduler() {
+		try {
 			schedulerFactory = new StdSchedulerFactory();
 			scheduler = schedulerFactory.getScheduler();
 		}
-		catch (SchedulerException e) {  
+		catch (SchedulerException e) {
 			e.printStackTrace();  
 		}  
 	} 
@@ -38,30 +38,30 @@ public class APIScheduler extends HttpServlet{
 	@Override
 	public void init() {
 		
-		try {  
+		try {
 			// 스케줄러가 실행할 Job 설정됨
 			// newJob의 매개변수에 실행을 담고 있는 클래스를 넣어둠
 			JobDetail job = newJob(RegularEventScheduler.class)
 					.withIdentity("job1", "group1")	// Job의 ID 및 그룹명 설정
 					.build();
-
+			
 			// CronTrigger를 사용하여 실행 일정 설정
 			CronTrigger trigger = newTrigger()
 					.withIdentity("trigger1", "group1")	// 트리거 ID 및 그룹명 설정
 					.withSchedule(cronSchedule("0 0/1 * * * ?")) // 1분마다 한번씩 동작
 					.build();
-
+			
 			// 스케줄러에 Job과 Trigger 등록
 			scheduler.scheduleJob(job, trigger);
-
+			
 			// 스케줄러 시작
-			scheduler.start(); 
+			scheduler.start();
 			// 스케줄러를 중지하려면 아래 코드 사용
 			// 일반적으로 특정 조건이 충족되면 종료하는 경우 씀
 //			scheduler.shutdown(true);
 		}
-		catch (SchedulerException e) {  
-			e.printStackTrace();  
-		}  
+		catch (SchedulerException e) {
+			e.printStackTrace();
+		}
 	}
 }

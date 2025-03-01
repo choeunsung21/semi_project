@@ -121,7 +121,7 @@
                 					<p>#임의의 전화번호</p>
               					</div>
            					</div><!-- End Info Item -->
-		
+							
             				<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="500">
               					<i class="bi bi-envelope flex-shrink-0"></i>
               					<div>
@@ -129,27 +129,19 @@
                 					<p>#임의의 이메일@example.com</p>
               					</div>
             				</div><!-- End Info Item -->
-		
+						
           				</div>
-		
+						
           				<div class="col-lg-8">
-            				<form action="#" method="post" class="submit-form" name="insert_rule_end_form" data-aos="fade-up" data-aos-delay="200">
+            				<form action="/insertRuleEnd" method="post" class="submit-form" name="insert_rule_end_form" data-aos="fade-up" data-aos-delay="200">
               					<div class="row gy-4">
 									
 									<div class="col-md-12" style="display:none;">
                   						<input type="text" class="form-control" name="user_no" id="user-no-input" value="${user.userNo}" placeholder="담당 회원번호">
                 					</div>
-                					
-                					<div class="col-md-12" style="display:none">
-                						<c:forEach var="field_list" items="${fieldList}" varStatus="vs">
-
-											<input id="" value=""/>
-
-										</c:forEach>
-                					</div>
 
 									<div class="col-md-12">
-										<label for="field-no-select" id="field-no-select-label">구장 선택*</label>
+										<label for="field-no-select" id="field-no-select-label">구장 선택* <span>(등록하신 구장이 없으시면 구장 등록 절차부터 진행해주세요.)</span></label>
 										<select id="field-no-select" name="field_no">
 											<option value="0">구장선택</option>
 											<c:forEach var="field_list" items="${fieldList}" varStatus="vs">
@@ -161,25 +153,52 @@
                 					</div>
 									
                 					<div class="col-md-6" id="rule-open-select">
-                						<label for="rule-open-input" id="rule-open-label">오픈시간*</label>
-                  						<input type="time" class="form-control" name="rule_open" id="rule-open-input" required>
+                  						<label for="rule-open-select" id="rule-open-label">오픈 시간*</label>
+	                  					<select name="rule_open" id="rule-open-select" required>
+	                  								<option value="-1">선택</option>
+										    <%
+										        for (int i = 0; i < 24; i++) {
+										            String openTime = (i+"");
+										            String formattedOpen = String.format("%02d:00", i);
+										    %>
+										            <option value="<%= openTime %>"><%= formattedOpen %></option>
+										    <%
+										        }
+										    %>
+										</select>
                 					</div>
                 					
                 					<div class="col-md-6" id="rule-close-select">
-                						<label for="rule-close-input" id="rule-close-label">마감시간*</label>
-                  						<input type="time" class="form-control" name="rule_close" id="rule-close-input" required>
+                  						<label for="rule-close-select" id="rule-close-label">마감 시간*</label>
+	                  					<select name="rule_close" id="rule-close-select" required>
+	                  								<option value="-1">선택</option>
+										    <%
+										        for (int i = 0; i < 24; i++) {
+										            String closeTime = (i+"");
+										            String formattedClose = String.format("%02d:00", i);
+										    %>
+										            <option value="<%= closeTime %>"><%= formattedClose %></option>
+										    <%
+										        }
+										    %>
+										</select>
                 					</div>
                 					
                 					<div class="col-md-12">
-                						<label for="rule-usetime-input" id="rule-usetime-label">이용시간 <span>(입력하지 않으면 2시간 기본입니다.)</span></label>
-                  						<input type="text" class="form-control" name="rule_usetime" id="rule-usetime-input">
+                  						<label for="rule-usetime-input" id="rule-usetime-label">일정 등록 간격 <span>(둥록간격이 영업시간보다 길 경우 등록되지 않습니다.)</span></label>
+                  						 <select id="rule-usetime-input" name="rule_usetime">
+										     <option value="1">1시간</option>
+										     <option value="2" selected="selected">2시간</option>
+										     <option value="3">3시간</option>
+										     <option value="4">4시간</option>
+										</select>
                 					</div>
                 					
                 					<div class="col-md-12">
-                						<label for="rule-price-input" id="rule-price-label">가격 <span>(입력하지 않으면 무료입니다.)</span></label>
-                  						<input type="text" class="form-control" name="rule_price" id="rule-price-input">
+                						<label for="rule-price-input" id="rule-price-label">가격 <span></span></label>
+                  						<input type="number" class="form-control" name="rule_price" id="rule-price-input" min="0" value="0">
                 					</div>
-
+									
 									<p>
                 						<input id="chk_terms" type="checkbox">&nbsp; 스케줄 등록 관련 약관입니다.
 									</p>                					
@@ -247,21 +266,21 @@
   	const insertRuleForm = function(){
     	const form = document.insert_rule_end_form;
 		let chkTerms = $("#chk_terms").is(":checked");
-							
-		console.log(form.field_no.value);
 		
         if(form.field_no.value == "0") {
         	alert('구장을 선택해주세요.');
         	form.field_no.focus();
         	event.preventDefault();
-        } else if(!form.rule_open.value) {
+        } else if(form.rule_open.value == "-1") {
         	alert('오픈 시간을 선택해주세요.');
         	form.rule_open.focus();
         	event.preventDefault();
-        } else if(!form.rule_close.value) {
+        } else if(form.rule_close.value == "-1") {
         	alert('마감 시간을 선택해주세요.');
         	form.rule_close.focus();
         	event.preventDefault();
+        } else if(form.rule_open.value == form.rule_close.value) {
+			alert('오픈 시간과 마감 시간이 동일합니다. 다시 확인해주세요.');
         } else if(!chkTerms) {
             alert("약관을 읽고 체크해주세요.");
 			event.preventDefault();

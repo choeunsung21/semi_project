@@ -92,6 +92,7 @@
 }
 
 #rent-price-label span,
+#field-no-select-label span,
 #rule-usetime-label span,
 #rule-price-label span {
 	font-size:12px;

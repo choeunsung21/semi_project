@@ -16,4 +16,11 @@ public class PlanRuleService {
 		session.close();
 		return resultList;
 	}
+	
+	public int insertPlanRule(PlanRule planRule) {
+		SqlSession session = getSqlSession(true);
+		int result = new PlanRuleDao().insertPlanRule(session, planRule);
+		session.close();
+		return result;
+	}
 }

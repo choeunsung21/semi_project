@@ -25,4 +25,8 @@
 		JOIN `field` f ON f.field_no = r.field_no
 		JOIN `dayoff` d ON d.dayoff_no = f.dayoff_no
 	</select>
+	<insert id="insertPlanRule" parameterType="planRule">
+		INSERT INTO `plan_rule` (`field_no` ,`open_time` ,`close_time` ,`operating` ,`price`)
+		VALUES (#{fieldNo}, #{openTime}, #{closeTime}, #{operating}, #{price});
+	</insert>
 </mapper>
