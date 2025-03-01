@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="planRuleMapper">
+	<resultMap type="planRule" id="planRuleMap">
+		<result property="ruleNo" column="rule_no" />
+		<result property="fieldNo" column="field_no" />
+		<result property="openTime" column="open_time" />
+		<result property="closeTime" column="close_time" />
+		<result property="operating" column="operating" />
+		<result property="price" column="price" />
+		<result property="regDate" column="reg_date" />
+		<result property="modDate" column="mod_date" />
+	</resultMap>
+	<select id="selectPlanRuleAll" resultMap="planRuleMap">
+		SELECT * FROM `plan_rule`
+	</select>
+</mapper>
