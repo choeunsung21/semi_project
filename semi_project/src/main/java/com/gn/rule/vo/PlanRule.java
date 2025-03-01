@@ -26,4 +26,12 @@ public class PlanRule {
 	private String price;
 	private LocalDateTime regDate;
 	private LocalDateTime modDate;
+	
+	private boolean isSun;
+	private boolean isMon;
+	private boolean isTue;
+	private boolean isWed;
+	private boolean isThu;
+	private boolean isFri;
+	private boolean isSat;
 }
