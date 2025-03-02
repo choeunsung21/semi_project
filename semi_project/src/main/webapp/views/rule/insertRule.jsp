@@ -76,7 +76,7 @@
         <div class="row gy-4">
 
           <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
-            <h2>스케줄 등록 : 규칙 설정</h2>
+            <h2>일정 등록 : 규칙 설정</h2>
             <p id="h-p">(*) 표시가 있는 항목은 반드시 입력해야합니다.</p>
             	
             <!-- Contact Section -->
@@ -141,7 +141,7 @@
                 					</div>
 
 									<div class="col-md-12">
-										<label for="field-no-select" id="field-no-select-label">구장 선택* <span>(등록하신 구장이 없으시면 구장 등록 절차부터 진행해주세요.)</span></label>
+										<label for="field-no-select" id="field-no-select-label">구장 선택* <span>(등록하신 구장이 없으시면 구장 등록 절차부터 진행해주세요. - <a href="/insertField">이동하기</a>)</span></label>
 										<select id="field-no-select" name="field_no">
 											<option value="0">구장선택</option>
 											<c:forEach var="field_list" items="${fieldList}" varStatus="vs">
@@ -200,12 +200,12 @@
                 					</div>
 									
 									<p>
-                						<input id="chk_terms" type="checkbox">&nbsp; 스케줄 등록 관련 약관입니다.
+                						<input id="chk_terms" type="checkbox">&nbsp; 일정 등록 관련 약관입니다.
 									</p>                					
 									
 									<!-- #chk_term 체크되었을 때만 버튼이 눌러지고 아닐경우 alert창을 띄울 예정 -->
                 					<div class="col-md-12 text-center">
-                  						<button type="submit" onclick="insertRuleForm();">스케줄 등록</button>
+                  						<button type="submit" onclick="insertRuleForm();">일정 등록</button>
                 					</div>
                 					
               					</div>
@@ -246,6 +246,7 @@
               <a href="" class="active">주차장 : <span id="is-park-span"></span></a>
               <a href="" class="active">샤워실 : <span id="is-shower-span"></span></a>
               <a href="" class="active">풋살화대여 : <span id="rent-price-span"></span></a>
+              <a href="" class="active">휴무요일 : <span id="dayoff-span"></span></a>
             </div>
            
 			<!-- 
@@ -332,6 +333,7 @@
 					document.getElementById("is-park-span").innerText = data["isPark"];
 					document.getElementById("is-shower-span").innerText = data["isShower"];
 					document.getElementById("rent-price-span").innerText = data["rentPrice"];
+					document.getElementById("dayoff-span").innerText = data["dayoff"];
 				},
 				error : function(){
 					document.getElementById("field-name-span").innerText = "";
@@ -343,6 +345,7 @@
 					document.getElementById("is-park-span").innerText = "";
 					document.getElementById("is-shower-span").innerText = "";
 					document.getElementById("rent-price-span").innerText = "";
+					document.getElementById("dayoff-span").innerText = data[""];
 				}
 			});
 		});

@@ -75,6 +75,72 @@ public class SelectFieldEndServlet extends HttpServlet {
 						rentPrice = field.getRentPrice() + "원";
 					}
 					
+					String dayoff = "";
+					int cnt = 0;
+					if(field.isSun()) {
+						if(cnt==0) {
+							dayoff += "일요일";
+							cnt++;
+						} else {
+							dayoff += ", 일요일";
+							cnt++;
+						}
+					}
+					if(field.isMon()) {
+						if(cnt==0) {
+							dayoff += "월요일";
+							cnt++;
+						} else {
+							dayoff += ", 월요일";
+							cnt++;
+						};
+					}
+					if(field.isTue()) {
+						if(cnt==0) {
+							dayoff += "화요일";
+							cnt++;
+						} else {
+							dayoff += ", 화요일";
+							cnt++;
+						};
+					}
+					if(field.isWed()) {
+						if(cnt==0) {
+							dayoff += "수요일";
+							cnt++;
+						} else {
+							dayoff += ", 수요일";
+							cnt++;
+						};
+					}
+					if(field.isThu()) {
+						if(cnt==0) {
+							dayoff += "목요일";
+							cnt++;
+						} else {
+							dayoff += ", 목요일";
+							cnt++;
+						};
+					}
+					if(field.isFri()) {
+						if(cnt==0) {
+							dayoff += "금요일";
+							cnt++;
+						} else {
+							dayoff += ", 금요일";
+							cnt++;
+						};
+					}
+					if(field.isSat()) {
+						if(cnt==0) {
+							dayoff += "토요일";
+							cnt++;
+						} else {
+							dayoff += ", 토요일";
+							cnt++;
+						};
+					}
+
 					JSONObject obj = new JSONObject();
 					obj.put("fieldName", field.getFieldName());
 					obj.put("fieldAddr", field.getFieldAddr());
@@ -85,6 +151,7 @@ public class SelectFieldEndServlet extends HttpServlet {
 					obj.put("isPark", isPark);
 					obj.put("isShower", isShower);
 					obj.put("rentPrice", rentPrice);
+					obj.put("dayoff", dayoff);
 					
 					response.setContentType("application/json;charset=utf-8");
 					response.getWriter().print(obj);

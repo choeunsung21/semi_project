@@ -2,6 +2,7 @@ package com.gn.rule.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -45,7 +46,8 @@ public class InsertRuleEndServlet extends HttpServlet {
 		int result = new PlanRuleService().insertPlanRule(planRule);
 		
 		if(result > 0) {
-			System.out.println("InsertRuleEndServlet : 정상적으로 등록이 된 상황");
+			RequestDispatcher view = request.getRequestDispatcher("/views/rule/insertRule_success.jsp");
+			view.forward(request, response);
 		} else {
 			System.out.println("InsertRuleEndServlet : 정상적으로 등록이 되지 않은 상황");
 		}
