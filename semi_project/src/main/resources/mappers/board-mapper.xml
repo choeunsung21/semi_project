@@ -100,5 +100,15 @@
 		WHERE board_no = #{boardNo};
 	</delete>
 	
+	<delete id="deleteReply" parameterType="_int">
+		DELETE FROM `reply`
+		WHERE board_no = #{boardNo};
+	</delete>
+	
+	<delete id="deleteAttach" parameterType="_int">
+		DELETE FROM `board_attach`
+		WHERE board_no = #{boardNo};
+	</delete>
+	
 
 </mapper>

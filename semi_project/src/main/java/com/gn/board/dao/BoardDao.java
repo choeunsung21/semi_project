@@ -56,4 +56,13 @@ public class BoardDao {
 		return session.delete("boardMapper.deleteBoard",boardNo);
 	}
 	
+	//글 삭제 할떄 댓글 테이블도 지워지는 트랜직션 메소드
+	public int deleteReply(SqlSession session, int boardNo) {
+		return session.delete("boardMapper.deleteReply",boardNo);
+	}
+	//글 삭제 할떄 file이 있을경우 board_attach테이블이 지워지는 트랜직션 메소드
+	public int deleteAttach(SqlSession session, int boardNo) {
+		return session.delete("boardMapper.deleteAttach",boardNo);
+	}
+	
 }

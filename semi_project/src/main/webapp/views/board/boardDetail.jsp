@@ -173,11 +173,14 @@
           	            url: "/boardDelete",
           	            type: "POST",
           	            data: { boardNo: boardNo },
-          	            success: function() {
+          	          	success: function(data) {
+          	            if(data.res_code === 200) {
           	                alert("글이 삭제되었습니다!");
-          	                
-          	                location.reload();
-          	            },
+          	                location.href = "/selectBoardList";
+          	            } else {
+          	                location.href = "/";
+          	            }
+          	        },
           	            error: function(xhr, status, error) {
           	                alert("삭제 실패: " + error);
           	            }
