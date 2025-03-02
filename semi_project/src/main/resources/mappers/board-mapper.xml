@@ -95,5 +95,10 @@
 		WHERE r.board_no = #{boardNo}
 	</select>
 	
+	<delete id="deleteBoard" parameterType="_int">
+		DELETE FROM `board`
+		WHERE board_no = #{boardNo};
+	</delete>
+	
 
 </mapper>

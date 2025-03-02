@@ -158,9 +158,36 @@
           	  <!-- 게시글을 쓴 사람만 삭제 수정버튼을 보이게 함  -->
           	  	<c:if test="${sessionScope.user.userNo eq board.writerNo }">
           	  	<a href="/boardUpdate?boardNo=${board.boardNo }&boardTitle=${board.boardTitle}&boardContent=${board.boardContent}&writerNo=${board.writerNo}&attachNo=${board.attachNo}" class="btn btn-outline-primary">글 수정</a>
-          	  	<a href="/login" class="btn btn-outline-primary">글 삭제</a>
+          	  	<button type="submit" class="btn btn-outline-primary deletebtn" data-boardno="${board.boardNo }">삭제</button>
           	  	</c:if>
           	  </div>
+          	  <script type="text/javascript">
+          	$(function() {
+          	    $(".deletebtn").click(function() {
+          	        let boardNo = $(this).data("boardno");
+          	       /*  console.log(boardNo); */
+          	       
+          	        if (!confirm("정말 삭제하시겠습니까?")) return;
+
+          	        $.ajax({
+          	            url: "/boardDelete",
+          	            type: "POST",
+          	            data: { boardNo: boardNo },
+          	            success: function() {
+          	                alert("글이 삭제되었습니다!");
+          	                
+          	                location.reload();
+          	            },
+          	            error: function(xhr, status, error) {
+          	                alert("삭제 실패: " + error);
+          	            }
+          	        });
+          	    });
+          	});
+          	  
+          	  
+          	  </script>
+          
           	  	<br><br>
           	  	
           	  	

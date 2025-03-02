@@ -51,4 +51,9 @@ public class BoardDao {
 		return session.selectList("boardMapper.selectReply",boardNo);
 	}
 	
+	//글 삭제 메소드
+	public int deleteBoard(SqlSession session, int boardNo) {
+		return session.delete("boardMapper.deleteBoard",boardNo);
+	}
+	
 }
