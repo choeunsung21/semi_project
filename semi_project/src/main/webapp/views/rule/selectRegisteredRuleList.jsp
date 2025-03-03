@@ -198,8 +198,8 @@ tbody tr:hover {
 						<c:choose>
 							<c:when test="${not empty registeredPlanRuleList}">
 								<c:forEach var="rule" items="${registeredPlanRuleList}" varStatus="vs">
-									<tr class="plan-row" data-plan-no="${rule.ruleNo}" onclick="location.href='/selectPlanDetail?planNo=${plan.planNo}'">
-										<td style="text-align:center">${vs.index+1}</td>
+									<tr class="plan-row" data-plan-no="${rule.ruleNo}" onclick="location.href='/updatePlanRule?planNo=${rule.ruleNo}'">
+										<td style="text-align:center">${vs.index+1 + (rulePaging.nowPage-1) * rulePaging.numPerPage}</td>
 										<td style="text-align:center">${rule.fieldName}</td>
 										<td style="text-align:center">${rule.openTime}</td>
 										<td style="text-align:center">${rule.closeTime}</td>

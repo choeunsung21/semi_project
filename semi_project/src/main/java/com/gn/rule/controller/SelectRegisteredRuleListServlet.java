@@ -31,27 +31,22 @@ public class SelectRegisteredRuleListServlet extends HttpServlet {
 			/* 로그인 과정에서 만들어진 세션이 정상적으로 존재하는 경우 */
 			User user = (User)session.getAttribute("user");
 			String nowPage = request.getParameter("nowPage");
-						
+			
 			PlanRule option = new PlanRule();
 			option.setUserNo(user.getUserNo());
-			
-			System.out.println("SelectRegisteredRuleListServlet : "+option);
 			
 			if(nowPage != null) {
 				option.setNowPage(Integer.parseInt(nowPage));
 			}
 			
-			System.out.println("SelectRegisteredRuleListServlet : "+option.getNowPage());
+			System.out.println(option.getNowPage());
 			
 			int totalData = new PlanRuleService().selectPlanRuleCount(option);
-			System.out.println("SelectRegisteredRuleListServlet : "+totalData);
 			
 			option.setTotalData(totalData);
 			
 			List<PlanRule> registeredRuleList = new PlanRuleService().selectPlanRuleByPlanRule(option);
-			
-			System.out.println(registeredRuleList);
-			
+
 			/*
 			 * 해당 유저가 등록한 규칙이 있는 경우 List<PlanRule> 객체가 전달
 			 * 해당 유저가 등록한 규칙이 없는 경우 null 이 전달됨
@@ -78,7 +73,7 @@ public class SelectRegisteredRuleListServlet extends HttpServlet {
 					}
 				}
 			}
-
+			
 			RequestDispatcher view = request.getRequestDispatcher("/views/rule/selectRegisteredRuleList.jsp");
 			request.setAttribute("registeredPlanRuleList", registeredRuleList);
 			request.setAttribute("rulePaging", option);

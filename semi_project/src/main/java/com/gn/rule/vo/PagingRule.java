@@ -22,7 +22,7 @@ public class PagingRule {
 	private int nowPage = 1;
 	
 	// 한 페이지당 게시글의 개수
-	private int numPerPage;
+	private int numPerPage = 5;
 	
 	// LIMIT 시작 번호
 	private int limitPageNo;
