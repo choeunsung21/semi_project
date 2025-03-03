@@ -20,6 +20,7 @@
 		<result property="isFri" column="is_fri" />
 		<result property="isSat" column="is_sat" />
 		<result property="fieldName" column="field_name" />
+		<result property="userNo" column="user_no"/>
 	</resultMap>
 	<select id="selectPlanRuleAll" resultMap="planRuleMap">
 		SELECT * FROM `plan_rule` r
@@ -31,6 +32,13 @@
 		JOIN `field` f ON f.field_no = r.field_no
 		WHERE `user_no` = #{userNo}
 		ORDER BY `rule_no`;
+	</select>
+	<select id="selectPlanRuleCount" parameterType="planRule" resultMap="planRuleMap">
+		SELECT COUNT(*)
+		FROM `plan_rule` r
+		JOIN `field` f ON f.field_no = r.field_no
+		JOIN `user` u ON u.user_no = f.user_no
+		WHERE u.user_no = #{userNo}
 	</select>
 	<insert id="insertPlanRule" parameterType="planRule">
 		INSERT INTO `plan_rule` (`field_no` ,`open_time` ,`close_time` ,`operating` ,`price`)

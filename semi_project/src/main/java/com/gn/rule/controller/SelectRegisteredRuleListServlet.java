@@ -30,7 +30,25 @@ public class SelectRegisteredRuleListServlet extends HttpServlet {
 		if(session != null && session.getAttribute("user") != null) {
 			/* 로그인 과정에서 만들어진 세션이 정상적으로 존재하는 경우 */
 			User user = (User)session.getAttribute("user");
+			String nowPage = request.getParameter("nowPage");
 						
+			PlanRule rule = new PlanRule();
+			rule.setUserNo(user.getUserNo());
+			
+			System.out.println(rule);
+			
+			nowPage = "1";
+			if(nowPage != null) {
+				rule.setNowPage(Integer.parseInt(nowPage));
+			}			
+			int totalData = new PlanRuleService().selectPlanRuleCount(rule);
+			System.out.println(totalData);
+			
+			rule.setTotalData(totalData);
+			
+			
+			
+			
 			List<PlanRule> registeredRuleList = new PlanRuleService().selectPlanRuleByUser(user);
 			
 			/*

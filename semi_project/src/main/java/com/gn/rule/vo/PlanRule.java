@@ -15,9 +15,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper=false)
 @Builder
-public class PlanRule {
+public class PlanRule extends PagingRule {
 	private int ruleNo;
 	private int fieldNo;
 	private String openTime;
@@ -36,4 +36,6 @@ public class PlanRule {
 	private boolean isSat;
 	
 	private String FieldName;
+	
+	private int userNo;
 }

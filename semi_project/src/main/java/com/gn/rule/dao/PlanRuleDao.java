@@ -18,6 +18,10 @@ public class PlanRuleDao {
 		return resultList;
 	}
 	
+	public int selectPlanRuleCount(SqlSession session, PlanRule planRule) {
+		return session.selectOne("planRuleMapper.selectPlanRuleCount", planRule);
+	}
+	
 	public int insertPlanRule(SqlSession session, PlanRule planRule) {
 		return session.insert("planRuleMapper.insertPlanRule", planRule);
 	}

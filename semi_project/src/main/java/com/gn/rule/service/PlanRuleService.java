@@ -25,6 +25,13 @@ public class PlanRuleService {
 		return resultList;
 	}
 	
+	public int selectPlanRuleCount(PlanRule planRule) {
+		SqlSession session = getSqlSession(true);
+		int count = new PlanRuleDao().selectPlanRuleCount(session, planRule);
+		session.close();
+		return count;
+	}
+	
 	public int insertPlanRule(PlanRule planRule) {
 		SqlSession session = getSqlSession(true);
 		int result = new PlanRuleDao().insertPlanRule(session, planRule);
