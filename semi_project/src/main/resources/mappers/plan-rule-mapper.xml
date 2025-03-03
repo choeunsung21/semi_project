@@ -19,11 +19,18 @@
 		<result property="isThu" column="is_thu" />
 		<result property="isFri" column="is_fri" />
 		<result property="isSat" column="is_sat" />
+		<result property="fieldName" column="field_name" />
 	</resultMap>
 	<select id="selectPlanRuleAll" resultMap="planRuleMap">
 		SELECT * FROM `plan_rule` r
 		JOIN `field` f ON f.field_no = r.field_no
 		JOIN `dayoff` d ON d.dayoff_no = f.dayoff_no
+	</select>
+	<select id="selectPlanRuleByUser" parameterType="user" resultMap="planRuleMap">
+		SELECT * FROM `plan_rule` r
+		JOIN `field` f ON f.field_no = r.field_no
+		WHERE `user_no` = #{userNo}
+		ORDER BY `rule_no`;
 	</select>
 	<insert id="insertPlanRule" parameterType="planRule">
 		INSERT INTO `plan_rule` (`field_no` ,`open_time` ,`close_time` ,`operating` ,`price`)

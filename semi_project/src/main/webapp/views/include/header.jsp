@@ -65,6 +65,7 @@
 											
 											<!-- 헤더 변경 부분 -->
 											<li><a href="/selectRegisteredPlanList">등록한 일정 조회</a></li>
+											<li><a href="/selectRegisteredRuleList">등록한 규칙 조회</a></li>
 											
 											
 											

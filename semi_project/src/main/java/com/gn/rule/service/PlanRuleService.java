@@ -8,11 +8,19 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.gn.rule.dao.PlanRuleDao;
 import com.gn.rule.vo.PlanRule;
+import com.gn.user.vo.User;
 
 public class PlanRuleService {
 	public List<PlanRule> selectPlanRuleAll() {
 		SqlSession session = getSqlSession(true);
 		List<PlanRule> resultList = new PlanRuleDao().selectPlanRuleAll(session);
+		session.close();
+		return resultList;
+	}
+
+	public List<PlanRule> selectPlanRuleByUser(User user) {
+		SqlSession session = getSqlSession(true);
+		List<PlanRule> resultList = new PlanRuleDao().selectPlanRuleByUser(session, user);
 		session.close();
 		return resultList;
 	}

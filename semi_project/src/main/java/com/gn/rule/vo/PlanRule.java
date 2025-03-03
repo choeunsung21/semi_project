@@ -34,4 +34,6 @@ public class PlanRule {
 	private boolean isThu;
 	private boolean isFri;
 	private boolean isSat;
+	
+	private String FieldName;
 }
