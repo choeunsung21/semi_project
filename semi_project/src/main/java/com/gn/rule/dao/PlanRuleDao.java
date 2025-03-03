@@ -13,8 +13,8 @@ public class PlanRuleDao {
 		return resultList;
 	}
 	
-	public List<PlanRule> selectPlanRuleByUser(SqlSession session, User user) {
-		List<PlanRule> resultList = session.selectList("planRuleMapper.selectPlanRuleByUser", user);
+	public List<PlanRule> selectPlanRuleByPlanRule(SqlSession session, PlanRule option) {
+		List<PlanRule> resultList = session.selectList("planRuleMapper.selectPlanRuleByPlanRule", option);
 		return resultList;
 	}
 	

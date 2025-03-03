@@ -32,24 +32,25 @@ public class SelectRegisteredRuleListServlet extends HttpServlet {
 			User user = (User)session.getAttribute("user");
 			String nowPage = request.getParameter("nowPage");
 						
-			PlanRule rule = new PlanRule();
-			rule.setUserNo(user.getUserNo());
+			PlanRule option = new PlanRule();
+			option.setUserNo(user.getUserNo());
 			
-			System.out.println(rule);
+			System.out.println("SelectRegisteredRuleListServlet : "+option);
 			
-			nowPage = "1";
 			if(nowPage != null) {
-				rule.setNowPage(Integer.parseInt(nowPage));
-			}			
-			int totalData = new PlanRuleService().selectPlanRuleCount(rule);
-			System.out.println(totalData);
+				option.setNowPage(Integer.parseInt(nowPage));
+			}
 			
-			rule.setTotalData(totalData);
+			System.out.println("SelectRegisteredRuleListServlet : "+option.getNowPage());
 			
+			int totalData = new PlanRuleService().selectPlanRuleCount(option);
+			System.out.println("SelectRegisteredRuleListServlet : "+totalData);
 			
+			option.setTotalData(totalData);
 			
+			List<PlanRule> registeredRuleList = new PlanRuleService().selectPlanRuleByPlanRule(option);
 			
-			List<PlanRule> registeredRuleList = new PlanRuleService().selectPlanRuleByUser(user);
+			System.out.println(registeredRuleList);
 			
 			/*
 			 * 해당 유저가 등록한 규칙이 있는 경우 List<PlanRule> 객체가 전달
@@ -80,6 +81,7 @@ public class SelectRegisteredRuleListServlet extends HttpServlet {
 
 			RequestDispatcher view = request.getRequestDispatcher("/views/rule/selectRegisteredRuleList.jsp");
 			request.setAttribute("registeredPlanRuleList", registeredRuleList);
+			request.setAttribute("rulePaging", option);
 			view.forward(request, response);
 			
 		} else {

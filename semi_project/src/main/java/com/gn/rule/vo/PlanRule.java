@@ -15,7 +15,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode(callSuper=false)
 @Builder
 public class PlanRule extends PagingRule {
 	private int ruleNo;

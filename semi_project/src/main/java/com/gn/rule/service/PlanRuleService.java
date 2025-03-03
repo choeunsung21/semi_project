@@ -18,9 +18,9 @@ public class PlanRuleService {
 		return resultList;
 	}
 
-	public List<PlanRule> selectPlanRuleByUser(User user) {
+	public List<PlanRule> selectPlanRuleByPlanRule(PlanRule option) {
 		SqlSession session = getSqlSession(true);
-		List<PlanRule> resultList = new PlanRuleDao().selectPlanRuleByUser(session, user);
+		List<PlanRule> resultList = new PlanRuleDao().selectPlanRuleByPlanRule(session, option);
 		session.close();
 		return resultList;
 	}

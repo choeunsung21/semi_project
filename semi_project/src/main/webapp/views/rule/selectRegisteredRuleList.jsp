@@ -221,26 +221,26 @@ tbody tr:hover {
 				</table>
 
 				<!-- 페이징 버튼 -->
-				<c:if test="${not empty paging}">
+				<c:if test="${not empty rulePaging}">
 					<div class="center">
 						<div class="pagination">
-							<c:if test="${paging.prev}">
-								<a href="/selectRegisteredPlanList?nowPage=${paging.pageBarStart - 1}" class="prev"> &laquo; </a>
+							<c:if test="${rulePaging.prev}">
+								<a href="/selectRegisteredRuleList?nowPage=${rulePaging.pageBarStart - 1}" class="prev"> &laquo; </a>
 							</c:if>
 
-							<c:forEach var="i" begin="${paging.pageBarStart}" end="${paging.pageBarEnd}" step="1">
+							<c:forEach var="i" begin="${rulePaging.pageBarStart}" end="${rulePaging.pageBarEnd}" step="1">
 								<c:choose>
-									<c:when test="${i == paging.nowPage}">
-										<a href="/selectRegisteredPlanList?nowPage=${i}" class="active">${i}</a>
+									<c:when test="${i == rulePaging.nowPage}">
+										<a href="/selectRegisteredRuleList?nowPage=${i}" class="active">${i}</a>
 									</c:when>
 									<c:otherwise>
-										<a href="/selectRegisteredPlanList?nowPage=${i}">${i}</a>
+										<a href="/selectRegisteredRuleList?nowPage=${i}">${i}</a>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
 
-							<c:if test="${paging.next}">
-								<a href="/selectRegisteredPlanList?nowPage=${paging.pageBarEnd + 1}" class="next"> &raquo; </a>
+							<c:if test="${rulePaging.next}">
+								<a href="/selectRegisteredRuleList?nowPage=${rulePaging.pageBarEnd + 1}" class="next"> &raquo; </a>
 							</c:if>
 						</div>
 					</div>

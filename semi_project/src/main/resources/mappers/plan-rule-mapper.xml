@@ -27,13 +27,13 @@
 		JOIN `field` f ON f.field_no = r.field_no
 		JOIN `dayoff` d ON d.dayoff_no = f.dayoff_no
 	</select>
-	<select id="selectPlanRuleByUser" parameterType="user" resultMap="planRuleMap">
+	<select id="selectPlanRuleByPlanRule" parameterType="planRule" resultMap="planRuleMap">
 		SELECT * FROM `plan_rule` r
 		JOIN `field` f ON f.field_no = r.field_no
-		WHERE `user_no` = #{userNo}
-		ORDER BY `rule_no`;
+		WHERE f.user_no = #{userNo}
+		ORDER BY r.rule_no;
 	</select>
-	<select id="selectPlanRuleCount" parameterType="planRule" resultMap="planRuleMap">
+	<select id="selectPlanRuleCount" parameterType="planRule" resultType="_int">
 		SELECT COUNT(*)
 		FROM `plan_rule` r
 		JOIN `field` f ON f.field_no = r.field_no
