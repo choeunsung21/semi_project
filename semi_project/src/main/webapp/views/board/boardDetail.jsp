@@ -44,6 +44,8 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  
+  
 </head>
 
 <body class="portfolio-details-page">
@@ -100,46 +102,27 @@
           <div class="swiper-button-next"></div>
           <div class="swiper-pagination"></div>
         </div>
-        <style>
-        	.reply-list {
-    list-style: none; /* 기본 점 제거 */
-    padding: 0;
-    margin: 0;
-}
 
+<style>
 .reply-list li {
-    padding: 15px; 
-    margin-bottom: 10px; 
-    background-color: #f9f9f9; 
-    border-radius: 8px; 
-    border: 1px solid #e0e0e0; /
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); 
-    transition: all 0.3s ease; 
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    display: flex; /* 작성자, 내용, 버튼 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
 }
 
-.reply-list li:hover {
-    background-color: #f1f1f1; 
-    transform: translateY(-2px); 
+.reply-list .edit-btn, .reply-list .delete-btn {
+    margin-left: 10px;
+    padding: 2px 6px;
+    font-size: 12px;
+    line-height: 1.2;
 }
-
-.reply-list .writer {
-    font-weight: bold; 
-    color: #333; /
-    margin-right: 10px; 
-}
-
-.reply-list .content {
-    color: #666; 
-}
-
-/* 반응형 조정 */
-@media (max-width: 768px) {
-    .reply-list li {
-        padding: 10px;
-        font-size: 14px;
-    }
-        </style>
-
+</style>       
 
               
               <div class="col-lg-3" data-aos="fade-up" data-aos-delay="100" style="inline-block;">
@@ -161,6 +144,8 @@
           	  	<button type="submit" class="btn btn-outline-primary deletebtn" data-boardno="${board.boardNo }">삭제</button>
           	  	</c:if>
           	  </div>
+          	  
+          	  
           	  <script type="text/javascript">
           	$(function() {
           	    $(".deletebtn").click(function() {
@@ -173,7 +158,7 @@
           	            url: "/boardDelete",
           	            type: "POST",
           	            data: { boardNo: boardNo },
-          	          	success: function(data) {
+          	          success: function(data) {
           	            if(data.res_code === 200) {
           	                alert("글이 삭제되었습니다!");
           	                location.href = "/selectBoardList";
@@ -235,7 +220,9 @@
          <script type="text/javascript">
          $(document).ready(function(){
         	 const boardNo = $('#boardNo').val();
+        	 const userNo = $('#writerNo').val();
         	 console.log(boardNo);
+        	 console.log("댓글 수정 기능중 " + userNo);
         	
         	 $.ajax({
         		 url:"/selectReplyList",
@@ -250,14 +237,25 @@
         				 $("#replayList").append("<li>"+"댓글이 없습니다"+"</li>")
         			 }else{
         				 for (let i = 0; i < data.list.length; i++) {
-        					 $("#replayList").append("<li>" +
-        							    "<span class='writer'>작성자: " + data.list[i].userId + "</span> " +
-        							    "<span class='content'>" + data.list[i].replyContent + "</span>" +
-        							    "<span class='regdate'>" + data.list[i].regDate + "</span>" +
-        							"</li>");
+        					 let reply = data.list[i];
+        					
+        					 let replyList = "<li>" +
+                             "<span class='writer'>작성자: " + reply.userId + "</span> " +
+                             "<span class='content'>" + reply.replyContent + "</span>" +
+                             "<span class='regdate'>" + reply.regDate + "</span>";
         					 
-        						 }
-        	                }
+                             if(userNo == reply.writerNo){
+                    				replyList += " " +        	 
+                    				"<a href='/updateReplyForm?replyNo=" + reply.replyNo + "' class='btn btn-sm btn-outline-primary edit-btn'>수정</a>" +
+                                    "<a href='/deleteReplyForm?replyNo=" + reply.replyNo + "' class='btn btn-sm btn-outline-danger delete-btn'>삭제</a>";
+                             
+                             	}
+        					replyList += "</li>"	
+        				 	$("#replayList").append(replyList);
+        				}			 
+        			 
+        			 }
+        			 
         			 
         		 },
         		 complete:function(){
