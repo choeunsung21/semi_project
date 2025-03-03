@@ -160,11 +160,11 @@ tbody tr:hover {
 </head>
 
 <body class="starter-page-page">
-
+	
 	<%@ include file="/views/include/header.jsp"%>
-
+	
 	<main class="main">
-
+		
 		<!-- Page Title -->
 		<div class="page-title accent-background">
 			<div class="container">
@@ -177,7 +177,7 @@ tbody tr:hover {
 			</div>
 		</div>
 		<!-- End Page Title -->
-
+		
 		<!-- Starter Section Section -->
 		<section id="starter-section" class="starter-section section">
 
@@ -219,7 +219,7 @@ tbody tr:hover {
 						</tr>
 					</tbody>
 				</table>
-
+				
 				<!-- 페이징 버튼 -->
 				<c:if test="${not empty rulePaging}">
 					<div class="center">
@@ -227,7 +227,7 @@ tbody tr:hover {
 							<c:if test="${rulePaging.prev}">
 								<a href="/selectRegisteredRuleList?nowPage=${rulePaging.pageBarStart - 1}" class="prev"> &laquo; </a>
 							</c:if>
-
+							
 							<c:forEach var="i" begin="${rulePaging.pageBarStart}" end="${rulePaging.pageBarEnd}" step="1">
 								<c:choose>
 									<c:when test="${i == rulePaging.nowPage}">
@@ -238,21 +238,21 @@ tbody tr:hover {
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
-
+							
 							<c:if test="${rulePaging.next}">
 								<a href="/selectRegisteredRuleList?nowPage=${rulePaging.pageBarEnd + 1}" class="next"> &raquo; </a>
 							</c:if>
 						</div>
 					</div>
 				</c:if>
-
+				
 			</div>
-
+			
 		</section>
 		<!-- /Starter Section Section -->
-
+		
 	</main>
-
+	
 	<%@ include file="/views/include/footer.jsp"%>
 
 	<!-- Scroll Top -->
