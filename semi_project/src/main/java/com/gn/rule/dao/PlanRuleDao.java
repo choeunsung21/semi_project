@@ -16,4 +16,8 @@ public class PlanRuleDao {
 	public int insertPlanRule(SqlSession session, PlanRule planRule) {
 		return session.insert("planRuleMapper.insertPlanRule", planRule);
 	}
+	
+	public PlanRule selectPlanRuleByFieldNo(SqlSession session, int fieldNo) {
+		return session.selectOne("planRuleMapper.selectPlanRuleByFieldNo", fieldNo);
+	}
 }

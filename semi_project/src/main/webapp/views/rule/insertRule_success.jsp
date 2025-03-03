@@ -69,7 +69,7 @@
               <li></li>
               <li></li>
               <li><i class="bi bi-check2-all"></i> <a href="/selectRegisteredPlanList">등록한 일정 목록으로 이동하기</a><br></li>
-              <li><i class="bi bi-check2-all"></i> <a href="/">등록한 규칙 목록으로 이동하기</a><br></li>
+              <li><i class="bi bi-check2-all"></i> <a href="/selectRegisteredRuleList">등록한 규칙 목록으로 이동하기</a><br></li>
               <li>
               	<p>
        				* 주의사항<br>

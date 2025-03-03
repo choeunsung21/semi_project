@@ -29,4 +29,7 @@
 		INSERT INTO `plan_rule` (`field_no` ,`open_time` ,`close_time` ,`operating` ,`price`)
 		VALUES (#{fieldNo}, #{openTime}, #{closeTime}, #{operating}, #{price});
 	</insert>
+	<select id="selectPlanRuleByFieldNo" parameterType="_int" resultMap="planRuleMap">
+		SELECT * FROM `plan_rule` WHERE `field_no` = #{fieldNo} ORDER BY `reg_date` DESC LIMIT 1;
+	</select>
 </mapper>

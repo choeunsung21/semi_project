@@ -108,7 +108,8 @@
 #rent-price-label span,
 #field-no-select-label span,
 #rule-usetime-label span,
-#rule-price-label span {
+#rule-price-label span,
+#print-msg-span {
 	font-size:12px;
 	color: rgba(88, 88, 88, 0.8);	
 	font-family: "Raleway",  sans-serif;

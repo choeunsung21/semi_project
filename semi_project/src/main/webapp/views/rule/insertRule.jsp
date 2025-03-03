@@ -77,7 +77,8 @@
 
           <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
             <h2>일정 등록 : 규칙 설정</h2>
-            <p id="h-p">(*) 표시가 있는 항목은 반드시 입력해야합니다.</p>
+            <p id="h-p">하나의 구장에는 하나의 규칙만 등록할 수 있습니다.<br>
+            			(*) 표시가 있는 항목은 반드시 입력해야합니다.</p>
             	
             <!-- Contact Section -->
     		<section id="contact" class="contact section">
@@ -150,6 +151,8 @@
 												</option>
 											</c:forEach>
 										</select>
+										<p><span id="print-msg-span" style="color:crimson;"></span></p>
+										<p><span id="print-flag-span" style="display:none"></span></p>
                 					</div>
 									
                 					<div class="col-md-6" id="rule-open-select">
@@ -237,16 +240,16 @@
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
 		  	 
             <div class="services-list" id="services-list-div">
-              <a href="" class="active">구장명 : <span id="field-name-span"></span></a>
-              <a href="" class="active">주소 : <span id="field-addr-span"></span></a>
-              <a href="" class="active">구장크기 : <span id="field-size-span"></span></a>
-              <a href="" class="active">수용인원 : <span id="field-limit-span"></span></a>
-              <a href="" class="active">잔디타입 : <span id="field-type-span"></span></a>
-              <a href="" class="active">실내/실외 : <span id="is-indoor-span"></span></a>
-              <a href="" class="active">주차장 : <span id="is-park-span"></span></a>
-              <a href="" class="active">샤워실 : <span id="is-shower-span"></span></a>
-              <a href="" class="active">풋살화대여 : <span id="rent-price-span"></span></a>
-              <a href="" class="active">휴무요일 : <span id="dayoff-span"></span></a>
+              <a href="javascript:void(0);" class="active">구장명 : <span id="field-name-span"></span></a>
+              <a href="javascript:void(0);" class="active">주소 : <span id="field-addr-span"></span></a>
+              <a href="javascript:void(0);" class="active">구장크기 : <span id="field-size-span"></span></a>
+              <a href="javascript:void(0);" class="active">수용인원 : <span id="field-limit-span"></span></a>
+              <a href="javascript:void(0);" class="active">잔디타입 : <span id="field-type-span"></span></a>
+              <a href="javascript:void(0);" class="active">실내/실외 : <span id="is-indoor-span"></span></a>
+              <a href="javascript:void(0);" class="active">주차장 : <span id="is-park-span"></span></a>
+              <a href="javascript:void(0);" class="active">샤워실 : <span id="is-shower-span"></span></a>
+              <a href="javascript:void(0);" class="active">풋살화대여 : <span id="rent-price-span"></span></a>
+              <a href="javascript:void(0);" class="active">휴무요일 : <span id="dayoff-span"></span></a>
             </div>
            
 			<!-- 
@@ -270,6 +273,10 @@
 		
         if(form.field_no.value == "0") {
         	alert('구장을 선택해주세요.');
+        	form.field_no.focus();
+        	event.preventDefault();
+        } else if(document.getElementById('print-flag-span').innerText == 'not null') {
+			alert('선택하신 구장은 이미 등록된 규칙이 있습니다. 다시 확인해주세요.');
         	form.field_no.focus();
         	event.preventDefault();
         } else if(form.rule_open.value == "-1") {
@@ -345,7 +352,24 @@
 					document.getElementById("is-park-span").innerText = "";
 					document.getElementById("is-shower-span").innerText = "";
 					document.getElementById("rent-price-span").innerText = "";
-					document.getElementById("dayoff-span").innerText = data[""];
+					document.getElementById("dayoff-span").innerText = "";
+				}
+			});
+			
+			$.ajax({
+				url : "/selectRuleEnd",
+				type : "post",
+				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+				data : {
+					"fieldIndex":fieldIndex
+				},
+				dataType : "JSON",
+				success : function(data) {
+					document.getElementById("print-msg-span").innerText = data["printMsg"];
+					document.getElementById("print-flag-span").innerText = data["printFlag"];
+				},
+				error : function() {
+					
 				}
 			});
 		});
