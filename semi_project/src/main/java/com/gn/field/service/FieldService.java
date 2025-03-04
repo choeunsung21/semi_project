@@ -61,10 +61,10 @@ public class FieldService {
 		return result;
 	}
 	
-	public List<Field> selectFieldListByUserNo(User user) {
+	public List<Field> selectFieldListByUser(User user) {
 		SqlSession session = getSqlSession(true);
 		
-		List<Field> fieldList = new FieldDao().selectFieldListByUserNo(session, user);
+		List<Field> fieldList = new FieldDao().selectFieldListByUser(session, user);
 		session.close();
 		
 		return fieldList;

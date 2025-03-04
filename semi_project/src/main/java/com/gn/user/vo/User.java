@@ -17,10 +17,12 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @Builder
+
 public class User {
 	 private int userNo;
 	 private String userId;
 	 private String userPw;
+	 private String checkUserPw;
 	 private String userName;
 	 private String userGender;
 	 private String userPhone;
@@ -30,3 +32,4 @@ public class User {
 	 private LocalDateTime regDate;
 	 private LocalDateTime modDate;	 
 }
+

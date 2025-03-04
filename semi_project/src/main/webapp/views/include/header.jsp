@@ -25,6 +25,7 @@
 					</c:when>
 					<c:otherwise>
 						<!-- 로그인이 되어있는 상태라면 -->
+						<li><a href="/logout">로그아웃</a></li>
 						<li><a href="#">[알림이미지]</a></li>
 						<li class="dropdown"><a href="#"><c:out value="${user.userName}"/>님<i class="bi bi-chevron-down toggle-dropdown"></i></a>
 							<ul>
@@ -33,7 +34,7 @@
 
 								<!-- 작업을 위한 임시 드롭다운 메뉴 -->
 								<li><a href="/selectBoardList">게시판</a></li>
-								<li><a href="/insertBoard">글쓰기</a></li>
+								<li><a href="/boardWrite">글쓰기</a></li>
 								
 								<li><a href="/insertReservation">스케줄 예약</a></li>
 								
@@ -75,6 +76,7 @@
 											
 											<!-- 헤더 변경 부분 -->
 											<li><a href="/selectRegisteredPlanList">등록한 일정 조회</a></li>
+											<li><a href="/selectRegisteredRuleList">등록한 규칙 조회</a></li>
 											
 											
 											

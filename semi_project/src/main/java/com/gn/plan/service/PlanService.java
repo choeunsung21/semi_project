@@ -11,7 +11,7 @@ import com.gn.plan.vo.Plan;
 
 public class PlanService {
 
-	public int InsertPlan(Plan plan) {
+	public int insertPlan(Plan plan) {
 		SqlSession session = getSqlSession(true);
 		int result = new PlanDao().insertPlan(session, plan);
 		session.close();

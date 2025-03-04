@@ -30,7 +30,7 @@ public class InsertRuleServlet extends HttpServlet {
 			/* 로그인 과정에서 만들어진 세션이 정상적으로 존재하는 경우 */
 			User user = (User)session.getAttribute("user");
 			
-			List<Field> fieldList = new FieldService().selectFieldListByUserNo(user);
+			List<Field> fieldList = new FieldService().selectFieldListByUser(user);
 			
 			RequestDispatcher view = request.getRequestDispatcher("/views/rule/insertRule.jsp");
 			request.setAttribute("fieldList", fieldList);

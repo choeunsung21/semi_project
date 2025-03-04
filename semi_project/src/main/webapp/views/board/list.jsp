@@ -30,6 +30,7 @@
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <!--  kyk include css -->
 <link href="<%= request.getContextPath() %>/resources/css/kyk.css" rel="stylesheet">
+<script src ="<%=request.getContextPath()%>/resources/js/jquery-3.7.1.js"></script>
 </head>
 <body>
 <%@ include file="/views/include/header.jsp" %>
@@ -53,10 +54,10 @@
 	<c:choose>
 		<c:when test="${not empty list }">
 			<c:forEach var="list" items="${list }" varStatus="vs">
-				<tr>
+				<tr data-board-no="${list.boardNo} ">
 					<td>${(page.nowPage-1)*page.numPerPage+ (vs.index + 1) }</td>
 					<td>${list.boardTitle }</td>
-					<td>${list.userName }</td>
+					<td>${list.userId }</td>
 					<fmt:parseDate value="${list.regDate }" pattern="yyyy-MM-dd'T'HH:mm" var="strRegDate"/>
 					<td><fmt:formatDate value="${strRegDate }" pattern="yy년MM월dd일 HH시mm분" /></td>
 				</tr>
@@ -68,14 +69,7 @@
 					 <tr>	
 					</c:otherwise>
 					
-	</c:choose> 
-		<!-- 		<tr>
-					<td>1</td>
-					<td>이정효 이거 맞냐?</td>
-					<td>조은성</td>
-					<td>2025-12-23</td>
-				</tr> -->
-
+	</c:choose>
 </tbody>
 </table>
   	<c:if test="${not empty page }">
@@ -111,9 +105,19 @@
 		    <a href="/boardWrite" class="btn btn-success">글쓰기</a> 	
     	</c:when>
     	<c:otherwise>
-    		<a href="/" class="btn btn-success">글쓰기</a> 	
+    		<a href="/login" class="btn btn-success">글쓰기</a> 	
     	</c:otherwise>
     </c:choose>
 </div>
+<script>
+	//게시글 상세조회 script! -> boardDetail Servlet으로
+	$('tbody tr').on('click',function(){
+		const boardNo = $(this).data('board-no');
+		console.log('게시글 번호가 출력되는가?' + boardNo);
+		location.href='/boardDetail?board_no='+boardNo;
+	})
+
+</script>
+
 </body>
 </html>
