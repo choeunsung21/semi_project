@@ -97,6 +97,31 @@ public class BoardService {
 		return reply;
 	}
 	
+	//댓글 삭제 메소드
+	public int deleteBoard(int boardNo) {
+		SqlSession session = getSqlSession(false);
+		int result = 0;
+	
+		try {
+			int replyDelete = new BoardDao().deleteReply(session,boardNo);
+			int attachDelete = new BoardDao().deleteAttach(session,boardNo);
+			int boardDelete = new BoardDao().deleteBoard(session, boardNo);
+		
+			if(boardDelete > 0 && replyDelete >=0 && attachDelete >= 0) {
+				result = 1;
+				session.commit();
+			}else {
+				session.rollback();
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		session.close();
+		return result;
+	}
+	
+
 
 
 }
