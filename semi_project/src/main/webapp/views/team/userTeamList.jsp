@@ -56,7 +56,7 @@
                             <td>${team.teamCount}/${team.teamLimit}</td>
                             <td>
                                 <a href="teamDetail?teamNo=${team.teamNo}" class="btn btn-primary">상세보기</a>
-                                <a href="updateTeam?teamNo=${team.teamNo}" class="btn btn-warning">수정</a>
+<%--                                 <a href="updateTeam?teamNo=${team.teamNo}" class="btn btn-warning">수정</a> --%>
 <%--                                 <button class="btn btn-danger" onclick="deleteTeam(${team.teamNo})">삭제</button> --%>
                             </td>
                         </tr>
