@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.gn.team.service.TeamService;
 import com.gn.team.vo.Team;
 
-@WebServlet("/sendTeam")
+@WebServlet("/sendTeamList")
 public class SendTeamListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -23,7 +23,8 @@ public class SendTeamListServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		RequestDispatcher view = request.getRequestDispatcher("views/team/sendTeam.jsp");
+		view.forward(request, response);
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
