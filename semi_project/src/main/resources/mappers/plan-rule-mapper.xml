@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="planRuleMapper">
+	<resultMap type="planRule" id="planRuleMap">
+		<result property="ruleNo" column="rule_no" />
+		<result property="fieldNo" column="field_no" />
+		<result property="openTime" column="open_time" />
+		<result property="closeTime" column="close_time" />
+		<result property="operating" column="operating" />
+		<result property="price" column="price" />
+		<result property="regDate" column="reg_date" />
+		<result property="modDate" column="mod_date" />
+		<result property="isSun" column="is_sun" />
+		<result property="isMon" column="is_mon" />
+		<result property="isTue" column="is_tue" />
+		<result property="isWed" column="is_wed" />
+		<result property="isThu" column="is_thu" />
+		<result property="isFri" column="is_fri" />
+		<result property="isSat" column="is_sat" />
+		<result property="fieldName" column="field_name" />
+		<result property="userNo" column="user_no"/>
+	</resultMap>
+	<select id="selectPlanRuleAll" resultMap="planRuleMap">
+		SELECT * FROM `plan_rule` r
+		JOIN `field` f ON f.field_no = r.field_no
+		JOIN `dayoff` d ON d.dayoff_no = f.dayoff_no
+	</select>
+	<select id="selectPlanRuleByPlanRule" parameterType="planRule" resultMap="planRuleMap">
+		SELECT * FROM `plan_rule` r
+		JOIN `field` f ON f.field_no = r.field_no
+		WHERE user_no = #{userNo}
+		ORDER BY r.rule_no
+		LIMIT #{limitPageNo} ,#{numPerPage}
+	</select>
+	<select id="selectPlanRuleCount" parameterType="planRule" resultType="_int">
+		SELECT COUNT(*)
+		FROM `plan_rule` r
+		JOIN `field` f ON f.field_no = r.field_no
+		JOIN `user` u ON u.user_no = f.user_no
+		WHERE u.user_no = #{userNo}
+	</select>
+	<insert id="insertPlanRule" parameterType="planRule">
+		INSERT INTO `plan_rule` (`field_no` ,`open_time` ,`close_time` ,`operating` ,`price`)
+		VALUES (#{fieldNo}, #{openTime}, #{closeTime}, #{operating}, #{price});
+	</insert>
+	<select id="selectPlanRuleByFieldNo" parameterType="_int" resultMap="planRuleMap">
+		SELECT * FROM `plan_rule` WHERE `field_no` = #{fieldNo} ORDER BY `reg_date` DESC LIMIT 1;
+	</select>
+</mapper>

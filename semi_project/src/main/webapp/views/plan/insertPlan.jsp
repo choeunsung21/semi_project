@@ -77,7 +77,7 @@
         <div class="row gy-4">
 
           <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
-            <h2>스케줄 등록 : 정보 입력</h2>
+            <h2>일정 등록 : 정보 입력</h2>
             
             <!-- Contact Section -->
     		<section id="contact" class="contact section">

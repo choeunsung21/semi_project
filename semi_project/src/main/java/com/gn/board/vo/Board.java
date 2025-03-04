@@ -28,4 +28,7 @@ public class Board extends Paging  {
 	private LocalDateTime regDate;
 	private LocalDateTime modDate;
 	private String userName;
+	private String userId;
+	private String attachNo;
+	private String attachPath;
 }

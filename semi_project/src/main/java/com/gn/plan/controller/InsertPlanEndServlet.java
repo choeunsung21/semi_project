@@ -47,7 +47,7 @@ public class InsertPlanEndServlet extends HttpServlet {
 					.useTime(useTime)
 					.build();
 			
-			int result = new PlanService().InsertPlan(plan);
+			int result = new PlanService().insertPlan(plan);
 			if (result > 0) {
 				// 일정 등록 성공시 등록한일정 목록 페이지로 이동
 				response.sendRedirect("/selectRegisteredPlanList");
@@ -58,8 +58,6 @@ public class InsertPlanEndServlet extends HttpServlet {
 		} else {
 			System.out.println("InsertRuleServlet : 세션에 유저정보가 존재하지 않습니다.");
 		}
-		
-		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

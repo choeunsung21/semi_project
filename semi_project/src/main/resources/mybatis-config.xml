@@ -5,14 +5,18 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <configuration>
 	<properties resource="driver.properties"/>
 	<typeAliases>
+		<typeAlias type="com.gn.user.vo.User" alias="user"/>
+		<typeAlias type="com.gn.board.vo.Reply" alias="reply"/>
 		<typeAlias type="com.gn.field.vo.Field" alias="field"/>
 		<typeAlias type="com.gn.field.vo.Dayoff" alias="dayoff"/>
-		<typeAlias type="com.gn.board.vo.Board" alias="board"/>
-		<typeAlias type="com.gn.reservation.vo.Reservation" alias="reservation"/>
 		<typeAlias type="com.gn.field.vo.FieldAttach" alias="fieldAttach"/>
-		<typeAlias type="com.gn.user.vo.User" alias="user"/>
+		<typeAlias type="com.gn.reservation.vo.Reservation" alias="reservation"/>
 		<typeAlias type="com.gn.plan.vo.Plan" alias="plan"/>
+		<typeAlias type="com.gn.rule.vo.PlanRule" alias="planRule"/>
+		<typeAlias type="com.gn.board.vo.Board" alias="board"/>
 		<typeAlias type="com.gn.board.vo.Attach" alias="attach"/>
+		<typeAlias type="com.gn.team.vo.Team" alias="team"/>
+
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">
@@ -26,12 +30,14 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		</environment>
 	</environments>
 	<mappers>
+		<mapper resource="/mappers/user-mapper.xml"/>
 		<mapper resource="/mappers/field-mapper.xml"/>
 		<mapper resource="/mappers/dayoff-mapper.xml"/>
-		<mapper resource="/mappers/board-mapper.xml"/>
-		<mapper resource="/mappers/reservation-mapper.xml"/>
 		<mapper resource="/mappers/field-attach-mapper.xml"/>
-		<mapper resource="/mappers/user-mapper.xml"/>
 		<mapper resource="/mappers/plan-mapper.xml"/>
+		<mapper resource="/mappers/plan-rule-mapper.xml"/>
+		<mapper resource="/mappers/reservation-mapper.xml"/>
+		<mapper resource="/mappers/board-mapper.xml"/>
+		<mapper resource="/mappers/team-mapper.xml"/>
 	</mappers>
 </configuration>

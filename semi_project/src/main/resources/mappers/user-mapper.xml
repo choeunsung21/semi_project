@@ -21,4 +21,13 @@
 		FROM `user`
 		WHERE `user_id` = #{userId} AND `user_pw` = #{userPw}
 	</select>
+	<insert id="createUser" parameterType="user" useGeneratedKeys="true" keyProperty="userNo">
+		INSERT INTO `user` (`user_id`, `user_pw`, `user_name`, `user_gender`, `user_phone`, `user_email`,`user_type`)
+        VALUES (#{userId}, #{userPw}, #{userName}, #{userGender}, #{userPhone}, #{userEmail}, #{userType})
+	</insert>
+	<select id="checkIdUser" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM `user`
+		WHERE `user_id` = #{userId}
+	</select>
 </mapper>

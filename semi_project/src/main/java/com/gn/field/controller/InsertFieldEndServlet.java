@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -101,13 +102,13 @@ public class InsertFieldEndServlet extends HttpServlet {
 					case "field_size_width":
 						temp = fileItem.getString("UTF-8");
 						if(temp != null && temp.length() != 0) {
-							fieldSize += temp;
+							fieldSize += temp + "(m)";
 						}
 						break;
 					case "field_size_height":
 						temp = fileItem.getString("UTF-8");
 						if(temp != null) {
-							fieldSize += "*"+temp;
+							fieldSize += " x "+temp +"(m)";
 						}
 						field.setFieldSize(fieldSize);
 						break;
@@ -231,6 +232,9 @@ public class InsertFieldEndServlet extends HttpServlet {
 				deleteFile.delete();
 			}
 		}
+		
+		RequestDispatcher view = request.getRequestDispatcher("/views/field/insertField_success.jsp");
+		view.forward(request, response);
 }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
