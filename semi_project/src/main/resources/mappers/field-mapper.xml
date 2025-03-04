@@ -39,4 +39,20 @@
 		JOIN `dayoff` d ON d.dayoff_no = f.dayoff_no
 		WHERE `user_no` = #{userNo}
 	</select>
+	<select id="selectFieldByField" parameterType="field" resultMap="fieldMap">
+		SELECT * FROM `field`
+		WHERE user_no = #{userNo}
+		ORDER BY `field_no`
+		LIMIT #{limitPageNo} ,#{numPerPage}
+	</select>
+	<select id="selectFieldCount" parameterType="field" resultType="_int">
+		SELECT COUNT(*)
+		FROM `field`
+		WHERE `user_no` = #{userNo};
+	</select>
+	<select id="selectFieldOneByFieldNo" parameterType="_int" resultMap="fieldMap">
+	SELECT *
+	FROM `field`
+	WHERE `field_no` = #{fieldNo};
+	</select>
 </mapper>

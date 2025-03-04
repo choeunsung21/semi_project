@@ -1,11 +1,11 @@
-package com.gn.rule.vo;
+package com.gn.field.vo;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class PagingRule {
+public class PagingField {
 	// 전체 게시글 개수
 	private int totalData;
 	

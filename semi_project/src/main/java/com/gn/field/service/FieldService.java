@@ -63,10 +63,29 @@ public class FieldService {
 	
 	public List<Field> selectFieldListByUser(User user) {
 		SqlSession session = getSqlSession(true);
-		
 		List<Field> fieldList = new FieldDao().selectFieldListByUser(session, user);
 		session.close();
-		
 		return fieldList;
+	}
+	
+	public int selectFieldCount(Field field) {
+		SqlSession session = getSqlSession(true);
+		int count = new FieldDao().selectFieldCount(session, field);
+		session.close();
+		return count;
+	}
+	
+	public List<Field> selectFieldByField(Field option) {
+		SqlSession session = getSqlSession(true);
+		List<Field> resultList = new FieldDao().selectFieldListByField(session, option);
+		session.close();
+		return resultList;
+	}
+	
+	public Field selectFieldOneByFieldNo(int fieldNo) {
+		SqlSession session = getSqlSession(true);
+		Field result = new FieldDao().selectFieldOneByFieldNo(session, fieldNo);
+		session.close();
+		return result;
 	}
 }
