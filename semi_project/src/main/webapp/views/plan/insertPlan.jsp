@@ -35,6 +35,8 @@
   <link href="<%= request.getContextPath() %>/resources/css/include/common.css" rel="stylesheet" type="text/css">
   <link href="<%= request.getContextPath() %>/resources/css/cjs.css" rel="stylesheet" type="text/css">
   <link href="<%= request.getContextPath() %>/resources/css/ces.css" rel="stylesheet" type="text/css">
+  
+  <script src="<%= request.getContextPath() %>/resources/js/jquery-3.7.1.js"></script>
 
   <!-- =======================================================
   * Template Name: OnePage
@@ -135,16 +137,17 @@
               					<div class="row gy-4">
 									
 									<div class="col-md-12" style="display:none;">
-                  						<input type="text" class="form-control" name="user_no" placeholder="담당 회원번호">
+                  						<input type="text" class="form-control" name="user_no" value="${user.userNo}" placeholder="담당 회원번호">
                 					</div>
 									
 									<div class="col-md-12">
 										<label for="field-no-select" id="field-no-label">구장 선택</label>
 										<select id="field-no-select" name="field_no">
-											<option value="0">구장명</option>
-											<option value="1">#구장(1)</option>
-											<option value="2">#구장(2)</option>
-											<option value="3">#구장(3)</option>
+											<c:forEach var="field_list" items="${fieldList}" varStatus="vs">
+												<option value="${field_list.fieldNo}">
+													<c:out value="(${vs.index+1}) ${field_list.fieldName}"/>
+												</option>
+											</c:forEach>
 										</select>
                 					</div>
                 					

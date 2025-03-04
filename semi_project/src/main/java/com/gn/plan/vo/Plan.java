@@ -2,6 +2,8 @@ package com.gn.plan.vo;
 
 import java.time.LocalDateTime;
 
+import com.gn.field.vo.Field;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -17,9 +19,8 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @Builder
-public class Plan {
+public class Plan extends PagingPlan {
 	private int planNo;
-	private int fieldNo;
 	private String planDate;
 	private String planTime;
 	private String planPrice;
@@ -28,4 +29,7 @@ public class Plan {
 	private LocalDateTime modDate;
 	private String fieldName;
 	private int userNo;
+	private int fieldNo;
+	
+	private Field field;
 }
