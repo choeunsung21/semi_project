@@ -45,4 +45,11 @@ public class PlanRuleService {
 		session.close();
 		return result;
 	}
+	
+	public PlanRule selectRuleOneByRuleNo(int ruleNo) {
+		SqlSession session = getSqlSession(true);
+		PlanRule result = new PlanRuleDao().selectPlanRuleByRuleNo(session, ruleNo);
+		session.close();
+		return result;
+	}
 }

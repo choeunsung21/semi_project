@@ -48,4 +48,10 @@
 	<select id="selectPlanRuleByFieldNo" parameterType="_int" resultMap="planRuleMap">
 		SELECT * FROM `plan_rule` WHERE `field_no` = #{fieldNo} ORDER BY `reg_date` DESC LIMIT 1;
 	</select>
+	<select id="selectPlanRuleByRuleNo" parameterType="_int" resultMap="planRuleMap">
+		SELECT * FROM `plan_rule` r
+		JOIN `field` f ON f.field_no = r.field_no
+		JOIN `dayoff` d ON d.dayoff_no = f.dayoff_no
+		WHERE rule_no = #{ruleNo};
+	</select>
 </mapper>

@@ -140,19 +140,16 @@
 									<div class="col-md-12" style="display:none;">
                   						<input type="text" class="form-control" name="user_no" id="user-no-input" value="${user.userNo}" placeholder="담당 회원번호">
                 					</div>
+                					<div class="col-md-12" style="display:none;">
+                  						<input type="text" class="form-control" name="field_no" id="field-no-input" value="${planRule.fieldNo}" placeholder="대상이 될 구장번호">
+                					</div>
 
 									<div class="col-md-12">
-										<label for="field-no-select" id="field-no-select-label">구장 선택* <span>(등록하신 구장이 없으시면 구장 등록 절차부터 진행해주세요. - <a href="/insertField">이동하기</a>)</span></label>
-										<select id="field-no-select" name="field_no">
-											<option value="0">구장선택</option>
-											<c:forEach var="field_list" items="${fieldList}" varStatus="vs">
-												<option value="${field_list.fieldNo}" id="field-no">
-													<c:out value="(${vs.index+1}) ${field_list.fieldName}"/>
-												</option>
-											</c:forEach>
-										</select>
-										<p><span id="print-msg-span" style="color:crimson;"></span></p>
-										<p><span id="print-flag-span" style="display:none"></span></p>
+										<label for="field-no-select" id="field-no-select-label">적용할 구장</label>
+										<input type="text" class="form-control" name="" id="field-no-input" value="${planRule.fieldName}" readonly>
+
+										<input type="button" value="수정">
+										<input type="button" value="삭제">
                 					</div>
 									
                 					<div class="col-md-6" id="rule-open-select">
@@ -319,59 +316,40 @@
 
   <script>
   $(function(){
-		$('#field-no-select').change(function(){
-			const fieldIndex = $('#field-no-select option:selected').val();
+		const fieldNo = $('#field-no-input').val();
 
-			$.ajax({
-				url : "/selectFieldEnd",
-				type : "post",
-				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-				data : {
-					"fieldIndex":fieldIndex
-				},
-				dataType : "JSON",
-				success : function(data){
-					document.getElementById("field-name-span").innerText = data["fieldName"];
-					document.getElementById("field-addr-span").innerText = data["fieldAddr"];
-					document.getElementById("field-size-span").innerText = data["fieldSize"];
-					document.getElementById("field-limit-span").innerText = data["fieldLimit"];
-					document.getElementById("field-type-span").innerText = data["fieldType"];
-					document.getElementById("is-indoor-span").innerText = data["isIndoor"];
-					document.getElementById("is-park-span").innerText = data["isPark"];
-					document.getElementById("is-shower-span").innerText = data["isShower"];
-					document.getElementById("rent-price-span").innerText = data["rentPrice"];
-					document.getElementById("dayoff-span").innerText = data["dayoff"];
-				},
-				error : function(){
-					document.getElementById("field-name-span").innerText = "";
-					document.getElementById("field-addr-span").innerText = "";
-					document.getElementById("field-size-span").innerText = "";
-					document.getElementById("field-limit-span").innerText = "";
-					document.getElementById("field-type-span").innerText = "";
-					document.getElementById("is-indoor-span").innerText = "";
-					document.getElementById("is-park-span").innerText = "";
-					document.getElementById("is-shower-span").innerText = "";
-					document.getElementById("rent-price-span").innerText = "";
-					document.getElementById("dayoff-span").innerText = "";
-				}
-			});
-			
-			$.ajax({
-				url : "/selectRuleEnd",
-				type : "post",
-				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-				data : {
-					"fieldIndex":fieldIndex
-				},
-				dataType : "JSON",
-				success : function(data) {
-					document.getElementById("print-msg-span").innerText = data["printMsg"];
-					document.getElementById("print-flag-span").innerText = data["printFlag"];
-				},
-				error : function() {
-					
-				}
-			});
+		$.ajax({
+			url : "/selectFieldEnd",
+			type : "post",
+			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+			data : {
+				"fieldIndex":fieldNo
+			},
+			dataType : "JSON",
+			success : function(data){
+				document.getElementById("field-name-span").innerText = data["fieldName"];
+				document.getElementById("field-addr-span").innerText = data["fieldAddr"];
+				document.getElementById("field-size-span").innerText = data["fieldSize"];
+				document.getElementById("field-limit-span").innerText = data["fieldLimit"];
+				document.getElementById("field-type-span").innerText = data["fieldType"];
+				document.getElementById("is-indoor-span").innerText = data["isIndoor"];
+				document.getElementById("is-park-span").innerText = data["isPark"];
+				document.getElementById("is-shower-span").innerText = data["isShower"];
+				document.getElementById("rent-price-span").innerText = data["rentPrice"];
+				document.getElementById("dayoff-span").innerText = data["dayoff"];
+			},
+			error : function(){
+				document.getElementById("field-name-span").innerText = "";
+				document.getElementById("field-addr-span").innerText = "";
+				document.getElementById("field-size-span").innerText = "";
+				document.getElementById("field-limit-span").innerText = "";
+				document.getElementById("field-type-span").innerText = "";
+				document.getElementById("is-indoor-span").innerText = "";
+				document.getElementById("is-park-span").innerText = "";
+				document.getElementById("is-shower-span").innerText = "";
+				document.getElementById("rent-price-span").innerText = "";
+				document.getElementById("dayoff-span").innerText = "";
+			}
 		});
 	});
   </script>

@@ -29,4 +29,8 @@ public class PlanRuleDao {
 	public PlanRule selectPlanRuleByFieldNo(SqlSession session, int fieldNo) {
 		return session.selectOne("planRuleMapper.selectPlanRuleByFieldNo", fieldNo);
 	}
+	
+	public PlanRule selectPlanRuleByRuleNo(SqlSession session, int ruleNo) {
+		return session.selectOne("planRuleMapper.selectPlanRuleByRuleNo", ruleNo);
+	}
 }
