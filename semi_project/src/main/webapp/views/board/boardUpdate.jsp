@@ -99,7 +99,7 @@
     <div class="container">
         <div class="form-box">
             <h2>글쓰기</h2>
-            <form action="boardUpdateEnd" name="boardUpdate" method="post" enctype="multipart/form-data">
+            <form action="boardUpdateEndServlet" name="boardUpdate" method="post" enctype="multipart/form-data">
             	<input type="hidden" name="writerNo" value="<c:out value='${writerNo}' />" >
             	<input type="hidden" name="attachNo" value="<c:out value='${attachNo}' />" >
             	<input type="hidden" name="boardNo" value="<c:out value='${boardNo}' />" >

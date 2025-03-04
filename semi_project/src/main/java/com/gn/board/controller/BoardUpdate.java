@@ -27,11 +27,11 @@ public class BoardUpdate extends HttpServlet {
 		String boardContent = request.getParameter("boardContent");
 		String writerNo = request.getParameter("writerNo");
 		String attachNo = request.getParameter("attachNo");
-		System.out.println(boardTitle);
-		System.out.println(boardContent);
-		System.out.println(boardNo);
-		System.out.println(writerNo);
-		System.out.println(attachNo);
+		System.out.println("수정중!!!!!!!!!!!!" + boardTitle);
+		System.out.println("수정중!!!!!!!!!!!!" +boardContent);
+		System.out.println("수정중!!!!!!!!!!!!" +boardNo);
+		System.out.println("수정중!!!!!!!!!!!!" +writerNo);
+		System.out.println("수정중!!!!!!!!!!!!" +attachNo);
 		request.setAttribute("boardNo", boardNo);
 		request.setAttribute("boardTitle", boardTitle);
 		request.setAttribute("boardContent", boardContent);

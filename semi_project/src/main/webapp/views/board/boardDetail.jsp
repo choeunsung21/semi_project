@@ -140,13 +140,40 @@
           	  <div>
           	  <!-- 게시글을 쓴 사람만 삭제 수정버튼을 보이게 함  -->
           	  	<c:if test="${sessionScope.user.userNo eq board.writerNo }">
-          	  	<a href="/boardUpdate?boardNo=${board.boardNo }&boardTitle=${board.boardTitle}&boardContent=${board.boardContent}&writerNo=${board.writerNo}&attachNo=${board.attachNo}" class="btn btn-outline-primary">글 수정</a>
+          	  	<button type="submit" class="btn btn-outline-primary updatebtn" data-attachno="${board.attachNo }"
+          	  	data-boardtitle="${board.boardTitle }"
+          	  	data-boardcontent="${board.boardContent }"
+          	  	data-writerno="${board.writerNo }"
+          	  	data-boardno="${board.boardNo }"
+          	  	>수정</button>
           	  	<button type="submit" class="btn btn-outline-primary deletebtn" data-boardno="${board.boardNo }">삭제</button>
           	  	</c:if>
           	  </div>
           	  
           	  
           	  <script type="text/javascript">
+          	  $(function(){
+          		  $(".updatebtn").click(function(){
+          			  let attachNo = $(this).data("attachno");
+          			  let boardTitle = $(this).data("boardtitle");
+          			  let boardContent = $(this).data("boardcontent");
+          			  let writerNo = $(this).data("writerno");
+          			  let boardNo = $(this).data("boardno");
+          			  console.log("boardno" + boardNo);
+          			  console.log("내가 몇번이니?" + attachNo);
+          			  location.href = "/boardUpdate?attachNo=" + attachNo + 
+                      "&boardTitle=" + boardTitle + 
+                      "&boardContent=" +boardContent + 
+                      "&writerNo=" + writerNo +
+                      "&boardNo=" + boardNo;
+          			  
+          		  })
+          	  })
+          	  
+          	  
+          	  
+          	  
+          	  
           	$(function() {
           	    $(".deletebtn").click(function() {
           	        let boardNo = $(this).data("boardno");

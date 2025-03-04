@@ -21,7 +21,7 @@ import com.gn.board.vo.Attach;
 import com.gn.board.vo.Board;
 
 
-@WebServlet("/boardUpdateEnd")
+@WebServlet("/boardUpdateEndServlet")
 public class BoardUpdateEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
