@@ -59,11 +59,13 @@
 	font-style: italic;
 }
 
-#field-success-ul {
+#field-success-ul,
+#rule-success-ul {
 	font-size:15px;
 }
 
-#field-success-ul p {
+#field-success-ul p,
+#rule-success-ul p {
 	font-size:12px;
 	color: rgba(88, 88, 88, 0.8);	
 	font-family: "Raleway",  sans-serif;

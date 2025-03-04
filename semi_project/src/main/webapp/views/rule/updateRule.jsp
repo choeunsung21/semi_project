@@ -150,9 +150,11 @@
 									<div class="col-md-12">
 										<label for="field-no-select" id="field-no-select-label">적용할 구장</label>
 										<input type="text" class="form-control" name="" id="field-no-input" value="${planRule.fieldName}" readonly>
+										
 										<br>
-										<button type="button" onclick="updateBtn();">수정</button>
-										<button type="button" onclick="deletePlanRule();">삭제</button>							
+										
+										<a href="/?planNo=${plan.planNo}" class="btn-visit align-self-start" onclick="return confirm('해당 일정을 예약하시겠습니까?')">수정하기</a>
+										<a href="/deletePlanRuleEnd?planRuleNo=${planRule.ruleNo}" class="btn-visit cancel align-self-start" onclick="return confirm('해당 규칙을 삭제하시겠습니까?')">삭제하기</a>
                 					</div>
 									
                 					<div class="col-md-6" id="rule-open-select">
@@ -355,31 +357,6 @@
 			}
 		});
 	});
-
-  	const deletePlanRule = function(){
-		const planRuleNo = $('#rule-no-input').val();
-		
-		let chkDelete = confirm("정말로 삭제하시겠습니까?");
-		
-		if(chkDelete) {
-			$.ajax({
-	  			url : "/deletePlanRuleEnd",
-				type : "post",
-				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
-				data : {
-					"planRuleNo" : planRuleNo
-				},
-				dataType : "JSON",
-				success : function(data){
-					alert(data["delete_result"]);
-					location.href = "/views/rule/deleteRule_success.jsp";
-				},
-				error : function(){
-
-				}
-	  		});
-		}
-  	};
   </script>
 </body>
 

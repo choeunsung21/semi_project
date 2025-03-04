@@ -11,7 +11,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Starter Page - OnePage Bootstrap Template</title>
+  <title>규칙 등록 성공</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -96,7 +96,6 @@
       </div>
 
     </section><!-- /About Alt Section -->
-
 
   </main>
 
