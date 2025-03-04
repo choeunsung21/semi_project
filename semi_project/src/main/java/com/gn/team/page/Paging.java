@@ -1,5 +1,4 @@
-package com.gn.board.page;
-
+package com.gn.team.page;
 
 public class Paging {
 	// 전체 게시글 갯수
@@ -7,7 +6,7 @@ public class Paging {
 		// 전체 페이지 갯수
 		private int totalPage;
 		// 한 페이지 당 게시글의 개수
-		private int numPerPage = 5;
+		private int numPerPage = 2;
 		//LIMIT 쿼리 앞쪽 숫자
 		private int limitPageNo;
 		//현재 페이지 번호

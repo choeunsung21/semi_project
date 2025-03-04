@@ -6,7 +6,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>팀 목록</title>
+    <title>일반사용자 목록</title>
     <link href="assets/img/favicon.png" rel="icon">
     <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
@@ -31,7 +31,7 @@
 <body>
 <%@ include file="/views/include/header.jsp" %>
 <div class="container mt-4">
-    <h3 class="text-center">팀 목록</h3>
+    <h3 class="text-center">일반사용자 목록</h3>
     <table class="table table-hover">
         <thead>
             <tr>
@@ -56,8 +56,8 @@
                             <td>${team.teamCount}/${team.teamLimit}</td>
                             <td>
                                 <a href="teamDetail?teamNo=${team.teamNo}" class="btn btn-primary">상세보기</a>
-                                <a href="updateTeam?teamNo=${team.teamNo}" class="btn btn-warning">수정</a>
-                                <button class="btn btn-danger" onclick="deleteTeam(${team.teamNo})">삭제</button>
+<%--                                 <a href="updateTeam?teamNo=${team.teamNo}" class="btn btn-warning">수정</a> --%>
+<%--                                 <button class="btn btn-danger" onclick="deleteTeam(${team.teamNo})">삭제</button> --%>
                             </td>
                         </tr>
                     </c:forEach>

@@ -32,4 +32,3 @@ public class InsertTeamServlet extends HttpServlet {
        doGet(request, response);
     }
 }
-// 여기까지가 맞는 코드
