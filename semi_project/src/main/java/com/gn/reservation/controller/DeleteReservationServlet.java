@@ -47,8 +47,8 @@ public class DeleteReservationServlet extends HttpServlet {
 			
 			int result = new ReservationService().deleteReservation(reservation);
 			if(result > 0) {
-				// 성공시 페이지 안만들었음
-				RequestDispatcher view = request.getRequestDispatcher("/views/reservation/reservationList.jsp");
+				// 성공시 홈페이지 이동
+				RequestDispatcher view = request.getRequestDispatcher("/selectPlanList");
 				request.setAttribute("reservation", reservation);
 				view.forward(request, response);
 			} else {

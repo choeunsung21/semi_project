@@ -193,6 +193,7 @@ tbody tr:hover {
 							<th>일정 시간</th>
 							<th>이용 시간</th>
 							<th>예약 상태</th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -205,7 +206,15 @@ tbody tr:hover {
 										<td>${plan.planDate}</td>
 										<td>${plan.planTime}</td>
 										<td>${plan.useTime}시간</td>
-										<td>null</td>
+										<td>
+											<c:if test="${empty reservation.reservationNo}">없음</c:if>
+											<c:if test="${not empty reservation.reservationNo}">예약</c:if>
+										</td>
+										<td>
+											<a href="/deletePlan?planNo=${plan.planNo}"
+											onclick="event.stopPropagation();
+						                    return confirm('등록한 일정을 삭제하시겠습니까?');">등록취소</a>
+						                </td>
 									</tr>
 								</c:forEach>
 							</c:when>
@@ -216,7 +225,7 @@ tbody tr:hover {
 							</c:otherwise>
 						</c:choose>
 						<tr class="plus-row" onclick="location.href='/insertPlan'">
-							<td colspan="6">+</td>
+							<td colspan="7">+</td>
 						</tr>
 					</tbody>
 				</table>

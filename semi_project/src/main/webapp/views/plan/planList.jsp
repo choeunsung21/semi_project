@@ -59,6 +59,7 @@ table {
 	overflow: hidden;
 	box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* 그림자 더 부드럽고 입체적으로 */
 	cursor: pointer;
+	text-align: center;
 }
 
 thead {

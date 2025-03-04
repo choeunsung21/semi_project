@@ -14,6 +14,8 @@ import javax.servlet.http.HttpSession;
 import com.gn.plan.service.PlanService;
 import com.gn.plan.vo.PagingPlan;
 import com.gn.plan.vo.Plan;
+import com.gn.reservation.service.ReservationService;
+import com.gn.reservation.vo.Reservation;
 import com.gn.user.vo.User;
 
 
@@ -47,9 +49,11 @@ public class SelectRegisteredPlanListServlet extends HttpServlet {
             
 			
 			List<Plan> registeredPlanList = new PlanService().selelctRegisteredPlanList(option);
+			Reservation reservation = new ReservationService().selectReservationDetail(planNo);
 			
 			RequestDispatcher view = request.getRequestDispatcher("/views/plan/registeredPlanList.jsp");
 			request.setAttribute("registeredPlanList", registeredPlanList);
+			request.setAttribute("reservation", reservation);
 			request.setAttribute("paging", option);
 			view.forward(request, response);
 		} else {
