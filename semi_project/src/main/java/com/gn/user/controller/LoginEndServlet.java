@@ -36,14 +36,11 @@ public class LoginEndServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			if(session.isNew() || session.getAttribute("user") == null) {
 				session.setAttribute("user", user);
-//				session.setMaxInactiveInterval(60*1);
+				session.setMaxInactiveInterval(60*30);
 				response.sendRedirect("/");
+			
 			}
-		}else {
-			System.out.println("로그인 실패");
-			//여기 수정해야 할 필요 있음.
 		}
-		
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -2,8 +2,6 @@ package com.gn.plan.vo;
 
 import java.time.LocalDateTime;
 
-import com.gn.reservation.vo.Reservation;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;

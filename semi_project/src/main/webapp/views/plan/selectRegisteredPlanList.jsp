@@ -64,7 +64,7 @@
     <!-- Page Title -->
     <div class="page-title accent-background">
       <div class="container">
-        <h1>등록한 목록 조회</h1>
+        <h1>등록한 일정 조회</h1>
         <nav class="breadcrumbs">
           <ol>
             <li><a href="index.html">Home</a></li>

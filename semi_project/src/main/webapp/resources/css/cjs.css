@@ -59,6 +59,20 @@
 	font-style: italic;
 }
 
+#field-success-ul {
+	font-size:15px;
+}
+
+#field-success-ul p {
+	font-size:12px;
+	color: rgba(88, 88, 88, 0.8);	
+	font-family: "Raleway",  sans-serif;
+	font-style: italic;
+	padding-top: 15px;
+	text-align: left;
+}
+
+
 #dayoff-select legend {
 	font-size:15px;
 	color: #124265;
@@ -92,8 +106,10 @@
 }
 
 #rent-price-label span,
+#field-no-select-label span,
 #rule-usetime-label span,
-#rule-price-label span {
+#rule-price-label span,
+#print-msg-span {
 	font-size:12px;
 	color: rgba(88, 88, 88, 0.8);	
 	font-family: "Raleway",  sans-serif;

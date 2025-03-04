@@ -25,6 +25,7 @@
 					</c:when>
 					<c:otherwise>
 						<!-- 로그인이 되어있는 상태라면 -->
+						<li><a href="/logout">로그아웃</a></li>
 						<li><a href="#">[알림이미지]</a></li>
 						<li class="dropdown"><a href="#"><c:out value="${user.userName}"/>님<i class="bi bi-chevron-down toggle-dropdown"></i></a>
 							<ul>
@@ -38,12 +39,22 @@
 								<li><a href="/insertReservation">스케줄 예약</a></li>
 								
 								<!-- 팀 관련 드롭다운 메뉴 -->
-								<li class="dropdown"><a href="#"><span>팀 관리</span><i class="bi bi-chevron-down toggle-dropdown"></i></a>
+								
+								<!-- 팀 관리 href만 추가 -->
+								<li class="dropdown"><a href="/teamManagement"><span>팀 관리</span><i class="bi bi-chevron-down toggle-dropdown"></i></a>
 									<ul>
+										<!--새로운 팀 생성(완료가 됐지만, 주소API, 인원수 제한)  -->
 										<li><a href="/insertTeam">새로운 팀 생성</a></li>
+										<!--아직 시작을 못함 -->
 								   		<li><a href="/createTeam">팀 가입신청</a></li>
-										<li><a href="/receiveTeamList">받은 가입신청 목록</a></li>
+								   		<!-- 팀 목록 추가(중간 완료) -->
+								   		<li><a href="/teamList">팀 목록</a></li>
+								   		<!-- 받은 가입신청 목록 추가 -->								   		
+ 										<li><a href="/receiveTeamList">받은 가입신청 목록</a></li>
+ 										<!-- 보낸 가입신청 목록 -->
 										<li><a href="/sendTeamList">보낸 가입신청 목록</a></li>
+										
+										
 										<li><a href="/updateTeam">팀 정보 수정</a></li>
 										<li><a href="/deleteTeam">팀 탈퇴 및 삭제</a></li>
 									</ul>
@@ -65,6 +76,7 @@
 											
 											<!-- 헤더 변경 부분 -->
 											<li><a href="/selectRegisteredPlanList">등록한 일정 조회</a></li>
+											<li><a href="/selectRegisteredRuleList">등록한 규칙 조회</a></li>
 											
 											
 											

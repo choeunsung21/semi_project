@@ -19,6 +19,13 @@
 		<result property="message" column="message" />
 		<result property="regDate" column="reg_date" />
 		<result property="modDate" column="mod_date" />
+		<result property="isSun" column="is_sun" />
+		<result property="isMon" column="is_mon" />
+		<result property="isTue" column="is_tue" />
+		<result property="isWed" column="is_wed" />
+		<result property="isThu" column="is_thu" />
+		<result property="isFri" column="is_fri" />
+		<result property="isSat" column="is_sat" />
 	</resultMap>
 	<insert id="insertFieldOne" parameterType="field">
 		INSERT INTO `field` (`user_no` ,`field_name` ,`field_addr` ,`field_size` ,`field_limit` ,`rent_price` ,`field_type` ,`is_indoor` ,`is_park` ,`is_shower` ,`dayoff_no` ,`message`)
@@ -28,6 +35,8 @@
 		SELECT * FROM `field` ORDER BY `reg_date` DESC LIMIT 1;
 	</select>
 	<select id="selectFieldList" parameterType="user" resultMap="fieldMap">
-		SELECT * FROM `field` WHERE `user_no` = #{userNo}
+		SELECT * FROM `field` f
+		JOIN `dayoff` d ON d.dayoff_no = f.dayoff_no
+		WHERE `user_no` = #{userNo}
 	</select>
 </mapper>
