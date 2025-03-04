@@ -130,14 +130,14 @@ public class InsertFieldEndServlet extends HttpServlet {
 						if("1".equals(temp)) {
 							isPark = true;
 						}
-						field.setPark(isPark);
+						field.setIsPark(isPark);
 						break;
 					case "is_shower":
 						temp = fileItem.getString("UTF-8");
 						if("1".equals(temp)) {
 							isShower = true;
 						}
-						field.setShower(isShower);
+						field.setIsShower(isShower);
 						break;
 					case "rent_price":
 						temp = fileItem.getString("UTF-8");

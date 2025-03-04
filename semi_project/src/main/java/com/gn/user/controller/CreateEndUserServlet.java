@@ -31,11 +31,8 @@ public class CreateEndUserServlet extends HttpServlet {
 		String email = request.getParameter("user_email");
 		int type = Integer.parseInt(request.getParameter("user_type"));
 		
-		 if (!pw.equals(checkPw)) {
-	          System.out.println("비밀번호 불일치");
-	          // 수정 해야 함
-	        }
-
+		
+		
 		User createUser = new User();
 		createUser.setUserId(id);
 		createUser.setUserPw(pw);
