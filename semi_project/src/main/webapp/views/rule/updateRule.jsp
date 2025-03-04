@@ -143,13 +143,16 @@
                 					<div class="col-md-12" style="display:none;">
                   						<input type="text" class="form-control" name="field_no" id="field-no-input" value="${planRule.fieldNo}" placeholder="대상이 될 구장번호">
                 					</div>
+                					<div class="col-md-12" style="display:none;">
+                  						<input type="text" class="form-control" name="rule_no" id="rule-no-input" value="${planRule.ruleNo}" placeholder="대상이 될 규칙번호">
+                					</div>
 
 									<div class="col-md-12">
 										<label for="field-no-select" id="field-no-select-label">적용할 구장</label>
 										<input type="text" class="form-control" name="" id="field-no-input" value="${planRule.fieldName}" readonly>
-
-										<input type="button" value="수정">
-										<input type="button" value="삭제">
+										<br>
+										<button type="button" onclick="updateBtn();">수정</button>
+										<button type="button" onclick="deletePlanRule();">삭제</button>							
                 					</div>
 									
                 					<div class="col-md-6" id="rule-open-select">
@@ -205,7 +208,7 @@
 									
 									<!-- #chk_term 체크되었을 때만 버튼이 눌러지고 아닐경우 alert창을 띄울 예정 -->
                 					<div class="col-md-12 text-center">
-                  						<button type="submit" onclick="insertRuleForm();">일정 등록</button>
+                  						<button type="submit" onclick="insertRuleForm();">일정 수정</button>
                 					</div>
                 					
               					</div>
@@ -352,6 +355,31 @@
 			}
 		});
 	});
+
+  	const deletePlanRule = function(){
+		const planRuleNo = $('#rule-no-input').val();
+		
+		let chkDelete = confirm("정말로 삭제하시겠습니까?");
+		
+		if(chkDelete) {
+			$.ajax({
+	  			url : "/deletePlanRuleEnd",
+				type : "post",
+				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+				data : {
+					"planRuleNo" : planRuleNo
+				},
+				dataType : "JSON",
+				success : function(data){
+					alert(data["delete_result"]);
+					location.href = "/views/rule/deleteRule_success.jsp";
+				},
+				error : function(){
+
+				}
+	  		});
+		}
+  	};
   </script>
 </body>
 

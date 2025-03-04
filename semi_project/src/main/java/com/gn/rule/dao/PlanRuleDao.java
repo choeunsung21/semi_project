@@ -26,6 +26,10 @@ public class PlanRuleDao {
 		return session.insert("planRuleMapper.insertPlanRule", planRule);
 	}
 	
+	public int deletePlanRuleByRuleNo(SqlSession session, int ruleNo) {
+		return session.delete("planRuleMapper.deletePlanRuleByRuleNo", ruleNo);
+	}
+	
 	public PlanRule selectPlanRuleByFieldNo(SqlSession session, int fieldNo) {
 		return session.selectOne("planRuleMapper.selectPlanRuleByFieldNo", fieldNo);
 	}

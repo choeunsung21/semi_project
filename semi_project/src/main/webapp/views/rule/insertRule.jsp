@@ -289,6 +289,8 @@
         	event.preventDefault();
         } else if(form.rule_open.value == form.rule_close.value) {
 			alert('오픈 시간과 마감 시간이 동일합니다. 다시 확인해주세요.');
+        	form.rule_open.focus();
+        	event.preventDefault();
         } else if(!chkTerms) {
             alert("약관을 읽고 체크해주세요.");
 			event.preventDefault();
