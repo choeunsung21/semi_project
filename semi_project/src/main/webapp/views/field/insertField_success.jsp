@@ -9,18 +9,6 @@
 <html lang="en">
 
 <head>
-  <style>
-        table { width: 80%; margin: 20px auto; border-collapse: collapse; }
-        th, td { border: 1px solid black; padding: 10px; text-align: center; }
-        th { background-color: #f4f4f4; }
-  </style>
-  
-  
-  
-  
-  
-  
-  
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>Starter Page - OnePage Bootstrap Template</title>
@@ -45,6 +33,9 @@
 
   <!-- Main CSS File -->
   <link href="<%= request.getContextPath() %>/resources/css/include/common.css" rel="stylesheet" type="text/css">
+  <link href="<%= request.getContextPath() %>/resources/css/cjs.css" rel="stylesheet" type="text/css">
+
+  <script src="<%= request.getContextPath() %>/resources/js/jquery-3.7.1.js"></script>
 
   <!-- =======================================================
   * Template Name: OnePage
@@ -61,69 +52,43 @@
 
   <main class="main">
 
-    <!-- Page Title -->
-    <div class="page-title accent-background">
-      <div class="container">
-        <h1>등록한 일정 조회</h1>
-        <nav class="breadcrumbs">
-          <ol>
-            <li><a href="index.html">Home</a></li>
-          </ol>
-        </nav>
-      </div>
-    </div><!-- End Page Title -->
+	<section id="about-alt" class="about-alt section">
 
-    <!-- Starter Section Section -->
-    <section id="starter-section" class="starter-section section">
+      <div class="container" style="text-align:center">
 
-      <div class="container" data-aos="fade-up">
-      <!-- 본문 작성 -->
-      
-      <table>
-        <thead>
-            <tr>
-                <th>번호</th>
-                <th>구장명</th>
-                <th>일정 날짜</th>
-                <th>일정 시간</th>
-                <th>이용 시간</th>
-            </tr>
-        </thead>
-        <tbody>
-            <c:forEach var="plan" items="${registeredPlanList}">
-                <tr>
-                    <td>${registeredPlanList.planNo}</td>
-                    <td>${registeredPlanList.fieldName}</td>
-                    <td>${registeredPlanList.planDate}</td>
-                    <td>${registeredPlanList.planTime}</td>
-                    <td>${registeredPlanList.useTime}시간</td>
-                </tr>
-            </c:forEach>
-        </tbody>
-    </table>
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
+        <div class="row gy-4" style="text-align:center">
+        <div class="col-lg-4 content">
+        </div>
+          <div class="col-lg-4 content" data-aos="fade-up" data-aos-delay="200">
+            <h3>구장 등록 성공!</h3>
+            <p class="fst-italic">
+              이제 해당 구장에 일정을 등록할 수 있습니다
+            </p>
+            <ul id="field-success-ul">
+              <li><i class="bi bi-check2-all"></i> <a href="/">메인화면으로 이동하기</a><br></li>
+              <li></li>
+              <li></li>
+              <li><i class="bi bi-check2-all"></i> <a href="/insertPlan">일정 직접 등록으로 이동하기</a><br></li>
+              <li><i class="bi bi-check2-all"></i> <a href="/insertRule">일정 규칙 등록으로 이동하기</a><br></li>
+              <li>
+              	<p>
+       				* 구장의 일정을 등록하는 두가지 방법<br>
+       				1. 직접 등록하는 방법 : 특정 일자를 지정하여 수동 등록<br>
+           			2. 규칙을 등록하는 방법 : 지정된 규칙에 따라 자동 등록<br>
+       	    	</p>
+       	      </li>
+            </ul>
+
+          </div>
+          <div class="col-lg-4 content">
+          </div>  
+        </div>
       </div>
 
-    </section><!-- /Starter Section Section -->
+    </section><!-- /About Alt Section -->
+
 
   </main>
-
-  <%@ include file="/views/include/footer.jsp" %>
 
   <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
@@ -145,5 +110,5 @@
   <script src="/resources/js/common.js"></script>
 
 </body>
-
+	
 </html>

@@ -53,40 +53,109 @@ public class SelectFieldEndServlet extends HttpServlet {
 					}
 				}
 				
-				String isPark = "";
-				if(field.getIsPark()) {
-					isPark = "주차장 있음";
-				} else {
-					isPark = "주차장 없음";
+				if(field != null) {
+					String isPark = "";
+					if(field.getIsPark()) {
+						isPark = "주차장 있음";
+					} else {
+						isPark = "주차장 없음";
+					}
+					
+					String isShower = "";
+					if(field.getIsShower()) {
+						isShower = "샤워실 있음";
+					} else {
+						isShower = "샤워실 없음";
+					}
+					
+					String rentPrice = "";
+					if(field.getRentPrice() == null) {
+						rentPrice = "대여 불가";
+					} else {
+						rentPrice = field.getRentPrice() + "원";
+					}
+					
+					String dayoff = "";
+					int cnt = 0;
+					if(field.isSun()) {
+						if(cnt==0) {
+							dayoff += "일요일";
+							cnt++;
+						} else {
+							dayoff += ", 일요일";
+							cnt++;
+						}
+					}
+					if(field.isMon()) {
+						if(cnt==0) {
+							dayoff += "월요일";
+							cnt++;
+						} else {
+							dayoff += ", 월요일";
+							cnt++;
+						};
+					}
+					if(field.isTue()) {
+						if(cnt==0) {
+							dayoff += "화요일";
+							cnt++;
+						} else {
+							dayoff += ", 화요일";
+							cnt++;
+						};
+					}
+					if(field.isWed()) {
+						if(cnt==0) {
+							dayoff += "수요일";
+							cnt++;
+						} else {
+							dayoff += ", 수요일";
+							cnt++;
+						};
+					}
+					if(field.isThu()) {
+						if(cnt==0) {
+							dayoff += "목요일";
+							cnt++;
+						} else {
+							dayoff += ", 목요일";
+							cnt++;
+						};
+					}
+					if(field.isFri()) {
+						if(cnt==0) {
+							dayoff += "금요일";
+							cnt++;
+						} else {
+							dayoff += ", 금요일";
+							cnt++;
+						};
+					}
+					if(field.isSat()) {
+						if(cnt==0) {
+							dayoff += "토요일";
+							cnt++;
+						} else {
+							dayoff += ", 토요일";
+							cnt++;
+						};
+					}
+
+					JSONObject obj = new JSONObject();
+					obj.put("fieldName", field.getFieldName());
+					obj.put("fieldAddr", field.getFieldAddr());
+					obj.put("fieldSize", field.getFieldSize());
+					obj.put("fieldLimit", field.getFieldLimit()+"명");
+					obj.put("fieldType", field.getFieldType());
+					obj.put("isIndoor", field.getIsIndoor());
+					obj.put("isPark", isPark);
+					obj.put("isShower", isShower);
+					obj.put("rentPrice", rentPrice);
+					obj.put("dayoff", dayoff);
+					
+					response.setContentType("application/json;charset=utf-8");
+					response.getWriter().print(obj);
 				}
-				
-				String isShower = "";
-				if(field.getIsShower()) {
-					isShower = "샤워실 있음";
-				} else {
-					isShower = "샤워실 없음";
-				}
-				
-				String rentPrice = "";
-				if(field.getRentPrice() == null) {
-					rentPrice = "대여 불가";
-				} else {
-					rentPrice = field.getRentPrice() + "원";
-				}
-				
-				JSONObject obj = new JSONObject();
-				obj.put("fieldName", field.getFieldName());
-				obj.put("fieldAddr", field.getFieldAddr());
-				obj.put("fieldSize", field.getFieldSize());
-				obj.put("fieldLimit", field.getFieldLimit()+"명");
-				obj.put("fieldType", field.getFieldType());
-				obj.put("isIndoor", field.getIsIndoor());
-				obj.put("isPark", isPark);
-				obj.put("isShower", isShower);
-				obj.put("rentPrice", rentPrice);
-				
-				response.setContentType("application/json;charset=utf-8");
-				response.getWriter().print(obj);
 				
 			} else {
 				/* 
