@@ -168,10 +168,10 @@ tbody tr:hover {
 		<!-- Page Title -->
 		<div class="page-title accent-background">
 			<div class="container">
-				<h1>등록한 규칙</h1>
+				<h1>등록한 규칙 조회</h1>
 				<nav class="breadcrumbs">
 					<ol>
-						<li><a href="/index.jsp">Home</a></li>
+						<li><a href="javascript:void(0);">항목을 클릭하시면 수정 및 삭제하실 수 있습니다.</a></li>
 					</ol>
 				</nav>
 			</div>
@@ -198,7 +198,7 @@ tbody tr:hover {
 						<c:choose>
 							<c:when test="${not empty registeredPlanRuleList}">
 								<c:forEach var="rule" items="${registeredPlanRuleList}" varStatus="vs">
-									<tr class="plan-row" data-plan-no="${rule.ruleNo}" onclick="location.href='/updatePlanRule?planNo=${rule.ruleNo}'">
+									<tr class="plan-row" data-plan-no="${rule.ruleNo}" onclick="location.href='/updatePlanRule?rule_no=${rule.ruleNo}'">
 										<td style="text-align:center">${vs.index+1 + (rulePaging.nowPage-1) * rulePaging.numPerPage}</td>
 										<td style="text-align:center">${rule.fieldName}</td>
 										<td style="text-align:center">${rule.openTime}</td>

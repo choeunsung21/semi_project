@@ -39,8 +39,6 @@ public class SelectRegisteredRuleListServlet extends HttpServlet {
 				option.setNowPage(Integer.parseInt(nowPage));
 			}
 			
-			System.out.println(option.getNowPage());
-			
 			int totalData = new PlanRuleService().selectPlanRuleCount(option);
 			
 			option.setTotalData(totalData);
