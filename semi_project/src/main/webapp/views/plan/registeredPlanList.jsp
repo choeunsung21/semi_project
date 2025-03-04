@@ -22,6 +22,7 @@ table {
     overflow: hidden; /* 둥근 모서리 안쪽 잘림 방지 */
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* 그림자 강화 */
     cursor: pointer;
+    text-align: center;
 }
 
 thead {

@@ -257,7 +257,13 @@ tbody tr.active {
 									<c:choose>
 										<c:when test="${not empty planList}">
 											<c:forEach var="plan" items="${planList}">
-												<tr class="plan-row" data-plan-no="${plan.planNo}" data-field-addr="${plan.field.fieldAddr}" data-field-name="${plan.field.fieldName}" data-plan-date="${plan.planDate}" data-plan-time="${plan.planTime}" data-use-time="${plan.useTime}" onclick="location.href='/selectPlanDetail?planNo=${plan.planNo}'">
+												<tr class="plan-row" data-plan-no="${plan.planNo}"
+												data-field-addr="${plan.field.fieldAddr}"
+												data-field-name="${plan.field.fieldName}"
+												data-plan-date="${plan.planDate}"
+												data-plan-time="${plan.planTime}"
+												data-use-time="${plan.useTime}"
+												onclick="location.href='/selectPlanDetail?planNo=${plan.planNo}'">
 													<td>${plan.field.fieldAddr}</td>
 													<td>${plan.field.fieldName}</td>
 													<td>${plan.planDate}</td>
@@ -294,7 +300,6 @@ tbody tr.active {
 												</c:otherwise>
 											</c:choose>
 										</c:forEach>
-
 										<c:if test="${paging.next}">
 											<a href="/selectPlanList?nowPage=${paging.pageBarEnd + 1}" class="next"> &raquo; </a>
 										</c:if>
