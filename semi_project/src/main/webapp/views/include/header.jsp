@@ -34,7 +34,7 @@
 
 								<!-- 작업을 위한 임시 드롭다운 메뉴 -->
 								<li><a href="/selectBoardList">게시판</a></li>
-								<li><a href="/insertBoard">글쓰기</a></li>
+								<li><a href="/boardWrite">글쓰기</a></li>
 								
 								<li><a href="/insertReservation">스케줄 예약</a></li>
 								
