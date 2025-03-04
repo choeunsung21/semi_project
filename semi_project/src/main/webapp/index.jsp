@@ -51,7 +51,7 @@
           <div class="col-md-6 col-lg-3" data-aos="zoom-out" data-aos-delay="100">
             <div class="icon-box">
               <div class="icon"><i class="bi bi-easel"></i></div>
-              <h4 class="title"><a href="/starter-page.jsp">예약 가능한 구장</a></h4>
+              <h4 class="title"><a href="/selectPlanList">예약 가능한 구장</a></h4>
               <p class="description">Fields available for reservation</p>
             </div>
           </div><!--End Icon Box -->
