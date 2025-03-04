@@ -87,6 +87,7 @@
         button:hover {
             background-color: #0056b3;
         }
+        
     </style>
   
 </head>
@@ -99,11 +100,15 @@
     <div class="container">
         <div class="form-box">
             <h2>글쓰기</h2>
+            
             <form action="boardUpdateEndServlet" name="boardUpdate" method="post" enctype="multipart/form-data">
             	<input type="hidden" name="writerNo" value="<c:out value='${writerNo}' />" >
-            	<input type="hidden" name="attachNo" value="<c:out value='${attachNo}' />" >
+            	<input type="hidden" id="attachNo" name="attachNo" value="<c:out value='${attachNo}' />" >
             	<input type="hidden" name="boardNo" value="<c:out value='${boardNo}' />" >
                 <input type="text" name="title" value="<c:out value='${boardTitle}' />">
+                <c:if test="${not empty oriName }"> 
+                <button id="deleteBtn">X</button><input type="text" value="<c:out value='${oriName} '/>" />
+            	</c:if> 
                 <input type="file" name="file" accept=".png,.jpg,.jpeg">
                 <textarea name="content" rows="5"><c:out value='${boardContent}' /></textarea>
                 <button  class="btn btn-outline-primary" onclick="writeUpdate();">수정</button>
@@ -112,6 +117,8 @@
     </div>
     
     <script type="text/javascript">
+    
+    
     const writeUpdate = function(event){
         event.preventDefault(); // 이벤트 기본 동작 방지
         let form = document.boardUpdate;
@@ -142,6 +149,7 @@
             type: 'post',
             enctype: 'multipart/form-data',
             cache: false,
+            async:false,
             contentType: false,
             processData: false,
             data: sendData,
@@ -160,6 +168,30 @@
             }
         });
     };
+    
+    $("#deleteBtn").click(function() {
+        let attachNo = $("#attachNo").val();  // attachNo 값 가져오기
+        console.log("!!!!!!!!!!!!!!!!!!!!!!"+attachNo);
+
+        $.ajax({
+            url: "/deleteAttach",  // 서버에서 처리할 URL
+            type: "get",
+            data: {"attachNo": attachNo},  // 데이터 전송
+            dataType:"JSON",
+ 			contentType:"application/x-www-form-urlencoded; charset=UTF-8",
+            success: function(data) {
+                alert("첨부파일이 삭제되었습니다");
+            },
+            error: function(xhr, status, error) {
+                alert("첨부파일 삭제 중 오류가 발생했습니다");
+            }
+        });
+    });
+    
+    
+    
+    
+    
     
     
     </script>

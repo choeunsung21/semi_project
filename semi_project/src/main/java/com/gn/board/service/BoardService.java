@@ -121,7 +121,73 @@ public class BoardService {
 		return result;
 	}
 	
-
-
-
+	//댓글 자체 삭제 메소드
+	public int deleteReplyOne(int replyNo) {
+		SqlSession session = getSqlSession(true);
+		int result = new BoardDao().deleteReplyOne(session,replyNo);
+		session.close();
+		return result;
+	}
+	
+	// X버튼 누르면 삭제하는 메소드
+	public int deleteAttachNo(int attachNo) {
+		SqlSession session = getSqlSession(true);
+		int result = new BoardDao().deleteAttachNo(session,attachNo);
+		session.close();
+		return result;
+	}
+	
+//	public int updateBoard(Board board, Attach attach) {
+//		    SqlSession session = getSqlSession(false);
+//		    int result = 0;
+//		    int attachNo = 0;
+//		    try {
+//		        int update = new BoardDao().updateBoard(session, board);
+//		        if(board.getAttachNo() != 0) {
+//		        	//INSERT할때 이미지를 등록 한 경우
+//		        	//delete코드
+//		        	
+//		        	int boardImgDe = new BoardDao().deleteAttach(session,board);
+//					attachNo = new BoardDao().insertAttach(attach,session);	
+//		        	if(boardImgDe == 0 || attachNo == 0) {
+//		        		session.rollback();
+//		        		session.close();
+//		        	}
+//		        }
+////		        else {
+////		        	//insert할 때 이미지가 없는 경우
+////		        }
+//		        
+//		        //attach가 null인지 아닌지
+//		        if(attach != null) {
+//		        	//수정할 때 이미지를 추가한 경우
+//		        	//insert코드
+//		        	board.setBoardNo(board.getBoardNo());
+//		        	attachNo = new BoardDao().insertAttach(attach, session);
+//		        	if(attachNo == 0) {
+//		        		session.rollback();
+//		        		session.close();
+//		        	}
+//		        }
+//		        //else {
+//		        	//수정할 때 이미지를 추가 X
+//		        //}
+////
+//
+//		            // attach가 null이 아닌 경우
+//		        
+//		            if (update != 0) {
+//		                result = 1;
+//		                session.commit();
+//		            } else {
+//		                session.rollback();
+//		            }
+//		        } catch (Exception e) {
+//		            e.printStackTrace();
+//		            session.rollback();
+//		        }
+//
+//		    return result;
+//		    
+//		    }
 }

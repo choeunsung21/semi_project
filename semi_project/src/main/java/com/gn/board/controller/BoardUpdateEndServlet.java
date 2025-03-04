@@ -76,11 +76,12 @@ public class BoardUpdateEndServlet extends HttpServlet {
 							break;
 						case "boardNo" : board.setBoardNo(Integer.parseInt(fileItem.getString("utf-8")));
 							break;
-						case "attachNo" : board.setAttachNo(fileItem.getString("utf-8"));
+						case "attachNo" : board.setAttachNo(Integer.parseInt(fileItem.getString("utf-8")));
 						System.out.println("테스트 : boardupdateEndServelt " + board.getAttachNo());
+						
 							break;
-							}
-						}else {
+						}
+					}else {
 							//파일이면 attach를 재할당
 							if(fileItem.getSize() > 0) {
 								attach = new Attach();
@@ -104,18 +105,18 @@ public class BoardUpdateEndServlet extends HttpServlet {
 							}
 						}
 					}
-					int result = new BoardService().writeBoard(board,attach);
+					int result = new BoardService().updateBoard(board,attach);
 					JSONObject obj = new JSONObject();
 					
 					//null체크
-//					if(result > 0) {
-//						System.out.println("(BoardWriterEndServlet에 있습니다)게시글이 작성 완료!");
-//					}else {
-//						System.out.println("게시글이 작성 실패 ㅠㅠ");
-//					}
+					if(result > 0) {
+						System.out.println("(BoardWriterEndServlet에 있습니다)게시글이 작성 완료!");
+					}else {
+						System.out.println("게시글이 작성 실패 ㅠㅠ");
+					}
 					if(result > 0) {
 						obj.put("res_code", 200);
-						obj.put("res_msg", "정삭적으로 수정이 되었습니다");
+						obj.put("res_msg", "정상적으로 수정이 되었습니다");
 					}else {
 						obj.put("res_code", 500);
 						obj.put("res_msg", "수정실패");
@@ -131,10 +132,10 @@ public class BoardUpdateEndServlet extends HttpServlet {
 					response.getWriter().print(obj);
 				}catch(Exception e){
 					e.printStackTrace();
+				
+		
+		
 				}
-		
-		
-		
 			
 	}
 
