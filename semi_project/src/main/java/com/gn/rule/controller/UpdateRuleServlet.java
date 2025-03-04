@@ -19,7 +19,7 @@ public class UpdateRuleServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String ruleNo = request.getParameter("rule_no");
-		System.out.println("UpdateRuleServlet"+ruleNo);
+		System.out.println("UpdateRuleServlet : "+ruleNo);
 		
 		RequestDispatcher view = request.getRequestDispatcher("/views/rule/updateRule.jsp");
 		view.forward(request, response);

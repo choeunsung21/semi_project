@@ -156,7 +156,7 @@ public class SelectFieldEndServlet extends HttpServlet {
 					response.setContentType("application/json;charset=utf-8");
 					response.getWriter().print(obj);
 				}
-
+				
 			} else {
 				/* 
 				 * 로그인 되어있는 유저가 구장을 등록하지 않은 상황임
