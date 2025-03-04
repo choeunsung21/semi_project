@@ -45,6 +45,14 @@
 		INSERT INTO `plan_rule` (`field_no` ,`open_time` ,`close_time` ,`operating` ,`price`)
 		VALUES (#{fieldNo}, #{openTime}, #{closeTime}, #{operating}, #{price});
 	</insert>
+	<update id="updatePlanRule" parameterType="planRule">
+		UPDATE `plan_rule`
+		SET `open_time` = #{openTime}
+		, `close_time` = #{closeTime}
+		, `operating` = #{operating}
+		, `price` = #{price}
+		WHERE `rule_no` = #{ruleNo}
+	</update>
 	<delete id="deletePlanRuleByRuleNo" parameterType="_int">
 		DELETE FROM `plan_rule`
 		WHERE `rule_no` = #{ruleNo};

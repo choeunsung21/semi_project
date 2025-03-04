@@ -38,7 +38,6 @@ public class DeleteRuleEndServlet extends HttpServlet {
 			 * 다른 페이지로 넘기기 때문에 이쪽으로 올 수 없음
 			 */ 
 		}
-		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

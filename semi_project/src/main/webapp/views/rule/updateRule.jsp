@@ -11,7 +11,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Service Details - OnePage Bootstrap Template</title>
+  <title>규칙 수정</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -134,7 +134,7 @@
           				</div>
 						
           				<div class="col-lg-8">
-            				<form action="/insertRuleEnd" method="post" class="submit-form" name="insert_rule_end_form" data-aos="fade-up" data-aos-delay="200">
+            				<form action="/updateRuleEnd" method="post" class="submit-form" name="insert_rule_end_form" data-aos="fade-up" data-aos-delay="200">
               					<div class="row gy-4">
 									
 									<div class="col-md-12" style="display:none;">
@@ -153,11 +153,11 @@
 										
 										<br>
 										
-										<a href="/?planNo=${plan.planNo}" class="btn-visit align-self-start" onclick="return confirm('해당 일정을 예약하시겠습니까?')">수정하기</a>
-										<a href="/deletePlanRuleEnd?planRuleNo=${planRule.ruleNo}" class="btn-visit cancel align-self-start" onclick="return confirm('해당 규칙을 삭제하시겠습니까?')">삭제하기</a>
+										<a href="javascript:void(0);" class="btn-visit align-self-start" style="padding-right:2px;" onclick="chgClass();">수정하기</a>
+										<a href="/deletePlanRuleEnd?planRuleNo=${planRule.ruleNo}" class="btn-visit cancel align-self-start" style="padding-left:2px;" onclick="return confirm('해당 규칙을 삭제하시겠습니까?')">삭제하기</a>
                 					</div>
 									
-                					<div class="col-md-6" id="rule-open-select">
+                					<div class="col-md-6 update-hidden" id="rule-open-select">
                   						<label for="rule-open-select" id="rule-open-label">오픈 시간*</label>
 	                  					<select name="rule_open" id="rule-open-select" required>
 	                  								<option value="-1">선택</option>
@@ -173,7 +173,7 @@
 										</select>
                 					</div>
                 					
-                					<div class="col-md-6" id="rule-close-select">
+                					<div class="col-md-6 update-hidden" id="rule-close-select">
                   						<label for="rule-close-select" id="rule-close-label">마감 시간*</label>
 	                  					<select name="rule_close" id="rule-close-select" required>
 	                  								<option value="-1">선택</option>
@@ -189,7 +189,7 @@
 										</select>
                 					</div>
                 					
-                					<div class="col-md-12">
+                					<div class="col-md-12 update-hidden" id="rule-usetime-target">
                   						<label for="rule-usetime-input" id="rule-usetime-label">일정 등록 간격 <span>(둥록간격이 영업시간보다 길 경우 등록되지 않습니다.)</span></label>
                   						 <select id="rule-usetime-input" name="rule_usetime">
 										     <option value="1">1시간</option>
@@ -199,18 +199,18 @@
 										</select>
                 					</div>
                 					
-                					<div class="col-md-12">
+                					<div class="col-md-12 update-hidden" id="rule-price-target">
                 						<label for="rule-price-input" id="rule-price-label">가격 <span></span></label>
                   						<input type="number" class="form-control" name="rule_price" id="rule-price-input" min="0" value="0">
                 					</div>
 									
-									<p>
+									<p class="update-hidden" id="rule-terms-target">
                 						<input id="chk_terms" type="checkbox">&nbsp; 일정 등록 관련 약관입니다.
 									</p>                					
 									
 									<!-- #chk_term 체크되었을 때만 버튼이 눌러지고 아닐경우 alert창을 띄울 예정 -->
-                					<div class="col-md-12 text-center">
-                  						<button type="submit" onclick="insertRuleForm();">일정 수정</button>
+                					<div class="col-md-12 text-center update-hidden" id="rule-form-btn-target">
+                  						<button type="submit" onclick="updateRuleForm();">일정 수정</button>
                 					</div>
                 					
               					</div>
@@ -269,19 +269,11 @@
   </main>
   
     <script>
-  	const insertRuleForm = function(){
+  	const updateRuleForm = function(){
     	const form = document.insert_rule_end_form;
 		let chkTerms = $("#chk_terms").is(":checked");
 		
-        if(form.field_no.value == "0") {
-        	alert('구장을 선택해주세요.');
-        	form.field_no.focus();
-        	event.preventDefault();
-        } else if(document.getElementById('print-flag-span').innerText == 'not null') {
-			alert('선택하신 구장은 이미 등록된 규칙이 있습니다. 다시 확인해주세요.');
-        	form.field_no.focus();
-        	event.preventDefault();
-        } else if(form.rule_open.value == "-1") {
+        if(form.rule_open.value == "-1") {
         	alert('오픈 시간을 선택해주세요.');
         	form.rule_open.focus();
         	event.preventDefault();
@@ -291,6 +283,8 @@
         	event.preventDefault();
         } else if(form.rule_open.value == form.rule_close.value) {
 			alert('오픈 시간과 마감 시간이 동일합니다. 다시 확인해주세요.');
+        	form.rule_open.focus();
+        	event.preventDefault();
         } else if(!chkTerms) {
             alert("약관을 읽고 체크해주세요.");
 			event.preventDefault();
@@ -357,6 +351,30 @@
 			}
 		});
 	});
+  	
+  	let chkHidden = true;
+  	
+    const chgClass = function(){
+		if(chkHidden) {
+			document.getElementById('rule-open-select').classList.remove('update-hidden');
+			document.getElementById('rule-close-select').classList.remove('update-hidden');
+			document.getElementById('rule-usetime-target').classList.remove('update-hidden');
+			document.getElementById('rule-price-target').classList.remove('update-hidden');
+			document.getElementById('rule-terms-target').classList.remove('update-hidden');
+			document.getElementById('rule-form-btn-target').classList.remove('update-hidden');
+			
+			chkHidden = false;
+		} else {
+			document.getElementById('rule-open-select').classList.add('update-hidden');
+			document.getElementById('rule-close-select').classList.add('update-hidden');
+			document.getElementById('rule-usetime-target').classList.add('update-hidden');
+			document.getElementById('rule-price-target').classList.add('update-hidden');
+			document.getElementById('rule-terms-target').classList.add('update-hidden');
+			document.getElementById('rule-form-btn-target').classList.add('update-hidden');
+			
+			chkHidden = true;
+		}
+    };
   </script>
 </body>
 
