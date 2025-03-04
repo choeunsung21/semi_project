@@ -7,6 +7,21 @@ import org.apache.ibatis.session.SqlSession;
 import com.gn.user.vo.User;
 
 public class UserDao {
+	
+	public int MyPageUpdatePw(SqlSession session, User user) {
+		int result = session.update("userMapper.MyPageUpdatePw",user);
+		return result;
+	}
+	
+	public int changeUserData(SqlSession session, User user) {
+		System.out.println("다오"+user);
+		int result = session.update("userMapper.changeUserData", user);
+		System.out.println(result);
+		return result;
+		
+	}
+	
+	
 	public User loginUser(SqlSession session, User chkUser) {
 		User user = session.selectOne("userMapper.userLogin", chkUser);
 		return user;

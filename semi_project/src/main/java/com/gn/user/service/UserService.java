@@ -8,6 +8,24 @@ import com.gn.user.dao.UserDao;
 import com.gn.user.vo.User;
 
 public class UserService {
+	
+	public int MyPageUpdatePw(User user) {
+		SqlSession session = getSqlSession(true);
+		int result = new UserDao().MyPageUpdatePw(session, user);
+		session.close();
+		return result;
+	}
+	
+	public int changeUserData(User user) {
+		System.out.println("서비스"+user);
+		SqlSession session = getSqlSession(true);
+		int result = new UserDao().changeUserData(session, user);
+		System.out.println(result);
+		session.close();
+		return result;
+		
+	}
+	
 
 	public User loginUser(User chkUser) {
 		SqlSession session = getSqlSession(true);

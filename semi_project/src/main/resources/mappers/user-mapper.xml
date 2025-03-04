@@ -16,6 +16,16 @@
 		<result property="regDate" column="reg_date"/>
 		<result property="modDate" column="mod_date"/>
 	</resultMap>
+	<update id="MyPageUpdatePw" parameterType="user">
+		UPDATE `user`
+		SET `user_pw` = #{userPw}
+		WHERE `user_id` = #{userId}
+	</update>
+	<update id="changeUserData" parameterType="user">
+		UPDATE `user`
+		SET `user_name` = #{userName}, `user_email` = #{userEmail}, `user_phone` = #{userPhone}
+		WHERE `user_id` = #{userId}	
+	</update>
 	<select id="userLogin" parameterType="user" resultMap="userMap">
 		SELECT *
 		FROM `user`

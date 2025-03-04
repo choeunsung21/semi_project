@@ -116,7 +116,6 @@
 		console.log('게시글 번호가 출력되는가?' + boardNo);
 		location.href='/boardDetail?board_no='+boardNo;
 	})
-
 </script>
 
 </body>

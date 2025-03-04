@@ -70,17 +70,17 @@
         <div class="content-wrapper">
             <h1 class="section-title">사용자의 바르셀로나</h1>
             <div class="action-panel">
-                <a href="/myPageUpdateServlet">
+                <a href="#" id="changeProfileBtn">
                     <i class="bi bi-person link-icon"></i>
                     내 정보 수정
                 </a>
                 <br>
-                <a href="">
+                <a href="#" id="changePassWord">
                     <i class="bi bi-person-lock link-icon"></i>
                     비밀번호 변경
                 </a>
                 <br>
-                <a href="">
+                <a href="#" id="updateWrite">
                     <i class="bi bi-pencil-square link-icon"></i>
                     내가 쓴 글 수정
                 </a>
@@ -98,7 +98,8 @@
         </div>
     </section>
 </div>
-<div>
+ <!-- 마이페이지를 들어가면 보이는 초기 상태의 사용자 정보-->
+<div id="myDataForm">
 	<div class="section-title" data-aos="fade-up">
 		<h3>사용자의 정보</h3>
 	</div>
@@ -115,11 +116,254 @@
 		<p>성별: ${user.userGender }</p>
 	</div>
 </div>
-	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.7.1.js"></script>
- <script>
- 	
- </script>
+	<!-- 내 정보 수정 a 태그를 눌러야지만 보이는 곳. 초기 사용자 정보는 display-none 상태? 가 되고 밑에 div가 보이게 한다.-->
+	<!-- 내 정보 수정 -->
+<div id="myDataChangeForm" style="display: none;">	
+	<div class="section-title" data-aos="fade-up">
+		<h3>내 정보 수정</h3>
+	</div>
+	<form id="userProfileForm">
+	<input type="text" id="userId" value="${user.userId }" style="display : none">
+   <label>이름 <input type="text" id="userName" value="${user.userName }"></label>
+   <label>이메일 <input type="email" id="userEmail" value="${user.userEmail }"></label>
+   <label>전화번호 <input type="tel" id="userPhone" name="user_phone" value="${user.userPhone }">
+   </label>
+   <div>
+    <p id="phoneMsg" style="font-size: 14px; color: red;"></p>
+	</div>
+</form>
+    <button type="button" id="updateBtn">수정 완료</button>
+    <button type="button" id="cancleBtn">취소</button>
+</div>	
+<!-- 비밀번호 변경 -->
+<div id="passWord" style="display : none;">
+	<div class="section-title" data-aos="fade-up">
+		<h3>비밀번호 변경</h3>
+	</div>
+	<div class="col-md-12 d-flex align-items-center">
+                  <input type="password" id="userPw" class="form-control" name="user_pw" placeholder="비밀번호" required>
+                	<button type="button" id="togglePassword1" class="btn btn-outline-secondary ms-2" 
+          			style="border: none; background: transparent;">
+    				👁️‍🗨️
+  					</button>
+  					</div>
+  					<div>
+                	<p style="font-size: 14px; margin-top: 5px; color: rgb(105, 105, 105);">비밀번호는 길이 8자 이상, 영문자,숫자,특수문자가 최소 하나씩은 포함되어야 합니다.</p>
+               		<p id="pwMsg2" style="font-size: 14px; margin-top: 5px; color: rgb(105, 105, 105);"></p>
+               		</div>
+               	              	
 
+                <div class="col-md-12 d-flex align-items-center">
+                  <input type="password" id="checkUserPw" class="form-control" name="check_user_pw" placeholder="비밀번호 확인" required>
+                	<button type="button" id="togglePassword2" class="btn btn-outline-secondary ms-2" 
+          			style="border: none; background: transparent;">
+    				👁️‍🗨️
+  					</button>
+                </div>
+                 <div>
+                	<p id="pwMsg" style="font-size: 12px; margin-top: 5px; color: rgb(105, 105, 105);"></p>
+              	</div> 
+  					<button type="button" id="updateBtn1">수정 완료</button>
+    				<button type="button" id="cancleBtn1">취소</button>
+                
+</div>
+	<!-- 내가 쓴 글 수정 아직 어떻게 할지 고민중..-->
+<div id="write" style="display : none;">
+	<div class="section-title" data-aos="fade-up">
+		<h3>내가 쓴 글 수정</h3>
+	</div>	
+	</div>
+	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.7.1.js"></script>
+ 
+ <!-- a태그를 누르면 변형이 되기 위한 script 태그 -->
+ <script>					
+ 	document.getElementById("changeProfileBtn").addEventListener("click",function(){
+ 		event.preventDefault();	
+ 	document.getElementById("myDataForm").style.display = "none";
+ 	document.getElementById("passWord").style.display = "none";
+ 	document.getElementById("myDataChangeForm").style.display = "block";
+ 	})
+ 	
+ 	$("#updateBtn").click(function(){
+ 		
+ 		var userId = $("#userId").val();
+ 		var userName = $("#userName").val();
+ 		var userEmail = $("#userEmail").val();
+ 		var userPhone = $("#userPhone").val();	
+ 		
+ 		if(!userName || !userEmail || !userPhone){
+ 			alert("수정하실 정보를 입력해주세요");
+ 			return;
+ 		}
+ 		
+ 		$.ajax({
+ 			url: "/MyPageUpdateServlet",
+ 			method: "POST",
+ 			data: {
+ 				userId: userId,
+ 				userName: userName,
+ 				userEmail: userEmail,
+ 				userPhone: userPhone,
+ 			},
+ 			success : function(response){
+ 				if(response.success){
+ 					alert("수정이 완료되었습니다.")
+ 					$("#myDataForm").show();
+ 					$("#myDataChangeForm").hide();
+ 				}else{
+ 					alert("수정 실패. 다시 시도해 주세요.")
+ 				}
+ 			}
+ 		});
+ 	});
+ 		
+ 	$("#cancleBtn").click(function(){
+ 		$("#myDataForm").show();
+			$("#myDataChangeForm").hide();
+ 	})
+ 	
+ 	<!--전화번호 정규식  keyup으로 바꿔야 함-->
+	document.getElementById("userPhone").addEventListener("keyup",phoneCheck);
+	function phoneCheck(){
+		const phone = document.getElementById("userPhone").value.trim();
+		const checkP = document.getElementById("phoneMsg");
+		const check_p_r =/^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+		
+		if(!check_p_r.test(phone)){
+			checkP.textContent = "올바른 전화번호 형식을 입력하세요. \n ex : 숫자와 - 만 입력해주세요."
+			checkP.style.color = "red";
+			true_false = false;
+		}else{
+			checkP.textContent = "올바른 전화번호 형식입니다."
+			checkP.style.color = "green";
+			true_false = true;
+		}	
+	}	
+ </script>
+ 	<!-- 비번 변경 script -->
+ 	<script>
+		document.getElementById("changePassWord").addEventListener("click", function(){
+			event.preventDefault();
+			document.getElementById("myDataChangeForm").style.display = "none";
+ 		document.getElementById("myDataForm").style.display = "none";
+ 		document.getElementById("passWord").style.display = "block";
+ 	})
+ 	$("#updateBtn1").click(function(){
+ 		console.log("수정 버튼 클릭됨")
+ 		var userId = $('#userId').val();
+ 		var userPw = $('#userPw').val();
+ 		
+ 		if(!userPw){
+ 			alert("수정하실 정보를 입력해주세요");
+ 			return;
+ 		}
+ 		$.ajax({
+ 			url: "/MyPageUpdatePassWordServlet",
+ 			method: "POST",
+ 			data: {
+ 				userId: userId,
+ 				userPw: userPw,
+ 			},
+ 			success : function(response){
+ 				if(response.success){
+ 					alert("수정이 완료되었습니다.")
+ 					$("#myDataForm").show();
+ 					$("#passWord").hide();
+ 				}else{
+ 					alert("수정 실패. 다시 시도해 주세요.")
+ 				}
+ 			}
+ 		});
+ 	});
+ 		
+ 	$("#cancleBtn1").click(function(){
+ 		$("#myDataForm").show();
+			$("#passWord").hide();
+ 	})
+ 	
+ 	
+ 	
+ 	<!--비밀번호 중복 확인 keyup으로 바꿔야함 -->
+ 	document.getElementById("userPw").addEventListener("keyup",checkPw);
+ 	document.getElementById("checkUserPw").addEventListener("keyup",checkPw);
+ 	function checkPw(){
+		const p = document.getElementById("userPw").value.trim();
+		const p_c = document.getElementById("checkUserPw").value.trim();
+		const p_m = document.getElementById("pwMsg");
+		
+		if(p_c === ""){
+			p_m.textContent = "";
+			
+		}
+		
+		if(p === p_c){
+			p_m.textContent = "비밀번호가 일치합니다.";
+			p_m.style.color = "green";
+			true_false = true;
+		}else{
+			p_m.textContent = "비밀번호가 일치하지 않습니다."
+			p_m.style.color = "red";
+			true_false = false;
+		}
+	}
+ 	
+ 	<!-- 비밀번호 정규식 keyup으로 바꿔야 함-->
+	document.getElementById("userPw").addEventListener("keyup",regular_pw);
+	function regular_pw(){
+		const pw_value = document.getElementById("userPw").value.trim();
+		const pw_check = document.getElementById("pwMsg2");
+		const en = /[A-Za-z]/; <!--영문자 최소 1개 이상-->
+		const num = /\d/; <!--숫자 최소 1개 이상-->
+		const at = /[@$!%*?&]/; <!--특수문자 최소 1개 이상-->
+		const lang = /^[A-Za-z\d@$!%*?&]{8,16}$/; <!--총 8자 이상, 16자 이하--> 
+		
+		if(!en.test(pw_value)){
+			pw_check.textContent = "비밀번호는 최소 1개 이상의 영문자가 포함되어야 합니다."
+			pw_check.style.color = "red";
+			true_false = false;
+		}else if(!num.test(pw_value)){
+			pw_check.textContent = "비밀번호는 최소 1개 이상의 숫자가 포함되어야 합니다."
+			pw_check.style.color = "red";
+			true_false = false;
+		}else if(!at.test(pw_value)){
+			pw_check.textContent = "비밀번호는 최소 1개 이상의 특수문자가 포함되어야 합니다."
+			pw_check.style.color = "red";
+			true_false = false;
+		}else if(!lang.test(pw_value)){
+			pw_check.textContent = "비밀번호는 최소 8자 이상, 최대 16자 이하로 작성하셔야 합니다."
+			pw_check.style.color = "red";
+			true_false = false;
+		}else{
+			pw_check.textContent = "사용 가능한 비밀번호 입니다."
+			pw_check.style.color = "green";
+			true_false = true;
+		}
+	
+	}
+	
+	<!-- 비밀번호 버튼 누르면 보이기 -->
+	document.getElementById("togglePassword1").addEventListener("click",function(){
+		const pw_eye = document.getElementById("userPw");
+		pw_eye.type = pw_eye.type === "password" ? "text" : "password";
+	})
+	document.getElementById("togglePassword2").addEventListener("click",function(){
+		const pw_eye = document.getElementById("checkUserPw");
+		pw_eye.type = pw_eye.type === "password" ? "text" : "password";
+	})	
+ </script>
+ 	<!-- 내가 쓴 글 수정 ajax 작성할 예정-->
+	<script>
+		document.getElementById("updateWrite").addEventListener("click",function(){
+			event.preventDefault();
+			document.getElementById("myDataForm").style.display = "none";
+		 	document.getElementById("passWord").style.display = "none";
+		 	document.getElementById("myDataChangeForm").style.display = "none";
+		 	document.getElementById("write").style.display="block";
+		
+		 	});	
+		
+		
+	</script>
     </section><!-- /Starter Section Section -->
   </main>
 

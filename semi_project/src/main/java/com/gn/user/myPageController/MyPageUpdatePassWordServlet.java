@@ -13,31 +13,25 @@ import org.json.simple.JSONObject;
 import com.gn.user.service.UserService;
 import com.gn.user.vo.User;
 
-@WebServlet("/MyPageUpdateServlet")
-public class MyPageUpdateServlet extends HttpServlet {
+@WebServlet("/MyPageUpdatePassWordServlet")
+public class MyPageUpdatePassWordServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public MyPageUpdateServlet() {
+    public MyPageUpdatePassWordServlet() {
         super();
-      
+       
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		String id = request.getParameter("userId");
-		String name = request.getParameter("userName");
-		String email = request.getParameter("userEmail");
-		String phone = request.getParameter("userPhone");
+		String pw = request.getParameter("userPw");
 		
 		User user = new User();
 		user.setUserId(id);
-		user.setUserName(name);
-		user.setUserEmail(email);
-		user.setUserPhone(phone);
+		user.setUserPw(pw);
 		
-		System.out.println("서블렛 확인");
-		int result = new UserService().changeUserData(user);
-	
+		int result = new UserService().MyPageUpdatePw(user);
+		
 		JSONObject obj = new JSONObject();
 		
 		if(result > 0) {
