@@ -32,4 +32,5 @@ public class Board extends Paging  {
 	private int attachNo;
 	private String attachPath;
 	private String oriName;
+	private String orderType;
 }

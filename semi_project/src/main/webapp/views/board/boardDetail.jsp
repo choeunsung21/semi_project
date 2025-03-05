@@ -265,9 +265,6 @@
   		    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
   		    success: function(data) {
   		        console.log(data);
-
-  		    
-
   		        if (data.list.length === 0) {
   		            $("#replayList").append("<li>댓글이 없습니다</li>");
   		        } else {
@@ -299,9 +296,14 @@
   		    }
   		});
   	 
+			
+  	 		//댓글 수정 버튼
+  	 		$(document).on("click",".updatereplybtn",function(){
+  	 			let replyNo = $
+  	 		})
   	 
 
-        	
+        	//댓글 삭제 버튼
          	$(document).on("click", ".deletereplybtn", function() {
         		    let replyNo = $(this).data("replyno");
         		    console.log("삭제할 댓글 번호:", replyNo);

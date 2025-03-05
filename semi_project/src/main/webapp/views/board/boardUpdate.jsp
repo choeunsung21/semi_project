@@ -87,6 +87,15 @@
         button:hover {
             background-color: #0056b3;
         }
+        .upload-notice {
+    		font-size: 0.85em; 
+    		color: #ff4d4d; 
+    		margin-left: 10px; 
+    		display: inline-block; 
+		}
+		.upload-notice strong {
+    		font-weight: bold; 
+		}
         
     </style>
   
@@ -106,12 +115,17 @@
             	<input type="hidden" id="attachNo" name="attachNo" value="<c:out value='${attachNo}' />" >
             	<input type="hidden" name="boardNo" value="<c:out value='${boardNo}' />" >
                 <input type="text" name="title" value="<c:out value='${boardTitle}' />">
+                <div id="fileInfo">
                 <c:if test="${not empty oriName }"> 
-                <button id="deleteBtn">X</button><input type="text" value="<c:out value='${oriName} '/>" />
+                <button type="button" id="deleteBtn">X </button><span class="upload-notice">
+   																<strong>새로운 사진을 업로드하고 싶다면 반드시 X버튼을 눌러주세요</strong>
+																</span>
+				<input type="text" value="<c:out value='${oriName} '/>"  readonly/>
             	</c:if> 
+            	</div>
                 <input type="file" name="file" accept=".png,.jpg,.jpeg">
                 <textarea name="content" rows="5"><c:out value='${boardContent}' /></textarea>
-                <button  class="btn btn-outline-primary" onclick="writeUpdate();">수정</button>
+                <button type="button" class="btn btn-outline-primary" onclick="writeUpdate();">수정</button>
             </form>
         </div>
     </div>
@@ -119,8 +133,8 @@
     <script type="text/javascript">
     
     
-    const writeUpdate = function(event){
-        event.preventDefault(); // 이벤트 기본 동작 방지
+    const writeUpdate = function(){
+  
         let form = document.boardUpdate;
 
         // 파일 확장자 검사
@@ -139,7 +153,8 @@
             updateBoardForm(); // 파일이 없을 때도 업데이트 실행
         }
     };
-
+	
+    //수정 jsp의 수정 버튼
     const updateBoardForm = function(){
         let form = document.boardUpdate;
         const sendData = new FormData(form);
@@ -155,12 +170,12 @@
             data: sendData,
             dataType: 'json',
             success: function(data){
-                if (data.res_code === 200) {
+              if (data.res_code == 200) {
                     alert(data.res_msg);
-                    location.reload();
+                    location.href="/selectBoardList";                 
                 } else {
-                    location.href = "/";
-                }
+                 /*    location.href = "/"; */
+                } 
             },
             error: function(xhr, status, error){
                 console.error("업데이트 오류:", error);
@@ -169,30 +184,30 @@
         });
     };
     
+    //x버튼을 누르면 원래의 사진이 사라지는 ajax
     $("#deleteBtn").click(function() {
         let attachNo = $("#attachNo").val();  // attachNo 값 가져오기
         console.log("!!!!!!!!!!!!!!!!!!!!!!"+attachNo);
 
         $.ajax({
             url: "/deleteAttach",  // 서버에서 처리할 URL
-            type: "get",
+            type: "post",
             data: {"attachNo": attachNo},  // 데이터 전송
             dataType:"JSON",
  			contentType:"application/x-www-form-urlencoded; charset=UTF-8",
             success: function(data) {
                 alert("첨부파일이 삭제되었습니다");
+                $("#fileInfo").empty();
+/*                 location.reload(); */
+             
+                
             },
             error: function(xhr, status, error) {
                 alert("첨부파일 삭제 중 오류가 발생했습니다");
             }
         });
     });
-    
-    
-    
-    
-    
-    
+      
     
     </script>
     

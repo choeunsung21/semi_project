@@ -55,7 +55,7 @@ public class APIScheduler extends HttpServlet{
 			scheduler.scheduleJob(job, trigger);
 			
 			// 스케줄러 시작
-			scheduler.start();
+//			scheduler.start();
 			// 스케줄러를 중지하려면 아래 코드 사용
 			// 일반적으로 특정 조건이 충족되면 종료하는 경우 씀
 //			scheduler.shutdown(true);

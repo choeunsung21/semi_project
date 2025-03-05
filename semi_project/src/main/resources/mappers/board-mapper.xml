@@ -39,10 +39,20 @@
 		JOIN `user` u ON b.writer_no = u.user_no
 		<where>
 		<if test='boardTitle != null and  boardTitle.equals("") == false'>
-			b.board_title LIKE CONCAT('%',#{boardTitle},'%')
+			(b.board_title LIKE CONCAT('%',#{boardTitle},'%') 
+            OR b.board_content LIKE CONCAT('%',#{boardTitle},'%'))
 		</if>
 		</where>
-		ORDER BY b.board_no DESC
+			<if test='orderType != null and orderType.equals("-1") == false'>
+			<choose>
+				<when test='orderType.equals("1") == true'>
+					ORDER BY b.reg_date DESC
+				</when>
+			<otherwise>
+					ORDER BY b.reg_date ASC
+			</otherwise>
+			</choose>
+		</if>
 		LIMIT #{limitPageNo}, #{numPerPage}
 	</select>
 	
@@ -65,16 +75,15 @@
 		VALUES(#{oriName} ,#{newName} ,#{boardNo} ,#{attachPath})		
 	</insert>
 	
-	<select id="selectDetail" parameterType="_int" resultMap="boardMap">
-		SELECT b.board_no, b.writer_no, b.board_title, b.board_content, 
-        b.reg_date, b.mod_date, 
-        u.user_name, u.user_id, 
-        o.attach_path, o.attach_no ,a.ori_name
-		FROM `board` b
-		JOIN `user` u ON b.writer_no = u.user_no
-		LEFT JOIN `board_attach` o ON b.board_no = o.board_no
-		LEFT JOIN `board_attach` a ON b.board_no = a.board_no
-		WHERE b.board_no = #{boardNo}
+	<select id="selectDetail" parameterType="int" resultMap="boardMap">
+    		SELECT b.board_no, b.writer_no, b.board_title, b.board_content, 
+            b.reg_date, b.mod_date, 
+            u.user_name, u.user_id, 
+            o.attach_path, o.attach_no, o.ori_name
+    		FROM `board` b
+    		JOIN `user` u ON b.writer_no = u.user_no
+    		LEFT JOIN `board_attach` o ON b.board_no = o.board_no  
+    		WHERE b.board_no = #{boardNo}
 	</select>
 	
 	<select id="selectAttach" parameterType="_int" resultMap="attachMap">
@@ -144,6 +153,24 @@
 		DELETE FROM `board_attach`
 		WHERE attach_no = #{attachNo};
 	</delete>
+	
+	<select id="selectOrderType" resultMap="boardMap">
+		SELECT b.* ,u.* 
+		FROM `board` b
+		JOIN `user` u ON b.writer_no = u.user_no
+		<if test='orderType != null and orderType.equals("-1") == false'>
+			<choose>
+				<when test='orderType.equals("1") == true'>
+					ORDER BY b.reg_date DESC
+				</when>
+			<otherwise>
+					ORDER BY b.reg_date ASC
+			</otherwise>
+			</choose>
+		</if>
+	</select>
+	
+	
 	
 	
 	

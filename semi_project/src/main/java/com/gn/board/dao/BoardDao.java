@@ -86,6 +86,13 @@ public class BoardDao {
 		return session.delete("boardMapper.deleteAttachNo", attachNo);
 	}
 	
+	//날짜 정렬 메소드
+	public List<Board>selectOrderType(SqlSession session , String orderType){
+		return session.selectList("boardMapper.selectOrderType", orderType);
+	}
+	
+
+	
 	
 	
 	
