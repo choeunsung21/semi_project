@@ -9,11 +9,23 @@
 		<result property="planNo" column="plan_no" />
 		<result property="regDate" column="reg_date" />
 	</resultMap>
+	
+	<!-- 예약하기 -->
 	<insert id="insertReservationOne" parameterType="reservation">
 		INSERT INTO `reservation` (user_no ,plan_no)
 		VALUES (#{userNo} ,#{planNo})
 	</insert>
+	
+	<!-- 예약취소 -->
 	<delete id="deleteReservationOne" parameterType="reservation">
-		DELETE FROM `reservation` WHERE #{reservationNo}
+		DELETE FROM `reservation`
+		WHERE reservation_no = #{reservationNo}
 	</delete>
+	
+	<!-- 예약 상세 조회 -->
+	<select id="selectReservationDetail" resultMap="reservationMap" parameterType="reservation">
+		SELECT * FROM `reservation`
+		WHERE user_no = #{userNo}
+		AND plan_no = #{planNo}
+	</select>
 </mapper>

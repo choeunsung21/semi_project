@@ -44,6 +44,8 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  
+  
 </head>
 
 <body class="portfolio-details-page">
@@ -101,6 +103,26 @@
           <div class="swiper-pagination"></div>
         </div>
 
+<style>
+.reply-list li {
+    padding: 15px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    display: flex; /* 작성자, 내용, 버튼 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+}
+
+.reply-list .edit-btn, .reply-list .delete-btn {
+    margin-left: 10px;
+    padding: 2px 6px;
+    font-size: 12px;
+    line-height: 1.2;
+}
+</style>       
 
               
               <div class="col-lg-3" data-aos="fade-up" data-aos-delay="100" style="inline-block;">
@@ -115,13 +137,84 @@
               		</ul>
             	</div>
           	  </div>
+          	  <div>
+          	  <!-- 게시글을 쓴 사람만 삭제 수정버튼을 보이게 함  -->
+          	  	<c:if test="${sessionScope.user.userNo eq board.writerNo }">
+          	  	<button type="submit" class="btn btn-outline-primary updatebtn" data-attachno="${board.attachNo }"
+          	  	data-boardtitle="${board.boardTitle }"
+          	  	data-boardcontent="${board.boardContent }"
+          	  	data-writerno="${board.writerNo }"
+          	  	data-boardno="${board.boardNo }"
+          	  	data-oriname="${board.oriName }"
+          	  	>수정</button>
+          	  	<button type="submit" class="btn btn-outline-primary deletebtn" data-boardno="${board.boardNo }">삭제</button>
+          	  	</c:if>
+          	  </div>
+          	  
+          	  
+          	  <script type="text/javascript">
+          	  $(function(){
+          		  $(".updatebtn").click(function(){
+          			  let attachNo = $(this).data("attachno");
+          			  let boardTitle = $(this).data("boardtitle");
+          			  let boardContent = $(this).data("boardcontent");
+          			  let writerNo = $(this).data("writerno");
+          			  let boardNo = $(this).data("boardno");
+          			  let oriName = $(this).data("oriname");
+          			  console.log("boardno" + boardNo);
+          			  console.log("내가 몇번이니?" + attachNo);
+          			  location.href = "/boardUpdate?attachNo=" + attachNo + 
+                      "&boardTitle=" + boardTitle + 
+                      "&boardContent=" +boardContent + 
+                      "&writerNo=" + writerNo +
+                      "&boardNo=" + boardNo +
+                      "&oriName=" + oriName;
+          			  
+          		  })
+          	  })
+          	  
+          	  
+          	  
+          	  
+          	  
+          	$(function() {
+          	    $(".deletebtn").click(function() {
+          	        let boardNo = $(this).data("boardno");
+          	       /*  console.log(boardNo); */
+          	       
+          	        if (!confirm("정말 삭제하시겠습니까?")) return;
+
+          	        $.ajax({
+          	            url: "/boardDelete",
+          	            type: "POST",
+          	            data: { boardNo: boardNo },
+          	          success: function(data) {
+          	            if(data.res_code === 200) {
+          	                alert("글이 삭제되었습니다!");
+          	                location.href = "/selectBoardList";
+          	            } else {
+          	                location.href = "/";
+          	            }
+          	        },
+          	            error: function(xhr, status, error) {
+          	                alert("삭제 실패: " + error);
+          	            }
+          	        });
+          	    });
+          	});
+          	  
+          	  
+          	  </script>
+          
+          	  	<br><br>
+          	  	
           	  	
           	 <div class="col-lg-3" data-aos="fade-up" data-aos-delay="100" style="display:inline-block;">
             	<div class="portfolio-info">
                      
                 
               		<ul>  
-              			<c:if test="${not empty board.attachNo }">              		
+              			<c:if test="${board.attachNo != 0 }">              		
               			<li><img src="<c:url value='/filePath?attach_no=${board.attachNo }'/>"></li> 
                 		</c:if>
               		 </ul> 
@@ -131,49 +224,109 @@
           	       <div class="col-lg-3" data-aos="fade-up" data-aos-delay="100" style="inline-block;">
             	<div class="portfolio-info">
                     <h2>댓글 목록</h2>
-              		<ul id="replayList">
-               	 	<%-- 	 <li><strong>제목</strong> ${board.boardTitle }</li>
-                		<li><strong>작성자</strong>${board.userId }</li>
-                		<fmt:parseDate value="${board.regDate }" pattern="yyyy-MM-dd'T'HH:mm:ss" var="thisDate" />
-                		<li><strong>등록일</strong><fmt:formatDate value="${thisDate }" pattern="yyyy-MM-dd" /></li>
-                		<li><strong>내용</strong> ${board.boardContent }</li>  --%>
+              		<ul id="replayList" class="reply-list">
+               
               		</ul>
             	</div>
           	  </div>
           	  
-         <div class="form-box">
-          	  <h2>댓글</h2>
-          	  <form action="addReplyEndServlet" name="addReply" method="get">
-          	  	<input type=hidden id="boardNo" name="boardNo" value="${board.boardNo }">
-          	  	<input type=hidden id="writerNo" name="writerNo" value="${sessionScope.user.userNo }">
-          	  	<textarea name="replyContent" rows="2" cols="50" id="replyContent" placeholder="댓글을 입력하세요"></textarea> <br>
-          	  	<c:choose>
-          	  		<c:when test="${not empty sessionScope.user.userNo }">
-          				<button type="submit" class="btn btn-outline-primary" onclick="writeReply();">입력</button>
-          	  		</c:when>
-          	  		<c:otherwise>
-          	  			<a href="/login" class="btn btn-outline-primary">입력</a> 	
-          	  		</c:otherwise>
-          	  	</c:choose>
-          	  </form>
-         </div> 	
-         <script type="text/javascript">
-         $(document).ready(function(){
-        	 const boardNo = $('#boardNo').val();
-        	 console.log(boardNo)
-        	 $.ajax({
-        		 url:"/selectReplyList",
-        		 type:"get",
-        		 data:{"boardNo" : boardNo},
-        		 dataType:"json",
-        		 success:function(data){
-        			$("#replyList").append("<li>" + "작성자:" + data.userId + " " + data.replyContent + "</li>" )
-        		 	console.log(data);        			 
-        		 }
-        	 })
+   
+       
+    	  
+   <div class="form-box">
+    	  <h2>댓글</h2>
+    	  <form action="addReplyEndServlet" name="addReply" method="get">
+    	  	<input type=hidden id="boardNo" name="boardNo" value="${board.boardNo }">
+    	  	<input type=hidden id="attachNo" name="attachNo" value="${board.attachNo }">
+    	  	<input type=hidden id="writerNo" name="writerNo" value="${sessionScope.user.userNo }">
+    	  	<textarea name="replyContent" rows="2" cols="50" id="replyContent" placeholder="댓글을 입력하세요"></textarea> <br>
+    	  	<c:choose>
+    	  		<c:when test="${not empty sessionScope.user.userNo }">
+    				<button type="submit" class="btn btn-outline-primary" onclick="writeReply();">입력</button>
+    	  		</c:when>
+    	  		<c:otherwise>
+    	  			<a href="/login" class="btn btn-outline-primary">입력</a> 	
+    	  		</c:otherwise>
+    	  	</c:choose>
+    	  </form>
+   </div> 	
+   <script type="text/javascript">
+   $(document).ready(function(){
+  	 const boardNo = $('#boardNo').val();
+  	 const userNo = $('#writerNo').val();
+  	 console.log(boardNo);
+  	 console.log("댓글 수정 기능중 " + userNo);
+  	
+  	 $.ajax({
+  		    url: "/selectReplyList",
+  		    type: "post",
+  		    data: { "boardNo": boardNo },
+  		    dataType: "json",
+  		    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+  		    success: function(data) {
+  		        console.log(data);
+  		        if (data.list.length === 0) {
+  		            $("#replayList").append("<li>댓글이 없습니다</li>");
+  		        } else {
+  		            for (let i = 0; i < data.list.length; i++) {
+  		                let reply = data.list[i];
+
+  		                let replyList = "<li>" +
+  		                    "<span class='writer'>작성자: " + reply.userId + "</span> " +
+  		                    "<span class='content'>" + reply.replyContent + "</span> " +
+  		                    "<span class='regdate'>" + reply.regDate + "</span>";
+
+  		                if (userNo == reply.writerNo) {
+  		                    replyList += " <button type='button' class='btn btn-outline-primary deletereplybtn' data-replyno='" 
+  		                               + reply.replyNo + "'>삭제</button>";
+  		                    replyList += " <button type='button' class='btn btn-outline-primary updatereplybtn' data-replyno='" 
+  		                               + reply.replyNo + "' data-replycontent='" + reply.replyContent + "'>수정</button>";
+  		                }
+
+  		                replyList += "</li>";
+  		                $("#replayList").append(replyList);
+  		            }
+  		        }
+  		    },
+  		    complete: function() {
+  		        console.log("확인");
+  		    },
+  		    error: function() {
+  		        console.log("에러");
+  		    }
+  		});
+  	 
+			
+  	 		//댓글 수정 버튼
+  	 		$(document).on("click",".updatereplybtn",function(){
+  	 			let replyNo = $
+  	 		})
+  	 
+
+        	//댓글 삭제 버튼
+         	$(document).on("click", ".deletereplybtn", function() {
+        		    let replyNo = $(this).data("replyno");
+        		    console.log("삭제할 댓글 번호:", replyNo);
+        		    $.ajax({
+        		        url: "/deleteReply",
+        		        type: "post",
+        		        data: { "replyNo": replyNo },
+        		        success: function(data) {
+        		            if (data.res_code === 200) {
+        		                alert("댓글이 삭제되었습니다");
+        		                location.reload();
+        		            } else {
+        		                alert("댓글 삭제 실패");
+        		            }
+        		        },
+        		        error: function(xhr, status, error) {
+        		            console.error("삭제 오류: " + error);
+        		        }
+        		    });
+        		});
          })
          
-         const writeReply = function(){
+        	 const writeReply = function(){
         	event.preventDefault();
          	let form = document.addReply;
             let boardNo = $("#boardNo").val();
@@ -205,6 +358,7 @@
         	 
          }
          
+ 
          
          
          

@@ -76,8 +76,9 @@
         <div class="row gy-4">
 
           <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
-            <h2>스케줄 등록 : 규칙 설정</h2>
-            <p id="h-p">(*) 표시가 있는 항목은 반드시 입력해야합니다.</p>
+            <h2>일정 등록 : 규칙 설정</h2>
+            <p id="h-p">하나의 구장에는 하나의 규칙만 등록할 수 있습니다.<br>
+            			(*) 표시가 있는 항목은 반드시 입력해야합니다.</p>
             	
             <!-- Contact Section -->
     		<section id="contact" class="contact section">
@@ -121,7 +122,7 @@
                 					<p>#임의의 전화번호</p>
               					</div>
            					</div><!-- End Info Item -->
-		
+							
             				<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="500">
               					<i class="bi bi-envelope flex-shrink-0"></i>
               					<div>
@@ -129,27 +130,19 @@
                 					<p>#임의의 이메일@example.com</p>
               					</div>
             				</div><!-- End Info Item -->
-		
+						
           				</div>
-		
+						
           				<div class="col-lg-8">
-            				<form action="#" method="post" class="submit-form" name="insert_rule_end_form" data-aos="fade-up" data-aos-delay="200">
+            				<form action="/insertRuleEnd" method="post" class="submit-form" name="insert_rule_end_form" data-aos="fade-up" data-aos-delay="200">
               					<div class="row gy-4">
 									
 									<div class="col-md-12" style="display:none;">
                   						<input type="text" class="form-control" name="user_no" id="user-no-input" value="${user.userNo}" placeholder="담당 회원번호">
                 					</div>
-                					
-                					<div class="col-md-12" style="display:none">
-                						<c:forEach var="field_list" items="${fieldList}" varStatus="vs">
-
-											<input id="" value=""/>
-
-										</c:forEach>
-                					</div>
 
 									<div class="col-md-12">
-										<label for="field-no-select" id="field-no-select-label">구장 선택*</label>
+										<label for="field-no-select" id="field-no-select-label">구장 선택* <span>(등록하신 구장이 없으시면 구장 등록 절차부터 진행해주세요. - <a href="/insertField">이동하기</a>)</span></label>
 										<select id="field-no-select" name="field_no">
 											<option value="0">구장선택</option>
 											<c:forEach var="field_list" items="${fieldList}" varStatus="vs">
@@ -158,35 +151,64 @@
 												</option>
 											</c:forEach>
 										</select>
+										<p><span id="print-msg-span" style="color:crimson;"></span></p>
+										<p><span id="print-flag-span" style="display:none"></span></p>
                 					</div>
 									
                 					<div class="col-md-6" id="rule-open-select">
-                						<label for="rule-open-input" id="rule-open-label">오픈시간*</label>
-                  						<input type="time" class="form-control" name="rule_open" id="rule-open-input" required>
+                  						<label for="rule-open-select" id="rule-open-label">오픈 시간*</label>
+	                  					<select name="rule_open" id="rule-open-select" required>
+	                  								<option value="-1">선택</option>
+										    <%
+										        for (int i = 0; i < 24; i++) {
+										            String openTime = (i+"");
+										            String formattedOpen = String.format("%02d:00", i);
+										    %>
+										            <option value="<%= openTime %>"><%= formattedOpen %></option>
+										    <%
+										        }
+										    %>
+										</select>
                 					</div>
                 					
                 					<div class="col-md-6" id="rule-close-select">
-                						<label for="rule-close-input" id="rule-close-label">마감시간*</label>
-                  						<input type="time" class="form-control" name="rule_close" id="rule-close-input" required>
+                  						<label for="rule-close-select" id="rule-close-label">마감 시간*</label>
+	                  					<select name="rule_close" id="rule-close-select" required>
+	                  								<option value="-1">선택</option>
+										    <%
+										        for (int i = 0; i < 24; i++) {
+										            String closeTime = (i+"");
+										            String formattedClose = String.format("%02d:00", i);
+										    %>
+										            <option value="<%= closeTime %>"><%= formattedClose %></option>
+										    <%
+										        }
+										    %>
+										</select>
                 					</div>
                 					
                 					<div class="col-md-12">
-                						<label for="rule-usetime-input" id="rule-usetime-label">이용시간 <span>(입력하지 않으면 2시간 기본입니다.)</span></label>
-                  						<input type="text" class="form-control" name="rule_usetime" id="rule-usetime-input">
+                  						<label for="rule-usetime-input" id="rule-usetime-label">일정 등록 간격 <span>(둥록간격이 영업시간보다 길 경우 등록되지 않습니다.)</span></label>
+                  						 <select id="rule-usetime-input" name="rule_usetime">
+										     <option value="1">1시간</option>
+										     <option value="2" selected="selected">2시간</option>
+										     <option value="3">3시간</option>
+										     <option value="4">4시간</option>
+										</select>
                 					</div>
                 					
                 					<div class="col-md-12">
-                						<label for="rule-price-input" id="rule-price-label">가격 <span>(입력하지 않으면 무료입니다.)</span></label>
-                  						<input type="text" class="form-control" name="rule_price" id="rule-price-input">
+                						<label for="rule-price-input" id="rule-price-label">가격 <span></span></label>
+                  						<input type="number" class="form-control" name="rule_price" id="rule-price-input" min="0" value="0">
                 					</div>
-
+									
 									<p>
-                						<input id="chk_terms" type="checkbox">&nbsp; 스케줄 등록 관련 약관입니다.
+                						<input id="chk_terms" type="checkbox">&nbsp; 일정 등록 관련 약관입니다.
 									</p>                					
 									
 									<!-- #chk_term 체크되었을 때만 버튼이 눌러지고 아닐경우 alert창을 띄울 예정 -->
                 					<div class="col-md-12 text-center">
-                  						<button type="submit" onclick="insertRuleForm();">스케줄 등록</button>
+                  						<button type="submit" onclick="insertRuleForm();">일정 등록</button>
                 					</div>
                 					
               					</div>
@@ -218,15 +240,16 @@
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
 		  	 
             <div class="services-list" id="services-list-div">
-              <a href="" class="active">구장명 : <span id="field-name-span"></span></a>
-              <a href="" class="active">주소 : <span id="field-addr-span"></span></a>
-              <a href="" class="active">구장크기 : <span id="field-size-span"></span></a>
-              <a href="" class="active">수용인원 : <span id="field-limit-span"></span></a>
-              <a href="" class="active">잔디타입 : <span id="field-type-span"></span></a>
-              <a href="" class="active">실내/실외 : <span id="is-indoor-span"></span></a>
-              <a href="" class="active">주차장 : <span id="is-park-span"></span></a>
-              <a href="" class="active">샤워실 : <span id="is-shower-span"></span></a>
-              <a href="" class="active">풋살화대여 : <span id="rent-price-span"></span></a>
+              <a href="javascript:void(0);" class="active">구장명 : <span id="field-name-span"></span></a>
+              <a href="javascript:void(0);" class="active">주소 : <span id="field-addr-span"></span></a>
+              <a href="javascript:void(0);" class="active">구장크기 : <span id="field-size-span"></span></a>
+              <a href="javascript:void(0);" class="active">수용인원 : <span id="field-limit-span"></span></a>
+              <a href="javascript:void(0);" class="active">잔디타입 : <span id="field-type-span"></span></a>
+              <a href="javascript:void(0);" class="active">실내/실외 : <span id="is-indoor-span"></span></a>
+              <a href="javascript:void(0);" class="active">주차장 : <span id="is-park-span"></span></a>
+              <a href="javascript:void(0);" class="active">샤워실 : <span id="is-shower-span"></span></a>
+              <a href="javascript:void(0);" class="active">풋살화대여 : <span id="rent-price-span"></span></a>
+              <a href="javascript:void(0);" class="active">휴무요일 : <span id="dayoff-span"></span></a>
             </div>
            
 			<!-- 
@@ -247,21 +270,25 @@
   	const insertRuleForm = function(){
     	const form = document.insert_rule_end_form;
 		let chkTerms = $("#chk_terms").is(":checked");
-							
-		console.log(form.field_no.value);
 		
         if(form.field_no.value == "0") {
         	alert('구장을 선택해주세요.');
         	form.field_no.focus();
         	event.preventDefault();
-        } else if(!form.rule_open.value) {
+        } else if(document.getElementById('print-flag-span').innerText == 'not null') {
+			alert('선택하신 구장은 이미 등록된 규칙이 있습니다. 다시 확인해주세요.');
+        	form.field_no.focus();
+        	event.preventDefault();
+        } else if(form.rule_open.value == "-1") {
         	alert('오픈 시간을 선택해주세요.');
         	form.rule_open.focus();
         	event.preventDefault();
-        } else if(!form.rule_close.value) {
+        } else if(form.rule_close.value == "-1") {
         	alert('마감 시간을 선택해주세요.');
         	form.rule_close.focus();
         	event.preventDefault();
+        } else if(form.rule_open.value == form.rule_close.value) {
+			alert('오픈 시간과 마감 시간이 동일합니다. 다시 확인해주세요.');
         } else if(!chkTerms) {
             alert("약관을 읽고 체크해주세요.");
 			event.preventDefault();
@@ -294,7 +321,7 @@
   $(function(){
 		$('#field-no-select').change(function(){
 			const fieldIndex = $('#field-no-select option:selected').val();
-			
+
 			$.ajax({
 				url : "/selectFieldEnd",
 				type : "post",
@@ -313,9 +340,36 @@
 					document.getElementById("is-park-span").innerText = data["isPark"];
 					document.getElementById("is-shower-span").innerText = data["isShower"];
 					document.getElementById("rent-price-span").innerText = data["rentPrice"];
+					document.getElementById("dayoff-span").innerText = data["dayoff"];
 				},
 				error : function(){
-					alert('서버 요청 중 오류가 발생하였습니다.');
+					document.getElementById("field-name-span").innerText = "";
+					document.getElementById("field-addr-span").innerText = "";
+					document.getElementById("field-size-span").innerText = "";
+					document.getElementById("field-limit-span").innerText = "";
+					document.getElementById("field-type-span").innerText = "";
+					document.getElementById("is-indoor-span").innerText = "";
+					document.getElementById("is-park-span").innerText = "";
+					document.getElementById("is-shower-span").innerText = "";
+					document.getElementById("rent-price-span").innerText = "";
+					document.getElementById("dayoff-span").innerText = "";
+				}
+			});
+			
+			$.ajax({
+				url : "/selectRuleEnd",
+				type : "post",
+				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+				data : {
+					"fieldIndex":fieldIndex
+				},
+				dataType : "JSON",
+				success : function(data) {
+					document.getElementById("print-msg-span").innerText = data["printMsg"];
+					document.getElementById("print-flag-span").innerText = data["printFlag"];
+				},
+				error : function() {
+					
 				}
 			});
 		});
