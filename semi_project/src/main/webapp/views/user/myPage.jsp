@@ -387,7 +387,7 @@
 				
         		for(let i=0; i<response.list.length; i++) {
         			console.log(response.list[i]);
-        			document.getElementById('boardListContainer').innerHTML += '<tr><td>'+(i+1)+'</td><td>'+response.list[i].boardTitle+'</td><td>'+response.list[i].userId+'</td><td>'+response.list[i].regDate+'</td></tr>';
+        			document.getElementById('boardListContainer').innerHTML += '<tr id="test" href="#"><td>'+(i+1)+'</td><td>'+response.list[i].boardTitle+'</td><td>'+response.list[i].userId+'</td><td>'+response.list[i].regDate+'</td></tr>';
         		}
         	  },
         	  error: function(xhr, status, error) {
@@ -396,7 +396,13 @@
         	});
     });
 </script>
-	
+	<script>
+		$(function(){
+			$("#test").click(function(){
+				console.log("test")
+			})
+		})
+	</script>
 	
     </section><!-- /Starter Section Section -->
   </main>
