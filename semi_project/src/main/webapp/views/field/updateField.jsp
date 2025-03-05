@@ -11,7 +11,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>규칙 수정 및 삭제</title>
+  <title>구장 수정 및 삭제</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -134,85 +134,127 @@
           				</div>
 						
           				<div class="col-lg-8">
-            				<form action="/updateRuleEnd" method="post" class="submit-form" name="insert_rule_end_form" data-aos="fade-up" data-aos-delay="200">
+            				<form action="/updateFieldEnd" method="post" class="submit-form" name="insert_field_end_form" data-aos="fade-up" data-aos-delay="200">
               					<div class="row gy-4">
 									
 									<div class="col-md-12" style="display:none;">
                   						<input type="text" class="form-control" name="user_no" id="user-no-input" value="${user.userNo}" placeholder="담당 회원번호">
                 					</div>
                 					<div class="col-md-12" style="display:none;">
-                  						<input type="text" class="form-control" name="field_no" id="field-no-input" value="${planRule.fieldNo}" placeholder="대상이 될 구장번호">
+                  						<input type="text" class="form-control" name="field_no" id="field-no-input" value="${field.fieldNo}" placeholder="대상이 될 구장번호">
                 					</div>
+                					<!--
                 					<div class="col-md-12" style="display:none;">
                   						<input type="text" class="form-control" name="rule_no" id="rule-no-input" value="${planRule.ruleNo}" placeholder="대상이 될 규칙번호">
                 					</div>
+                					-->
 
 									<div class="col-md-12">
 										<label for="field-name-select" id="field-name-select-label">적용할 구장명</label>
-										<input type="text" class="form-control" name="field_name" id="field-name-input" value="${planRule.fieldName}" readonly>
+										<input type="text" class="form-control" name="field_name" id="field-name-input" value="${field.fieldName}" readonly>
 										
 										<br>
 										
 										<a href="javascript:void(0);" class="btn-visit align-self-start" style="padding-right:2px;" onclick="chgClass();">수정하기</a>
-										<a href="/deletePlanRuleEnd?planRuleNo=${planRule.ruleNo}" class="btn-visit cancel align-self-start" style="padding-left:2px;" onclick="return confirm('해당 구장에 걸려있는 규칙을 삭제하시겠습니까?')">삭제하기</a>
+										<a href="/deleteFieldEnd?field_no=${field.fieldNo}" class="btn-visit cancel align-self-start" style="padding-left:2px;" onclick="return confirm('해당 구장을 삭제하시겠습니까?')">삭제하기</a>
                 					</div>
 									
-                					<div class="col-md-6 update-hidden" id="rule-open-select">
-                  						<label for="rule-open-select" id="rule-open-label">오픈 시간*</label>
-	                  					<select name="rule_open" id="rule-open-select" required>
-	                  								<option value="-1">선택</option>
-										    <%
-										        for (int i = 0; i < 24; i++) {
-										            String openTime = (i+"");
-										            String formattedOpen = String.format("%02d:00", i);
-										    %>
-										            <option value="<%= openTime %>"><%= formattedOpen %></option>
-										    <%
-										        }
-										    %>
-										</select>
-                					</div>
-                					
-                					<div class="col-md-6 update-hidden" id="rule-close-select">
-                  						<label for="rule-close-select" id="rule-close-label">마감 시간*</label>
-	                  					<select name="rule_close" id="rule-close-select" required>
-	                  								<option value="-1">선택</option>
-										    <%
-										        for (int i = 0; i < 24; i++) {
-										            String closeTime = (i+"");
-										            String formattedClose = String.format("%02d:00", i);
-										    %>
-										            <option value="<%= closeTime %>"><%= formattedClose %></option>
-										    <%
-										        }
-										    %>
-										</select>
-                					</div>
-                					
-                					<div class="col-md-12 update-hidden" id="rule-usetime-target">
-                  						<label for="rule-usetime-input" id="rule-usetime-label">일정 등록 간격 <span>(둥록간격이 영업시간보다 길 경우 등록되지 않습니다.)</span></label>
-                  						 <select id="rule-usetime-input" name="rule_usetime">
-										     <option value="1">1시간</option>
-										     <option value="2" selected="selected">2시간</option>
-										     <option value="3">3시간</option>
-										     <option value="4">4시간</option>
-										</select>
-                					</div>
-                					
-                					<div class="col-md-12 update-hidden" id="rule-price-target">
-                						<label for="rule-price-input" id="rule-price-label">가격 <span></span></label>
-                  						<input type="number" class="form-control" name="rule_price" id="rule-price-input" min="0" value="0">
+									<div class="col-md-12 update-hidden" id="dayoff-select">
+                						<fieldset>
+                							<legend>휴무요일</legend>
+                							<p>(체크하지 않을 시 모든 요일에 개장함을 의미합니다)</p>
+                							<input type="checkbox" name="dayoff_list" value="1">일요일 &nbsp;
+                							<input type="checkbox" name="dayoff_list" value="2">월요일 &nbsp;
+                							<input type="checkbox" name="dayoff_list" value="3">화요일 &nbsp;
+                							<input type="checkbox" name="dayoff_list" value="4">수요일 &nbsp;
+                							<input type="checkbox" name="dayoff_list" value="5">목요일 &nbsp;
+                							<input type="checkbox" name="dayoff_list" value="6">금요일 &nbsp;
+                							<input type="checkbox" name="dayoff_list" value="7">토요일 &nbsp;
+                						</fieldset>
                 					</div>
 									
-									<p class="update-hidden" id="rule-terms-target">
-                						<input id="chk_terms" type="checkbox">&nbsp; 일정 등록 관련 약관입니다.
+									<div class="col-md-12 update-hidden" id="field-name-target">
+										<label for="field-name-input" id="field-name-label">구장명*</label>
+                  						<input type="text" class="form-control" name="field_name" id="field-name-input" placeholder="최대 100자까지 입력 가능합니다." required>
+                					</div>
+                					
+                					<div class="col-md-12 update-hidden" id="field-addr-target">
+                						<label for="field-addr-input" id="field-addr-label">구장주소*</label>
+                  						<input type="text" class="form-control" name="field_addr" id="field-addr-input" placeholder="최대 100자까지 입력 가능합니다." required>
+                					</div>
+                					
+                					<div class="col-md-12 update-hidden" id="field-limit-target">
+                						<label for="field-limit-input" id="field-limit-label">수용인원*</label>
+                  						<input type="number" class="form-control" name="field_limit" id="field-limit-input" min="0" required>
+                					</div>
+                					
+                					<div class="col-md-6 update-hidden" id="field-width-target">
+                						<label for="field-size-width-input" id="field-size-width-label">가로(m)*</label>
+                  						<input type="number" class="form-control" name="field_size_width" id="field-size-width-input" min="0" required>
+                					</div>
+	
+                					<div class="col-md-6 update-hidden" id="field-height-target">
+                						<label for="field-size-height-input" id="field-size-height-label">세로(m)*</label>
+                  						<input type="number" class="form-control" name="field_size_height" id="field-size-height-input" min="0" required>
+                					</div>
+									
+									<div class="col-md-6 update-hidden" id="is-indoor-target">
+                						<label for="is-indoor-select" id="is-indoor-label">실내/실외</label>
+                  						<select name="is_indoor" id="is-indoor-select">
+                  							<option value="0">실내</option>
+                  							<option value="1">실외</option>
+                  						</select>
+                					</div>
+                					
+                					<div class="col-md-6 update-hidden" id="field-type-target">
+                						<label for="field-type-select" id="field-type-label">잔디타입</label>
+                  						<select name="field_type" id="field-type-select">
+                  							<option value="0">인조잔디</option>
+                  							<option value="1">천연잔디</option>
+                  						</select>
+                					</div>
+                					
+                					<div class="col-md-6 update-hidden" id="is-park-target">
+                						<label for="is-park-select" id="is-park-label">주차장여부</label>
+                						<select name="is_park" id="is-park-select">
+                							<option value="0">없음</option>
+                							<option value="1">있음</option>
+                						</select>
+                					</div>
+                					
+                					<div class="col-md-6 update-hidden" id="is=shower-target">
+                						<label for="is-shower-select" id="is-shower-label">샤워실여부</label>
+                						<select name="is_shower" id="is-shower-select">
+                							<option value="0">없음</option>
+                							<option value="1">있음</option>
+                						</select>
+                					</div>
+									
+									<div class="col-md-12 update-hidden" id="rent-price-target">
+                						<label for="rent-price-input" id="rent-price-label">풋살화 대여가격 <span>(대여서비스를 제공하지 않을 경우 비워두시면 됩니다.)</span></label>
+                  						<input type="number" class="form-control" name="rent_price" id="rent-price-input" min="0">
+                					</div>
+                					
+                					<div class="col-md-12 update-hidden" id="file-img-p">
+                						<label for="field-img-input" id="field-img-label">구장 대표 이미지*</label>
+                						<p>10MB 이하의 파일만 업로드 가능하며, .jpg .jpeg .png만을 허용합니다.</p>
+                  						<input type="file" class="form-control" name="field_img" id="field-img-input" accept=".png, .jpg, .jpeg">
+                					</div>
+
+                					<div class="col-md-12 update-hidden" id="message-target">
+                						<label for="message-textarea" id="message-label">특이사항</label>
+                 						<textarea class="form-control" name="message" id="message-textarea" rows="6"></textarea>
+                					</div>
+									
+									<p class="update-hidden" id="chk_terms_p">
+                						<input id="chk_terms" type="checkbox">&nbsp; 구장 등록 관련 약관입니다.
 									</p>                					
 									
 									<!-- #chk_term 체크되었을 때만 버튼이 눌러지고 아닐경우 alert창을 띄울 예정 -->
-                					<div class="col-md-12 text-center update-hidden" id="rule-form-btn-target">
-                  						<button type="submit" onclick="updateRuleForm();">일정 규칙 수정</button>
+                					<div class="col-md-12 text-center update-hidden" id="update-btn-target">
+                  						<button type="submit" onclick="updateFieldForm();">구장 정보 수정</button>
                 					</div>
-                					
+
               					</div>
             				</form>
           				</div><!-- End Contact Form -->
@@ -269,7 +311,7 @@
   </main>
   
     <script>
-  	const updateRuleForm = function(){
+  	const updateFieldForm = function(){
     	const form = document.insert_rule_end_form;
 		let chkTerms = $("#chk_terms").is(":checked");
 		
@@ -356,21 +398,39 @@
   	
     const chgClass = function(){
 		if(chkHidden) {
-			document.getElementById('rule-open-select').classList.remove('update-hidden');
-			document.getElementById('rule-close-select').classList.remove('update-hidden');
-			document.getElementById('rule-usetime-target').classList.remove('update-hidden');
-			document.getElementById('rule-price-target').classList.remove('update-hidden');
-			document.getElementById('rule-terms-target').classList.remove('update-hidden');
-			document.getElementById('rule-form-btn-target').classList.remove('update-hidden');
+			document.getElementById('dayoff-select').classList.remove('update-hidden');
+			document.getElementById('field-name-target').classList.remove('update-hidden');
+			document.getElementById('field-addr-target').classList.remove('update-hidden');
+			document.getElementById('field-limit-target').classList.remove('update-hidden');
+			document.getElementById('field-width-target').classList.remove('update-hidden');
+			document.getElementById('field-height-target').classList.remove('update-hidden');
+			document.getElementById('is-indoor-target').classList.remove('update-hidden');
+			document.getElementById('field-type-target').classList.remove('update-hidden');
+			document.getElementById('is-park-target').classList.remove('update-hidden');
+			document.getElementById('is=shower-target').classList.remove('update-hidden');
+			document.getElementById('rent-price-target').classList.remove('update-hidden');
+			document.getElementById('file-img-p').classList.remove('update-hidden');
+			document.getElementById('message-target').classList.remove('update-hidden');
+			document.getElementById('chk_terms_p').classList.remove('update-hidden');
+			document.getElementById('update-btn-target').classList.remove('update-hidden');
 			
 			chkHidden = false;
 		} else {
-			document.getElementById('rule-open-select').classList.add('update-hidden');
-			document.getElementById('rule-close-select').classList.add('update-hidden');
-			document.getElementById('rule-usetime-target').classList.add('update-hidden');
-			document.getElementById('rule-price-target').classList.add('update-hidden');
-			document.getElementById('rule-terms-target').classList.add('update-hidden');
-			document.getElementById('rule-form-btn-target').classList.add('update-hidden');
+			document.getElementById('dayoff-select').classList.add('update-hidden');
+			document.getElementById('field-name-target').classList.add('update-hidden');
+			document.getElementById('field-addr-target').classList.add('update-hidden');
+			document.getElementById('field-limit-target').classList.add('update-hidden');
+			document.getElementById('field-width-target').classList.add('update-hidden');
+			document.getElementById('field-height-target').classList.add('update-hidden');
+			document.getElementById('is-indoor-target').classList.add('update-hidden');
+			document.getElementById('field-type-target').classList.add('update-hidden');
+			document.getElementById('is-park-target').classList.add('update-hidden');
+			document.getElementById('is=shower-target').classList.add('update-hidden');
+			document.getElementById('rent-price-target').classList.add('update-hidden');
+			document.getElementById('file-img-p').classList.add('update-hidden');
+			document.getElementById('message-target').classList.add('update-hidden');
+			document.getElementById('chk_terms_p').classList.add('update-hidden');
+			document.getElementById('update-btn-target').classList.add('update-hidden');
 			
 			chkHidden = true;
 		}

@@ -55,4 +55,8 @@
 	FROM `field`
 	WHERE `field_no` = #{fieldNo};
 	</select>
+	<delete id="deleteFieldByFieldNo" parameterType="_int">
+		DELETE FROM `field`
+		WHERE `field_no` = #{fieldNo}
+	</delete>
 </mapper>

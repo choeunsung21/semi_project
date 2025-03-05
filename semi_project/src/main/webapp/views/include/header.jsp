@@ -67,7 +67,7 @@
 										<ul>
 											<li><a href="/insertField">구장 등록</a></li>
 											<li><a href="/insertPlan">일정 직접 등록</a></li>
-
+											
 											<li><a href="/insertRule">일정 등록 규칙 설정</a></li>
 											
 											
@@ -75,9 +75,9 @@
 											
 											
 											<!-- 헤더 변경 부분 -->
-											<li><a href="/selectRegisteredFieldList">등록한 구장 조회</a></li>
-											<li><a href="/selectRegisteredPlanList">등록한 일정 조회</a></li>
-											<li><a href="/selectRegisteredRuleList">등록한 규칙 조회</a></li>
+											<li><a href="/selectRegisteredFieldList">등록한 구장 관리</a></li>
+											<li><a href="/selectRegisteredPlanList">등록한 일정 관리</a></li>
+											<li><a href="/selectRegisteredRuleList">등록한 규칙 관리</a></li>
 											
 											
 											

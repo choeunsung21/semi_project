@@ -42,4 +42,8 @@ public class FieldDao {
 		List<Field> resultList = session.selectList("fieldMapper.selectFieldByField", option);
 		return resultList;
 	}
+	
+	public int deleteFieldByFieldNo(SqlSession session, int fieldNo) {
+		return session.delete("fieldMapper.deleteFieldByFieldNo", fieldNo);
+	}
 }

@@ -35,9 +35,8 @@ public class UpdateFieldServlet extends HttpServlet {
 		if(session != null && session.getAttribute("user") != null) {
 			/* 로그인 과정에서 만들어진 세션이 정상적으로 존재하는 경우 */
 			Field field = new FieldService().selectFieldOneByFieldNo(fieldNo);
-			System.out.println("UpdateFieldServlet : " + field);
 			
-			RequestDispatcher view = request.getRequestDispatcher("/views/rule/updateField.jsp");
+			RequestDispatcher view = request.getRequestDispatcher("/views/field/updateField.jsp");
 			
 			request.setAttribute("field", field);
 			view.forward(request, response);

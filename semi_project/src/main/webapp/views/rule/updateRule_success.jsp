@@ -60,16 +60,21 @@
         <div class="col-lg-4 content">
         </div>
           <div class="col-lg-4 content" data-aos="fade-up" data-aos-delay="200">
-            <h3>규칙 수정 성공!</h3>
+            <h3 style="color:blue;">규칙 수정 성공!</h3>
             <p class="fst-italic">
               이제 수정된 규칙에 의해 일정이 등록됩니다.
             </p>
             <ul id="field-success-ul">
-              <li><i class="bi bi-check2-all"></i> <a href="/">메인화면으로 이동하기</a><br></li>
+              <li><i class="bi bi-check2-all"></i> <a href="/">메인화면으로 이동하기</a></li>
               <li></li>
               <li></li>
-              <li><i class="bi bi-check2-all"></i> <a href="/selectRegisteredPlanList">등록한 일정 목록으로 이동하기</a><br></li>
-              <li><i class="bi bi-check2-all"></i> <a href="/selectRegisteredRuleList">등록한 규칙 목록으로 이동하기</a><br></li>
+              <li><i class="bi bi-check2-all"></i> <a href="/selectRegisteredFieldList">등록한 구장 목록으로 이동하기</a></li>
+              <li><i class="bi bi-check2-all"></i> <a href="/selectRegisteredPlanList">등록한 일정 목록으로 이동하기</a></li>
+              <li><i class="bi bi-check2-all"></i> <a href="/selectRegisteredRuleList">등록한 규칙 목록으로 이동하기</a></li>
+              <li></li>
+              <li></li>
+              <li><i class="bi bi-check2-all"></i> <a href="/selectRegisteredPlanList">등록한 일정 목록으로 이동하기</a></li>
+              <li><i class="bi bi-check2-all"></i> <a href="/selectRegisteredRuleList">등록한 규칙 목록으로 이동하기</a></li>
               <li>
               	<p>
        				* 주의사항<br>

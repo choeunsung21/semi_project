@@ -126,7 +126,7 @@ tbody tr:hover {
 
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>등록한 규칙 조회</title>
+<title>등록한 규칙 관리</title>
 <meta name="description" content="">
 <meta name="keywords" content="">
 
@@ -169,7 +169,7 @@ tbody tr:hover {
 		<!-- Page Title -->
 		<div class="page-title accent-background">
 			<div class="container">
-				<h1>등록한 규칙 조회</h1>
+				<h1>등록한 규칙 관리</h1>
 				<nav class="breadcrumbs">
 					<ol>
 						<li><a href="javascript:void(0);">항목을 클릭하시면 수정 및 삭제하실 수 있습니다.</a></li>

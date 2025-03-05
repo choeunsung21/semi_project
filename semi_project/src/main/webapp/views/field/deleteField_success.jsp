@@ -11,7 +11,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>규칙 삭제 성공</title>
+  <title>구장 삭제 성공</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -36,7 +36,7 @@
   <link href="<%= request.getContextPath() %>/resources/css/cjs.css" rel="stylesheet" type="text/css">
 
   <script src="<%= request.getContextPath() %>/resources/js/jquery-3.7.1.js"></script>
-  
+
   <!-- =======================================================
   * Template Name: OnePage
   * Template URL: https://bootstrapmade.com/onepage-multipurpose-bootstrap-template/
@@ -52,46 +52,38 @@
 
   <main class="main">
 
-    <section id="about-alt" class="about-alt section">
+	<section id="about-alt" class="about-alt section">
 
       <div class="container" style="text-align:center">
 
         <div class="row gy-4" style="text-align:center">
-        <div class="col-lg-4 content">
-        </div>
+          <div class="col-lg-4 content">
+          </div>
+          
           <div class="col-lg-4 content" data-aos="fade-up" data-aos-delay="200">
-            <h3 style="color:blue;">규칙 삭제 성공!</h3>
+            <h3 style="color:blue;">구장 삭제 성공!</h3>
             <p class="fst-italic">
-              이제 규칙적으로 일정이 등록되지 않습니다.
+              이제 해당 구장에 일정을 등록할 수 없습니다.
             </p>
-            <ul id="rule-success-ul">
+            <ul id="field-success-ul">
               <li><i class="bi bi-check2-all"></i> <a href="/">메인화면으로 이동하기</a></li>
               <li></li>
               <li></li>
               <li><i class="bi bi-check2-all"></i> <a href="/selectRegisteredFieldList">등록한 구장 목록으로 이동하기</a></li>
-              <li><i class="bi bi-check2-all"></i> <a href="/selectRegisteredPlanList">등록한 일정 목록으로 이동하기</a></li>
-              <li><i class="bi bi-check2-all"></i> <a href="/selectRegisteredRuleList">등록한 규칙 목록으로 이동하기</a></li>
               <li></li>
               <li></li>
               <li><i class="bi bi-check2-all"></i> <a href="/selectRegisteredPlanList">등록한 일정 목록으로 이동하기</a></li>
               <li><i class="bi bi-check2-all"></i> <a href="/selectRegisteredRuleList">등록한 규칙 목록으로 이동하기</a></li>
-              <li>
-              	<p>
-       				* 주의사항<br>
-       				1. 2주 후 일정이 더이상 자동으로 추가되지 않습니다.<br>
-           			2. 이미 등록된 일정에는 영향을 미치지 않습니다.<br>
-           			3. 등록된 일정은 확인 후 개별 삭제하셔야합니다.<br><br>	
-       	    	</p>
-       	      </li>
-            </ul>
-
+            </ul>	
           </div>
+          
           <div class="col-lg-4 content">
           </div>  
         </div>
       </div>
 
     </section><!-- /About Alt Section -->
+
 
   </main>
 
@@ -115,5 +107,5 @@
   <script src="/resources/js/common.js"></script>
 
 </body>
-
+	
 </html>
