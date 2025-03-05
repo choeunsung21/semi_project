@@ -46,6 +46,13 @@ public class PlanRuleService {
 		return result;
 	}
 	
+	public int updateStatus(int ruleNo) {
+		SqlSession session = getSqlSession(true);
+		int result = new PlanRuleDao().updateStatus(session, ruleNo);
+		session.close();
+		return result;
+	}
+	
 	public int deletePlanRuleByRuleNo(int ruleNo) {
 		SqlSession session = getSqlSession(true);
 		int result = new PlanRuleDao().deletePlanRuleByRuleNo(session, ruleNo);

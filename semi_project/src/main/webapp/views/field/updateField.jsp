@@ -329,11 +329,13 @@
                   						<input type="number" class="form-control" name="rent_price" id="rent-price-input" value="${field.rentPrice}" min="0">
                 					</div>
                 					
+                					<!--
                 					<div class="col-md-12 update-hidden" id="file-img-p">
                 						<label for="field-img-input" id="field-img-label">구장 대표 이미지</label>
                 						<p>10MB 이하의 파일만 업로드 가능하며, .jpg .jpeg .png만을 허용합니다.</p>
                   						<input type="file" class="form-control" name="field_img" id="field-img-input" accept=".png, .jpg, .jpeg">
                 					</div>
+                					 -->
 
                 					<div class="col-md-12 update-hidden" id="message-target">
                 						<label for="message-textarea" id="message-label">특이사항</label>
@@ -526,7 +528,7 @@
 			document.getElementById('is-park-target').classList.remove('update-hidden');
 			document.getElementById('is=shower-target').classList.remove('update-hidden');
 			document.getElementById('rent-price-target').classList.remove('update-hidden');
-			document.getElementById('file-img-p').classList.remove('update-hidden');
+			/* document.getElementById('file-img-p').classList.remove('update-hidden'); */
 			document.getElementById('message-target').classList.remove('update-hidden');
 			document.getElementById('chk_terms_p').classList.remove('update-hidden');
 			document.getElementById('update-btn-target').classList.remove('update-hidden');
@@ -544,7 +546,7 @@
 			document.getElementById('is-park-target').classList.add('update-hidden');
 			document.getElementById('is=shower-target').classList.add('update-hidden');
 			document.getElementById('rent-price-target').classList.add('update-hidden');
-			document.getElementById('file-img-p').classList.add('update-hidden');
+			/* document.getElementById('file-img-p').classList.add('update-hidden'); */
 			document.getElementById('message-target').classList.add('update-hidden');
 			document.getElementById('chk_terms_p').classList.add('update-hidden');
 			document.getElementById('update-btn-target').classList.add('update-hidden');

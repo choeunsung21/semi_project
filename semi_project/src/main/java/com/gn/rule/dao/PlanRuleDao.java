@@ -30,6 +30,10 @@ public class PlanRuleDao {
 		return session.update("planRuleMapper.updatePlanRule", planRule);
 	}
 	
+	public int updateStatus(SqlSession session, int ruleNo) {
+		return session.update("planRuleMapper.updateStatus", ruleNo);
+	}
+	
 	public int deletePlanRuleByRuleNo(SqlSession session, int ruleNo) {
 		return session.delete("planRuleMapper.deletePlanRuleByRuleNo", ruleNo);
 	}

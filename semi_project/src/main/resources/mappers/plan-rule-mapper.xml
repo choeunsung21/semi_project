@@ -10,6 +10,7 @@
 		<result property="closeTime" column="close_time" />
 		<result property="operating" column="operating" />
 		<result property="price" column="price" />
+		<result property="status" column="status" />
 		<result property="regDate" column="reg_date" />
 		<result property="modDate" column="mod_date" />
 		<result property="isSun" column="is_sun" />
@@ -51,6 +52,11 @@
 		, `close_time` = #{closeTime}
 		, `operating` = #{operating}
 		, `price` = #{price}
+		WHERE `rule_no` = #{ruleNo}
+	</update>
+	<update id="updateStatus" parameterType="_int">
+		UPDATE `plan_rule`
+		SET `status` = 1
 		WHERE `rule_no` = #{ruleNo}
 	</update>
 	<delete id="deletePlanRuleByRuleNo" parameterType="_int">
