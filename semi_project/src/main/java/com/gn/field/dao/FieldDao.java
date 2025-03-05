@@ -50,4 +50,8 @@ public class FieldDao {
 	public int deleteFieldByField(SqlSession session, Field field) {
 		return session.delete("fieldMapper.deleteFieldByField", field);
 	}
+	
+	public FieldAttach selectFieldAttachByFieldNo(SqlSession session, int fieldNo) {
+		return session.selectOne("fieldAttachMapper.selectFieldAttachByFieldNo", fieldNo);
+	}
 }

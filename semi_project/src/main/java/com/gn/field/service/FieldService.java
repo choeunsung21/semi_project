@@ -123,4 +123,11 @@ public class FieldService {
 		session.close();
 		return result;
 	}
+	
+	public FieldAttach selectFieldAttachByFieldNo(int fieldNo) {
+		SqlSession session = getSqlSession(true);
+		FieldAttach result = new FieldDao().selectFieldAttachByFieldNo(session, fieldNo);
+		session.close();
+		return result;
+	}
 }

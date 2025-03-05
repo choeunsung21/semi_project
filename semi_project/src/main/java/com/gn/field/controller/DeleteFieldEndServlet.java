@@ -1,5 +1,6 @@
 package com.gn.field.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gn.field.service.FieldService;
 import com.gn.field.vo.Field;
+import com.gn.field.vo.FieldAttach;
 import com.gn.plan.service.PlanService;
 import com.gn.plan.vo.Plan;
 
@@ -29,16 +31,26 @@ public class DeleteFieldEndServlet extends HttpServlet {
 		if(tmp != null) {
 			int fieldNo = Integer.parseInt(tmp);
 			Field field = new FieldService().selectFieldOneByFieldNo(fieldNo);
-			
+
 			List<Plan> planList = new PlanService().selectPlanListByFieldNo(fieldNo);
 			
 			if(planList.size() == 0 || planList == null) {
 				// 해당 구장에 오늘 이후로 등록된 일정이 없는 경우는 삭제 가능함
 				
+				FieldAttach fieldAttach = new FieldService().selectFieldAttachByFieldNo(fieldNo);
+				String deletePath = fieldAttach.getFilePath();
+				
 				int result = new FieldService().deleteFieldByField(field);
 				
 				if(result > 0) {
-					// 삭제가 제대로 이루어진 상황 - 성공페이지		
+					// 삭제가 제대로 이루어진 상황 - 파일 삭제해줘야함
+					File deleteFile = new File(deletePath);
+					
+					if(deleteFile.exists()) {
+						deleteFile.delete();
+					}
+					
+					// 삭제가 제대로 이루어진 상황 - 성공페이지
 					RequestDispatcher view = request.getRequestDispatcher("/views/field/deleteField_success.jsp");
 					view.forward(request, response);
 					
