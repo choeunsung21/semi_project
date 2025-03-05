@@ -4,9 +4,15 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.gn.board.vo.Board;
 import com.gn.user.vo.User;
 
 public class UserDao {
+	public List<Board> selectBoardsByUser(SqlSession session, int userNo){
+		List<Board> boardList = session.selectList("userMapper.selectBoardsByUser", userNo);
+		return boardList;
+	}
+	
 	
 	public int MyPageUpdatePw(SqlSession session, User user) {
 		int result = session.update("userMapper.MyPageUpdatePw",user);

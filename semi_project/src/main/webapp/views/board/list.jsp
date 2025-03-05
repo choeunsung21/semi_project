@@ -68,7 +68,6 @@
 						<td colspan="5">조회된 데이터가 없습니다</td>
 					 <tr>	
 					</c:otherwise>
-					
 	</c:choose>
 </tbody>
 </table>

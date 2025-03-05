@@ -34,6 +34,8 @@
   <!-- Main CSS File -->
   <link href="<%= request.getContextPath() %>/resources/css/include/common.css" rel="stylesheet" type="text/css">
 
+  <script src="<%=request.getContextPath()%>/resources/js/jquery-3.7.1.js"></script>
+
   <!-- =======================================================
   * Template Name: OnePage
   * Template URL: https://bootstrapmade.com/onepage-multipurpose-bootstrap-template/
@@ -168,13 +170,25 @@
                 
 </div>
 	<!-- 내가 쓴 글 수정 아직 어떻게 할지 고민중..-->
-<div id="write" style="display : none;">
-	<div class="section-title" data-aos="fade-up">
-		<h3>내가 쓴 글 수정</h3>
-	</div>	
-	</div>
-	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.7.1.js"></script>
- 
+<<div id="write" style="display: none;">
+    <div class="section-title" data-aos="fade-up">
+        <h3>내가 쓴 글 수정</h3>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>작성일시</th>
+                </tr>
+            </thead>
+            <tbody id="boardListContainer">
+            	
+            </tbody>
+        </table>
+    </div>	
+</div>
+	
  <!-- a태그를 누르면 변형이 되기 위한 script 태그 -->
  <script>					
  	document.getElementById("changeProfileBtn").addEventListener("click",function(){
@@ -353,17 +367,37 @@
  </script>
  	<!-- 내가 쓴 글 수정 ajax 작성할 예정-->
 	<script>
-		document.getElementById("updateWrite").addEventListener("click",function(){
-			event.preventDefault();
-			document.getElementById("myDataForm").style.display = "none";
-		 	document.getElementById("passWord").style.display = "none";
-		 	document.getElementById("myDataChangeForm").style.display = "none";
-		 	document.getElementById("write").style.display="block";
-		
-		 	});	
-		
-		
-	</script>
+  // "내가 쓴 글 수정" 버튼 클릭 시
+    document.getElementById("updateWrite").addEventListener("click", function(event) {
+        event.preventDefault();
+        console.log("updateWrite 클릭됨");
+        // 다른 섹션 숨기고 "내가 쓴 글 수정" 섹션 표시
+        document.getElementById("myDataForm").style.display = "none";
+        document.getElementById("passWord").style.display = "none";
+        document.getElementById("myDataChangeForm").style.display = "none";
+        document.getElementById("write").style.display = "block";
+
+        // AJAX 호출로 사용자 글 목록 가져오기
+        $.ajax({
+        	  url: "/MyPageBoardServlet",
+        	  method: "GET",
+        	  dataType: "JSON",
+
+      		  success: function(response) {
+				
+        		for(let i=0; i<response.list.length; i++) {
+        			console.log(response.list[i]);
+        			document.getElementById('boardListContainer').innerHTML += '<tr><td>'+(i+1)+'</td><td>'+response.list[i].boardTitle+'</td><td>'+response.list[i].userId+'</td><td>'+response.list[i].regDate+'</td></tr>';
+        		}
+        	  },
+        	  error: function(xhr, status, error) {
+        	    console.error("AJAX 요청 오류:", error);
+        	  }
+        	});
+    });
+</script>
+	
+	
     </section><!-- /Starter Section Section -->
   </main>
 

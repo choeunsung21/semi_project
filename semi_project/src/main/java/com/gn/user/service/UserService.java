@@ -2,12 +2,23 @@ package com.gn.user.service;
 
 import static com.gn.common.sql.SqlSessionTemplate.getSqlSession;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 
+import com.gn.board.dao.BoardDao;
+import com.gn.board.vo.Board;
 import com.gn.user.dao.UserDao;
 import com.gn.user.vo.User;
 
 public class UserService {
+	
+	public List<Board> selectBoardsByUse(int userNo){
+		SqlSession session = getSqlSession(true);
+		List<Board> boardList = new UserDao().selectBoardsByUser(session, userNo);
+		session.close();
+		return boardList;
+	}
 	
 	public int MyPageUpdatePw(User user) {
 		SqlSession session = getSqlSession(true);
