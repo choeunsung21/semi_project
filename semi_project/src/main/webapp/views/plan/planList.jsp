@@ -100,7 +100,7 @@ tbody tr.active {
 	background-color: rgba(36, 135, 206, 0.15); /* 선택된 행 강조 */
 }
 
-/* 페이징 CSS (기존 유지) */
+/* 페이징 CSS */
 .pagination {
 	display: flex;
 	justify-content: center;
@@ -154,58 +154,6 @@ tbody tr.active {
 	font-weight: 500;
 	font-size: 13px;
 }
-/* 사이드바 고정 및 크기 조정 */
-.fixed-sidebar {
-	position: fixed; /* 위치 고정 유지 */
-	top: 350px; /* 상단에서 350px 떨어짐 (헤더 고려) */
-	right: 200px; /* 오른쪽에서 200px 간격 */
-	width: 500px; /* 너비 유지 */
-	height: auto; /* 높이는 내용에 맞게 자동 */
-	max-height: 80vh; /* 화면 높이의 80%까지만 */
-	background-color: #fff; /* 배경색 흰색 */
-	border-radius: 10px; /* 둥근 모서리 */
-	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
-	padding: 20px; /* 내부 여백 */
-	overflow-y: auto; /* 내용이 길어지면 스크롤 */
-	z-index: 0;
-	다른
-	요소
-	위에
-	표시
-	*/
-}
-
-.fixed-sidebar h3 {
-	font-size: 20px; /* 제목 크기 */
-	margin-bottom: 15px;
-}
-
-.fixed-sidebar .info-item {
-	margin-bottom: 15px; /* 각 항목 간 간격 */
-}
-
-.fixed-sidebar .info-item i {
-	font-size: 20px; /* 아이콘 크기 */
-	margin-right: 10px;
-	color: #2487ce; /* 아이콘 색상 */
-}
-
-.fixed-sidebar .info-item h3 {
-	font-size: 16px; /* 소제목 크기 */
-	margin-bottom: 5px;
-}
-
-.fixed-sidebar .info-item p {
-	font-size: 14px; /* 본문 크기 */
-	color: #555;
-}
-
-/* 화면이 좁아질 때 사이드바 숨기기 */
-@media ( max-width : 1600px) {
-	.fixed-sidebar {
-		display: none; /* 화면 너비 1600px 이하에서 숨김 */
-	}
-}
 </style>
 <body class="service-details-page">
 
@@ -258,7 +206,8 @@ tbody tr.active {
 									<c:choose>
 										<c:when test="${not empty planList}">
 											<c:forEach var="plan" items="${planList}">
-												<tr class="plan-row" data-plan-no="${plan.planNo}"
+												<tr class="plan-row" 
+												data-plan-no="${plan.planNo}"
 												data-field-addr="${plan.field.fieldAddr}"
 												data-field-name="${plan.field.fieldName}"
 												data-plan-date="${plan.planDate}"
@@ -270,7 +219,7 @@ tbody tr.active {
 													<td>${plan.planDate}</td>
 													<td>${plan.planTime}</td>
 													<td>${plan.useTime}시간</td>
-													<td>null</td>
+													<td id="reservationStatus"></td>
 												</tr>
 											</c:forEach>
 										</c:when>
@@ -313,57 +262,17 @@ tbody tr.active {
 					</div>
 
 					<div class="col-lg-4 fixed-sidebar" data-aos="fade-up" data-aos-delay="200">
-						
+
 						<div class="services-list">
-			              <a href="" class="active">구장명 : </a>
-			              <a href="">주소 : </a>
-			              <a href="">구장크기 : </a>
-			              <a href="">수용인원 : </a>
-			              <a href="">잔디타입 : </a>
-			              <a href="">실내/실외 : </a>
-			              <a href="">주차장 : </a>
-			              <a href="">풋살화대여 : </a>
-			            </div>
-					
-<!-- 
-					<h3 style="text-align: left; padding-bottom: 20px;">Contact</h3>
-
-						<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
-							<i class="bi bi-geo-alt flex-shrink-0"></i>
-							<div>
-								<h3>Address</h3>
-								<p>#임의의 주소</p>
-							</div>
+							<a href="" class="active">구장명 : </a>
+							<a href="">주소 : </a>
+							<a href="">구장크기 : </a>
+							<a href="">수용인원 : </a>
+							<a href="">잔디타입 : </a>
+							<a href="">실내/실외 : </a>
+							<a href="">주차장 : </a>
+							<a href="">풋살화대여 : </a>
 						</div>
-						<!-- End Info Item -->
-<!-- 
-						<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
-							<i class="bi bi-telephone flex-shrink-0"></i>
-							<div>
-								<h3>Call Us</h3>
-								<p>#임의의 전화번호</p>
-							</div>
-						</div>
-						<!-- End Info Item -->
-<!-- 
-						<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="500">
-							<i class="bi bi-envelope flex-shrink-0"></i>
-							<div>
-								<h3>Email Us</h3>
-								<p>#임의의 이메일@example.com</p>
-							</div>
-						</div>
-						<!-- End Info Item -->
-
-						<!-- 
-            <div class="services-list">
-              # img 파일을 선택하고 점부를 위한 공간입니다.
-            </div>
-           
-            <h4>파일 첨부 규칙</h4>
-            <p>10MB 이하의 파일만 업로드 가능하며, .jpg .jpeg .png만을 허용합니다.</p>
-             -->
-
 					</div>
 
 				</div>
@@ -376,6 +285,36 @@ tbody tr.active {
 	</main>
 
 	<%@ include file="/views/include/footer.jsp"%>
+
+	<script>
+		$(function() {
+			$(".plan-row").each(function() {
+				let planNo = $(this).data("plan-no"); // 각 행에서 planNo를 가져옴
+
+				$.ajax({
+					url : "/selectPlanListEnd",
+					data : {
+						"ajax_planNo" : planNo
+					},
+					type : "get",
+					dataType : "JSON",
+					success : function(data) {
+						const statusElement = $(this).find("#reservationStatus");
+						statusElement.text(data.status);
+						if (data.status === '예약가능') {
+							statusElement.css('color', 'green');
+						} else {
+							statusElement.css({
+					            'color': 'gray',
+					            'opacity': 0.5
+					        });
+						}
+					}.bind(this)
+				// AJAX success 핸들러에서 this가 올바로 작동하도록 binding
+				});
+			});
+		});
+	</script>
 
 	<!-- Scroll Top -->
 	<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
@@ -395,7 +334,7 @@ tbody tr.active {
 
 	<!-- Main JS File -->
 	<script src="<%=request.getContextPath()%>/resources/js/common.js"></script>
-	
+
 
 </body>
 

@@ -49,15 +49,13 @@ public class SelectRegisteredPlanListServlet extends HttpServlet {
             
 			
 			List<Plan> registeredPlanList = new PlanService().selelctRegisteredPlanList(option);
-			Reservation reservation = new ReservationService().selectReservationDetail(planNo);
 			
 			RequestDispatcher view = request.getRequestDispatcher("/views/plan/registeredPlanList.jsp");
 			request.setAttribute("registeredPlanList", registeredPlanList);
-			request.setAttribute("reservation", reservation);
 			request.setAttribute("paging", option);
 			view.forward(request, response);
 		} else {
-			System.out.println("SelectRegPlanList : 세션에 유저정보가 존재하지 않습니다.");
+			request.getRequestDispatcher("/views/user/login.jsp").forward(request, response);
 		}
 	}
 

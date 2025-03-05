@@ -46,7 +46,7 @@
 		JOIN `field` f ON p.field_no = f.field_no
 		JOIN `user` u ON u.user_no = f.user_no
 		WHERE f.user_no = #{userNo}
-		ORDER BY p.plan_no DESC
+		ORDER BY p.plan_date ,p.plan_time ASC
 		LIMIT #{limitPageNo} ,#{numPerPage}
 	</select>
 	

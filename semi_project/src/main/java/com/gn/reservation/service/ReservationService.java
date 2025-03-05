@@ -32,5 +32,12 @@ public class ReservationService {
 		return reservationDetail;
 	}
 
+	public Reservation selectReservationByPlanNo(int planNo) {
+		SqlSession session = getSqlSession(true);
+		Reservation reservation = new ReservationDao().selectReservationByPlanNo(session, planNo);
+		session.close();
+		return reservation;
+	}
+
 
 }

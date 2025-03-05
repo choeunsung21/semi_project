@@ -44,7 +44,7 @@
 </head>
 <style>
 .btn-visit.cancel {
-    background-color: crimson !important; /* 취소하기 버튼 색상 */
+	background-color: crimson !important; /* 취소하기 버튼 색상 */
 }
 </style>
 <body class="portfolio-details-page">
@@ -125,12 +125,10 @@
 									<ul>
 										<li><strong>샤워실</strong>${plan.field.isShower ? 'O' : 'X'}</li>
 										<li><strong>주차장</strong>${plan.field.isPark ? 'O' : 'X'}</li>
-										<li><strong>풋살화 대여</strong>
-											<c:choose>
+										<li><strong>풋살화 대여</strong> <c:choose>
 												<c:when test="${not empty plan.field.rentPrice}">${plan.field.rentPrice}원</c:when>
 												<c:otherwise>없음</c:otherwise>
-											</c:choose>
-										</li>
+											</c:choose></li>
 									</ul>
 								</div>
 							</div>
@@ -185,14 +183,12 @@
                 <li><strong>URL</strong> <a href="#">www.example.com</a></li>
                  -->
 								<li>
-									<c:choose>
-										<c:when test="${empty reservation.reservationNo }">
-											<a href="/insertReservation?planNo=${plan.planNo}" class="btn-visit align-self-start" onclick="return confirm('해당 일정을 예약하시겠습니까?')">예약하기</a>
-										</c:when>
-										<c:otherwise>
-											<a href="/deleteReservation?planNo=${plan.planNo}" class="btn-visit cancel align-self-start" onclick="return confirm('예약을 취소하시겠습니까?')">취소하기</a>
-										</c:otherwise>
-									</c:choose>
+									<c:if test="${userType == 0}">
+										<a href="/insertReservation?planNo=${plan.planNo}" class="btn-visit align-self-start" onclick="return confirm('해당 일정을 예약하시겠습니까?')">예약하기</a>
+									</c:if>
+									<c:if test="${userType == 0 and not empty reservation.reservationNo}">
+										<a href="/deleteReservation?planNo=${plan.planNo}" class="btn-visit cancel align-self-start" onclick="return confirm('예약을 취소하시겠습니까?')">취소하기</a>
+									</c:if>
 								</li>
 							</ul>
 						</div>
