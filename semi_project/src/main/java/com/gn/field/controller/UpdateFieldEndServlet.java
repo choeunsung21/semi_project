@@ -2,6 +2,7 @@ package com.gn.field.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,8 +28,6 @@ public class UpdateFieldEndServlet extends HttpServlet {
 			int fieldNo = Integer.parseInt(tmp);
 			
 			Field field = new FieldService().selectFieldOneByFieldNo(fieldNo);
-			
-			System.out.println("UpdateFieldEndServlet 수정전 : "+field);
 			
 			// 구장명을 입력한 경우에만 해당 값을 객체에 담아줌
 			if(!(request.getParameter("field_name_after") == null || "".equals(request.getParameter("field_name_after")))) {
@@ -95,7 +94,7 @@ public class UpdateFieldEndServlet extends HttpServlet {
 				field.setRentPrice(null);
 			} else if(!(request.getParameter("rent_price") == null)) {
 				field.setRentPrice(request.getParameter("rent_price"));
-			} 
+			}
 			
 			// 특이사항을 입력하면 입력한 갑을 객체에 담아줌
 			if(!(request.getParameter("message") == null || "".equals(request.getParameter("message")))) {
@@ -136,16 +135,17 @@ public class UpdateFieldEndServlet extends HttpServlet {
 					break;
 				}
 			}
-					
-//			int result = new FieldService().updateField(field);
-//			
-//			if(result > 0) {
-//				// 수정이 정상적으로 이루어진 상황
-//			} else {
-//				// 수정 도중 문제가 발생한 상황 = 네트워크, 서버 등의 문제일 가능성 높음
-//			}
 			
-			System.out.println("UpdateFieldEndServlet 수정후 : "+field);
+			int result = new FieldService().updateField(field);
+			
+			if(result > 0) {
+				// 수정이 정상적으로 이루어진 상황
+				RequestDispatcher view = request.getRequestDispatcher("/views/field/updateField_success.jsp");
+				view.forward(request, response);
+			} else {
+				// 수정 도중 문제가 발생한 상황 = 네트워크, 서버 등의 문제일 가능성 높음
+				System.out.println("UpdateFieldEndServlet : 알 수 없는 오류로 수정에 실패하였습니다.");
+			}
 			
 		} else {
 			// 만에 하나 이 조건문 안에 들어간다면 네트워크, 서버 등의 문제라고 예상됨

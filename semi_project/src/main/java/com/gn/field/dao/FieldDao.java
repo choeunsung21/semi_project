@@ -43,6 +43,10 @@ public class FieldDao {
 		return resultList;
 	}
 	
+	public int updateField(SqlSession session, Field field) {
+		return session.update("fieldMapper.updateField", field);
+	}
+	
 	public int deleteFieldByFieldNo(SqlSession session, int fieldNo) {
 		return session.delete("fieldMapper.deleteFieldByFieldNo", fieldNo);
 	}

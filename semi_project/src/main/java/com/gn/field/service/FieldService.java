@@ -88,7 +88,25 @@ public class FieldService {
 		session.close();
 		return result;
 	}
-
+	
+	public int updateField(Field field) {
+		SqlSession session = getSqlSession(false);
+		int result_field = new FieldDao().updateField(session, field);
+		
+		int result_dayoff = new DayoffDao().updateDayoff(session, field);
+		
+		int result = 0;
+		if(result_field > 0 && result_dayoff > 0) {
+			session.commit();
+			result = 1;
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
+		return result;
+	}
+	
 	public int deleteFieldByFieldNo(int fieldNo) {
 		SqlSession session = getSqlSession(true);
 		int result = new FieldDao().deleteFieldByFieldNo(session, fieldNo);
