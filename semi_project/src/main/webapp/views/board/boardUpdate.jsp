@@ -47,7 +47,7 @@
   ======================================================== -->
     <title>글쓰기</title>
     <style>
-        .container {
+         .container {
             display: flex;
             justify-content: center; 
             align-items: center; 
@@ -65,7 +65,7 @@
             flex-direction: column;
         }
 
-        /* 입력 필드 스타일 */
+   
         input, textarea {
             width: 100%;
             padding: 10px;
@@ -74,7 +74,7 @@
             border-radius: 5px;
         }
 
-        /*  버튼 스타일 */
+       
         button {
             padding: 10px;
             background-color: #007bff;
@@ -87,16 +87,40 @@
         button:hover {
             background-color: #0056b3;
         }
-        .upload-notice {
-    		font-size: 0.85em; 
-    		color: #ff4d4d; 
-    		margin-left: 10px; 
-    		display: inline-block; 
-		}
-		.upload-notice strong {
-    		font-weight: bold; 
-		}
+        .form-box input[type="text"]:focus,
+        .form-box textarea:focus {
+            border-color: #007bff; 
+            outline: none; 
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.3); 
+            border-width: 2px; 
+        }
+
         
+        .form-box textarea {
+            resize: vertical; 
+            min-height: 120px;
+        }
+
+       
+        .form-box input[type="button"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .form-box input[type="button"]:hover {
+            background-color: #0056b3; 
+        }
+        .upload-notice strong {
+   			color: red; 
+		}
     </style>
   
 </head>
@@ -107,7 +131,7 @@
 
    <!-- 전체 페이지 가운데 정렬 -->
     <div class="container">
-        <div class="form-box">
+        <div class="form-box" style="border: 2px solid #007bff; padding: 20px; border-radius: 40px;">
             <h2>글쓰기</h2>
             
             <form action="boardUpdateEndServlet" name="boardUpdate" method="post" enctype="multipart/form-data">
@@ -198,7 +222,7 @@
             success: function(data) {
                 alert("첨부파일이 삭제되었습니다");
                 $("#fileInfo").empty();
-/*                 location.reload(); */
+
              
                 
             },

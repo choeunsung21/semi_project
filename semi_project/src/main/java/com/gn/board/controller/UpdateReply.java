@@ -24,23 +24,32 @@ public class UpdateReply extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String temp = request.getParameter("replyNo");
 		String replyContent = request.getParameter("replyContent");
+		String test = request.getParameter("boardNo");
+		int boardNo = 0;
+		if(test != null) {
+			boardNo = Integer.parseInt(test);
+		}
+		
+		
+		System.out.println(boardNo);
+		
 		int replyNo = 0;
 		if(temp != null) {
 			replyNo = Integer.parseInt(temp);
 		}
-		
-		System.out.println("======================"+replyNo);
-		System.out.println("======================"+replyContent);
+//		System.out.println("======================="+boardNo);
+//		System.out.println("======================"+replyNo);
+//		System.out.println("======================"+replyContent);
+		RequestDispatcher view = request.getRequestDispatcher("/views/board/replyUpdate.jsp");
 		request.setAttribute("replyNo", replyNo);
 		request.setAttribute("replyContent", replyContent);
-		RequestDispatcher view = request.getRequestDispatcher("/views/board/replyUpdate.jsp");
+		request.setAttribute("boardNo", boardNo);
 		view.forward(request, response);
 		
 	}
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

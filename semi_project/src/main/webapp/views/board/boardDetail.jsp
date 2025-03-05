@@ -105,23 +105,42 @@
 
 <style>
 .reply-list li {
-    padding: 15px;
-    margin-bottom: 10px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    border: 1px solid #e0e0e0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
-    display: flex; /* 작성자, 내용, 버튼 정렬 */
-    align-items: center; /* 세로 중앙 정렬 */
+		    padding: 15px;
+		    margin-bottom: 10px;
+		    background-color: #f9f9f9;
+		    border-radius: 8px;
+		    border: 1px solid #e0e0e0;
+		    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+		    transition: all 0.3s ease;
+		    display: flex; 
+		    align-items: center; 
 }
 
 .reply-list .edit-btn, .reply-list .delete-btn {
-    margin-left: 10px;
-    padding: 2px 6px;
-    font-size: 12px;
-    line-height: 1.2;
+    		margin-left: 10px;
+    		padding: 5px 12px;
+    		font-size: 14px;
+   		 	line-height: 1.2;
+   		 	display: inline-block;
+
 }
+.reply-list div {
+    display: flex;
+    justify-content: flex-start; 
+    gap: 10px; 
+}
+
+.deletereplybtn:hover {
+            background-color: #dc3545; 
+            border-color: #dc3545; 
+            color: white; 
+}
+.deletebtn:hover{
+			background-color: #dc3545; 
+            border-color: #dc3545; 
+            color: white; 
+}
+
 </style>       
 
               
@@ -140,7 +159,7 @@
           	  <div>
           	  <!-- 게시글을 쓴 사람만 삭제 수정버튼을 보이게 함  -->
           	  	<c:if test="${sessionScope.user.userNo eq board.writerNo }">
-          	  	<button type="submit" class="btn btn-outline-primary updatebtn" data-attachno="${board.attachNo }"
+          	  	<button type="submit" class="btn btn-outline-primary updatebtn"  data-attachno="${board.attachNo }"
           	  	data-boardtitle="${board.boardTitle }"
           	  	data-boardcontent="${board.boardContent }"
           	  	data-writerno="${board.writerNo }"
@@ -151,7 +170,7 @@
           	  	</c:if>
           	  </div>
           	  
-          	  
+          	  <!-- 게시글 수정 버튼 -->
           	  <script type="text/javascript">
           	  $(function(){
           		  $(".updatebtn").click(function(){
@@ -176,7 +195,7 @@
           	  
           	  
           	  
-          	  
+     		/* 게시글 삭제 버튼 */
           	$(function() {
           	    $(".deletebtn").click(function() {
           	        let boardNo = $(this).data("boardno");
@@ -251,12 +270,10 @@
     	  </form>
    </div> 	
    <script type="text/javascript">
+   //댓글 목록 , userNo 와 writerNo가 같다면 수정 삭제 버튼이 나타남
    $(document).ready(function(){
   	 const boardNo = $('#boardNo').val();
-  	 const userNo = $('#writerNo').val();
-  	 console.log(boardNo);
-  	 console.log("댓글 수정 기능중 " + userNo);
-  	
+  	 const userNo = $('#writerNo').val();	
   	 $.ajax({
   		    url: "/selectReplyList",
   		    type: "post",
@@ -277,10 +294,13 @@
   		                    "<span class='regdate'>" + reply.regDate + "</span>";
 
   		                if (userNo == reply.writerNo) {
-  		                    replyList += " <button type='button' class='btn btn-outline-primary deletereplybtn' data-replyno='" 
+  		                    replyList += " <button type='button' class='btn btn-outline-primary deletereplybtn delete-btn' data-replyno='" 
   		                               + reply.replyNo + "'>삭제</button>";
-  		                    replyList += " <button type='button' class='btn btn-outline-primary updatereplybtn' data-replyno='" 
-  		                               + reply.replyNo + "' data-replycontent='" + reply.replyContent + "'>수정</button>";
+  		                    replyList += " <button type='button' class='btn btn-outline-primary updatereplybtn edit-btn' " +
+  		                  " data-replyno='" + reply.replyNo + "' " +
+  		                " data-replycontent='" + reply.replyContent + "' " +
+  		                " data-boardno='" + reply.boardNo + "' >수정</button>";
+
   		                }
 
   		                replyList += "</li>";
@@ -298,10 +318,12 @@
   	 
 			
   	 		//댓글 수정 버튼
-  	 		$(document).on("click",".updatereplybtn",function(){
-  	 			let replyNo = $
-  	 		})
-  	 
+	 	$(document).on("click", ".updatereplybtn", function() {
+    		let replyNo = $(this).data("replyno");
+    		let replyContent = $(this).data("replycontent");
+    		let boardNo = $(this).data("boardno")
+    		location.href="/updateReply?replyNo="+replyNo +"&replyContent="+replyContent+"&boardNo="+boardNo;	
+		});
 
         	//댓글 삭제 버튼
          	$(document).on("click", ".deletereplybtn", function() {
@@ -310,6 +332,7 @@
         		    $.ajax({
         		        url: "/deleteReply",
         		        type: "post",
+        		        dataType:"json",
         		        data: { "replyNo": replyNo },
         		        success: function(data) {
         		            if (data.res_code === 200) {
