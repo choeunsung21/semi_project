@@ -78,7 +78,7 @@
           <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
             <h2>일정 규칙 수정 : 정보 입력</h2>
             <p id="h-p">하나의 구장에는 하나의 규칙만 등록할 수 있습니다.<br>
-            			(*) 표시가 있는 항목은 반드시 입력해야합니다.</p>
+            			수정하고 싶은 항목만 변경하시면 됩니다.</p>
             	
             <!-- Contact Section -->
     		<section id="contact" class="contact section">
@@ -134,7 +134,7 @@
           				</div>
 						
           				<div class="col-lg-8">
-            				<form action="/updateFieldEnd" method="post" class="submit-form" name="insert_field_end_form" data-aos="fade-up" data-aos-delay="200">
+            				<form action="/updateFieldEnd" method="post" class="submit-form" name="update_field_end_form" data-aos="fade-up" data-aos-delay="200">
               					<div class="row gy-4">
 									
 									<div class="col-md-12" style="display:none;">
@@ -163,91 +163,185 @@
                 						<fieldset>
                 							<legend>휴무요일</legend>
                 							<p>(체크하지 않을 시 모든 요일에 개장함을 의미합니다)</p>
-                							<input type="checkbox" name="dayoff_list" value="1">일요일 &nbsp;
-                							<input type="checkbox" name="dayoff_list" value="2">월요일 &nbsp;
-                							<input type="checkbox" name="dayoff_list" value="3">화요일 &nbsp;
-                							<input type="checkbox" name="dayoff_list" value="4">수요일 &nbsp;
-                							<input type="checkbox" name="dayoff_list" value="5">목요일 &nbsp;
-                							<input type="checkbox" name="dayoff_list" value="6">금요일 &nbsp;
-                							<input type="checkbox" name="dayoff_list" value="7">토요일 &nbsp;
+                							<c:choose>
+                								<c:when test='${sun eq "false"}'>
+                									<input type="checkbox" name="dayoff_list" value="1">일요일 &nbsp;
+                								</c:when>
+                								<c:otherwise>
+                									<input type="checkbox" name="dayoff_list" value="1" checked>일요일 &nbsp;
+                								</c:otherwise>
+                							</c:choose>
+                							<c:choose>
+                								<c:when test='${mon eq false}'>
+                									<input type="checkbox" name="dayoff_list" value="2">월요일 &nbsp;
+                								</c:when>
+                								<c:otherwise>
+                									<input type="checkbox" name="dayoff_list" value="2" checked>월요일 &nbsp;
+                								</c:otherwise>
+                							</c:choose>
+                							<c:choose>
+                								<c:when test='${tue eq false}'>
+                									<input type="checkbox" name="dayoff_list" value="3">화요일 &nbsp;
+                								</c:when>
+                								<c:otherwise>
+                									<input type="checkbox" name="dayoff_list" value="3" checked>화요일 &nbsp;
+                								</c:otherwise>
+                							</c:choose>
+                							<c:choose>
+                								<c:when test='${wed eq false}'>
+                									<input type="checkbox" name="dayoff_list" value="4">수요일 &nbsp;
+                								</c:when>
+                								<c:otherwise>
+                									<input type="checkbox" name="dayoff_list" value="4" checked>수요일 &nbsp;
+                								</c:otherwise>
+                							</c:choose>
+                							<c:choose>
+                								<c:when test='${thu eq false}'>
+                									<input type="checkbox" name="dayoff_list" value="5">목요일 &nbsp;
+                								</c:when>
+                								<c:otherwise>
+                									<input type="checkbox" name="dayoff_list" value="5" checked>목요일 &nbsp;
+                								</c:otherwise>
+                							</c:choose>
+                							<c:choose>
+                								<c:when test='${fri eq false}'>
+                									<input type="checkbox" name="dayoff_list" value="6">금요일 &nbsp;
+                								</c:when>
+                								<c:otherwise>
+                									<input type="checkbox" name="dayoff_list" value="6" checked>금요일 &nbsp;
+                								</c:otherwise>
+                							</c:choose>
+                							<c:choose>
+                								<c:when test='${sat eq false}'>
+                									<input type="checkbox" name="dayoff_list" value="7">토요일 &nbsp;
+                								</c:when>
+                								<c:otherwise>
+                									<input type="checkbox" name="dayoff_list" value="7" checked>토요일 &nbsp;
+                								</c:otherwise>
+                							</c:choose>
                 						</fieldset>
                 					</div>
 									
-									<div class="col-md-12 update-hidden" id="field-name-target">
-										<label for="field-name-input" id="field-name-label">구장명*</label>
-                  						<input type="text" class="form-control" name="field_name" id="field-name-input" placeholder="최대 100자까지 입력 가능합니다." required>
+									<div class="col-md-12 update-hidden" id="field-name-after-target">
+										<label for="field-name-after-input" id="field-name-after-label">구장명</label>
+                  						<input type="text" class="form-control" name="field_name_after" id="field-name-after-input" value="${field.fieldName}">
                 					</div>
                 					
                 					<div class="col-md-12 update-hidden" id="field-addr-target">
-                						<label for="field-addr-input" id="field-addr-label">구장주소*</label>
-                  						<input type="text" class="form-control" name="field_addr" id="field-addr-input" placeholder="최대 100자까지 입력 가능합니다." required>
+                						<label for="field-addr-input" id="field-addr-label">구장주소</label>
+                  						<input type="text" class="form-control" name="field_addr" id="field-addr-input" value="${field.fieldAddr}">
                 					</div>
                 					
                 					<div class="col-md-12 update-hidden" id="field-limit-target">
-                						<label for="field-limit-input" id="field-limit-label">수용인원*</label>
-                  						<input type="number" class="form-control" name="field_limit" id="field-limit-input" min="0" required>
+                						<label for="field-limit-input" id="field-limit-label">수용인원</label>
+                  						<input type="number" class="form-control" name="field_limit" id="field-limit-input" value="${field.fieldLimit}" min="0">
                 					</div>
                 					
                 					<div class="col-md-6 update-hidden" id="field-width-target">
-                						<label for="field-size-width-input" id="field-size-width-label">가로(m)*</label>
-                  						<input type="number" class="form-control" name="field_size_width" id="field-size-width-input" min="0" required>
+                						<label for="field-size-width-input" id="field-size-width-label">가로(m)</label>
+                  						<input type="number" class="form-control" name="field_size_width" id="field-size-width-input" value="${fieldWidth}" min="0">
                 					</div>
 	
                 					<div class="col-md-6 update-hidden" id="field-height-target">
-                						<label for="field-size-height-input" id="field-size-height-label">세로(m)*</label>
-                  						<input type="number" class="form-control" name="field_size_height" id="field-size-height-input" min="0" required>
+                						<label for="field-size-height-input" id="field-size-height-label">세로(m)</label>
+                  						<input type="number" class="form-control" name="field_size_height" id="field-size-height-input" value="${fieldHeight}" min="0">
                 					</div>
 									
 									<div class="col-md-6 update-hidden" id="is-indoor-target">
                 						<label for="is-indoor-select" id="is-indoor-label">실내/실외</label>
-                  						<select name="is_indoor" id="is-indoor-select">
-                  							<option value="0">실내</option>
-                  							<option value="1">실외</option>
-                  						</select>
+                						<c:choose>
+                							<c:when test='${field.isIndoor eq "실내"}'>
+                								<select name="is_indoor" id="is-indoor-select">
+                  									<option value="0" selected>실내</option>
+                  									<option value="1">실외</option>
+                  								</select>
+                							</c:when>
+                							<c:otherwise>
+                								<select name="is_indoor" id="is-indoor-select">
+                  									<option value="0">실내</option>
+                  									<option value="1" selected>실외</option>
+                  								</select>
+                							</c:otherwise>
+                						</c:choose>
                 					</div>
                 					
                 					<div class="col-md-6 update-hidden" id="field-type-target">
                 						<label for="field-type-select" id="field-type-label">잔디타입</label>
-                  						<select name="field_type" id="field-type-select">
-                  							<option value="0">인조잔디</option>
-                  							<option value="1">천연잔디</option>
-                  						</select>
+                  						
+                  						<c:choose>
+                  							<c:when test='${field.fieldType eq "인조잔디"}'>
+                  								<select name="field_type" id="field-type-select">
+                  									<option value="0" selected>인조잔디</option>
+                  									<option value="1">천연잔디</option>
+                  								</select>
+                  							</c:when>
+                  							<c:otherwise>
+                  								<select name="field_type" id="field-type-select">
+                  									<option value="0" >인조잔디</option>
+                  									<option value="1" selected>천연잔디</option>
+                  								</select>
+                  							</c:otherwise>
+                  						</c:choose>
+                  							
                 					</div>
                 					
                 					<div class="col-md-6 update-hidden" id="is-park-target">
                 						<label for="is-park-select" id="is-park-label">주차장여부</label>
-                						<select name="is_park" id="is-park-select">
-                							<option value="0">없음</option>
-                							<option value="1">있음</option>
-                						</select>
+                						
+                						<c:choose>
+                							<c:when test='${field.isPark eq false}'>
+                								<select name="is_park" id="is-park-select">
+                									<option value="0" selected>없음</option>
+                									<option value="1">있음</option>
+                								</select>
+                							</c:when>
+                							<c:otherwise>
+                								<select name="is_park" id="is-park-select">
+                									<option value="0">없음</option>
+                									<option value="1" selected>있음</option>
+                								</select>
+                							</c:otherwise>
+                						</c:choose>
+
                 					</div>
                 					
                 					<div class="col-md-6 update-hidden" id="is=shower-target">
                 						<label for="is-shower-select" id="is-shower-label">샤워실여부</label>
-                						<select name="is_shower" id="is-shower-select">
-                							<option value="0">없음</option>
-                							<option value="1">있음</option>
-                						</select>
+                						<c:choose>
+                							<c:when test='${field.isShower eq false}'>
+                								<select name="is_shower" id="is-shower-select">
+                									<option value="0" selected>없음</option>
+                									<option value="1">있음</option>
+                								</select>
+                							</c:when>
+                							<c:otherwise>
+                								<select name="is_shower" id="is-shower-select">
+                									<option value="0" selected>없음</option>
+                									<option value="1" selected>있음</option>
+                								</select>
+                							</c:otherwise>
+                						</c:choose>
+                						
                 					</div>
 									
 									<div class="col-md-12 update-hidden" id="rent-price-target">
                 						<label for="rent-price-input" id="rent-price-label">풋살화 대여가격 <span>(대여서비스를 제공하지 않을 경우 비워두시면 됩니다.)</span></label>
-                  						<input type="number" class="form-control" name="rent_price" id="rent-price-input" min="0">
+                  						<input type="number" class="form-control" name="rent_price" id="rent-price-input" value="${field.rentPrice}" min="0">
                 					</div>
                 					
                 					<div class="col-md-12 update-hidden" id="file-img-p">
-                						<label for="field-img-input" id="field-img-label">구장 대표 이미지*</label>
+                						<label for="field-img-input" id="field-img-label">구장 대표 이미지</label>
                 						<p>10MB 이하의 파일만 업로드 가능하며, .jpg .jpeg .png만을 허용합니다.</p>
                   						<input type="file" class="form-control" name="field_img" id="field-img-input" accept=".png, .jpg, .jpeg">
                 					</div>
 
                 					<div class="col-md-12 update-hidden" id="message-target">
                 						<label for="message-textarea" id="message-label">특이사항</label>
-                 						<textarea class="form-control" name="message" id="message-textarea" rows="6"></textarea>
+                 						<textarea class="form-control" name="message" id="message-textarea" rows="6">${field.message}</textarea>
                 					</div>
 									
 									<p class="update-hidden" id="chk_terms_p">
-                						<input id="chk_terms" type="checkbox">&nbsp; 구장 등록 관련 약관입니다.
+                						<input id="chk_terms" type="checkbox">&nbsp; 구장 수정 관련 약관입니다.
 									</p>                					
 									
 									<!-- #chk_term 체크되었을 때만 버튼이 눌러지고 아닐경우 alert창을 띄울 예정 -->
@@ -312,25 +406,48 @@
   
     <script>
   	const updateFieldForm = function(){
-    	const form = document.insert_rule_end_form;
+    	const form = document.update_field_end_form;
 		let chkTerms = $("#chk_terms").is(":checked");
 		
-        if(form.rule_open.value == "-1") {
-        	alert('오픈 시간을 선택해주세요.');
-        	form.rule_open.focus();
+		/*
+		if(!form.field_name_after.value) {
+        	alert('구장 이름을 입력해주세요.');
+        	form.field_name_after.focus();
         	event.preventDefault();
-        } else if(form.rule_close.value == "-1") {
-        	alert('마감 시간을 선택해주세요.');
-        	form.rule_close.focus();
-        	event.preventDefault();
-        } else if(form.rule_open.value == form.rule_close.value) {
-			alert('오픈 시간과 마감 시간이 동일합니다. 다시 확인해주세요.');
-        	form.rule_open.focus();
-        	event.preventDefault();
-        } else if(!chkTerms) {
+        } else if(!form.field_addr.value) {
+            alert('구장 주소를 입력해주세요.');
+            form.field_addr.focus();
+            event.preventDefault();
+        } else if(!form.field_limit.value) {
+            alert('수용 인원을 입력해주세요.');
+            form.field_limit.focus();
+            event.preventDefault();
+        } else if(!form.field_size_width.value) {
+            alert('구장 크기(너비)를 입력해주세요.');
+            form.field_size_width.focus();
+            event.preventDefault();
+        } else if(!form.field_size_height.value) {
+            alert('구장 크기(길이)를 입력해주세요.');
+            form.field_size_height.focus();
+            event.preventDefault();
+        } else if(form.field_img.value) {
+			const val = form.field_img.value;
+			const idx = val.lastIndexOf(".");
+			const type = val.substring(idx+1, val.length);
+			
+			if(!(type == 'png' || type == 'jpg' || type == 'jpeg')) {
+				alert('이미지 파일 형식이 맞지 않습니다.');
+				form.field_img.focus();
+				event.preventDefault();
+			}
+        } 
+		 */
+        
+        if(!chkTerms) {
             alert("약관을 읽고 체크해주세요.");
 			event.preventDefault();
         }
+		 
   	};
   </script>
 
@@ -399,7 +516,7 @@
     const chgClass = function(){
 		if(chkHidden) {
 			document.getElementById('dayoff-select').classList.remove('update-hidden');
-			document.getElementById('field-name-target').classList.remove('update-hidden');
+			document.getElementById('field-name-after-target').classList.remove('update-hidden');
 			document.getElementById('field-addr-target').classList.remove('update-hidden');
 			document.getElementById('field-limit-target').classList.remove('update-hidden');
 			document.getElementById('field-width-target').classList.remove('update-hidden');
@@ -417,7 +534,7 @@
 			chkHidden = false;
 		} else {
 			document.getElementById('dayoff-select').classList.add('update-hidden');
-			document.getElementById('field-name-target').classList.add('update-hidden');
+			document.getElementById('field-name-after-target').classList.add('update-hidden');
 			document.getElementById('field-addr-target').classList.add('update-hidden');
 			document.getElementById('field-limit-target').classList.add('update-hidden');
 			document.getElementById('field-width-target').classList.add('update-hidden');

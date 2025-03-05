@@ -134,7 +134,7 @@
           				</div>
 						
           				<div class="col-lg-8">
-            				<form action="/updateRuleEnd" method="post" class="submit-form" name="insert_rule_end_form" data-aos="fade-up" data-aos-delay="200">
+            				<form action="/updateRuleEnd" method="post" class="submit-form" name="update_rule_end_form" data-aos="fade-up" data-aos-delay="200">
               					<div class="row gy-4">
 									
 									<div class="col-md-12" style="display:none;">
@@ -270,7 +270,7 @@
   
     <script>
   	const updateRuleForm = function(){
-    	const form = document.insert_rule_end_form;
+    	const form = document.update_rule_end_form;
 		let chkTerms = $("#chk_terms").is(":checked");
 		
         if(form.rule_open.value == "-1") {

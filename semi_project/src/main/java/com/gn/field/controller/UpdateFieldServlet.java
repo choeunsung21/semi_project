@@ -36,9 +36,36 @@ public class UpdateFieldServlet extends HttpServlet {
 			/* 로그인 과정에서 만들어진 세션이 정상적으로 존재하는 경우 */
 			Field field = new FieldService().selectFieldOneByFieldNo(fieldNo);
 			
+			String fieldSize = field.getFieldSize();
+			String[] numbers = fieldSize.replaceAll("[^0-9 ]", "").split("\\s+");
+			int fieldWidth = 0;
+			int fieldHeight = 0;
+			if(numbers != null) {
+				fieldWidth = Integer.parseInt(numbers[0]);
+				fieldHeight = Integer.parseInt(numbers[1]);
+			}
+			
+			boolean sun = field.isSun();
+			boolean mon = field.isMon();
+			boolean tue = field.isTue();
+			boolean wed = field.isWed();
+			boolean thu = field.isThu();
+			boolean fri = field.isFri();
+			boolean sat = field.isSat();
+
 			RequestDispatcher view = request.getRequestDispatcher("/views/field/updateField.jsp");
 			
 			request.setAttribute("field", field);
+			request.setAttribute("fieldWidth", fieldWidth);
+			request.setAttribute("fieldHeight", fieldHeight);
+			request.setAttribute("sun", sun);
+			request.setAttribute("mon", mon);
+			request.setAttribute("tue", tue);
+			request.setAttribute("wed", wed);
+			request.setAttribute("thu", thu);
+			request.setAttribute("fri", fri);
+			request.setAttribute("sat", sat);
+			
 			view.forward(request, response);
 			
 		} else {

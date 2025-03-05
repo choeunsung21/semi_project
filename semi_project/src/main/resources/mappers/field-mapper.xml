@@ -52,7 +52,8 @@
 	</select>
 	<select id="selectFieldOneByFieldNo" parameterType="_int" resultMap="fieldMap">
 	SELECT *
-	FROM `field`
+	FROM `field` f
+	JOIN `dayoff` d ON d.dayoff_no = f.dayoff_no
 	WHERE `field_no` = #{fieldNo};
 	</select>
 	<delete id="deleteFieldByFieldNo" parameterType="_int">
