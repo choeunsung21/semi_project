@@ -49,6 +49,7 @@ public class SelectReplyList extends HttpServlet {
 			obj.put("replyContent", replylist.getReplyContent());
 			obj.put("regDate",replylist.getRegDate().format(dtf));
 			obj.put("userId", replylist.getUserId());
+			obj.put("replyNo", replylist.getReplyNo());
 			arr.add(obj);
 		}
 		JSONObject obj1 = new JSONObject();

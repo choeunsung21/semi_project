@@ -65,4 +65,36 @@ public class BoardDao {
 		return session.delete("boardMapper.deleteAttach",boardNo);
 	}
 	
+	//댓글 목록에서 사용자가 자체적으로 댓글 삭제하는 메소드
+	public int deleteReplyOne(SqlSession session, int replyNo) {
+		return session.delete("boardMapper.deleteReplyOne",replyNo);
+	}
+	
+	public int updateBoard(SqlSession session, Board board) {
+		return session.update("boardMapper.updateBoard",board);
+	}
+	
+	public int updateAttach(SqlSession session, Attach attach) {
+		return session.update("boardMapper.updateAttach",attach);
+	}
+	
+	public int deleteAttach(SqlSession session,Board board) {
+		return session.delete("boardMapper.deleteOriAttach",board);
+	}
+	
+	public int deleteAttachNo(SqlSession session,int attachNo) {
+		return session.delete("boardMapper.deleteAttachNo", attachNo);
+	}
+	
+	//날짜 정렬 메소드
+	public List<Board>selectOrderType(SqlSession session , String orderType){
+		return session.selectList("boardMapper.selectOrderType", orderType);
+	}
+	
+
+	
+	
+	
+	
+	
 }
