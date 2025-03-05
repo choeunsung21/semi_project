@@ -47,7 +47,7 @@ public class FieldDao {
 		return session.update("fieldMapper.updateField", field);
 	}
 	
-	public int deleteFieldByFieldNo(SqlSession session, int fieldNo) {
-		return session.delete("fieldMapper.deleteFieldByFieldNo", fieldNo);
+	public int deleteFieldByField(SqlSession session, Field field) {
+		return session.delete("fieldMapper.deleteFieldByField", field);
 	}
 }

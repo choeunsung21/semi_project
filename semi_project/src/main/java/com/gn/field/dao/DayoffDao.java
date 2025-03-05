@@ -11,5 +11,8 @@ public class DayoffDao {
 	}
 	public int updateDayoff(SqlSession session, Field field) {
 		return session.update("dayoffMapper.updateDayoff", field);
+	} 
+	public int deleteDayoff(SqlSession session, Field field) {
+		return session.delete("dayoffMapper.deleteDayoff", field);
 	}
 }
