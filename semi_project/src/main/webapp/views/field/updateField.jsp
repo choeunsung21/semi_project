@@ -227,8 +227,25 @@
                   						<input type="text" class="form-control" name="field_name_after" id="field-name-after-input" value="${field.fieldName}">
                 					</div>
                 					
-                					<div class="col-md-12 update-hidden" id="field-addr-target">
-                						<label for="field-addr-input" id="field-addr-label">구장주소</label>
+                					<div class="col-md-3 update-hidden" id="field-addr1-target">
+                						<label for="field-addr1-select" id="field-addr1-label">구장주소</label>
+                  						<select name="addr_1" id="field-addr1-select">
+                  							<option value="-1">선택</option>
+                  							<c:forEach var="address1" items="${addr1List}">
+                  								<option value="${address1.addr1}" ${address1.addr1 == field.fieldAddr1 ? 'selected' : ''}>${address1.addr1}</option>
+                  							</c:forEach>
+                  						</select>
+                					</div>
+                					
+                					<div class="col-md-3 update-hidden" id="field-addr2-target">
+                						<label for="field-addr2-select" id="field-addr2-label"></label>
+                  						<select name="addr_2" id="field-addr2-select">
+                  							<option value="${addr2}">${addr2}</option>
+                  						</select>
+                					</div>
+                					
+                					<div class="col-md-6 update-hidden" id="field-addr-target">
+                						<label for="field-addr-input" id="field-addr-label"></label>
                   						<input type="text" class="form-control" name="field_addr" id="field-addr-input" value="${field.fieldAddr}">
                 					</div>
                 					
@@ -483,12 +500,12 @@
 			type : "post",
 			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
 			data : {
-				"fieldIndex":fieldNo
+				"fieldNo":fieldNo
 			},
 			dataType : "JSON",
 			success : function(data){
 				document.getElementById("field-name-span").innerText = data["fieldName"];
-				document.getElementById("field-addr-span").innerText = data["fieldAddr"];
+				document.getElementById("field-addr-span").innerText = data["fieldAddr1"]+' '+data["fieldAddr2"]+' '+data["fieldAddr"];
 				document.getElementById("field-size-span").innerText = data["fieldSize"];
 				document.getElementById("field-limit-span").innerText = data["fieldLimit"];
 				document.getElementById("field-type-span").innerText = data["fieldType"];
@@ -519,6 +536,8 @@
 		if(chkHidden) {
 			document.getElementById('dayoff-select').classList.remove('update-hidden');
 			document.getElementById('field-name-after-target').classList.remove('update-hidden');
+			document.getElementById('field-addr1-target').classList.remove('update-hidden');
+			document.getElementById('field-addr2-target').classList.remove('update-hidden');
 			document.getElementById('field-addr-target').classList.remove('update-hidden');
 			document.getElementById('field-limit-target').classList.remove('update-hidden');
 			document.getElementById('field-width-target').classList.remove('update-hidden');
@@ -537,6 +556,8 @@
 		} else {
 			document.getElementById('dayoff-select').classList.add('update-hidden');
 			document.getElementById('field-name-after-target').classList.add('update-hidden');
+			document.getElementById('field-addr1-target').classList.add('update-hidden');
+			document.getElementById('field-addr2-target').classList.add('update-hidden');
 			document.getElementById('field-addr-target').classList.add('update-hidden');
 			document.getElementById('field-limit-target').classList.add('update-hidden');
 			document.getElementById('field-width-target').classList.add('update-hidden');
@@ -554,6 +575,49 @@
 			chkHidden = true;
 		}
     };
+  </script>
+  <script>
+    $(document).ready(function() {
+        let selectedAddr2 = "${fieldAddr2.addr2}";
+
+        if (selectedAddr2 && selectedAddr2 !== "-1") {
+            $('#field-addr2-select').val(selectedAddr2);
+        }
+    });
+  </script>
+  <script>
+  	$(function(){
+  		$('#field-addr1-select').change(function(){
+			let selectedAddr1 = $('#field-addr1-select option:selected').val();
+			
+			$.ajax({
+				url : "/selectAddressEnd",
+				type : "post",
+				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+				data : {
+					"addr1":selectedAddr1
+				},
+				dataType : "JSON",
+				success : function(data){
+					let selectAddr2 = document.getElementById('field-addr2-select');
+
+					selectAddr2.innerHTML = '<option value="-1">선택</option>';
+					
+				    data.forEach(function(item) {
+				        let option = document.createElement('option');
+				        option.value = item.addr2;
+				        option.textContent = item.addr2;
+
+				        selectAddr2.appendChild(option);
+				    });
+
+				},
+				error : function(){
+
+				}
+			});
+  		});
+  	});
   </script>
 </body>
 

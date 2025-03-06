@@ -1,6 +1,7 @@
 package com.gn.field.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.gn.address.service.AddressService;
+import com.gn.address.vo.Address;
 import com.gn.field.service.FieldService;
 import com.gn.field.vo.Field;
 
@@ -52,7 +55,10 @@ public class UpdateFieldServlet extends HttpServlet {
 			boolean thu = field.isThu();
 			boolean fri = field.isFri();
 			boolean sat = field.isSat();
-
+			
+			List<Address> addr1List = new AddressService().selectAddr1All();
+			String addr2 = new FieldService().selectAddr2ByFieldNo(fieldNo);
+			
 			RequestDispatcher view = request.getRequestDispatcher("/views/field/updateField.jsp");
 			
 			request.setAttribute("field", field);
@@ -65,6 +71,8 @@ public class UpdateFieldServlet extends HttpServlet {
 			request.setAttribute("thu", thu);
 			request.setAttribute("fri", fri);
 			request.setAttribute("sat", sat);
+			request.setAttribute("addr1List", addr1List);
+			request.setAttribute("addr2", addr2);
 			
 			view.forward(request, response);
 			
