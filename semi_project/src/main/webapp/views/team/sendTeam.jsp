@@ -1,51 +1,61 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>보낸 가입 신청 목록</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>보낸 신청 목록</title>
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="<%= request.getContextPath() %>/resources/css/include/common.css" rel="stylesheet">
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <link href="<%= request.getContextPath() %>/resources/css/include/common.css" rel="stylesheet" type="text/css">
 </head>
 <body>
     <%@ include file="/views/include/header.jsp" %>
-    <div class="container mt-5">
-        <h3 class="text-center mb-4">보낸 가입 신청 목록</h3>
-        <table class="table table-hover text-center">
-            <thead class="table-dark">
-             <tr>
-				<th>번호</th>
-                <th>팀 이름</th>
-                <th>활동 지역</th>
-                <th>팀 실력</th>
-                <th>현재 인원</th>
-                <th>관리</th>
-            </tr>
-            </thead>
-            <tbody>
-                <c:choose>
-                    <c:when test="${not empty receiveList}">
-                        <c:forEach var="user" items="${receiveList}" varStatus="vs">
-                            <tr>
-                                <td>${vs.index + 1}</td>
-                                <td>${user.userName}</td>
-                                <td>${user.userPhone}</td>
-                                <td>${user.regDate}</td>
-                                <td>
-                                    <button class="btn btn-success btn-sm" onclick="updateTeam(${user.userNo})">수정</button>
-                                    <button class="btn btn-danger btn-sm" onclick="deleteTeam(${user.userNo})">삭제</button>
-                                </td>
-                            </tr>
-                        </c:forEach>
-                    </c:when>
-                    <c:otherwise>
+    <main class="main">
+        <div class="page-title accent-background">
+            <div class="container">
+                <h1 class="text-center">보낸 신청 목록</h1>
+            </div>
+        </div>
+        <section class="section">
+            <div class="container">
+                <table class="table table-hover text-center">
+                    <thead>
                         <tr>
-                            <td colspan="5">등록된 결과가 없습니다.</td>
+                            <th>팀 번호</th>
+                            <th>포지션</th>
+                            <th>활동 지역</th>
+                            <th>소개글</th>
+                            <th>상태</th>
                         </tr>
-                    </c:otherwise>
-                </c:choose>
-            </tbody>
-        </table>
-    </div>
+                    </thead>
+                    <tbody>
+                        <c:choose>
+                            <c:when test="${not empty sentApplications}">
+                                <c:forEach var="app" items="${sentApplications}">
+                                    <tr>
+                                        <td>${app.teamNo}</td>
+                                        <td>${app.position}</td>
+                                        <td>${app.activityArea}</td>
+                                        <td>${app.introduction}</td>
+                                        <td>${app.status}</td>
+                                    </tr>
+                                </c:forEach>
+                            </c:when>
+                            <c:otherwise>
+                                <tr>
+                                    <td colspan="5">보낸 신청이 없습니다.</td>
+                                </tr>
+                            </c:otherwise>
+                        </c:choose>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    <%@ include file="/views/include/footer.jsp" %>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/resources/js/common.js"></script>
+</body>
+</html>

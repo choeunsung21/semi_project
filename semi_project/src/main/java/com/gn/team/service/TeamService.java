@@ -73,21 +73,6 @@ public class TeamService {
 	        session.close();
 	        return result;
 	    }
-
-	    public List<Team> receiveTeamList(int leaderNo) {
-	        SqlSession session = getSqlSession(true);
-	        List<Team> resultList = new TeamDao().receiveTeamList(session, leaderNo);
-	        session.close();
-	        return resultList;
-	    }
-
-	    public List<Team> sendTeamList(int userNo) {
-	        SqlSession session = getSqlSession(true);
-	        List<Team> resultList = new TeamDao().sendTeamList(session, userNo);
-	        session.close();
-	        return resultList;
-	    }
-
 	    public Team selectTeamNo(int teamNo) {
 	        SqlSession session = getSqlSession(true);
 	        Team team = new TeamDao().selectTeamNo(session, teamNo);

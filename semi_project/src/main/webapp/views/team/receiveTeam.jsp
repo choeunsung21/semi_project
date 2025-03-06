@@ -1,69 +1,83 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>받은 가입 신청 목록</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>받은 신청 목록</title>
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="<%= request.getContextPath() %>/resources/css/include/common.css" rel="stylesheet">
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <link href="<%= request.getContextPath() %>/resources/css/include/common.css" rel="stylesheet" type="text/css">
 </head>
 <body>
     <%@ include file="/views/include/header.jsp" %>
-    <div class="container mt-5">
-        <h3 class="text-center mb-4">받은 가입 신청 목록</h3>
-        <table class="table table-hover text-center">
-            <thead class="table-dark">
-             <tr>
-				<th>번호</th>
-                <th>팀 이름</th>
-                <th>활동 지역</th>
-                <th>팀 실력</th>
-                <th>현재 인원</th>
-                <th>관리</th>
-            </tr>
-            </thead>
-            <tbody>
-                <c:choose>
-                    <c:when test="${not empty receiveList}">
-                        <c:forEach var="user" items="${receiveList}" varStatus="vs">
+    <main class="main">
+        <div class="page-title accent-background">
+            <div class="container">
+                <h1 class="text-center">받은 신청 목록</h1>
+            </div>
+        </div>
+        <section class="section">
+            <div class="container">
+                <table class="table table-hover text-center">
+                    <thead>
+                        <tr>
+                            <th>팀 번호</th>
+                            <th>포지션</th>
+                            <th>활동 지역</th>
+                            <th>소개글</th>
+                            <th>관리</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="app" items="${receivedApplications}">
                             <tr>
-                                <td>${vs.index + 1}</td>
-                                <td>${user.userName}</td>
-                                <td>${user.userPhone}</td>
-                                <td>${user.regDate}</td>
+                                <td>${app.teamNo}</td>
+                                <td>${app.position}</td>
+                                <td>${app.activityArea}</td>
+                                <td>${app.introduction}</td>
                                 <td>
-                                    <button class="btn btn-success btn-sm" onclick="updateTeam(${user.userNo})">수정</button>
-                                    <button class="btn btn-danger btn-sm" onclick="deleteTeam(${user.userNo})">삭제</button>
+                                    <c:if test="${app.status == 'PENDING'}">
+                                        <button class="btn btn-success btn-sm" onclick="updateStatus(${app.applicationId}, 'APPROVED')">승인</button>
+                                        <button class="btn btn-danger btn-sm" onclick="updateStatus(${app.applicationId}, 'REJECTED')">거절</button>
+                                    </c:if>
+                                    <c:if test="${app.status != 'PENDING'}">
+                                        ${app.status}
+                                    </c:if>
                                 </td>
                             </tr>
                         </c:forEach>
-                    </c:when>
-                    <c:otherwise>
-                        <tr>
-                            <td colspan="5">등록된 결과가 없습니다.</td>
-                        </tr>
-                    </c:otherwise>
-                </c:choose>
-            </tbody>
-        </table>
-    </div>
-	<script>
-    	function updateTeam(userNo) {
-        	if(confirm("팀을 수정할까요?")) {
-            	fetch('updateTeam?userNo=' + userNo, { method: 'POST' })
-            	.then(response => response.ok ? location.reload() : alert("수정 실패"))
-            	.catch(() => alert("수정 중 에러 발생"));
-        	}
-    	}
-    	function deleteTeam(userNo) {
-        	if(confirm("팀을 삭제할까요?")) {
-            	fetch('deleteTeam?userNo=' + userNo, { method: 'POST' })
-            	.then(response => response.ok ? location.reload() : alert("삭제 실패"))
-            	.catch(() => alert("삭제 중 에러 발생"));
-        	}
-    	}
-</script>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+    <%@ include file="/views/include/footer.jsp" %>
+    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/resources/js/common.js"></script>
+    <script>
+        function updateStatus(applicationId, status) {
+            if (confirm(status === 'APPROVED' ? '승인하시겠습니까?' : '거절하시겠습니까?')) {
+                fetch('<%= request.getContextPath() %>/updateApplicationStatus', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: 'applicationId=' + applicationId + '&status=' + status
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert(status === 'APPROVED' ? '승인되었습니다.' : '거절되었습니다.');
+                        location.reload();
+                    } else {
+                        alert('상태 업데이트에 실패했습니다.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('오류가 발생했습니다.');
+                });
+            }
+        }
+    </script>
 </body>
 </html>
