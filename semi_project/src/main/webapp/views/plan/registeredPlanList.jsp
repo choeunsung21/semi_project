@@ -165,6 +165,32 @@ tbody tr:hover {
   ======================================================== -->
 </head>
 
+<style>
+.available {
+	color: green;
+	font-weight: bold;
+}
+
+.unavailable {
+	color: gray;
+	opacity: 0.7;
+}
+
+.disabled {
+    color: gray;
+    text-decoration: none;
+    cursor: default;
+    opacity: 0.7;
+}
+
+.selectDate, .selectDateAll {
+	font-size: 10px;
+}
+
+/* 날짜 선택창 css */
+
+</style>
+
 <body class="starter-page-page">
 
 	<%@ include file="/views/include/header.jsp"%>
@@ -194,7 +220,7 @@ tbody tr:hover {
 						<tr>
 							<th>번호</th>
 							<th>구장명</th>
-							<th>일정 날짜</th>
+							<th onclick="toggleDateInput(event)">일정 날짜</th>
 							<th>일정 시간</th>
 							<th>이용 시간</th>
 							<th>예약 상태</th>
@@ -215,14 +241,37 @@ tbody tr:hover {
 										<td>${plan.planDate}</td>
 										<td>${plan.planTime}</td>
 										<td>${plan.useTime}시간</td>
-										<td id="reservationStatus"></td>
+										<td>
+											<c:choose>
+												<c:when test="${plan.resStatus == 1}">
+													<span class="available">예약</span>
+												</c:when>
+												<c:when test="${plan.resStatus == 0}">
+													<span class="unavailable">없음</span>
+												</c:when>
+											</c:choose>
+										</td>
 										<td class="updateTD" onclick="event.stopPropagation();">
-											<a href="/updatePlan?planNo=${plan.planNo}" onclick="event.stopPropagation();">수정</a>
+											<c:choose>
+												<c:when test="${plan.resStatus == 1}">
+													<a href="#" class="disabled" onclick="alert('예약상태인 일정은 수정이 불가능합니다.'); return false;">수정</a>
+												</c:when>
+												<c:otherwise>
+													<a href="/updatePlan?planNo=${plan.planNo}" onclick="event.stopPropagation();">수정</a>
+												</c:otherwise>
+											</c:choose>
 										</td>
 										<td class="cancelTD" onclick="event.stopPropagation();">
-											<a href="/deletePlan?planNo=${plan.planNo}" onclick="event.stopPropagation();
-						                    return confirm('등록한 일정을 삭제하시겠습니까?');">등록취소</a>
+											<c:choose>
+												<c:when test="${plan.resStatus == 1}">
+													<a href="#" class="disabled" onclick="alert('예약상태인 일정은 삭제가 불가능합니다.'); return false;">등록취소</a>
+												</c:when>
+												<c:otherwise>
+													<a href="/deletePlan?planNo=${plan.planNo}" onclick="event.stopPropagation(); return confirm('등록한 일정을 삭제하시겠습니까?');">등록취소</a>
+												</c:otherwise>
+											</c:choose>
 										</td>
+
 									</tr>
 								</c:forEach>
 							</c:when>
@@ -272,36 +321,61 @@ tbody tr:hover {
 	</main>
 
 	<%@ include file="/views/include/footer.jsp"%>
-
-	<!-- 직접 추가한 스크립트 -->
+	
+	<!-- 직접 작성한 스크립트 -->
 	<script>
-		$(function() {
-			$(".plan-row").each(function() {
-				let planNo = $(this).data("plan-no"); // 각 행에서 planNo를 가져옴
+    function toggleDateInput(event) {
+        // 날짜 인풋이 이미 있는지 확인
+        let dateInput = document.getElementById('dateInput');
 
-				$.ajax({
-					url : "/selectRegisteredPlanListEnd",
-					data : {
-						"ajax_planNo" : planNo
-					},
-					type : "get",
-					dataType : "JSON",
-					success : function(data) {
-						const statusElement = $(this).find("#reservationStatus");
-						statusElement.text(data.status);
-						if (data.status === '예약') {
-							statusElement.css('color','green');
-						} else {
-							statusElement.css({
-					            'color': 'gray',
-					            'opacity': 0.5
-					        });
-						}
-					}.bind(this)
-				// AJAX success 핸들러에서 this가 올바로 작동하도록 binding
-				});
-			});
-		});
+        if (!dateInput) {
+            // 날짜 인풋 생성
+            dateInput = document.createElement('input');
+            dateInput.type = 'date';
+            dateInput.id = 'dateInput';
+            dateInput.style.width = '120px'; // 스타일 설정
+            dateInput.onchange = filterPlans; // 날짜 변경 시 필터링 함수 호출
+
+            // 인풋을 th 아래에 추가
+            const th = document.querySelector('th:nth-child(3)');
+            th.appendChild(dateInput);
+        } else {
+            // 이미 존재하면 포커스
+            dateInput.focus();
+        }
+
+        // 클릭 이벤트 리스너 추가
+        document.addEventListener('click', hideDateInput);
+        
+        // 클릭 이벤트 전파 방지
+        event.stopPropagation();
+    }
+
+    function hideDateInput(event) {
+        const dateInput = document.getElementById('dateInput');
+
+        // 날짜 인풋이 존재하고, 클릭한 요소가 날짜 인풋이 아닐 경우 숨김
+        if (dateInput && !dateInput.contains(event.target) && !event.target.closest('th')) {
+            dateInput.remove(); // 날짜 인풋 제거
+            document.removeEventListener('click', hideDateInput); // 이벤트 리스너 제거
+        }
+    }
+
+    function filterPlans() {
+        const selectedDate = document.getElementById('dateInput').value; // 선택한 날짜
+        const rows = document.querySelectorAll('tbody tr'); // 모든 행 가져오기
+
+        rows.forEach(row => {
+            const planDate = row.children[3].innerText; // 일정 날짜 (4번째 열)
+
+            // 선택한 날짜와 일치하는지 확인
+            if (planDate === selectedDate || selectedDate === '') {
+                row.style.display = ''; // 보이기
+            } else {
+                row.style.display = 'none'; // 숨기기
+            }
+        });
+    }
 	</script>
 
 	<!-- Scroll Top -->

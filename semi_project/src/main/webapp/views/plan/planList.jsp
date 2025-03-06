@@ -154,6 +154,15 @@ tbody tr.active {
 	font-weight: 500;
 	font-size: 13px;
 }
+
+.available {
+    color: green;
+    font-weight: bold;
+}
+.unavailable {
+    color: gray;
+        opacity: 0.7;
+}
 </style>
 <body class="service-details-page">
 
@@ -219,7 +228,16 @@ tbody tr.active {
 													<td>${plan.planDate}</td>
 													<td>${plan.planTime}</td>
 													<td>${plan.useTime}시간</td>
-													<td id="reservationStatus"></td>
+													<td>
+													    <c:choose>
+													        <c:when test="${plan.resStatus == 0}">
+													            <span class="available">예약가능</span>
+													        </c:when>
+													        <c:when test="${plan.resStatus == 1}">
+													            <span class="unavailable">예약불가</span>
+													        </c:when>
+													    </c:choose>
+													</td>
 												</tr>
 											</c:forEach>
 										</c:when>
@@ -285,36 +303,6 @@ tbody tr.active {
 	</main>
 
 	<%@ include file="/views/include/footer.jsp"%>
-
-	<script>
-		$(function() {
-			$(".plan-row").each(function() {
-				let planNo = $(this).data("plan-no"); // 각 행에서 planNo를 가져옴
-
-				$.ajax({
-					url : "/selectPlanListEnd",
-					data : {
-						"ajax_planNo" : planNo
-					},
-					type : "get",
-					dataType : "JSON",
-					success : function(data) {
-						const statusElement = $(this).find("#reservationStatus");
-						statusElement.text(data.status);
-						if (data.status === '예약가능') {
-							statusElement.css('color', 'green');
-						} else {
-							statusElement.css({
-					            'color': 'gray',
-					            'opacity': 0.5
-					        });
-						}
-					}.bind(this)
-				// AJAX success 핸들러에서 this가 올바로 작동하도록 binding
-				});
-			});
-		});
-	</script>
 
 	<!-- Scroll Top -->
 	<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

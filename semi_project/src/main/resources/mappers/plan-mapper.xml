@@ -42,7 +42,7 @@
 	
 	<!-- 특정 업체가 등록한 일정 목록 조회 -->
 	<select id="selectRegisteredPlanList" resultMap="planMap" parameterType="plan">
-		SELECT p.plan_no ,f.field_name ,p.plan_date ,p.plan_time ,p.use_time  
+		SELECT p.plan_no ,f.field_name ,p.plan_date ,p.plan_time ,p.res_status ,p.use_time  
 		FROM `plan` p
 		JOIN `field` f ON p.field_no = f.field_no
 		JOIN `user` u ON u.user_no = f.user_no
@@ -107,4 +107,10 @@
 		WHERE p.plan_no = #{planNo}
 	</select>
 	
+	<!-- 예약시 예약 상태 업데이트 -->
+	<update id="updatePlanStatus" parameterType="plan">
+		UPDATE `plan`
+		SET res_status = #{resStatus}
+		WHERE plan_no = #{planNo}
+	</update>
 </mapper>

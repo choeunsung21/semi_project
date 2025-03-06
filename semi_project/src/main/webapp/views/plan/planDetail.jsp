@@ -104,10 +104,10 @@
 								<li><strong>Time </strong> ${plan.planTime }</li>
 								<li><strong>Price </strong> ${plan.planPrice }</li>
 								<li>
-									<c:if test="${userType == 0}">
+									<c:if test="${userType == 0 and plan.resStatus == 0}">
 										<a href="/insertReservation?planNo=${plan.planNo}" class="btn-visit align-self-start" onclick="return confirm('해당 일정을 예약하시겠습니까?')">예약하기</a>
 									</c:if>
-									<c:if test="${userType == 0 and not empty reservation.reservationNo}">
+									<c:if test="${userType == 0 and plan.resStatus == 1}">
 										<a href="/deleteReservation?planNo=${plan.planNo}" class="btn-visit cancel align-self-start" onclick="return confirm('예약을 취소하시겠습니까?')">취소하기</a>
 									</c:if>
 								</li>

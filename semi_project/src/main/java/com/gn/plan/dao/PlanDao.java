@@ -40,5 +40,9 @@ public class PlanDao {
 	public int updatePlan(SqlSession session, Plan plan) {
 		return session.update("planMapper.updatePlan", plan);
 	}
+
+	public void updatePlanStatus(SqlSession session, Plan plan) {
+		session.update("planMapper.updatePlanStatus", plan);
+	}
 	
 }
