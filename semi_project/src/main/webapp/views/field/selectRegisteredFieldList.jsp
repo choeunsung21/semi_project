@@ -126,7 +126,7 @@ tbody tr:hover {
 
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>등록한 규칙 관리</title>
+<title>등록한 구장 관리</title>
 <meta name="description" content="">
 <meta name="keywords" content="">
 
@@ -169,7 +169,7 @@ tbody tr:hover {
 		<!-- Page Title -->
 		<div class="page-title accent-background">
 			<div class="container">
-				<h1>등록한 규칙 관리</h1>
+				<h1>등록한 구장 관리</h1>
 				<nav class="breadcrumbs">
 					<ol>
 						<li><a href="javascript:void(0);">항목을 클릭하시면 수정 및 삭제하실 수 있습니다.</a></li>
@@ -189,59 +189,57 @@ tbody tr:hover {
 						<tr>
 							<th style="text-align:center">번호</th>
 							<th style="text-align:center">구장명</th>
-							<th style="text-align:center">오픈 시간</th>
-							<th style="text-align:center">마감 시간</th>
-							<th style="text-align:center">등록 간격</th>
-							<th style="text-align:center">가격</th>
+							<th style="text-align:center">구장 위치</th>
+							<th style="text-align:center">구장 크기</th>
+							<th style="text-align:center">수용 인원</th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:choose>
-							<c:when test="${not empty registeredPlanRuleList}">
-								<c:forEach var="rule" items="${registeredPlanRuleList}" varStatus="vs">
-									<tr class="plan-row" data-plan-no="${rule.ruleNo}" onclick="location.href='/updatePlanRule?rule_no=${rule.ruleNo}'">
-										<td style="text-align:center">${vs.index+1 + (rulePaging.nowPage-1) * rulePaging.numPerPage}</td>
-										<td style="text-align:center">${rule.fieldName}</td>
-										<td style="text-align:center">${rule.openTime}</td>
-										<td style="text-align:center">${rule.closeTime}</td>
-										<td style="text-align:center">${rule.operating}시간</td>
-										<td style="text-align:center">${rule.price}원</td>
+							<c:when test="${not empty registeredFieldList}">
+								<c:forEach var="field" items="${registeredFieldList}" varStatus="vs">
+									<tr class="plan-row" data-plan-no="${field.fieldNo}" onclick="location.href='/updateField?field_no=${field.fieldNo}'">
+										<td style="text-align:center">${vs.index+1 + (fieldPaging.nowPage-1) * fieldPaging.numPerPage}</td>
+										<td style="text-align:center">${field.fieldName}</td>
+										<td style="text-align:center">${field.fieldAddr}</td>
+										<td style="text-align:center">${field.fieldSize}</td>
+										<td style="text-align:center">${field.fieldLimit}명</td>
 									</tr>
 								</c:forEach>
 							</c:when>
 							<c:otherwise>
 								<tr>
-									<td colspan="6">등록한 규칙이 없습니다.</td>
+									<td colspan="6">등록한 구장이 없습니다.</td>
 								</tr>
 							</c:otherwise>
 						</c:choose>
-						<tr class="plus-row" onclick="location.href='/insertRule'">
+						<tr class="plus-row" onclick="location.href='/insertField'">
 							<td colspan="6">+</td>
 						</tr>
 					</tbody>
 				</table>
 				
 				<!-- 페이징 버튼 -->
-				<c:if test="${not empty rulePaging}">
+				<c:if test="${not empty fieldPaging}">
 					<div class="center">
 						<div class="pagination">
-							<c:if test="${rulePaging.prev}">
-								<a href="/selectRegisteredRuleList?nowPage=${rulePaging.pageBarStart - 1}" class="prev"> &laquo; </a>
+							<c:if test="${fieldPaging.prev}">
+								<a href="/selectRegisteredFieldList?nowPage=${fieldPaging.pageBarStart - 1}" class="prev"> &laquo; </a>
 							</c:if>
 							
-							<c:forEach var="i" begin="${rulePaging.pageBarStart}" end="${rulePaging.pageBarEnd}" step="1">
+							<c:forEach var="i" begin="${fieldPaging.pageBarStart}" end="${fieldPaging.pageBarEnd}" step="1">
 								<c:choose>
-									<c:when test="${i == rulePaging.nowPage}">
-										<a href="/selectRegisteredRuleList?nowPage=${i}" class="active">${i}</a>
+									<c:when test="${i == fieldPaging.nowPage}">
+										<a href="/selectRegisteredFieldList?nowPage=${i}" class="active">${i}</a>
 									</c:when>
 									<c:otherwise>
-										<a href="/selectRegisteredRuleList?nowPage=${i}">${i}</a>
+										<a href="/selectRegisteredFieldList?nowPage=${i}">${i}</a>
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
 							
-							<c:if test="${rulePaging.next}">
-								<a href="/selectRegisteredRuleList?nowPage=${rulePaging.pageBarEnd + 1}" class="next"> &raquo; </a>
+							<c:if test="${fieldPaging.next}">
+								<a href="/selectRegisteredFieldList?nowPage=${fieldPaging.pageBarEnd + 1}" class="next"> &raquo; </a>
 							</c:if>
 						</div>
 					</div>

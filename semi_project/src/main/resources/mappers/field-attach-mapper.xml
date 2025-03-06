@@ -16,4 +16,9 @@
 		INSERT INTO `field_attach` (`ori_name` ,`new_name` ,`field_no` ,`attach_path`)
 		VALUES (#{oriName} ,#{newName} ,#{fieldNo} ,#{filePath})
 	</insert>
+	<select id="selectFieldAttachByFieldNo" parameterType="_int" resultMap="fieldAttachMap">
+		SELECT *
+		FROM `field_attach`
+		WHERE `field_no` = #{fieldNo}
+	</select>
 </mapper>

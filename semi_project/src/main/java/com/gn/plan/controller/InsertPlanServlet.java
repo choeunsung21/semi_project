@@ -29,7 +29,7 @@ public class InsertPlanServlet extends HttpServlet {
 		if(session != null && session.getAttribute("user") != null) {
 			User user = (User)session.getAttribute("user");
 			
-			List<Field> fieldList = new FieldService().selectFieldListByUserNo(user);
+			List<Field> fieldList = new FieldService().selectFieldListByUser(user);
 			
 			RequestDispatcher view = request.getRequestDispatcher("/views/plan/insertPlan.jsp");
 			request.setAttribute("fieldList", fieldList);

@@ -36,7 +36,7 @@
 								<li><a href="/selectBoardList">게시판</a></li>
 								<li><a href="/boardWrite">글쓰기</a></li>
 								
-								<li><a href="/insertReservation">스케줄 예약</a></li>
+								<li><a href="/insertReservation">일정 예약</a></li>
 								
 								<!-- 팀 관련 드롭다운 메뉴 -->
 								
@@ -66,17 +66,18 @@
 									<li class="dropdown"><a href="#"><span>구장 및 스케줄</span><i class="bi bi-chevron-down toggle-dropdown"></i></a>
 										<ul>
 											<li><a href="/insertField">구장 등록</a></li>
-											<li><a href="/insertPlan">스케줄 직접 등록</a></li>
-
-											<li><a href="/insertRule">스케줄 등록 규칙 설정</a></li>
+											<li><a href="/insertPlan">일정 직접 등록</a></li>
+											
+											<li><a href="/insertRule">일정 등록 규칙 설정</a></li>
 											
 											
 											
 											
 											
 											<!-- 헤더 변경 부분 -->
-											<li><a href="/selectRegisteredPlanList">등록한 일정 조회</a></li>
-											<li><a href="/selectRegisteredRuleList">등록한 규칙 조회</a></li>
+											<li><a href="/selectRegisteredFieldList">등록한 구장 관리</a></li>
+											<li><a href="/selectRegisteredPlanList">등록한 일정 관리</a></li>
+											<li><a href="/selectRegisteredRuleList">등록한 규칙 관리</a></li>
 											
 											
 											
@@ -86,7 +87,7 @@
 											
 											
 
-											<li><a href="/selectPlanDetail">스케줄 상세 조회</a></li>
+											<li><a href="/selectPlanDetail">일정 상세 조회</a></li>
 											<!-- <li><a href="#">Deep Dropdown 4</a></li> -->
 											<!-- <li><a href="#">Deep Dropdown 5</a></li> -->
 										</ul>

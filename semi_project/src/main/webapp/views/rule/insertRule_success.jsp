@@ -11,7 +11,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Starter Page - OnePage Bootstrap Template</title>
+  <title>규칙 등록 성공</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -60,20 +60,23 @@
         <div class="col-lg-4 content">
         </div>
           <div class="col-lg-4 content" data-aos="fade-up" data-aos-delay="200">
-            <h3>규칙 등록 성공!</h3>
+            <h3 style="color:blue;">규칙 등록 성공!</h3>
             <p class="fst-italic">
               이제 규칙적으로 일정이 등록됩니다.
             </p>
             <ul id="field-success-ul">
-              <li><i class="bi bi-check2-all"></i> <a href="/">메인화면으로 이동하기</a><br></li>
+              <li><i class="bi bi-check2-all"></i> <a href="/">메인화면으로 이동하기</a></li>
               <li></li>
               <li></li>
-              <li><i class="bi bi-check2-all"></i> <a href="/selectRegisteredPlanList">등록한 일정 목록으로 이동하기</a><br></li>
-              <li><i class="bi bi-check2-all"></i> <a href="/selectRegisteredRuleList">등록한 규칙 목록으로 이동하기</a><br></li>
+              <li><i class="bi bi-check2-all"></i> <a href="/selectRegisteredFieldList">등록한 구장 목록으로 이동하기</a></li>
+              <li></li>
+              <li></li>
+              <li><i class="bi bi-check2-all"></i> <a href="/selectRegisteredPlanList">등록한 일정 목록으로 이동하기</a></li>
+              <li><i class="bi bi-check2-all"></i> <a href="/selectRegisteredRuleList">등록한 규칙 목록으로 이동하기</a></li>
               <li>
               	<p>
        				* 주의사항<br>
-       				1. 입력하신 규칙에 따라 2주 후의 일정이 등록됩니다.<br>
+       				1. 내일부터 2주 후까지의 일정이 규칙적으로 등록됩니다.<br>
            			2. 등록 기준 시각은 매일 오전 5시입니다.<br>
            			3. 휴무요일 기준일은 영업시작시간입니다.<br><br>
            			
@@ -97,7 +100,6 @@
 
     </section><!-- /About Alt Section -->
 
-
   </main>
 
   <!-- Scroll Top -->
@@ -120,5 +122,5 @@
   <script src="/resources/js/common.js"></script>
 
 </body>
-	
+
 </html>

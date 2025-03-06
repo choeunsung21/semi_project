@@ -12,7 +12,7 @@
 	padding: 10px;
 }
 
-#field-no-select-label,
+#field-name-select-label,
 #rule-open-label,
 #rule-close-label,
 #rule-usetime-label,
@@ -59,11 +59,13 @@
 	font-style: italic;
 }
 
-#field-success-ul {
+#field-success-ul,
+#rule-success-ul {
 	font-size:15px;
 }
 
-#field-success-ul p {
+#field-success-ul p,
+#rule-success-ul p {
 	font-size:12px;
 	color: rgba(88, 88, 88, 0.8);	
 	font-family: "Raleway",  sans-serif;
@@ -88,6 +90,7 @@
 }
 
 #field-name-label,
+#field-name-after-label,
 #field-addr-label,
 #field-limit-label,
 #field-size-width-label,
@@ -135,4 +138,8 @@
 
 #side-box-flex i {
 	padding : 5px;
+}
+
+.update-hidden {
+	display:none;
 }

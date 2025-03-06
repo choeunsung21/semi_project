@@ -22,11 +22,36 @@ public class FieldDao {
 		return session.selectOne("fieldMapper.selectFieldOneRecent");
 	}
 	
+	public Field selectFieldOneByFieldNo(SqlSession session, int fieldNo) {
+		return session.selectOne("fieldMapper.selectFieldOneByFieldNo", fieldNo);
+	}
+	
+	public int selectFieldCount(SqlSession session, Field field) {
+		return session.selectOne("fieldMapper.selectFieldCount", field);
+	}
+	
 	public int insertFieldAttach(SqlSession session, FieldAttach attach) {
 		return session.insert("fieldAttachMapper.insertAttachOne", attach);
 	}
 	
 	public List<Field> selectFieldListByUser(SqlSession session, User user) {
 		return session.selectList("fieldMapper.selectFieldList", user);
+	}
+	
+	public List<Field> selectFieldListByField(SqlSession session, Field option) {
+		List<Field> resultList = session.selectList("fieldMapper.selectFieldByField", option);
+		return resultList;
+	}
+	
+	public int updateField(SqlSession session, Field field) {
+		return session.update("fieldMapper.updateField", field);
+	}
+	
+	public int deleteFieldByField(SqlSession session, Field field) {
+		return session.delete("fieldMapper.deleteFieldByField", field);
+	}
+	
+	public FieldAttach selectFieldAttachByFieldNo(SqlSession session, int fieldNo) {
+		return session.selectOne("fieldAttachMapper.selectFieldAttachByFieldNo", fieldNo);
 	}
 }

@@ -10,6 +10,7 @@
 		<result property="closeTime" column="close_time" />
 		<result property="operating" column="operating" />
 		<result property="price" column="price" />
+		<result property="status" column="status" />
 		<result property="regDate" column="reg_date" />
 		<result property="modDate" column="mod_date" />
 		<result property="isSun" column="is_sun" />
@@ -45,7 +46,30 @@
 		INSERT INTO `plan_rule` (`field_no` ,`open_time` ,`close_time` ,`operating` ,`price`)
 		VALUES (#{fieldNo}, #{openTime}, #{closeTime}, #{operating}, #{price});
 	</insert>
+	<update id="updatePlanRule" parameterType="planRule">
+		UPDATE `plan_rule`
+		SET `open_time` = #{openTime}
+		, `close_time` = #{closeTime}
+		, `operating` = #{operating}
+		, `price` = #{price}
+		WHERE `rule_no` = #{ruleNo}
+	</update>
+	<update id="updateStatus" parameterType="_int">
+		UPDATE `plan_rule`
+		SET `status` = 1
+		WHERE `rule_no` = #{ruleNo}
+	</update>
+	<delete id="deletePlanRuleByRuleNo" parameterType="_int">
+		DELETE FROM `plan_rule`
+		WHERE `rule_no` = #{ruleNo};
+	</delete>
 	<select id="selectPlanRuleByFieldNo" parameterType="_int" resultMap="planRuleMap">
 		SELECT * FROM `plan_rule` WHERE `field_no` = #{fieldNo} ORDER BY `reg_date` DESC LIMIT 1;
+	</select>
+	<select id="selectPlanRuleByRuleNo" parameterType="_int" resultMap="planRuleMap">
+		SELECT * FROM `plan_rule` r
+		JOIN `field` f ON f.field_no = r.field_no
+		JOIN `dayoff` d ON d.dayoff_no = f.dayoff_no
+		WHERE rule_no = #{ruleNo};
 	</select>
 </mapper>

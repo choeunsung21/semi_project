@@ -1,4 +1,4 @@
-package com.gn.rule.controller;
+package com.gn.field.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -13,44 +13,49 @@ import javax.servlet.http.HttpSession;
 
 import com.gn.field.service.FieldService;
 import com.gn.field.vo.Field;
-import com.gn.rule.service.PlanRuleService;
-import com.gn.rule.vo.PlanRule;
 import com.gn.user.vo.User;
 
-@WebServlet("/updatePlanRule")
-public class UpdateRuleServlet extends HttpServlet {
+@WebServlet("/selectRegisteredFieldList")
+public class SelectRegisteredFieldListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-    public UpdateRuleServlet() {
+       
+    public SelectRegisteredFieldListServlet() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String tmp = request.getParameter("rule_no");
-		int ruleNo = 0;
-		
-		if(tmp != null) {
-			// 규칙 목록 조회에서 들어올 것이기 때문에 반드시 null 값이 아님
-			ruleNo = Integer.parseInt(tmp);
-		}
-		
+		// 세션에서 유저정보 가져오기
 		HttpSession session = request.getSession(false);
-		
+				
 		if(session != null && session.getAttribute("user") != null) {
 			/* 로그인 과정에서 만들어진 세션이 정상적으로 존재하는 경우 */
-			PlanRule planRule = new PlanRuleService().selectRuleOneByRuleNo(ruleNo);
+			User user = (User)session.getAttribute("user");
+			String nowPage = request.getParameter("nowPage");
 			
-			RequestDispatcher view = request.getRequestDispatcher("/views/rule/updateRule.jsp");
+			Field option = new Field();
+			option.setUserNo(user.getUserNo());
 			
-			request.setAttribute("planRule", planRule);
+			if(nowPage != null) {
+				option.setNowPage(Integer.parseInt(nowPage));
+			}
+			
+			int totalData = new FieldService().selectFieldCount(option);
+			
+			option.setTotalData(totalData);
+			
+			List<Field> registeredFieldList = new FieldService().selectFieldByField(option);
+			
+			RequestDispatcher view = request.getRequestDispatcher("/views/field/selectRegisteredFieldList.jsp");
+			request.setAttribute("registeredFieldList", registeredFieldList);
+			request.setAttribute("fieldPaging", option);
 			view.forward(request, response);
 			
 		} else {
 			/* 
 			 * 로그인 과정에서 만들어진 세션이 정상적으로 존재하지 않는 경우
-			 * 이미 로그아웃, 세션만료 과정에서 처리가 이루어졌기 때문에 이 조건문 안에 들어올 수 없음   
+			 * 이미 로그아웃, 세션만료 과정에서 처리가 이루어졌기 때문에 이 조건문 안에 들어올 수 없음
 			 */
-			System.out.println("InsertRuleServlet : 세션에 유저정보가 존재하지 않습니다.");
+			System.out.println("SelectRegisteredFieldListServlet : 세션에 유저정보가 존재하지 않습니다.");
 		}
 	}
 
