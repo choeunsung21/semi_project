@@ -10,6 +10,7 @@
 		<result property="boardContent" column="board_content" />
 		<result property="userName" column="user_name" />
 		<result property="userId" column="user_id" />
+		<result property="oriName" column="ori_name" />
 		<result property="attachPath" column="attach_path" />
 		<result property="attachNo" column="attach_no" />
 		<result property="regDate" column="reg_date" />
@@ -33,16 +34,25 @@
 	</resultMap>
 		
 	<select id="boardList" resultMap="boardMap">
-		SELECT b.* ,u.*
+		SELECT b.* ,u.* 
 		FROM `board` b
-		JOIN `user` u
-		ON b.writer_no = u.user_no
+		JOIN `user` u ON b.writer_no = u.user_no
 		<where>
 		<if test='boardTitle != null and  boardTitle.equals("") == false'>
-			b.board_title LIKE CONCAT('%',#{boardTitle},'%')
+			(b.board_title LIKE CONCAT('%',#{boardTitle},'%') 
+            OR b.board_content LIKE CONCAT('%',#{boardTitle},'%'))
 		</if>
 		</where>
-		ORDER BY b.board_no DESC
+			<if test='orderType != null and orderType.equals("-1") == false'>
+			<choose>
+				<when test='orderType.equals("1") == true'>
+					ORDER BY b.reg_date DESC
+				</when>
+			<otherwise>
+					ORDER BY b.reg_date ASC
+			</otherwise>
+			</choose>
+		</if>
 		LIMIT #{limitPageNo}, #{numPerPage}
 	</select>
 	
@@ -65,15 +75,15 @@
 		VALUES(#{oriName} ,#{newName} ,#{boardNo} ,#{attachPath})		
 	</insert>
 	
-	<select id="selectDetail" parameterType="_int" resultMap="boardMap">
-		SELECT b.board_no, b.writer_no, b.board_title, b.board_content, 
-        b.reg_date, b.mod_date, 
-        u.user_name, u.user_id, 
-        o.attach_path, o.attach_no
-		FROM `board` b
-		JOIN `user` u ON b.writer_no = u.user_no
-		LEFT JOIN `board_attach` o ON b.board_no = o.board_no
-		WHERE b.board_no = #{boardNo}
+	<select id="selectDetail" parameterType="int" resultMap="boardMap">
+    		SELECT b.board_no, b.writer_no, b.board_title, b.board_content, 
+            b.reg_date, b.mod_date, 
+            u.user_name, u.user_id, 
+            o.attach_path, o.attach_no, o.ori_name
+    		FROM `board` b
+    		JOIN `user` u ON b.writer_no = u.user_no
+    		LEFT JOIN `board_attach` o ON b.board_no = o.board_no  
+    		WHERE b.board_no = #{boardNo}
 	</select>
 	
 	<select id="selectAttach" parameterType="_int" resultMap="attachMap">
@@ -109,6 +119,60 @@
 		DELETE FROM `board_attach`
 		WHERE board_no = #{boardNo};
 	</delete>
+	
+	<delete id="deleteReplyOne" parameterType="_int">
+		DELETE FROM `reply`
+		WHERE reply_no = #{replyNo};	
+	</delete>
+	<update id="updateBoard" parameterType="board">
+		UPDATE `board`
+		SET board_title = #{boardTitle}
+		,board_content = #{boardContent}
+		WHERE board_no = #{boardNo}
+	</update>
+	
+	<update id="updateAttach" parameterType="attach">
+		UPDATE `board_attach`
+		SET ori_name = #{oriName}
+		,new_name = #{newName}
+		,attach_path = #{attachPath}
+		WHERE attach_no = #{attachNo}
+	</update>
+	
+	<delete id="deleteOriAttach" parameterType="board">
+		DELETE FROM `board_attach`
+		WHERE board_no = #{boardNo};
+	</delete>
+	
+	<insert id="insertOriAttach" parameterType="attach">
+		INSERT INTO `board_attach`(ori_name ,new_name ,board_no ,attach_path)
+		VALUES(#{oriName} ,#{newName} ,#{boardNo} ,#{attachPath})
+	
+	</insert>
+	<delete id="deleteAttachNo" parameterType="_int">
+		DELETE FROM `board_attach`
+		WHERE attach_no = #{attachNo};
+	</delete>
+	
+	<select id="selectOrderType" resultMap="boardMap">
+		SELECT b.* ,u.* 
+		FROM `board` b
+		JOIN `user` u ON b.writer_no = u.user_no
+		<if test='orderType != null and orderType.equals("-1") == false'>
+			<choose>
+				<when test='orderType.equals("1") == true'>
+					ORDER BY b.reg_date DESC
+				</when>
+			<otherwise>
+					ORDER BY b.reg_date ASC
+			</otherwise>
+			</choose>
+		</if>
+	</select>
+	
+	
+	
+	
 	
 
 </mapper>

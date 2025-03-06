@@ -121,7 +121,65 @@ public class BoardService {
 		return result;
 	}
 	
+	//댓글 자체 삭제 메소드
+	public int deleteReplyOne(int replyNo) {
+		SqlSession session = getSqlSession(true);
+		int result = new BoardDao().deleteReplyOne(session,replyNo);
+		session.close();
+		return result;
+	}
+	
+	// X버튼 누르면 삭제하는 메소드
+	public int deleteAttachNo(int attachNo) {
+		SqlSession session = getSqlSession(true);
+		int result = new BoardDao().deleteAttachNo(session,attachNo);
+		session.close();
+		return result;
+	}
+	
+	public int updateBoard(Board board, Attach attach) {
+		SqlSession session = getSqlSession(false);
+		int result = 0;
+		int attachNo = 0;
+		int boardNo = 0;
+		try {
+			boardNo = new BoardDao().updateBoard(session,board);
+			
+			if(attach != null) {
+				attach.setBoardNo(board.getBoardNo());
+				attachNo = new BoardDao().insertAttach(attach,session);	
+			}
+			
+			if(attach != null) {
+				if(boardNo != 0 && attachNo != 0) {
+					result = 1;
+					session.commit();
+				}else {
+					session.rollback();
+				}
+				
+			}else {
+				if(boardNo != 0) {
+					result = 1;
+					session.commit();
+				}else {
+					session.rollback();
+				}
+				
+			}			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		session.close();
+		return result;
+	}
+	
 
-
-
+	public List<Board> selectOrderType(String orderType){
+		SqlSession session = getSqlSession(true);
+		List<Board> list = new BoardDao().selectOrderType(session,orderType);
+		session.close();
+		return list;
+	}
+	
 }

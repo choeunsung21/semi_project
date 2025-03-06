@@ -27,6 +27,8 @@ public class BoardUpdate extends HttpServlet {
 		String boardContent = request.getParameter("boardContent");
 		String writerNo = request.getParameter("writerNo");
 		String attachNo = request.getParameter("attachNo");
+		String oriName = request.getParameter("oriName");
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + oriName);
 		System.out.println("수정중!!!!!!!!!!!!" + boardTitle);
 		System.out.println("수정중!!!!!!!!!!!!" +boardContent);
 		System.out.println("수정중!!!!!!!!!!!!" +boardNo);
@@ -37,6 +39,7 @@ public class BoardUpdate extends HttpServlet {
 		request.setAttribute("boardContent", boardContent);
 		request.setAttribute("writerNo", writerNo);
 		request.setAttribute("attachNo", attachNo);
+		request.setAttribute("oriName", oriName);
 		RequestDispatcher view = request.getRequestDispatcher("/views/board/boardUpdate.jsp");
 		view.forward(request, response);
 	}
