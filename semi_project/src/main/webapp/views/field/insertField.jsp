@@ -11,7 +11,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Service Details - OnePage Bootstrap Template</title>
+  <title>구장 등록</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -190,6 +190,7 @@
                 						<label for="field-img-input" id="field-img-label">구장 대표 이미지*</label>
                 						<p>10MB 이하의 파일만 업로드 가능하며, .jpg .jpeg .png만을 허용합니다.</p>
                   						<input type="file" class="form-control" name="field_img" id="field-img-input" accept=".png, .jpg, .jpeg">
+                						<p>한 번 등록시 변경할 수 없으므로 주의깊게 선택해주세요.</p>
                 					</div>
 
                 					<div class="col-md-12">

@@ -37,4 +37,8 @@ public class PlanDao {
 		return session.selectOne("planMapper.selectPlanListCount", option);
 	}
 	
+	public List<Plan> selectPlanListByFieldNo(SqlSession session, int fieldNo) {
+		return session.selectList("planMapper.selectPlanListByFieldNo", fieldNo);
+	}
+	
 }

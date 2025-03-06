@@ -14,10 +14,10 @@ import com.gn.rule.service.PlanRuleService;
 import com.gn.rule.vo.PlanRule;
 
 @WebServlet("/selectRuleEnd")
-public class SelelctRuleOneByFieldNo extends HttpServlet {
+public class SelelctRuleOneByFieldNoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public SelelctRuleOneByFieldNo() {
+    public SelelctRuleOneByFieldNoServlet() {
         super();
     }
 

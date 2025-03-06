@@ -82,7 +82,7 @@ public class SelectRegisteredRuleListServlet extends HttpServlet {
 			 * 로그인 과정에서 만들어진 세션이 정상적으로 존재하지 않는 경우
 			 * 이미 로그아웃, 세션만료 과정에서 처리가 이루어졌기 때문에 이 조건문 안에 들어올 수 없음
 			 */
-			System.out.println("SelectFieldEndServlet : 세션에 유저정보가 존재하지 않습니다.");
+			System.out.println("SelectRegisteredRuleListServlet : 세션에 유저정보가 존재하지 않습니다.");
 		}
 	}
 

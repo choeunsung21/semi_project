@@ -60,5 +60,11 @@ public class PlanService {
 		session.close();
 		return result;
 	}
-
+	
+	public List<Plan> selectPlanListByFieldNo(int fieldNo) {
+		SqlSession session = getSqlSession(true);
+		List<Plan> resultList = new PlanDao().selectPlanListByFieldNo(session, fieldNo);
+		session.close();
+		return resultList;
+	}
 }

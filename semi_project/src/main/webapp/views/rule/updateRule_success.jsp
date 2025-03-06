@@ -11,7 +11,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>구장 등록 성공</title>
+  <title>규칙 수정 성공</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -60,9 +60,9 @@
         <div class="col-lg-4 content">
         </div>
           <div class="col-lg-4 content" data-aos="fade-up" data-aos-delay="200">
-            <h3 style="color:blue;">구장 등록 성공!</h3>
+            <h3 style="color:blue;">규칙 수정 성공!</h3>
             <p class="fst-italic">
-              이제 해당 구장에 일정을 등록할 수 있습니다
+              이제 수정된 규칙에 의해 일정이 등록됩니다.
             </p>
             <ul id="field-success-ul">
               <li><i class="bi bi-check2-all"></i> <a href="/">메인화면으로 이동하기</a></li>
@@ -71,13 +71,23 @@
               <li><i class="bi bi-check2-all"></i> <a href="/selectRegisteredFieldList">등록한 구장 목록으로 이동하기</a></li>
               <li></li>
               <li></li>
-              <li><i class="bi bi-check2-all"></i> <a href="/insertPlan">일정 직접 등록으로 이동하기</a></li>
-              <li><i class="bi bi-check2-all"></i> <a href="/insertRule">일정 규칙 등록으로 이동하기</a></li>
+              <li><i class="bi bi-check2-all"></i> <a href="/selectRegisteredPlanList">등록한 일정 목록으로 이동하기</a></li>
+              <li><i class="bi bi-check2-all"></i> <a href="/selectRegisteredRuleList">등록한 규칙 목록으로 이동하기</a></li>
               <li>
               	<p>
-       				* 구장의 일정을 등록하는 두가지 방법<br>
-       				1. 직접 등록하는 방법 : 특정 일자를 지정하여 수동 등록<br>
-           			2. 규칙을 등록하는 방법 : 지정된 규칙에 따라 자동 등록<br>
+       				* 주의사항<br>
+       				1. 입력하신 규칙에 따라 2주 후의 일정이 등록됩니다.<br>
+           			2. 등록 기준 시각은 매일 오전 5시입니다.<br>
+           			3. 휴무요일 기준일은 영업시작시간입니다.<br><br>
+           			
+           			예시.<br>
+           			2025-03-01 (토)<br>
+           			영업시간 : 22시 ~ 4시
+           			간격 : 2시간<br>
+           			휴무요일 : 토요일<br><br>
+           			
+           			2025-03-02 (일) 0시, 2시 일정은 비록 일요일이지만,<br>
+           			영업시작일이 토요일이기 때문에 등록되지 않습니다.<br>	
        	    	</p>
        	      </li>
             </ul>
@@ -89,7 +99,6 @@
       </div>
 
     </section><!-- /About Alt Section -->
-
 
   </main>
 
@@ -113,5 +122,5 @@
   <script src="/resources/js/common.js"></script>
 
 </body>
-	
+
 </html>

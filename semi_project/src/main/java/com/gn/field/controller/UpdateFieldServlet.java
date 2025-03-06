@@ -1,7 +1,6 @@
-package com.gn.rule.controller;
+package com.gn.field.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,36 +12,60 @@ import javax.servlet.http.HttpSession;
 
 import com.gn.field.service.FieldService;
 import com.gn.field.vo.Field;
-import com.gn.rule.service.PlanRuleService;
-import com.gn.rule.vo.PlanRule;
-import com.gn.user.vo.User;
 
-@WebServlet("/updatePlanRule")
-public class UpdateRuleServlet extends HttpServlet {
+@WebServlet("/updateField")
+public class UpdateFieldServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-    public UpdateRuleServlet() {
+	
+    public UpdateFieldServlet() {
         super();
     }
-
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String tmp = request.getParameter("rule_no");
-		int ruleNo = 0;
+		String tmp = request.getParameter("field_no");
+		int fieldNo = 0;
 		
 		if(tmp != null) {
 			// 규칙 목록 조회에서 들어올 것이기 때문에 반드시 null 값이 아님
-			ruleNo = Integer.parseInt(tmp);
+			fieldNo = Integer.parseInt(tmp);
 		}
 		
 		HttpSession session = request.getSession(false);
 		
 		if(session != null && session.getAttribute("user") != null) {
 			/* 로그인 과정에서 만들어진 세션이 정상적으로 존재하는 경우 */
-			PlanRule planRule = new PlanRuleService().selectRuleOneByRuleNo(ruleNo);
+			Field field = new FieldService().selectFieldOneByFieldNo(fieldNo);
 			
-			RequestDispatcher view = request.getRequestDispatcher("/views/rule/updateRule.jsp");
+			String fieldSize = field.getFieldSize();
+			String[] numbers = fieldSize.replaceAll("[^0-9 ]", "").split("\\s+");
+			int fieldWidth = 0;
+			int fieldHeight = 0;
+			if(numbers != null) {
+				fieldWidth = Integer.parseInt(numbers[0]);
+				fieldHeight = Integer.parseInt(numbers[1]);
+			}
 			
-			request.setAttribute("planRule", planRule);
+			boolean sun = field.isSun();
+			boolean mon = field.isMon();
+			boolean tue = field.isTue();
+			boolean wed = field.isWed();
+			boolean thu = field.isThu();
+			boolean fri = field.isFri();
+			boolean sat = field.isSat();
+
+			RequestDispatcher view = request.getRequestDispatcher("/views/field/updateField.jsp");
+			
+			request.setAttribute("field", field);
+			request.setAttribute("fieldWidth", fieldWidth);
+			request.setAttribute("fieldHeight", fieldHeight);
+			request.setAttribute("sun", sun);
+			request.setAttribute("mon", mon);
+			request.setAttribute("tue", tue);
+			request.setAttribute("wed", wed);
+			request.setAttribute("thu", thu);
+			request.setAttribute("fri", fri);
+			request.setAttribute("sat", sat);
+			
 			view.forward(request, response);
 			
 		} else {
@@ -53,7 +76,7 @@ public class UpdateRuleServlet extends HttpServlet {
 			System.out.println("InsertRuleServlet : 세션에 유저정보가 존재하지 않습니다.");
 		}
 	}
-
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
