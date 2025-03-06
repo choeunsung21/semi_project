@@ -27,9 +27,15 @@ public class TeamService {
 	        } finally {
 	            session.close(); // 세션 닫기
 	        }
-
-	        return result; // 수정된 행 수 반환
+			return result;
 	    }
+	    public boolean deleteTeam(int teamId) {
+	        SqlSession session = getSqlSession(true);
+	        int result = new TeamDao().deleteTeam(session, teamId);
+	        session.close();
+	        return result > 0;
+	    }
+
 	    public Team selectTeamByName(String teamName) {
 	        SqlSession session = getSqlSession(true);
 	        Team team = null;
@@ -43,13 +49,6 @@ public class TeamService {
 	        }
 
 	        return team;
-	    }
-	    
-	    public boolean deleteTeam(int teamId) {
-	        SqlSession session = getSqlSession(true);
-	        int result = new TeamDao().deleteTeam(session, teamId);
-	        session.close();
-	        return result > 0;
 	    }
 
 	    public List<Team> selectTeamList(Team team) {
@@ -112,4 +111,5 @@ public class TeamService {
 	        return result > 0; // 삽입 성공 여부 반환
 	    }
 }
+
 
