@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.gn.board.service.BoardService;
+import com.gn.board.vo.Board;
+
 
 @WebServlet("/boardUpdate")
 public class BoardUpdate extends HttpServlet {
@@ -22,24 +25,16 @@ public class BoardUpdate extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String boardNo = request.getParameter("boardNo");
-		String boardTitle = request.getParameter("boardTitle");
-		String boardContent = request.getParameter("boardContent");
-		String writerNo = request.getParameter("writerNo");
-		String attachNo = request.getParameter("attachNo");
-		String oriName = request.getParameter("oriName");
-		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + oriName);
-		System.out.println("수정중!!!!!!!!!!!!" + boardTitle);
-		System.out.println("수정중!!!!!!!!!!!!" +boardContent);
+		String temp = request.getParameter("boardNo");
+		int boardNo = 0;
+		if(temp != null) {
+			boardNo = Integer.parseInt(temp);
+		}
 		System.out.println("수정중!!!!!!!!!!!!" +boardNo);
-		System.out.println("수정중!!!!!!!!!!!!" +writerNo);
-		System.out.println("수정중!!!!!!!!!!!!" +attachNo);
-		request.setAttribute("boardNo", boardNo);
-		request.setAttribute("boardTitle", boardTitle);
-		request.setAttribute("boardContent", boardContent);
-		request.setAttribute("writerNo", writerNo);
-		request.setAttribute("attachNo", attachNo);
-		request.setAttribute("oriName", oriName);
+
+		Board board = new BoardService().selectBoardOne(boardNo);
+		request.setAttribute("board", board);
+	
 		RequestDispatcher view = request.getRequestDispatcher("/views/board/boardUpdate.jsp");
 		view.forward(request, response);
 	}

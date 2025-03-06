@@ -84,6 +84,7 @@
     		JOIN `user` u ON b.writer_no = u.user_no
     		LEFT JOIN `board_attach` o ON b.board_no = o.board_no  
     		WHERE b.board_no = #{boardNo}
+    		LIMIT 1;
 	</select>
 	
 	<select id="selectAttach" parameterType="_int" resultMap="attachMap">

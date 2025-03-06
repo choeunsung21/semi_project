@@ -3,7 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -35,6 +35,11 @@
   <link href="<%= request.getContextPath() %>/resources/css/include/common.css" rel="stylesheet" type="text/css">
   <link href="<%= request.getContextPath() %>/resources/css/cjs.css" rel="stylesheet" type="text/css">
   <script src ="<%=request.getContextPath()%>/resources/js/jquery-3.7.1.js"></script>
+  
+  <!-- Summernote CSS & JS (Lite 버전) -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.js"></script>
   
 
   <!-- =======================================================
@@ -141,37 +146,44 @@
             color: white; 
 }
 
+
 </style>       
 
               
               <div class="col-lg-3" data-aos="fade-up" data-aos-delay="100" style="inline-block;">
             	<div class="portfolio-info">
-                    <h3>게시판 테스트중입니다</h3>
+                    
               		<ul>
                	 		<li><strong>제목</strong> ${board.boardTitle }</li>
                 		<li><strong>작성자</strong>${board.userId }</li>
                 		<fmt:parseDate value="${board.regDate }" pattern="yyyy-MM-dd'T'HH:mm:ss" var="thisDate" />
                 		<li><strong>등록일</strong><fmt:formatDate value="${thisDate }" pattern="yyyy-MM-dd" /></li>
-                		<li><strong>내용</strong> ${board.boardContent }</li>
               		</ul>
+                		<%-- <textarea id="summernote" class="" ><c:out>${board.boardContent }</c:out></textarea> --%>
+                		<c:out value="${board.boardContent }" escapeXml="false"/>
             	</div>
           	  </div>
-          	  <div>
+          	  
+          	  
           	  <!-- 게시글을 쓴 사람만 삭제 수정버튼을 보이게 함  -->
+          	  <div>
           	  	<c:if test="${sessionScope.user.userNo eq board.writerNo }">
-          	  	<button type="submit" class="btn btn-outline-primary updatebtn"  data-attachno="${board.attachNo }"
-          	  	data-boardtitle="${board.boardTitle }"
-          	  	data-boardcontent="${board.boardContent }"
-          	  	data-writerno="${board.writerNo }"
-          	  	data-boardno="${board.boardNo }"
-          	  	data-oriname="${board.oriName }"
-          	  	>수정</button>
+          	  	<button type="submit" class="btn btn-outline-primary updatebtn"  data-boardno="${board.boardNo }">수정</button>
           	  	<button type="submit" class="btn btn-outline-primary deletebtn" data-boardno="${board.boardNo }">삭제</button>
           	  	</c:if>
           	  </div>
           	  
-          	  <!-- 게시글 수정 버튼 -->
           	  <script type="text/javascript">
+          	  	const content = $('#summernote').val();
+            	$(document).ready(function() {
+              		$('#summernote').summernote({
+                		toolbar: false,  
+                		airMode: true,   
+                		disableDragAndDrop: true 
+              		});
+            	});
+            	
+          	  // 수정 버튼을 누를시
           	  $(function(){
           		  $(".updatebtn").click(function(){
           			  let attachNo = $(this).data("attachno");
@@ -182,19 +194,10 @@
           			  let oriName = $(this).data("oriname");
           			  console.log("boardno" + boardNo);
           			  console.log("내가 몇번이니?" + attachNo);
-          			  location.href = "/boardUpdate?attachNo=" + attachNo + 
-                      "&boardTitle=" + boardTitle + 
-                      "&boardContent=" +boardContent + 
-                      "&writerNo=" + writerNo +
-                      "&boardNo=" + boardNo +
-                      "&oriName=" + oriName;
-          			  
+          			  location.href = "/boardUpdate?boardNo=" + boardNo;
           		  })
           	  })
-          	  
-          	  
-          	  
-          	  
+
      		/* 게시글 삭제 버튼 */
           	$(function() {
           	    $(".deletebtn").click(function() {
@@ -227,32 +230,19 @@
           
           	  	<br><br>
           	  	
-          	  	
-          	 <div class="col-lg-3" data-aos="fade-up" data-aos-delay="100" style="display:inline-block;">
-            	<div class="portfolio-info">
-                     
-                
-              		<ul>  
-              			<c:if test="${board.attachNo != 0 }">              		
-              			<li><img src="<c:url value='/filePath?attach_no=${board.attachNo }'/>"></li> 
-                		</c:if>
-              		 </ul> 
-            	</div>
-          	  </div>
-          	  
+          	  		<!-- 댓글 목록 파트 -->
           	       <div class="col-lg-3" data-aos="fade-up" data-aos-delay="100" style="inline-block;">
-            	<div class="portfolio-info">
-                    <h2>댓글 목록</h2>
-              		<ul id="replayList" class="reply-list">
+            			<div class="portfolio-info">
+                    		<h2>댓글 목록</h2>
+              					<ul id="replayList" class="reply-list">
                
-              		</ul>
-            	</div>
-          	  </div>
+              					</ul>
+            			</div>
+          	  	  </div>
           	  
    
-       
     	  
-   <div class="form-box">
+  	 <div class="form-box">
     	  <h2>댓글</h2>
     	  <form action="addReplyEndServlet" name="addReply" method="get">
     	  	<input type=hidden id="boardNo" name="boardNo" value="${board.boardNo }">
@@ -268,7 +258,7 @@
     	  		</c:otherwise>
     	  	</c:choose>
     	  </form>
-   </div> 	
+   	</div> 	
    <script type="text/javascript">
    //댓글 목록 , userNo 와 writerNo가 같다면 수정 삭제 버튼이 나타남
    $(document).ready(function(){
@@ -297,12 +287,10 @@
   		                    replyList += " <button type='button' class='btn btn-outline-primary deletereplybtn delete-btn' data-replyno='" 
   		                               + reply.replyNo + "'>삭제</button>";
   		                    replyList += " <button type='button' class='btn btn-outline-primary updatereplybtn edit-btn' " +
-  		                  " data-replyno='" + reply.replyNo + "' " +
-  		                " data-replycontent='" + reply.replyContent + "' " +
-  		                " data-boardno='" + reply.boardNo + "' >수정</button>";
-
+  		                 				 " data-replyno='" + reply.replyNo + "' " +
+  		                				 " data-replycontent='" + reply.replyContent + "' " +
+  		                				 " data-boardno='" + reply.boardNo + "' >수정</button>";
   		                }
-
   		                replyList += "</li>";
   		                $("#replayList").append(replyList);
   		            }
@@ -315,8 +303,7 @@
   		        console.log("에러");
   		    }
   		});
-  	 
-			
+  	 		
   	 		//댓글 수정 버튼
 	 	$(document).on("click", ".updatereplybtn", function() {
     		let replyNo = $(this).data("replyno");
@@ -326,30 +313,30 @@
 		});
 
         	//댓글 삭제 버튼
-         	$(document).on("click", ".deletereplybtn", function() {
-        		    let replyNo = $(this).data("replyno");
-        		    console.log("삭제할 댓글 번호:", replyNo);
-        		    $.ajax({
-        		        url: "/deleteReply",
-        		        type: "post",
-        		        dataType:"json",
-        		        data: { "replyNo": replyNo },
-        		        success: function(data) {
-        		            if (data.res_code === 200) {
-        		                alert("댓글이 삭제되었습니다");
-        		                location.reload();
-        		            } else {
-        		                alert("댓글 삭제 실패");
-        		            }
-        		        },
-        		        error: function(xhr, status, error) {
-        		            console.error("삭제 오류: " + error);
-        		        }
-        		    });
-        		});
-         })
+         $(document).on("click", ".deletereplybtn", function() {
+        	let replyNo = $(this).data("replyno");
+        	console.log("삭제할 댓글 번호:", replyNo);
+        	$.ajax({
+        	  url: "/deleteReply",
+        	  type: "post",
+        	  dataType:"json",
+        	  data: { "replyNo": replyNo },
+              success: function(data) {
+        		   if (data.res_code === 200) {
+        		          alert("댓글이 삭제되었습니다");
+        		          location.reload();
+        		    } else {
+        		          alert("댓글 삭제 실패");
+        		           }
+        		    },
+        		    error: function(xhr, status, error) {
+        		         console.error("삭제 오류: " + error);
+        		    }
+        		  });
+        	  });
+           })
          
-        	 const writeReply = function(){
+        	const writeReply = function(){
         	event.preventDefault();
          	let form = document.addReply;
             let boardNo = $("#boardNo").val();
@@ -380,12 +367,6 @@
          	}
         	 
          }
-         
- 
-         
-         
-         
-         
          </script>  
 			
 

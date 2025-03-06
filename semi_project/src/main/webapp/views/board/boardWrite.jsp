@@ -30,6 +30,15 @@
   <link href="assets/vendor/aos/aos.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <!-- SUMMERNOTE!! -->
+   <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+   <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs4.min.css" rel="stylesheet">
+   <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs4.min.js"></script>
 
   <!-- Main CSS File -->
   	<link href="<%= request.getContextPath() %>/resources/css/include/common.css" rel="stylesheet" type="text/css">
@@ -37,7 +46,7 @@
  	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 	<!--  kyk include css -->
 	<link href="<%= request.getContextPath() %>/resources/css/kyk/kyk.css" rel="stylesheet">	
-	<script src ="<%=request.getContextPath()%>/resources/js/jquery-3.7.1.js"></script>
+	
   <!-- =======================================================
   * Template Name: OnePage
   * Template URL: https://bootstrapmade.com/onepage-multipurpose-bootstrap-template/
@@ -54,7 +63,7 @@
             height: 100vh; 
         }
 
-        /* 입력 폼 스타일 */
+      
         .form-box {
             width: 2000px; 
             padding: 20px;
@@ -134,13 +143,24 @@
             	<input type="hidden" name="writerNo" value="<c:out value='${sessionScope.user.userNo}' />" >
                 <input type="text" name="title" placeholder="제목을 입력하세요" >
                 <input type="file" name="file" accept=".png,.jpg,.jpeg" >
-                <textarea name="content" rows="5" placeholder="내용을 입력하세요"></textarea>
+                <textarea id="summernote" name="content" rows="5" placeholder="내용을 입력하세요"></textarea>
                 <input type="button" value="등록" onclick="writeBoard()" >
             </form>
         </div>
     </div>
     
     <script type="text/javascript">
+    $(document).ready(function() {
+    	  $('#summernote').summernote({
+    		  height: 500
+    	  });
+    	});
+   	
+    
+    
+    
+     
+    
     const writeBoard = function(){
     	let form = document.boardWrite;
     	if(!form.title.value){
