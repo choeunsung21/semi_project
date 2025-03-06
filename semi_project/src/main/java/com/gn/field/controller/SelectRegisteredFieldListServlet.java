@@ -44,6 +44,7 @@ public class SelectRegisteredFieldListServlet extends HttpServlet {
 			option.setTotalData(totalData);
 			
 			List<Field> registeredFieldList = new FieldService().selectFieldByField(option);
+			System.out.println(registeredFieldList);
 			
 			RequestDispatcher view = request.getRequestDispatcher("/views/field/selectRegisteredFieldList.jsp");
 			request.setAttribute("registeredFieldList", registeredFieldList);
