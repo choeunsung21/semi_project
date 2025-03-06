@@ -29,9 +29,9 @@ public class APIScheduler extends HttpServlet{
 			scheduler = schedulerFactory.getScheduler();
 		}
 		catch (SchedulerException e) {
-			e.printStackTrace();  
-		}  
-	} 
+			e.printStackTrace();
+		}
+	}
 	
 	// 서블릿 초기화시 자동 실행되는 메소드
 	// 웹 애플리케이션 실행될 때 스케줄러 시작
@@ -48,14 +48,15 @@ public class APIScheduler extends HttpServlet{
 			// CronTrigger를 사용하여 실행 일정 설정
 			CronTrigger trigger = newTrigger()
 					.withIdentity("trigger1", "group1")	// 트리거 ID 및 그룹명 설정
-					.withSchedule(cronSchedule("0 0/1 * * * ?")) // 1분마다 한번씩 동작
+//					.withSchedule(cronSchedule("0 0/1 * * * ?")) // 1분마다 한번씩 동작
+					.withSchedule(cronSchedule("0 0 5 * * ?")) // 매일 오전 5시 0분에 동작하도록 구성
 					.build();
 			
 			// 스케줄러에 Job과 Trigger 등록
 			scheduler.scheduleJob(job, trigger);
 			
 			// 스케줄러 시작
-			scheduler.start();
+//			scheduler.start();
 			// 스케줄러를 중지하려면 아래 코드 사용
 			// 일반적으로 특정 조건이 충족되면 종료하는 경우 씀
 //			scheduler.shutdown(true);

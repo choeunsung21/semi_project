@@ -51,4 +51,54 @@ public class BoardDao {
 		return session.selectList("boardMapper.selectReply",boardNo);
 	}
 	
+	//글 삭제 메소드
+	public int deleteBoard(SqlSession session, int boardNo) {
+		return session.delete("boardMapper.deleteBoard",boardNo);
+	}
+	
+	//글 삭제 할떄 댓글 테이블도 지워지는 트랜직션 메소드
+	public int deleteReply(SqlSession session, int boardNo) {
+		return session.delete("boardMapper.deleteReply",boardNo);
+	}
+	//글 삭제 할떄 file이 있을경우 board_attach테이블이 지워지는 트랜직션 메소드
+	public int deleteAttach(SqlSession session, int boardNo) {
+		return session.delete("boardMapper.deleteAttach",boardNo);
+	}
+	
+	//댓글 목록에서 사용자가 자체적으로 댓글 삭제하는 메소드
+	public int deleteReplyOne(SqlSession session, int replyNo) {
+		return session.delete("boardMapper.deleteReplyOne",replyNo);
+	}
+	
+	public int updateBoard(SqlSession session, Board board) {
+		return session.update("boardMapper.updateBoard",board);
+	}
+	
+	public int updateAttach(SqlSession session, Attach attach) {
+		return session.update("boardMapper.updateAttach",attach);
+	}
+	
+	public int deleteAttach(SqlSession session,Board board) {
+		return session.delete("boardMapper.deleteOriAttach",board);
+	}
+	
+	public int deleteAttachNo(SqlSession session,int attachNo) {
+		return session.delete("boardMapper.deleteAttachNo", attachNo);
+	}
+	
+	//날짜 정렬 메소드
+	public List<Board>selectOrderType(SqlSession session , String orderType){
+		return session.selectList("boardMapper.selectOrderType", orderType);
+	}
+	
+	public int updateReply(SqlSession session, Reply reply) {
+		return session.update("boardMapper.updateReply", reply);
+	}
+	
+
+	
+	
+	
+	
+	
 }

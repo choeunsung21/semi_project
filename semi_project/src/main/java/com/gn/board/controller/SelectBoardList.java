@@ -27,6 +27,8 @@ public class SelectBoardList extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String boardTitle = request.getParameter("boardTitle");
+		String orderType = request.getParameter("ordertype");
+//		System.out.println(orderType + "!!!!!!!!!!!!!!!!!!!!!" );
 	
 		String nowPage = request.getParameter("nowPage");
 		Board board = new Board();
@@ -34,6 +36,8 @@ public class SelectBoardList extends HttpServlet {
 			board.setNowPage(Integer.parseInt(nowPage));
 		}
 		board.setBoardTitle(boardTitle);
+		board.setOrderType(orderType);
+		
 		int result = new BoardService().selectBoardCount(board);
 		board.setTotalData(result);
 		
@@ -41,6 +45,7 @@ public class SelectBoardList extends HttpServlet {
 		//전체 데이터 조회
 		List<Board> list = new BoardService().selectBoardList(board);
 		request.setAttribute("list", list);
+		request.setAttribute("orderType", orderType);
 		//검색창에 정보가 넘어오는지 확인
 		// System.out.println(boardTitle); 
 		//정보가 넘어왔는지 확인

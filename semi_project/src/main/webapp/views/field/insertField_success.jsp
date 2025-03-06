@@ -11,7 +11,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Starter Page - OnePage Bootstrap Template</title>
+  <title>구장 등록 성공</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -60,16 +60,19 @@
         <div class="col-lg-4 content">
         </div>
           <div class="col-lg-4 content" data-aos="fade-up" data-aos-delay="200">
-            <h3>구장 등록 성공!</h3>
+            <h3 style="color:blue;">구장 등록 성공!</h3>
             <p class="fst-italic">
               이제 해당 구장에 일정을 등록할 수 있습니다
             </p>
             <ul id="field-success-ul">
-              <li><i class="bi bi-check2-all"></i> <a href="/">메인화면으로 이동하기</a><br></li>
+              <li><i class="bi bi-check2-all"></i> <a href="/">메인화면으로 이동하기</a></li>
               <li></li>
               <li></li>
-              <li><i class="bi bi-check2-all"></i> <a href="/insertPlan">일정 직접 등록으로 이동하기</a><br></li>
-              <li><i class="bi bi-check2-all"></i> <a href="/insertRule">일정 규칙 등록으로 이동하기</a><br></li>
+              <li><i class="bi bi-check2-all"></i> <a href="/selectRegisteredFieldList">등록한 구장 목록으로 이동하기</a></li>
+              <li></li>
+              <li></li>
+              <li><i class="bi bi-check2-all"></i> <a href="/insertPlan">일정 직접 등록으로 이동하기</a></li>
+              <li><i class="bi bi-check2-all"></i> <a href="/insertRule">일정 규칙 등록으로 이동하기</a></li>
               <li>
               	<p>
        				* 구장의 일정을 등록하는 두가지 방법<br>

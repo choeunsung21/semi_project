@@ -23,6 +23,7 @@ public class PlanRule extends PagingRule {
 	private String closeTime;
 	private String operating;
 	private String price;
+	private int status;
 	private LocalDateTime regDate;
 	private LocalDateTime modDate;
 	

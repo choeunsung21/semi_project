@@ -63,10 +63,71 @@ public class FieldService {
 	
 	public List<Field> selectFieldListByUser(User user) {
 		SqlSession session = getSqlSession(true);
-		
 		List<Field> fieldList = new FieldDao().selectFieldListByUser(session, user);
 		session.close();
-		
 		return fieldList;
+	}
+	
+	public int selectFieldCount(Field field) {
+		SqlSession session = getSqlSession(true);
+		int count = new FieldDao().selectFieldCount(session, field);
+		session.close();
+		return count;
+	}
+	
+	public List<Field> selectFieldByField(Field option) {
+		SqlSession session = getSqlSession(true);
+		List<Field> resultList = new FieldDao().selectFieldListByField(session, option);
+		session.close();
+		return resultList;
+	}
+	
+	public Field selectFieldOneByFieldNo(int fieldNo) {
+		SqlSession session = getSqlSession(true);
+		Field result = new FieldDao().selectFieldOneByFieldNo(session, fieldNo);
+		session.close();
+		return result;
+	}
+	
+	public int updateField(Field field) {
+		SqlSession session = getSqlSession(false);
+		int result_field = new FieldDao().updateField(session, field);
+		
+		int result_dayoff = new DayoffDao().updateDayoff(session, field);
+		
+		int result = 0;
+		if(result_field > 0 && result_dayoff > 0) {
+			session.commit();
+			result = 1;
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
+		return result;
+	}
+	
+	public int deleteFieldByField(Field field) {
+		SqlSession session = getSqlSession(false);
+		int result_field = new FieldDao().deleteFieldByField(session, field);
+		int result_dayoff = new DayoffDao().deleteDayoff(session, field);
+		
+		int result = 0;
+		if(result_field > 0 && result_dayoff > 0) {
+			session.commit();
+			result = 1;
+		} else {
+			session.rollback();
+		}
+		
+		session.close();
+		return result;
+	}
+	
+	public FieldAttach selectFieldAttachByFieldNo(int fieldNo) {
+		SqlSession session = getSqlSession(true);
+		FieldAttach result = new FieldDao().selectFieldAttachByFieldNo(session, fieldNo);
+		session.close();
+		return result;
 	}
 }
