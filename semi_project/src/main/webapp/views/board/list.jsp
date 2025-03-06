@@ -39,7 +39,7 @@ body {
 
 
 .custom-center {
-    width: 1024px;
+    width: 100%;
     margin: 0 auto;
     text-align: center;
     margin-top: 2rem;
@@ -254,7 +254,7 @@ body {
 					<td>${list.boardTitle }</td>
 					<td>${list.userId }</td>
 					<fmt:parseDate value="${list.regDate }" pattern="yyyy-MM-dd'T'HH:mm" var="strRegDate"/>
-					<td><fmt:formatDate value="${strRegDate }" pattern="yy년MM월dd일 HH시mm분" /></td>
+					<td><fmt:formatDate value="${strRegDate }" pattern="yyyy년MM월dd일 HH시mm분" /></td>
 				</tr>
 			</c:forEach> 
 						</c:when>

@@ -174,7 +174,7 @@
 	<update id="updateReply" parameterType="reply">
 		UPDATE `reply`
 		SET reply_content = #{replyContent}
-		WHERE reply_no = #{replyNo};
+		WHERE reply_no = #{replyNo}		
 	</update>
 	
 	

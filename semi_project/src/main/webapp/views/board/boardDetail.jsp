@@ -135,12 +135,12 @@
     gap: 10px; 
 }
 
-.deletereplybtn:hover {
+.deletereplybtn, .debtn:hover {
             background-color: #dc3545; 
             border-color: #dc3545; 
             color: white; 
 }
-.deletebtn:hover{
+.deletebtn, .debtn:hover{
 			background-color: #dc3545; 
             border-color: #dc3545; 
             color: white; 
@@ -235,7 +235,7 @@
             			<div class="portfolio-info">
                     		<h2>댓글 목록</h2>
               					<ul id="replayList" class="reply-list">
-               
+               					
               					</ul>
             			</div>
           	  	  </div>
@@ -249,6 +249,7 @@
     	  	<input type=hidden id="attachNo" name="attachNo" value="${board.attachNo }">
     	  	<input type=hidden id="writerNo" name="writerNo" value="${sessionScope.user.userNo }">
     	  	<textarea name="replyContent" rows="2" cols="50" id="replyContent" placeholder="댓글을 입력하세요"></textarea> <br>
+    	  	 <br>
     	  	<c:choose>
     	  		<c:when test="${not empty sessionScope.user.userNo }">
     				<button type="submit" class="btn btn-outline-primary" onclick="writeReply();">입력</button>
@@ -278,7 +279,16 @@
   		            for (let i = 0; i < data.list.length; i++) {
   		                let reply = data.list[i];
 
-  		                let replyList = "<li>" +
+  		                let replyList = "<li class='replyNo${i}'>" +
+  		              		"<textarea id='updatereply' class='updatereply' rows='2' cols='35' style='display: none'>" + reply.replyContent + "</textarea>" +
+  		              		" <button type='button' class='btn btn-outline-primary upbtn edit-btn' style='display: none' "  +
+          				 	" data-replyno='" + reply.replyNo + "' " +
+         				 	" data-replycontent='" + reply.replyContent + "' " +
+         				 	" data-boardno='" + reply.boardNo + "' >수정완료</button>" + 
+         				 	" <button type='button' class='btn btn-outline-primary debtn delete-btn' style='display: none' " +
+         				 	"data-replyno='" + reply.replyNo + "' " +
+         				 	"data-boardno='" + reply.boardNo + "'>취소</button>"+
+  		                	"<input type='hidden' value='${reply.replyNo}'>" +
   		                    "<span class='writer'>작성자: " + reply.userId + "</span> " +
   		                    "<span class='content'>" + reply.replyContent + "</span> " +
   		                    "<span class='regdate'>" + reply.regDate + "</span>";
@@ -308,9 +318,59 @@
 	 	$(document).on("click", ".updatereplybtn", function() {
     		let replyNo = $(this).data("replyno");
     		let replyContent = $(this).data("replycontent");
-    		let boardNo = $(this).data("boardno")
-    		location.href="/updateReply?replyNo="+replyNo +"&replyContent="+replyContent+"&boardNo="+boardNo;	
+    		let boardNo = $(this).data("boardno");
+    		console.log(replyNo);
+    		console.log(replyContent);
+    		console.log(boardNo);
+    		$(".updatereply").show();
+    		
+    		//그냥 페이지에 들어가면 보이는 수정 삭제 버튼
+    		$(".deletereplybtn").hide();
+    		$(".updatereplybtn").hide();
+    		
+    		//진짜로 내가 댓글수정  버튼
+    		$(".debtn").show();
+    		$(".upbtn").show();
+    		
 		});
+  	 	
+  	 	// 수정완료 말고 수정 들어가서 취소 버튼!
+  	 	$(document).on("click",".debtn",function(){
+    		$(".deletereplybtn").show();
+    		$(".updatereplybtn").show();
+    		$(".debtn").hide();
+    		$(".upbtn").hide();
+    		$(".updatereply").hide();
+<%--   	 		let boardNo = $(this).data("boardno");
+  	 		location.href = "<%= request.getContextPath() %>/boardDetail?board_no=" + boardNo; --%>
+  	 	})
+  	 	
+  	 	//수정완료 버튼!!!
+  	 	$(document).on("click",".upbtn",function(){
+  	  		let replyNo = $(this).data("replyno");
+    		/* let replyContent = $(this).data("replycontent"); */
+    		let replyContent = document.getElementById("updatereply").value;
+    		let boardNo = $(this).data("boardno");
+  	 		$.ajax({
+  	 			url:"/updateReply",
+  	 			type:"post",
+  	 			data:{"boardNo" : boardNo,
+   				  "replyNo" : replyNo,
+ 				  "replyContent" : replyContent
+  	 			},
+  	 			dataType:"json",
+  	 			contentType:"application/x-www-form-urlencoded; charset=UTF-8",
+  	 			success:function(data){
+  	 				if(data.res_code === 200){
+  	 					alert(data.res_msg);
+  	 					location.reload();
+  	 				}else{
+  	 					alert("댓글수정실패");
+  	 				}
+  	 			}
+  	 		})
+  	 	})
+  	 		
 
         	//댓글 삭제 버튼
          $(document).on("click", ".deletereplybtn", function() {
