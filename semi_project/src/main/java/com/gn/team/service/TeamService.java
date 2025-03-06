@@ -1,100 +1,115 @@
 package com.gn.team.service;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
 
-import org.apache.ibatis.io.Resources;
+import static com.gn.common.sql.SqlSessionTemplate.getSqlSession;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import com.gn.team.dao.TeamDao;
 import com.gn.team.vo.Team;
 
 public class TeamService {
-    private SqlSessionFactory sqlSessionFactory;
 
-    public TeamService() {
-        try {
-            InputStream inputStream = Resources.getResourceAsStream("mybatis-config.xml");
-            sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException("MyBatis 설정 파일을 로드하는 데 실패했습니다.");
-        }
-    }
-    // 팀 생성
-    public int insertTeam(Team team) {
-        try (SqlSession session = sqlSessionFactory.openSession()) {
-            int result = new TeamDao().insertTeam(session, team);
-            if (result > 0) session.commit();
-            return result;
-        }
-    }
-    public List<Team> selectTeamList(Team team) {
-        try (SqlSession session = sqlSessionFactory.openSession()) {
-            // 전체 데이터 개수를 가져와 설정
-            int totalData = new TeamDao().selectTeamCount(session, team);
-            team.setTotalData(totalData);
-            return new TeamDao().selectTeamList(session, team);
-        }
-    }
+	    public int insertTeam(Team team) {
+	        SqlSession session = getSqlSession(true);
+	        int result = new TeamDao().insertTeam(session, team);
+	        session.close();
+	        return result;
+	    }
+	    
+	    public int updateTeam(Team team) {
+	        SqlSession session = getSqlSession(true); // 자동 커밋 활성화
+	        int result = 0;
 
-    // 전체 팀 개수 조회 (페이징 처리용)
-    public int selectTeamCount(Team team) {
-        try (SqlSession session = sqlSessionFactory.openSession()) {
-            return new TeamDao().selectTeamCount(session, team);
-        }
-    }
+	        try {
+	            result = new TeamDao().updateTeam(session, team);
+	        } catch (Exception e) {
+	            e.printStackTrace(); // 예외 발생 시 스택 트레이스를 출력
+	            throw e; // 예외를 상위 호출자로 전달
+	        } finally {
+	            session.close(); // 세션 닫기
+	        }
 
-    // 특정 팀 상세 조회
-    public Team selectTeamNo(int teamNo) {
-        try (SqlSession session = sqlSessionFactory.openSession()) {
-            return new TeamDao().selectTeamNo(session, teamNo);
-        }
-    }
-    // 팀 신청 (일반 사용자)
-    public int createTeam(Team team) {
-        try (SqlSession session = sqlSessionFactory.openSession()) {
-            int result = new TeamDao().createTeam(session, team);
-            if (result > 0) session.commit();
-            return result;
-        }
-    }
-    // 받은 신청 목록 조회 (팀장용)
-    public List<Team> receiveTeamList(int leaderNo) {
-        try (SqlSession session = sqlSessionFactory.openSession()) {
-            return new TeamDao().receiveTeamList(session, leaderNo);
-        }
-    }
-    // 보낸 신청 목록 조회 (사용자용)
-    public List<Team> sendTeamList(int userNo) {
-        try (SqlSession session = sqlSessionFactory.openSession()) {
-            return new TeamDao().sendTeamList(session, userNo);
-        }
-    }
-    // 팀 수정 (팀장용)
-    public boolean updateTeam(Team team) {
-        try (SqlSession session = sqlSessionFactory.openSession()) {
-            int result = new TeamDao().updateTeam(session, team);
-            if (result > 0) session.commit();
-            return result > 0;
-        }
-    }
-    // 팀 삭제
-    public boolean deleteTeam(int teamNo) {
-        try (SqlSession session = sqlSessionFactory.openSession()) {
-            int result = new TeamDao().deleteTeam(session, teamNo);
-            if (result > 0) session.commit();
-            return result > 0;
-        }
-    }
+	        return result; // 수정된 행 수 반환
+	    }
+	    public Team selectTeamByName(String teamName) {
+	        SqlSession session = getSqlSession(true);
+	        Team team = null;
+
+	        try {
+	            team = new TeamDao().selectTeamByName(session, teamName);
+	        } catch (Exception e) {
+	            e.printStackTrace(); // 예외를 콘솔에 출력
+	        } finally {
+	            session.close();
+	        }
+
+	        return team;
+	    }
+	    
+	    public boolean deleteTeam(int teamId) {
+	        SqlSession session = getSqlSession(true);
+	        int result = new TeamDao().deleteTeam(session, teamId);
+	        session.close();
+	        return result > 0;
+	    }
+
+	    public List<Team> selectTeamList(Team team) {
+	        SqlSession session = getSqlSession(true);
+	        int totalData = new TeamDao().selectTeamCount(session, team);
+	        team.setTotalData(totalData);
+	        List<Team> resultList = new TeamDao().selectTeamList(session, team);
+	        session.close();
+	        return resultList;
+	    }
+
+	    public int selectTeamCount(Team team) {
+	        SqlSession session = getSqlSession(true);
+	        int count = new TeamDao().selectTeamCount(session, team);
+	        session.close();
+	        return count;
+	    }
+
+	    public int createTeam(Team team) {
+	        SqlSession session = getSqlSession(true);
+	        int result = new TeamDao().createTeam(session, team);
+	        session.close();
+	        return result;
+	    }
+
+	    public List<Team> receiveTeamList(int leaderNo) {
+	        SqlSession session = getSqlSession(true);
+	        List<Team> resultList = new TeamDao().receiveTeamList(session, leaderNo);
+	        session.close();
+	        return resultList;
+	    }
+
+	    public List<Team> sendTeamList(int userNo) {
+	        SqlSession session = getSqlSession(true);
+	        List<Team> resultList = new TeamDao().sendTeamList(session, userNo);
+	        session.close();
+	        return resultList;
+	    }
+
+	    public Team selectTeamNo(int teamNo) {
+	        SqlSession session = getSqlSession(true);
+	        Team team = new TeamDao().selectTeamNo(session, teamNo);
+	        session.close();
+	        return team;
+	    }
+	    // 팀 가입 신청
+	    public boolean insertPlayer(int userNo, int teamNo) {
+	    	SqlSession session = getSqlSession(true); // 자동 커밋 활성화
+	        int result = 0;
+
+	        try {
+	            result = new TeamDao().insertPlayer(session, userNo, teamNo);
+	        } catch (Exception e) {
+	            e.printStackTrace(); // 예외 발생 시 스택 트레이스를 출력
+	            return false;
+	        } finally {
+	            session.close(); // 세션 닫기
+	        }
+
+	        return result > 0; // 삽입 성공 여부 반환
+	    }
 }
-
-
-		
-		
-	
-
-
-
 
