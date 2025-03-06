@@ -61,4 +61,11 @@ public class PlanService {
 		return result;
 	}
 
+	public int updatePlan(Plan plan) {
+		SqlSession session = getSqlSession(true);
+		int result = new PlanDao().updatePlan(session, plan);
+		session.close();
+		return result;
+	}
+
 }

@@ -9,6 +9,7 @@
 		<result property="planDate" column="plan_date" />
 		<result property="planTime" column="plan_time" />
 		<result property="planPrice" column="plan_price" />
+		<result property="resStatus" column="res_status" />
 		<result property="useTime" column="use_time" />
 		<result property="regDate" column="reg_date" />
 		<result property="modDate" column="mod_date" />
@@ -70,6 +71,17 @@
 		DELETE FROM `plan`
 		WHERE plan_no = #{planNo}
 	</delete>
+	
+	<!-- 특정 업체가 등록한 일정 수정 -->
+	<update id="updatePlan" parameterType="plan">
+		UPDATE `plan`
+		SET field_no = #{fieldNo},
+			 plan_date = #{planDate},
+			 plan_time = #{planTime},
+			 plan_price = #{planPrice},
+			 use_time = #{useTime}
+		WHERE plan_no = #{planNo};
+	</update>
 	
 	<!-- 일정 목록 조회 -->
 	<select id="selectPlanList" resultMap="planMap" parameterType="plan">

@@ -130,7 +130,7 @@
           				</div> --%>
 
 									<div class="col-lg-8">
-										<form action="/insertPlanEnd" method="post" class="submit-form" data-aos="fade-up" data-aos-delay="200">
+										<form action="/updatePlanEnd?plan_no=${plan.planNo}" method="post" class="submit-form" data-aos="fade-up" data-aos-delay="200">
 											<div class="row gy-4">
 
 												<div class="col-md-12" style="display: none;">
@@ -140,61 +140,52 @@
 												<div class="col-md-12">
 													<label for="field-no-select" id="field-no-label">구장 선택</label>
 													<select id="field-no-select" name="field_no">
-														<c:forEach var="field_list" items="${fieldList}" varStatus="vs">
-															<option value="${field_list.fieldNo}" <c:if test="${field_list.fieldNo == plan.field.fieldNo}">selected</c:if>>
-																<c:out value="(${vs.index + 1}) ${field_list.fieldName}" />
+														<c:forEach var="fieldList" items="${fieldList}">
+															<option value="${fieldList.fieldNo}"
+																<c:if test="${fieldList.fieldNo == plan.field.fieldNo}">
+																	selected
+																</c:if>>
+																${fieldList.fieldName}
 															</option>
 														</c:forEach>
 													</select>
 												</div>
 
 												<div class="col-md-6" id="plan-date-select">
-													<label for="plan-date-select" id="plan-date-label">날짜 선택</label> <input type="date" class="form-control" id="plan-date-select" name="plan_date" placeholder="날짜" required>
+													<label for="plan-date-select" id="plan-date-label">날짜 선택</label>
+													<input type="date" class="form-control" name="plan_date" value="${plan.planDate}" required>
 												</div>
 
-												<div class="col-md-6" id="plan-time-select">
-													<!-- 
-                  						<input type="time" class="form-control" name="plan_time" placeholder="시간" required>
-                  					 -->
-													<label for="plan-time-select" id="plan-time-label">시작 시간</label>
-													<select id="plan-time-select" name="plan_time">
-														<%
-														for (int i = 0; i < 24; i++) {
-															String hour = String.format("%02d:00", i);
-														%>
-														<option value="<%=hour%>"><%=hour%></option>
-														<%
-														}
-														%>
+
+			                					<div class="col-md-6" id="plan-time-select">
+				                  					<label for="plan-time-select" id="plan-time-label">시작 시간</label>
+				                  					<select id="plan-time-select" name="plan_time">
+													    <%for (int i = 0; i < 24; i++) {
+													    	String hour = String.format("%02d:00", i);%>
+													    	<option value="<%= hour %>"><%= hour %></option>
+													    <%}%>
 													</select>
-												</div>
+			                					</div>
+
 
 												<div class="col-md-12">
-													<!-- 
-                  						<input type="text" class="form-control" name="rule_usetime" placeholder="이용시간 (입력하지 않으면 2시간 기본입니다.)">
-                  						 -->
 													<label for="use-time-select" id="use-time-label">이용 시간</label>
 													<select id="use-time-select" name="use_time">
-														<option value="1">1시간</option>
-														<option value="2" selected="selected">2시간</option>
-														<option value="3">3시간</option>
-														<option value="4">4시간</option>
+														<option value="1" <c:if test="${plan.useTime == 1}">selected</c:if>>1시간</option>
+														<option value="2" <c:if test="${plan.useTime == 2}">selected</c:if>>2시간</option>
+														<option value="3" <c:if test="${plan.useTime == 3}">selected</c:if>>3시간</option>
+														<option value="4" <c:if test="${plan.useTime == 4}">selected</c:if>>4시간</option>
 													</select>
 												</div>
 
 												<div class="col-md-12">
-													<label for="plan-price-int" id="plan-price-label">이용료</label> <input type="number" class="form-control" name="plan_price" min="0" value="0">
+													<label for="plan-price-int" id="plan-price-label">이용료</label>
+													<input type="number" class="form-control" name="plan_price" min="0" value="${plan.planPrice}">
 												</div>
-
-												<p>
-													<input id="chk_terms" type="checkbox">&nbsp; 스케줄 등록 관련 약관입니다.
-												</p>
-
-												<!-- #chk_term 체크되었을 때만 버튼이 눌러지고 아닐경우 alert창을 띄울 예정 -->
+												
 												<div class="col-md-12 text-center">
-													<button type="submit">스케줄 등록</button>
+													<button type="submit">수정</button>
 												</div>
-
 											</div>
 										</form>
 									</div>
@@ -226,7 +217,24 @@
 					<div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
 
 						<div class="services-list">
-							<a href="" class="active">구장명 : </a> <a href="">주소 : </a> <a href="">구장크기 : </a> <a href="">수용인원 : </a> <a href="">잔디타입 : </a> <a href="">실내/실외 : </a> <a href="">주차장 : </a> <a href="">풋살화대여 : </a>
+							<a class="active">구장명 : ${plan.field.fieldName}</a>
+							<a>주소 : ${plan.field.fieldAddr}</a>
+							<a>구장크기 : ${plan.field.fieldSize}</a>
+							<a>수용인원 : ${plan.field.fieldLimit}명</a>
+							<a>잔디타입 : ${plan.field.fieldType}</a>
+							<a>실내/실외 : ${plan.field.isIndoor}</a>
+							<a>주차장 : 
+								<c:if test="${plan.field.isPark}">있음</c:if>
+								<c:if test="${!plan.field.isPark}">없음</c:if>
+							</a>
+							<a>샤워장 : 
+								<c:if test="${plan.field.isShower}">있음</c:if>
+								<c:if test="${!plan.field.isShower}">없음</c:if>
+							</a>
+							<a>풋살화대여 : 
+								<c:if test="${not empty plan.field.rentPrice}">${plan.field.rentPrice}원</c:if>
+								<c:if test="${empty plan.field.rentPrice}">없음</c:if>
+							</a>
 						</div>
 
 						<!-- 

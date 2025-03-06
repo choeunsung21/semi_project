@@ -36,5 +36,9 @@ public class PlanDao {
 	public int selectPlanCount(SqlSession session, Plan option) {
 		return session.selectOne("planMapper.selectPlanListCount", option);
 	}
+
+	public int updatePlan(SqlSession session, Plan plan) {
+		return session.update("planMapper.updatePlan", plan);
+	}
 	
 }

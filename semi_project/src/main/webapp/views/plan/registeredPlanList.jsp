@@ -123,6 +123,11 @@ tbody tr:hover {
 	font-weight: 500;
 	font-size: 13px;
 }
+
+/* 수정, 등록취소 <td> */
+.updateTD, .cancelTD {
+	cursor: default;
+}
 </style>
 
 <meta charset="utf-8">
@@ -211,10 +216,10 @@ tbody tr:hover {
 										<td>${plan.planTime}</td>
 										<td>${plan.useTime}시간</td>
 										<td id="reservationStatus"></td>
-										<td>
+										<td class="updateTD" onclick="event.stopPropagation();">
 											<a href="/updatePlan?planNo=${plan.planNo}" onclick="event.stopPropagation();">수정</a>
 										</td>
-										<td>
+										<td class="cancelTD" onclick="event.stopPropagation();">
 											<a href="/deletePlan?planNo=${plan.planNo}" onclick="event.stopPropagation();
 						                    return confirm('등록한 일정을 삭제하시겠습니까?');">등록취소</a>
 										</td>
