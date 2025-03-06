@@ -129,9 +129,26 @@
                   						<input type="text" class="form-control" name="field_name" id="field-name-input" placeholder="최대 100자까지 입력 가능합니다." required>
                 					</div>
                 					
-                					<div class="col-md-12">
-                						<label for="field-addr-input" id="field-addr-label">구장주소*</label>
-                  						<input type="text" class="form-control" name="field_addr" id="field-addr-input" placeholder="최대 100자까지 입력 가능합니다." required>
+                					<div class="col-md-3">
+                						<label for="field-addr1-select" id="field-addr1-label">구장주소*</label>
+                  						<select name="addr_1" id="field-addr1-select">
+                  							<option value="-1">선택</option>
+                  							<c:forEach var="address1" items="${addr1List}">
+                  								<option value="${address1.addr1}">${address1.addr1}</option>
+                  							</c:forEach>
+                  						</select>
+                					</div>
+                					
+                					<div class="col-md-2">
+                						<label for="field-addr2-select" id="field-addr2-label"></label>
+                  						<select name="addr_2" id="field-addr2-select">
+                  							<option value="-1">선택</option>
+                  						</select>
+                					</div>
+                					
+                					<div class="col-md-7">
+                						<label for="field-addr-input" id="field-addr-label"></label>
+                  						<input type="text" class="form-control" name="field_addr" id="field-addr-input" placeholder="상세주소" required>
                 					</div>
                 					
                 					<div class="col-md-12">
@@ -216,20 +233,6 @@
       			</div>
 
     		</section><!-- /Contact Section -->
-            
-            <!-- 
-            <ul>
-              <li><i class="bi bi-check-circle"></i> <span>Aut eum totam accusantium voluptatem.</span></li>
-              <li><i class="bi bi-check-circle"></i> <span>Assumenda et porro nisi nihil nesciunt voluptatibus.</span></li>
-              <li><i class="bi bi-check-circle"></i> <span>Ullamco laboris nisi ut aliquip ex ea</span></li>
-            </ul>
-            <p>
-              Est reprehenderit voluptatem necessitatibus asperiores neque sed ea illo. Deleniti quam sequi optio iste veniam repellat odit. Aut pariatur itaque nesciunt fuga.
-            </p>
-            <p>
-              Sunt rem odit accusantium omnis perspiciatis officia. Laboriosam aut consequuntur recusandae mollitia doloremque est architecto cupiditate ullam. Quia est ut occaecati fuga. Distinctio ex repellendus eveniet velit sint quia sapiente cumque. Et ipsa perferendis ut nihil. Laboriosam vel voluptates tenetur nostrum. Eaque iusto cupiditate et totam et quia dolorum in. Sunt molestiae ipsum at consequatur vero. Architecto ut pariatur autem ad non cumque nesciunt qui maxime. Sunt eum quia impedit dolore alias explicabo ea.
-            </p>
-             -->
              
           </div>
 
@@ -289,8 +292,16 @@
         	alert('구장 이름을 입력해주세요.');
         	form.field_name.focus();
         	event.preventDefault();
+        } else if(form.addr_1.value == "-1") {
+        	alert('구장 주소(광역)를 선택해주세요.');
+            form.addr_1.focus();
+            event.preventDefault();
+        } else if(form.addr_2.value == "-1") {
+        	alert('구장 주소(지역)를 선택해주세요.');
+            form.addr_2.focus();
+            event.preventDefault();
         } else if(!form.field_addr.value) {
-            alert('구장 주소를 입력해주세요.');
+            alert('구장 주소(상세)를 입력해주세요.');
             form.field_addr.focus();
             event.preventDefault();
         } else if(!form.field_limit.value) {
@@ -324,6 +335,39 @@
 			event.preventDefault();
         }
   	};
+  </script>
+  <script>
+  	$(function(){
+  		$('#field-addr1-select').change(function(){
+			let selectedAddr1 = $('#field-addr1-select option:selected').val();
+			
+			$.ajax({
+				url : "/selectAddressEnd",
+				type : "post",
+				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+				data : {
+					"addr1":selectedAddr1
+				},
+				dataType : "JSON",
+				success : function(data){
+					let selectAddr2 = document.getElementById('field-addr2-select');
+
+					selectAddr2.innerHTML = '<option value="-1">선택</option>';
+					
+				    data.forEach(function(item) {
+				        let option = document.createElement('option');
+				        option.value = item.addr2;
+				        option.textContent = item.addr2;
+
+				        selectAddr2.appendChild(option);
+				    });
+				},
+				error : function(){
+
+				}
+			});
+  		});
+  	});
   </script>
 
   <%@ include file="/views/include/footer.jsp" %>
