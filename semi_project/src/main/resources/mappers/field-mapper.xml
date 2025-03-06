@@ -7,6 +7,8 @@
 		<result property="fieldNo" column="field_no" />
 		<result property="userNo" column="user_no" />
 		<result property="fieldName" column="field_name" />
+		<result property="fieldAddr1" column="field_addr1" />
+		<result property="fieldAddr2" column="field_addr2" />
 		<result property="fieldAddr" column="field_addr" />
 		<result property="fieldSize" column="field_size" />
 		<result property="fieldLimit" column="field_limit" />
@@ -28,8 +30,8 @@
 		<result property="isSat" column="is_sat" />
 	</resultMap>
 	<insert id="insertFieldOne" parameterType="field">
-		INSERT INTO `field` (`user_no` ,`field_name` ,`field_addr` ,`field_size` ,`field_limit` ,`rent_price` ,`field_type` ,`is_indoor` ,`is_park` ,`is_shower` ,`dayoff_no` ,`message`)
-		VALUES (#{userNo} ,#{fieldName} ,#{fieldAddr} ,#{fieldSize} ,#{fieldLimit} ,#{rentPrice} ,#{fieldType} ,#{isIndoor} ,#{isPark} ,${isShower} ,#{dayoffNo} ,#{message})
+		INSERT INTO `field` (`user_no` ,`field_name` ,`field_addr1` ,`field_addr2` ,`field_addr` ,`field_size` ,`field_limit` ,`rent_price` ,`field_type` ,`is_indoor` ,`is_park` ,`is_shower` ,`dayoff_no` ,`message`)
+		VALUES (#{userNo} ,#{fieldName} ,#{fieldAddr1} ,#{fieldAddr2} ,#{fieldAddr} ,#{fieldSize} ,#{fieldLimit} ,#{rentPrice} ,#{fieldType} ,#{isIndoor} ,#{isPark} ,${isShower} ,#{dayoffNo} ,#{message})
 	</insert>
 	<select id="selectFieldOneRecent" resultMap="fieldMap">
 		SELECT * FROM `field` ORDER BY `reg_date` DESC LIMIT 1;

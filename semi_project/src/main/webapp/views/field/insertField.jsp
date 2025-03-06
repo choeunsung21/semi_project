@@ -139,14 +139,14 @@
                   						</select>
                 					</div>
                 					
-                					<div class="col-md-2">
+                					<div class="col-md-3">
                 						<label for="field-addr2-select" id="field-addr2-label"></label>
                   						<select name="addr_2" id="field-addr2-select">
                   							<option value="-1">선택</option>
                   						</select>
                 					</div>
                 					
-                					<div class="col-md-7">
+                					<div class="col-md-6">
                 						<label for="field-addr-input" id="field-addr-label"></label>
                   						<input type="text" class="form-control" name="field_addr" id="field-addr-input" placeholder="상세주소" required>
                 					</div>
