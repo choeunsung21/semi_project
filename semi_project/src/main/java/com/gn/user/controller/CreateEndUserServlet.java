@@ -1,7 +1,6 @@
 package com.gn.user.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.gn.user.service.UserService;
 import com.gn.user.vo.User;
 
-@WebServlet("/createEnd")
+@WebServlet(name="createEndServlet", urlPatterns="/createEnd")
 public class CreateEndUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
      
@@ -43,7 +42,7 @@ public class CreateEndUserServlet extends HttpServlet {
 		createUser.setUserEmail(email);
 		createUser.setUserType(type);
 		 
-		int result = new UserService().createUser(createUser);	
+		int result = new UserService().createUser(createUser);
 		
 	}
 

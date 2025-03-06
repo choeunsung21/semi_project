@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import com.gn.user.service.UserService;
 import com.gn.user.vo.User;
 
-@WebServlet("/loginEnd")
+@WebServlet(name="loginEndServlet", urlPatterns="/loginEnd")
 public class LoginEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
