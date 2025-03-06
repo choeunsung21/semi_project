@@ -91,6 +91,10 @@ public class BoardDao {
 		return session.selectList("boardMapper.selectOrderType", orderType);
 	}
 	
+	public int updateReply(SqlSession session, Reply reply) {
+		return session.update("boardMapper.updateReply", reply);
+	}
+	
 
 	
 	

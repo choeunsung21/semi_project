@@ -182,4 +182,12 @@ public class BoardService {
 		return list;
 	}
 	
+	//댓글 수정 메소드
+	public int updateReply(Reply reply) {
+		SqlSession session = getSqlSession(true);
+		int result = new BoardDao().updateReply(session , reply);
+		session.close();
+		return result;
+	}
+	
 }
