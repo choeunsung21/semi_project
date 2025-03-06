@@ -221,9 +221,13 @@ public class InsertFieldEndServlet extends HttpServlet {
 		int result = new FieldService().insertField(field, dayoff, attach);
 		
 		if(result > 0) {
-			System.out.println("InsertFieldEndServlet : 트랜잭션에 성공하였습니다.");
+//			System.out.println("InsertFieldEndServlet : 트랜잭션에 성공하였습니다.");
+			
+			RequestDispatcher view = request.getRequestDispatcher("/views/field/insertField_success.jsp");
+			view.forward(request, response);
+			
 		} else {
-			System.out.println("InsertFieldEndServlet : 트랜잭션에 실패하였습니다.");
+//			System.out.println("InsertFieldEndServlet : 트랜잭션에 실패하였습니다.");
 			
 			String deletePath = attach.getFilePath();
 			File deleteFile = new File(deletePath);
@@ -231,10 +235,11 @@ public class InsertFieldEndServlet extends HttpServlet {
 			if(deleteFile.exists()) {
 				deleteFile.delete();
 			}
+			
+			RequestDispatcher view = request.getRequestDispatcher("/views/field/insertField_fail.jsp");
+			view.forward(request, response);
 		}
 		
-		RequestDispatcher view = request.getRequestDispatcher("/views/field/insertField_success.jsp");
-		view.forward(request, response);
 }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
