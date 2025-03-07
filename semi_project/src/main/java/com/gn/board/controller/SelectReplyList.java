@@ -48,6 +48,7 @@ public class SelectReplyList extends HttpServlet {
 			obj.put("boardNo", replylist.getBoardNo());
 			obj.put("replyContent", replylist.getReplyContent());
 			obj.put("regDate",replylist.getRegDate().format(dtf));
+			obj.put("modDate",replylist.getModDate().format(dtf));
 			obj.put("userId", replylist.getUserId());
 			obj.put("replyNo", replylist.getReplyNo());
 			arr.add(obj);

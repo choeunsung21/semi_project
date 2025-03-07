@@ -148,15 +148,7 @@
             	<input type="hidden" id="attachNo" name="attachNo" value="<c:out value='${board.attachNo}' />" >
             	<input type="hidden" name="boardNo" value="<c:out value='${board.boardNo}' />" >
                 <input type="text" name="title" value="<c:out value='${board.boardTitle}' />">
-                <div id="fileInfo">
-                <c:if test="${not empty oriName }"> 
-                <button type="button" id="deleteBtn">X </button><span class="upload-notice">
-   																<strong>새로운 사진을 업로드하고 싶다면 반드시 X버튼을 눌러주세요</strong>
-																</span>
-				<input type="text" value="<c:out value='${board.oriName} '/>"  readonly/>
-            	</c:if> 
-            	</div>
-                <input type="file" name="file" accept=".png,.jpg,.jpeg">
+                <input type="file" name="file" accept=".png,.jpg,.jpeg" style='display: none'>
                 <textarea id="summernote" name="content" rows="5"><c:out value='${board.boardContent}' /></textarea>
                 <button type="button" class="btn btn-outline-primary" onclick="writeUpdate();">수정</button>
             </form>

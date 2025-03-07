@@ -89,6 +89,13 @@ public class FieldService {
 		return result;
 	}
 	
+	public String selectAddr2ByFieldNo(int fieldNo) {
+		SqlSession session = getSqlSession(true);
+		String result = new FieldDao().selectAddr2ByFieldNo(session, fieldNo);
+		session.close();
+		return result;
+	}
+	
 	public int updateField(Field field) {
 		SqlSession session = getSqlSession(false);
 		int result_field = new FieldDao().updateField(session, field);

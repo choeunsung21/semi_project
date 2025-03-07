@@ -14,7 +14,6 @@ public class UserDao {
 	
 	public int createUser(SqlSession session, User createUser) {
 		int result = session.insert("userMapper.createUser",createUser);
-		result = createUser.getUserNo();
 		return result;
 	}
 	
