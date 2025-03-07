@@ -28,17 +28,21 @@
   </header>
 
   <main>
+  
+  	<!-- cjs 데이터 받아서 insertApplyEnd 넘길 것 -->
     <form action="/insertApplyEnd" method="post" class="form-group">
-      <input type="hidden" name="user_no" value="${user.userNo}"> <!-- 로그인한 사용자 번호 -->
+      <input type="hidden" name="user_no" value="${userNo}">
+      <input type="hidden" name="team_no" value="${teamNo}">
+      
       <label for="position">선호 포지션</label>
-      <input type="text" id="position" name="position" class="form-control" placeholder="선호 포지션" required>
+      <input type="text" id="position" name="position" class="form-control" placeholder="선호 포지션">
 
       <label for="applyArea">선호 지역</label>
-      <input type="text" id="applyArea" name="apply_area" class="form-control" placeholder="선호 지역" required>
+      <input type="text" id="applyArea" name="apply_area" class="form-control" placeholder="선호 지역">
       <button type="button" class="btn btn-secondary mt-2" onclick="searchAddress()">주소 검색</button><br>
 
       <label for="applyExplanation">소개글</label>
-      <textarea name="apply_explanation" id="applyExplanation" class="form-control" placeholder="소개글" required></textarea>
+      <textarea name="apply_explanation" id="applyExplanation" class="form-control" placeholder="소개글"></textarea>
       <button type="submit" class="btn btn-primary mt-3">신청하기</button>
     </form>
   </main>

@@ -9,6 +9,12 @@ public class ApplyDao {
 	public int insertApply(SqlSession session, Apply apply) {
       return session.insert("applyMapper.insertApply", apply);
     }
+	
+	// cjs 중복 방지
+	public Apply selectApplyByOptApply(SqlSession session, Apply opt) {
+		return session.selectOne("applyMapper.selectApplyByOptApply", opt);
+	}
+	
 //	// 받은 가입 신청 목록
 //	public int receiveApply(SqlSession session, Apply apply) {
 //		return session.receive("applyMapper.receiveApply", apply);

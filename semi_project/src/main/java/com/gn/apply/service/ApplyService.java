@@ -17,4 +17,12 @@ public class ApplyService {
 	        session.close(); // 세션 종료
 	    }
 	}
+	
+	// cjs 중복 방지
+	public Apply selectApplyByOptApply(Apply opt) {
+		SqlSession session = getSqlSession(true);
+		Apply result = new ApplyDao().selectApplyByOptApply(session, opt);
+		session.close();
+		return result;
+	}
 }

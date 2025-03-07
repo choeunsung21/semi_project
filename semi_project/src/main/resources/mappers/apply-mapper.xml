@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="applyMapper">
-    <resultMap type="com.gn.apply.vo.Apply" id="applyMap">
+    <resultMap type="apply" id="applyMap">
         <result property="applyNo" column="apply_no"/>
         <result property="userNo" column="user_no"/>
         <result property="teamNo" column="team_no"/>
@@ -11,8 +11,13 @@
         <result property="status" column="status"/>
     </resultMap>
     <!-- PENDING(대기중 걸어둠) -->
-	<insert id="insertApply" parameterType="Apply" useGeneratedKeys="true" keyProperty="applyNo">
+	<insert id="insertApply" parameterType="apply" useGeneratedKeys="true" keyProperty="applyNo">
     	INSERT INTO `apply` (user_no, team_no, position, apply_area, apply_explanation, status)
     	VALUES (#{userNo}, #{teamNo}, #{position}, #{applyArea}, #{applyExplanation}, 'PENDING');
 	</insert>
+	<select id="selectApplyByOptApply" parameterType="apply" resultMap="applyMap">
+		SELECT *
+		FROM `apply`
+		WHERE `user_no` = #{userNo} AND `team_no` = #{teamNo} LIMIT 1
+	</select>
 </mapper>
