@@ -24,7 +24,7 @@ public class CreateEndUserServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("user_id");
 		String pw = request.getParameter("user_pw");
-		String checkPw = request.getParameter("check_user_pw"); 
+//		String checkPw = request.getParameter("check_user_pw"); 
 		String name = request.getParameter("user_name");
 		String gender = request.getParameter("user_gender");
 		String phone = request.getParameter("user_phone");

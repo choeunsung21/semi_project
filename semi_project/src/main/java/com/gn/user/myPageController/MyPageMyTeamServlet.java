@@ -1,7 +1,6 @@
 package com.gn.user.myPageController;
 
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -14,22 +13,24 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import com.gn.board.vo.Board;
+import com.gn.team.vo.Team;
 import com.gn.user.service.UserService;
 import com.gn.user.vo.User;
 
 
-@WebServlet("/MyPageBoardServlet")
-public class MyPageBoardServlet extends HttpServlet {
+@WebServlet("/MyPageMyTeamServlet")
+public class MyPageMyTeamServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public MyPageBoardServlet() {
+   
+    public MyPageMyTeamServlet() {
         super();
-      
+        
     }
 
+	
+	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 		
@@ -37,31 +38,25 @@ public class MyPageBoardServlet extends HttpServlet {
 			response.sendRedirect("/login.jsp");
 			return;
 		}
-
-		List<Board> boardList = new UserService().selectBoardsByUse(user.getUserNo());
+		
+		List<Team> teamList = new UserService().selectMyTeam(user.getUserNo());
 		
 		JSONArray arr = new JSONArray();
-		for(Board list : boardList) {
+		for(Team list : teamList) {
 			JSONObject obj = new JSONObject();
-			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yy-MM-dd HH:mm");
-			obj.put("writerNo", list.getWriterNo());
-			obj.put("boardNo", list.getBoardNo());
-			obj.put("boardTitle", list.getBoardTitle());
-			obj.put("userId", list.getUserId());
-			obj.put("regDate", list.getRegDate().format(dtf));
-			obj.put("attachNo", list.getAttachNo());
-			obj.put("oriName", list.getOriName());
-			obj.put("boardContent", list.getBoardContent());
+			obj.put("teamName", list.getTeamName());
+			obj.put("teamArea", list.getTeamArea());
+			obj.put("teamLevel", list.getTeamLevel());
+			obj.put("teamCount", list.getTeamCount());
+			obj.put("teamExplanation", list.getTeamExplanation());
 			arr.add(obj);
 		}
 		JSONObject obj1 = new JSONObject();
 		obj1.put("list", arr);
-		
 		response.setContentType("application/json;charset=utf-8");
 		response.getWriter().print(obj1);
-	}
+ 	}
 
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

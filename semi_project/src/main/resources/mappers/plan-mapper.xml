@@ -71,14 +71,15 @@
 		WHERE plan_no = #{planNo}
 	</delete>
 	
-	<!-- 일정 목록 조회 -->
+	
+		 <!-- 일정 목록 조회 -->
 	<select id="selectPlanList" resultMap="planMap" parameterType="plan">
 		SELECT * FROM `plan` p
 		JOIN `field` f ON p.field_no = f.field_no
 		ORDER BY p.plan_date
 		LIMIT #{limitPageNo} ,#{numPerPage}
-	</select>	
-	
+	</select>
+
 	<!-- 일정 목록 페이징 -->
 	<select id="selectPlanListCount" resultType="int" parameterType="plan">
 		SELECT COUNT(*)

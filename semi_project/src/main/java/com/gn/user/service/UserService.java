@@ -6,12 +6,36 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.gn.board.dao.BoardDao;
 import com.gn.board.vo.Board;
+import com.gn.plan.vo.Plan;
+import com.gn.team.vo.Team;
 import com.gn.user.dao.UserDao;
 import com.gn.user.vo.User;
 
 public class UserService {
+	
+	public List<Plan> selectPlanByUse(int userNo){
+		SqlSession session = getSqlSession(true);
+		List<Plan> planList = new UserDao().selectPlanByUse(session, userNo);
+		session.close();
+		return planList;
+	}
+	
+	//탈퇴 기능 아직 못함
+//	public int leaveTeam(Player player) {
+//        SqlSession session = getSqlSession(true);
+//        int result = new UserDao().leaveTeam(session, player);
+//        session.close();
+//        return result;
+//    }
+	
+	 
+	public List<Team> selectMyTeam(int userNo){
+		SqlSession session = getSqlSession(true);
+		List<Team> teamList = new UserDao().selectMyTeam(session, userNo);
+		session.close();
+		return teamList;
+	}
 	
 	public List<Board> selectBoardsByUse(int userNo){
 		SqlSession session = getSqlSession(true);

@@ -14,22 +14,21 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import com.gn.board.vo.Board;
+import com.gn.plan.vo.Plan;
 import com.gn.user.service.UserService;
 import com.gn.user.vo.User;
 
-
-@WebServlet("/MyPageBoardServlet")
-public class MyPageBoardServlet extends HttpServlet {
+@WebServlet("/MyPageReservationServlet")
+public class MyPageReservationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    public MyPageBoardServlet() {
+   
+    public MyPageReservationServlet() {
         super();
       
     }
 
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 		
@@ -37,31 +36,31 @@ public class MyPageBoardServlet extends HttpServlet {
 			response.sendRedirect("/login.jsp");
 			return;
 		}
-
-		List<Board> boardList = new UserService().selectBoardsByUse(user.getUserNo());
+		
+		List<Plan> planList = new UserService().selectPlanByUse(user.getUserNo());
 		
 		JSONArray arr = new JSONArray();
-		for(Board list : boardList) {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		for(Plan list : planList) {
 			JSONObject obj = new JSONObject();
-			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yy-MM-dd HH:mm");
-			obj.put("writerNo", list.getWriterNo());
-			obj.put("boardNo", list.getBoardNo());
-			obj.put("boardTitle", list.getBoardTitle());
-			obj.put("userId", list.getUserId());
+			obj.put("planNo",list.getPlanNo());
+			obj.put("fieldAddr",list.getField().getFieldAddr());
+			obj.put("fieldName",list.getField().getFieldName());
+			obj.put("planDate", list.getPlanDate());
+			obj.put("planTime", list.getPlanTime());
+			obj.put("useTime", list.getUseTime());
 			obj.put("regDate", list.getRegDate().format(dtf));
-			obj.put("attachNo", list.getAttachNo());
-			obj.put("oriName", list.getOriName());
-			obj.put("boardContent", list.getBoardContent());
 			arr.add(obj);
 		}
 		JSONObject obj1 = new JSONObject();
 		obj1.put("list", arr);
-		
+		System.out.println(obj1);
+			
 		response.setContentType("application/json;charset=utf-8");
-		response.getWriter().print(obj1);
+		response.getWriter().print(obj1.toString());
 	}
 
-	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
