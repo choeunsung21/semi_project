@@ -9,7 +9,7 @@
 	<div class="container-fluid container-xl position-relative d-flex align-items-center">
 		<a href="index.jsp" class="logo d-flex align-items-center me-auto">
         <!-- Uncomment the line below if you also wish to use an image logo -->
-        <img src="/resources/img/logo.png" alt="logo">
+        <img src="/resources/img/reco_logo.png" alt="logo">
         <!-- <h1 class="sitename">OnePage</h1> -->
       	</a>
 		

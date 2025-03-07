@@ -11,9 +11,10 @@
 		<div class="row gy-4">
         	<div class="col-lg-5 col-md-12 footer-about">
           		<a href="index.html" class="logo d-flex align-items-center">
-            	<span class="sitename">OnePage</span>
+            	<span class="sitename">축구미</span>
           		</a>
-          		<p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus.</p>
+          		<p>신뢰할 수 있는 풋살 예약 플랫폼, 축구미 ⚽<br>
+					정확한 구장 정보와 실시간 예약으로 더 편리한 경기 경험을 제공합니다.</p>
           		<div class="social-links d-flex mt-4">
             		<a href=""><i class="bi bi-twitter-x"></i></a>
            			<a href=""><i class="bi bi-facebook"></i></a>
@@ -36,21 +37,20 @@
         	<div class="col-lg-2 col-6 footer-links">
          		<h4>Our Services</h4>
           		<ul>
-            		<li><a href="#">Web Design</a></li>
-            		<li><a href="#">Web Development</a></li>
-            		<li><a href="#">Product Management</a></li>
-            		<li><a href="#">Marketing</a></li>
-            		<li><a href="#">Graphic Design</a></li>
+            		<li><a href="#">Reservation</a></li>
+            		<li><a href="#">Membership</a></li>
+            		<li><a href="#">Management</a></li>
+            		<li><a href="#">Communication</a></li>
           		</ul>
         	</div>
 
         	<div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
           		<h4>Contact Us</h4>
-          		<p>A108 Adam Street</p>
-          		<p>New York, NY 535022</p>
-          		<p>United States</p>
-          		<p class="mt-4"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
-          		<p><strong>Email:</strong> <span>info@example.com</span></p>
+          		<p>KM Tower, 3rd Floor, Unit 305, 95</p>
+          		<p>Gasan Digital 2-ro, Geumcheon-gu, Seoul</p>
+          		<p>South Korea</p>
+          		<p class="mt-4"><strong>Phone:</strong> <span>+82 10 1234 5678</span></p>
+          		<p><strong>Email:</strong> <span>FootballMe@example.com</span></p>
         	</div>
 
       	</div>
