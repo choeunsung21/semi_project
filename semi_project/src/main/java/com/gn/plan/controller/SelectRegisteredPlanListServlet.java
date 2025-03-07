@@ -45,10 +45,9 @@ public class SelectRegisteredPlanListServlet extends HttpServlet {
             option.setNowPage(nowPage);
             option.setNumPerPage(numPerPage);
             int totalData = new PlanService().selectRegPlanCount(option);
-            option.setTotalData(totalData);
-            
+            option.setTotalData(totalData);        
 			
-			List<Plan> registeredPlanList = new PlanService().selelctRegisteredPlanList(option);
+			List<Plan> registeredPlanList = new PlanService().selectRegisteredPlanList(option);
 			
 			RequestDispatcher view = request.getRequestDispatcher("/views/plan/registeredPlanList.jsp");
 			request.setAttribute("registeredPlanList", registeredPlanList);

@@ -60,6 +60,17 @@
 		WHERE f.user_no = #{userNo}
 	</select>
 	
+	<!-- 등록한 일정 날짜필터 조회 -->
+	<select id="selectPlanByDate" resultMap="planMap" parameterType="plan">
+		SELECT p.plan_no ,f.field_name ,p.plan_date ,p.plan_time ,p.res_status ,p.use_time  
+		FROM `plan` p
+		JOIN `field` f ON p.field_no = f.field_no
+		JOIN `user` u ON u.user_no = f.user_no
+		WHERE f.user_no = #{userNo}
+		AND p.plan_date = #{planDate}
+		ORDER BY p.plan_time ASC
+	</select>
+	
 	<!-- 특정 업체가 등록한 일정 상세 조회 -->
 	<select id="selectRegisteredPlanDetail" resultMap="planMap" parameterType="_int">
 		SELECT * FROM `plan`
@@ -89,7 +100,7 @@
 		JOIN `field` f ON p.field_no = f.field_no
 		ORDER BY p.plan_date
 		LIMIT #{limitPageNo} ,#{numPerPage}
-	</select>	
+	</select>
 	
 	<!-- 일정 목록 페이징 -->
 	<select id="selectPlanListCount" resultType="int" parameterType="plan">

@@ -192,12 +192,21 @@ tbody tr.active {
 			<div class="container">
 
 				<div class="row gy-4">
-
-					<div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
+					<div class="col-lg-1"></div>
+					<div class="col-lg-10" data-aos="fade-up" data-aos-delay="200">
 						<h2>일정 조회</h2>
 
 						<!-- Contact Section -->
 						<section id="contact" class="contact section">
+						
+						<div>
+							<div>
+								<label>지역선택</label>
+								<select id="addr1"></select><select id="addr2"></select>
+								<label>날짜선택</label>
+								<input type="date" id="selectDate">
+							</div>
+						</div>
 
 							<!-- Section Title -->
 							<table>
@@ -278,8 +287,9 @@ tbody tr.active {
 						</section>
 						<!-- /Contact Section -->
 					</div>
+					<div class="col-lg-1"></div>
 
-					<div class="col-lg-4 fixed-sidebar" data-aos="fade-up" data-aos-delay="200">
+					<!-- <div class="col-lg-4 fixed-sidebar" data-aos="fade-up" data-aos-delay="200">
 
 						<div class="services-list">
 							<a href="" class="active">구장명 : </a>
@@ -291,7 +301,7 @@ tbody tr.active {
 							<a href="">주차장 : </a>
 							<a href="">풋살화대여 : </a>
 						</div>
-					</div>
+					</div> -->
 
 				</div>
 

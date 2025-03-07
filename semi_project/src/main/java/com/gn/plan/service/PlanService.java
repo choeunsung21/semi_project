@@ -19,7 +19,7 @@ public class PlanService {
 		return result;
 	}
 
-	public List<Plan> selelctRegisteredPlanList(Plan plan) {
+	public List<Plan> selectRegisteredPlanList(Plan plan) {
 		SqlSession session = getSqlSession(true);
 		List<Plan> planList = new PlanDao().selectRegisteredPlanList(session, plan);
 		session.close();
@@ -72,6 +72,13 @@ public class PlanService {
 		SqlSession session = getSqlSession(true);
 		new PlanDao().updatePlanStatus(session, plan);
 		session.close();
+	}
+
+	public List<Plan> selectPlanByDate(Plan plan) {
+		SqlSession session = getSqlSession(true);
+		List<Plan> planList = new PlanDao().selectPlanByDate(session, plan);
+		session.close();
+		return planList;
 	}
 
 }

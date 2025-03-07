@@ -44,5 +44,9 @@ public class PlanDao {
 	public void updatePlanStatus(SqlSession session, Plan plan) {
 		session.update("planMapper.updatePlanStatus", plan);
 	}
+
+	public List<Plan> selectPlanByDate(SqlSession session, Plan plan) {
+		return session.selectList("planMapper.selectPlanByDate", plan);
+	}
 	
 }

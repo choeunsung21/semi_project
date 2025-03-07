@@ -187,7 +187,45 @@ tbody tr:hover {
 	font-size: 10px;
 }
 
-/* 날짜 선택창 css */
+/* 전체조회 및 날짜 선택을 위한 컨테이너 */
+.selecetDateDiv {
+    display: flex;
+    justify-content: space-between; /* 양쪽으로 배치 */
+    align-items: center; /* 세로로 가운데 정렬 */
+    margin-bottom: 10px; /* 여유 공간 증가 */
+}
+
+/* 왼쪽 영역(전체조회) */
+.left-div a {
+    color: gray; /* 회색 글자 */
+    opacity: 0.7; /* 투명도 */
+    text-decoration: underline; /* 밑줄 */
+    font-size: 14px; /* 글자 크기 */
+    font-weight: normal; /* 글자 두께 */
+    margin-left: 20px;
+}
+
+/* 오른쪽 영역(날짜 선택) */
+.right-div {
+    display: flex;
+    justify-content: flex-end; /* 오른쪽 정렬 */
+    margin-right: 20px;
+}
+
+.selectDateInput {
+    border: 1px solid #e0e0e0; /* 테두리 색상 */
+    border-radius: 16px; /* 둥글게 */
+    padding: 8px; /* 여유 공간 */
+    font-size: 14px;
+    width: 160px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 */
+    transition: border-color 0.3s ease;
+}
+
+.selectDateInput:focus {
+    border-color: #1a5f92; /* 포커스 시 테두리 색상 */
+    outline: none; /* 아웃라인 제거 */
+}
 
 </style>
 
@@ -215,12 +253,20 @@ tbody tr:hover {
 
 			<div class="container" data-aos="fade-up">
 				<!-- 본문 작성 -->
-				<table>
+				<div class="selecetDateDiv">
+				    <div class="left-div">
+				        <a href="/selectRegisteredPlanList">전체일정</a>
+				    </div>
+				    <div class="right-div">
+				        <input type="date" class="selectDateInput" id="selectDateInput">
+				    </div>
+				</div>
+				<table id="dataTable">
 					<thead>
 						<tr>
 							<th>번호</th>
 							<th>구장명</th>
-							<th onclick="toggleDateInput(event)">일정 날짜</th>
+							<th>일정 날짜</th>
 							<th>일정 시간</th>
 							<th>이용 시간</th>
 							<th>예약 상태</th>
@@ -324,60 +370,67 @@ tbody tr:hover {
 	
 	<!-- 직접 작성한 스크립트 -->
 	<script>
-    function toggleDateInput(event) {
-        // 날짜 인풋이 이미 있는지 확인
-        let dateInput = document.getElementById('dateInput');
+	$(document).ready(function () {
+	    $("#selectDateInput").on("change", function () {
+	        let selectedDate = $(this).val();
+	        
+	        $.ajax({
+	            url: "/selectPlanByDate",
+	            type: "GET",
+	            data: { planDate: selectedDate },
+	            dataType: "JSON",
+	            success: function (data) {
+	            	console.log("서버 응답 데이터:", data); // 확인용
+	                updateTable(data);
+	            },
+	            error: function () {
+	                alert("일정 데이터를 불러오는데 실패했습니다.");
+	            }
+	        });
+	    });
+	});
 
-        if (!dateInput) {
-            // 날짜 인풋 생성
-            dateInput = document.createElement('input');
-            dateInput.type = 'date';
-            dateInput.id = 'dateInput';
-            dateInput.style.width = '120px'; // 스타일 설정
-            dateInput.onchange = filterPlans; // 날짜 변경 시 필터링 함수 호출
+	function updateTable(data) {
+	    let tbody = $("#dataTable tbody");
+	    tbody.empty(); // 기존 데이터 삭제
 
-            // 인풋을 th 아래에 추가
-            const th = document.querySelector('th:nth-child(3)');
-            th.appendChild(dateInput);
-        } else {
-            // 이미 존재하면 포커스
-            dateInput.focus();
-        }
+	    // 받은 데이터가 비어 있지 않다면
+	    if (data.length > 0) {
+	        data.forEach((plan, index) => {
+	            let row = 
+	                "<tr class='plan-row' data-plan-no='" + plan.planNo + "' onclick=\"location.href='/selectPlanDetail?planNo=" + plan.planNo + "'\">" +
+	                    "<td style='display: none'>" +
+	                        "<input id='hiddenPlanNo' value='" + plan.planNo + "'>" +
+	                    "</td>" +
+	                    "<td>" + (index + 1) + "</td>" +
+	                    "<td>" + plan.fieldName + "</td>" +
+	                    "<td>" + plan.planDate + "</td>" +
+	                    "<td>" + plan.planTime + "</td>" +
+	                    "<td>" + plan.useTime + "시간</td>" +
+	                    "<td>" + 
+	                        (plan.resStatus == 1 ? "<span class='available'>예약</span>" : "<span class='unavailable'>없음</span>") +
+	                    "</td>" +
+	                    "<td class='updateTD' onclick='event.stopPropagation();'>" +
+	                        (plan.resStatus == 1 ? 
+	                            "<a href='#' class='disabled' onclick=\"alert('예약상태인 일정은 수정이 불가능합니다.'); return false;\">수정</a>" : 
+	                            "<a href='/updatePlan?planNo=" + plan.planNo + "'>수정</a>") +
+	                    "</td>" +
+	                    "<td class='cancelTD' onclick='event.stopPropagation();'>" +
+	                        (plan.resStatus == 1 ? 
+	                            "<a href='#' class='disabled' onclick=\"alert('예약상태인 일정은 삭제가 불가능합니다.'); return false;\">등록취소</a>" : 
+	                            "<a href='/deletePlan?planNo=" + plan.planNo + "' onclick='return confirm(\"등록한 일정을 삭제하시겠습니까?\");'>등록취소</a>") +
+	                    "</td>" +
+	                "</tr>";
+	            tbody.append(row);
+	        });
+	    } else {
+	        // 일정이 없을 경우
+	        tbody.append("<tr><td colspan='8'>선택된 날짜에 일정이 없습니다.</td></tr>");
+	    }
+	}
 
-        // 클릭 이벤트 리스너 추가
-        document.addEventListener('click', hideDateInput);
-        
-        // 클릭 이벤트 전파 방지
-        event.stopPropagation();
-    }
-
-    function hideDateInput(event) {
-        const dateInput = document.getElementById('dateInput');
-
-        // 날짜 인풋이 존재하고, 클릭한 요소가 날짜 인풋이 아닐 경우 숨김
-        if (dateInput && !dateInput.contains(event.target) && !event.target.closest('th')) {
-            dateInput.remove(); // 날짜 인풋 제거
-            document.removeEventListener('click', hideDateInput); // 이벤트 리스너 제거
-        }
-    }
-
-    function filterPlans() {
-        const selectedDate = document.getElementById('dateInput').value; // 선택한 날짜
-        const rows = document.querySelectorAll('tbody tr'); // 모든 행 가져오기
-
-        rows.forEach(row => {
-            const planDate = row.children[3].innerText; // 일정 날짜 (4번째 열)
-
-            // 선택한 날짜와 일치하는지 확인
-            if (planDate === selectedDate || selectedDate === '') {
-                row.style.display = ''; // 보이기
-            } else {
-                row.style.display = 'none'; // 숨기기
-            }
-        });
-    }
 	</script>
-
+	
 	<!-- Scroll Top -->
 	<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
