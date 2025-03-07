@@ -25,7 +25,7 @@ public class SelelctRuleOneByFieldNoServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 
 		// 셀렉트 창에서 넘어오기 때문에 null 일 수가 없는 데이터이긴 함
-		String tmp = request.getParameter("fieldIndex");
+		String tmp = request.getParameter("fieldNo");
 		
 		if(tmp != null) {
 			int fieldNo = Integer.parseInt(tmp);

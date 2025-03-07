@@ -23,21 +23,22 @@ public class TeamListServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	String teamNo = request.getParameter("team_no");
     	String nowPage = request.getParameter("nowPage");
 
         Team team = new Team();
-        if (nowPage != null) {
+        if(teamNo != null) {
+        	team.setTeamNo(Integer.parseInt(teamNo));
+        } else if(nowPage != null) {
             team.setNowPage(Integer.parseInt(nowPage));
         } else {
             team.setNowPage(1);  // 기본값 설정
         }
 
-        TeamService teamService = new TeamService();
-        List<Team> list = teamService.selectTeamList(team);
-
+        // 전체 데이터 조회
+        List<Team> list = new TeamService().selectTeamList(team);
         request.setAttribute("list", list);
         request.setAttribute("page", team);
-
         RequestDispatcher view = request.getRequestDispatcher("/views/team/teamList.jsp");
         view.forward(request, response);
     }

@@ -16,18 +16,16 @@
             <td id="teamACount">3</td>
             <td><button onclick="acceptUser('teamA')">수락</button></td>
         </tr>
-        <!-- 추가 팀을 여기에 추가할 수 있습니다. -->
     </table>
 
     <script>
         const teams = {
             teamA: { name: "팀 A", count: 3 }
-            // 추가 팀 정보를 여기에 추가할 수 있습니다.
         };
 
         function acceptUser(teamKey) {
-            teams[teamKey].count += 1; // 모집인원 수 증가
-            document.getElementById(`${teamKey}Count`).innerText = teams[teamKey].count; // UI 업데이트
+            teams[teamKey].count += 1; �
+            document.getElementById(`${teamKey}Count`).innerText = teams[teamKey].count; 
         }
     </script>
 </body>

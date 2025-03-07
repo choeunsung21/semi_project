@@ -19,6 +19,8 @@
 		<result property="fieldNo" column="field_no" />
 		<result property="userNo" column="user_no" />
 		<result property="fieldName" column="field_name" />
+		<result property="fieldAddr1" column="field_addr1" />
+		<result property="fieldAddr2" column="field_addr2" />
 		<result property="fieldAddr" column="field_addr" />
 		<result property="fieldSize" column="field_size" />
 		<result property="fieldLimit" column="field_limit" />

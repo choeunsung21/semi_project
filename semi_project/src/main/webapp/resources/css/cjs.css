@@ -89,8 +89,11 @@
 	padding: 10px;
 }
 
+#field-no-select-label,
 #field-name-label,
 #field-name-after-label,
+#field-addr1-label,
+#field-addr2-label,
 #field-addr-label,
 #field-limit-label,
 #field-size-width-label,

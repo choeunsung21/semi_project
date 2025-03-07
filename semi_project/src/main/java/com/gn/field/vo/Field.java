@@ -19,6 +19,8 @@ public class Field extends PagingField {
 	private int fieldNo;
 	private int userNo;
 	private String fieldName;
+	private String fieldAddr1;
+	private String fieldAddr2;
 	private String fieldAddr;
 	private String fieldSize;
 	private int fieldLimit;

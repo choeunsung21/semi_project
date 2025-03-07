@@ -26,7 +26,7 @@ public class SelectFieldEndServlet extends HttpServlet {
 
 	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String tmp = request.getParameter("fieldIndex");
+		String tmp = request.getParameter("fieldNo");
 		
 		int fieldIndex = 0;
 		if(tmp == null) {
@@ -42,7 +42,7 @@ public class SelectFieldEndServlet extends HttpServlet {
 			User user = (User)session.getAttribute("user");
 
 			List<Field> fieldList = new FieldService().selectFieldListByUser(user);
-			
+
 			if(!(fieldList == null || fieldList.size() == 0)) {
 				Field field = null;
 				
@@ -143,6 +143,8 @@ public class SelectFieldEndServlet extends HttpServlet {
 
 					JSONObject obj = new JSONObject();
 					obj.put("fieldName", field.getFieldName());
+					obj.put("fieldAddr1", field.getFieldAddr1());
+					obj.put("fieldAddr2", field.getFieldAddr2());
 					obj.put("fieldAddr", field.getFieldAddr());
 					obj.put("fieldSize", field.getFieldSize());
 					obj.put("fieldLimit", field.getFieldLimit()+"명");

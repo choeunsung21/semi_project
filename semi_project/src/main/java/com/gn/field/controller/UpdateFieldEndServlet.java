@@ -35,6 +35,16 @@ public class UpdateFieldEndServlet extends HttpServlet {
 			}
 			
 			// 주소를 입력한 경우에만 해당 값을 객체에 담아줌
+			if(!(request.getParameter("addr_1") == null || "".equals(request.getParameter("addr_1")))) {
+				field.setFieldAddr1(request.getParameter("addr_1"));
+			}
+			
+			// 주소를 입력한 경우에만 해당 값을 객체에 담아줌
+			if(!(request.getParameter("addr_2") == null || "".equals(request.getParameter("addr_2")))) {
+				field.setFieldAddr2(request.getParameter("addr_2"));
+			}
+			
+			// 주소를 입력한 경우에만 해당 값을 객체에 담아줌
 			if(!(request.getParameter("field_addr") == null || "".equals(request.getParameter("field_addr")))) {
 				field.setFieldAddr(request.getParameter("field_addr"));
 			}

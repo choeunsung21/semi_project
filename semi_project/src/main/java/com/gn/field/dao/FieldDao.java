@@ -26,6 +26,10 @@ public class FieldDao {
 		return session.selectOne("fieldMapper.selectFieldOneByFieldNo", fieldNo);
 	}
 	
+	public String selectAddr2ByFieldNo(SqlSession session, int fieldNo) {
+		return session.selectOne("fieldMapper.selectAddr2ByFieldNo", fieldNo);
+	}
+	
 	public int selectFieldCount(SqlSession session, Field field) {
 		return session.selectOne("fieldMapper.selectFieldCount", field);
 	}
