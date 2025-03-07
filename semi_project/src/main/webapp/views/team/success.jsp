@@ -1,14 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
     <meta charset="UTF-8">
-    <title>팀 생성 성공</title>
+    <title>신청 성공</title>
 </head>
 <body>
-    <h1>팀 생성 성공</h1>
-    <p>팀이 성공적으로 생성되었습니다!</p>
-    <a href="insertTeam.jsp">팀 생성 페이지로 돌아가기</a>
-    <a href="teamList?nowPage=1">팀 목록으로 돌아가기</a>
+    <h1>팀 가입 신청이 성공적으로 완료되었습니다!</h1>
+    <p>팀 목록 페이지로 이동합니다...</p>
+    <script>
+        // 3초 후에 팀 목록으로 리다이렉트
+        setTimeout(function() {
+            window.location.href = "<%=request.getContextPath()%>/teamList";
+        }, 3000);
+    </script>
 </body>
 </html>

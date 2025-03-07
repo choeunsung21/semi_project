@@ -1,7 +1,11 @@
 package com.gn.team.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
+
 import com.gn.team.vo.Team;
 
 public class TeamDao {
@@ -41,12 +45,27 @@ public class TeamDao {
 
     // 팀 수정
     public int updateTeam(SqlSession session, Team team) {
-        return session.update("teamMapper.updateTeam", team);
+        Map<String, Object> params = new HashMap<>();
+        params.put("teamNo", team.getTeamNo()); // 팀 번호 추가
+        params.put("teamName", team.getTeamName());
+        params.put("teamArea", team.getTeamArea());
+
+        return session.update("teamMapper.updateTeam", params); // SQL 쿼리 실행
+    }
+    public Team selectTeamByName(SqlSession session, String teamName) {
+        return session.selectOne("teamMapper.selectTeamByName", teamName);
     }
 
     // 팀 삭제
     public int deleteTeam(SqlSession session, int teamNo) {
         return session.delete("teamMapper.deleteTeam", teamNo);
+    }   
+    // 팀 가입 신청
+    public int insertPlayer(SqlSession session, int userNo, int teamNo) {
+        Map<String, Integer> params = new HashMap<>();
+        params.put("userNo", userNo);
+        params.put("teamNo", teamNo);
+        return session.insert("teamMapper.insertPlayer", params);
     }
 }
 

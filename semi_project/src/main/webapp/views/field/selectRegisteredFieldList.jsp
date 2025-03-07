@@ -201,7 +201,7 @@ tbody tr:hover {
 									<tr class="plan-row" data-plan-no="${field.fieldNo}" onclick="location.href='/updateField?field_no=${field.fieldNo}'">
 										<td style="text-align:center">${vs.index+1 + (fieldPaging.nowPage-1) * fieldPaging.numPerPage}</td>
 										<td style="text-align:center">${field.fieldName}</td>
-										<td style="text-align:center">${field.fieldAddr}</td>
+										<td style="text-align:center">${field.fieldAddr1} ${field.fieldAddr2} ${field.fieldAddr}</td>
 										<td style="text-align:center">${field.fieldSize}</td>
 										<td style="text-align:center">${field.fieldLimit}명</td>
 									</tr>

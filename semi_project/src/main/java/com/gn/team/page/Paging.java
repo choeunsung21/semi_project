@@ -6,7 +6,7 @@ public class Paging {
 		// 전체 페이지 갯수
 		private int totalPage;
 		// 한 페이지 당 게시글의 개수
-		private int numPerPage = 2;
+		private int numPerPage = 10;
 		//LIMIT 쿼리 앞쪽 숫자
 		private int limitPageNo;
 		//현재 페이지 번호
@@ -84,7 +84,7 @@ public class Paging {
 			this.next = next;
 		}
 		
-		private void calcPaging() {
+		public void calcPaging() {
 			//현재 페이지를 기준으로 건너뛸 데이터 개수
 			//현재 내가 있는 페이지가 3페이지 . 앞에 2페이지가 있다 총 6개를 건너뛴다
 			//왜냐하면 한페이지당 3개의 게시글
@@ -103,4 +103,5 @@ public class Paging {
 			if(pageBarStart == 1) prev = false;
 			if(pageBarEnd >= totalPage) next = false;
 		}
+		
 }

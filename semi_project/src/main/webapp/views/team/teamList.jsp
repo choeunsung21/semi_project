@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page import="com.gn.team.vo.Team" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,6 +31,13 @@
 </head>
 <body>
 <%@ include file="/views/include/header.jsp" %>
+<%Team paging = (Team)request.getAttribute("paging"); %>
+<c:if test="${not empty message}">
+    <script>
+        alert("${message}"); // alert 창 띄우기
+        window.location.href = "${pageContext.request.contextPath}/teamList"; // 팀 목록으로 리다이렉트
+    </script>
+</c:if>
 <div class="container mt-4">
     <h3 class="text-center">팀 목록</h3>
     <table class="table table-hover">
@@ -46,17 +54,17 @@
         <tbody>
             <c:choose>
                 <c:when test="${not empty list}">
-                    <%-- <c:set var="startNum" value="${(page.nowPage - 1) * page.numPerPage + 1}"/> --%>
+                    <c:set var="startNum" value="${(page.nowPage - 1) * page.numPerPage}"/> 
                     <c:forEach var="team" items="${list}" varStatus="vs">
-                        <tr>
-                            <td>${startNum + vs.index}</td>
+                        <tr data-team-no="{list.teamNo}">
+                            <td>${(page.nowPage-1)*page.numPerPage+ (vs.index + 1) }</td>
                             <td>${team.teamName}</td>
                             <td>${team.teamArea}</td>
                             <td>${team.teamLevel}</td>
                             <td>${team.teamCount}/${team.teamLimit}</td>
                             <td>
-                                <a href="teamDetail?teamNo=${team.teamNo}" class="btn btn-primary">상세보기</a>
-                                <a href="updateTeam?teamNo=${team.teamNo}" class="btn btn-warning">수정</a>
+                                <a href="/teamDetail?team_no=${team.teamNo}" class="btn btn-primary">상세 보기</a>
+                                <a href="/updateTeam?team_no=${team.teamNo}" class="btn btn-warning">수정</a>
                                 <button class="btn btn-danger" onclick="deleteTeam(${team.teamNo})">삭제</button>
                             </td>
                         </tr>
@@ -73,22 +81,25 @@
 
     <!-- 페이징 처리 -->
     <c:if test="${not empty page}">
-        <div class="d-flex justify-content-center">
-            <ul class="pagination">
-                <c:if test="${page.prev}">
-                    <li class="page-item"><a class="page-link" href="teamList?nowPage=${page.pageBarStart-1}&teamName=${empty page.teamName ? '' : page.teamName}">&laquo;</a></li>
-                </c:if>
-                <c:forEach var="i" begin="${page.pageBarStart}" end="${page.pageBarEnd}">
-                    <li class="page-item"><a class="page-link" href="teamList?nowPage=${i}&teamName=${empty page.teamName ? '' : page.teamName}">${i}</a></li>
-                </c:forEach>
-                <c:if test="${page.next}">
-                    <li class="page-item"><a class="page-link" href="teamList?nowPage=${page.pageBarEnd+1}&teamName=${empty page.teamName ? '' : page.teamName}">&raquo;</a></li>
-                </c:if>
-            </ul>
-        </div>
-    </c:if>
-</div>
-
+        <div class="center">
+			<div class="pagination">
+                <c:if test="${page.prev }">
+					<c:url var="testUrl" value="/teamList">
+						<c:param name="nowPage" value="${page.pageBarStart-1 }"/>
+						<c:param name="team_no" value="${page.teamNo }" />
+					</c:url>
+					<a href="${testUrl }">&laquo; </a>
+				</c:if>
+				<c:forEach var="i" begin="${page.pageBarStart }" end="${page.pageBarEnd }">
+					<a href="/teamList?nowPage=${i }&team_no=${empty page.teamNo ? '' : page.teamNo}">${i } </a>
+				</c:forEach>
+				<c:if test="${page.next }">
+					<a href="/teamList?nowPage=${page.pageBarEnd+1 }&team_no=${empty page.teamNo ? '' : page.teamNo}">&raquo; </a>
+				</c:if>
+			</div>
+		</div>
+	</c:if>  
+	</div>
 <script>
 function deleteTeam(teamNo) {
     if (confirm("정말로 삭제하시겠습니까?")) {

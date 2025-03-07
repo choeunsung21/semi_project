@@ -124,7 +124,7 @@
       			</div>
     			</div>
                 <div class="col-md-12 text-center">
-                  <button id="joinMembership"type="button">가입하기</button>
+                  <button id="joinMembership" type="submit">가입하기</button>
                   <p style="padding-top: 15px;">이미 계정이 있으신가요? <a href="/login">로그인</a></p>
                 </div>
 

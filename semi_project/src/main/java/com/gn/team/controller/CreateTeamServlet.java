@@ -19,6 +19,9 @@ public class CreateTeamServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 팀 가입 신청 코드 더 추가할 예정
+		// player 데이터베이스에 추가할 예정
+		// team 객체 추가, setAttribute 추가
 		RequestDispatcher view = request.getRequestDispatcher("/views/team/createTeam.jsp");
 		view.forward(request, response);
 	}

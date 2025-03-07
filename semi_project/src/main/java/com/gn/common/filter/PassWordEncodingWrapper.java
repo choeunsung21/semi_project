@@ -14,7 +14,7 @@ public class PassWordEncodingWrapper extends HttpServletRequestWrapper{
 
 	@Override
 	public String getParameter(String name) {
-		if(name.contains("member_pw")) {
+		if(name.contains("user_pw")) {
 			String ori = super.getParameter(name);
 
 			String enc = getSHA512(ori);

@@ -22,25 +22,31 @@ public class TeamDetailServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String teamNoStr = request.getParameter("teamNo");
+		 String teamNoStr = request.getParameter("team_no");
 
-        if (teamNoStr == null || teamNoStr.isEmpty()) {
-            response.sendRedirect("/teamTeamList"); // 잘못된 접근 시 목록으로 이동
-            return;
-        }
+	        if (teamNoStr == null || teamNoStr.isEmpty()) {
+	            response.sendRedirect("/teamList");
+	            return;
+	        }
+	        int teamNo;
+	        try {
+	            teamNo = Integer.parseInt(teamNoStr);
+	        } catch (NumberFormatException e) {
+	            response.sendRedirect("/teamList");
+	            return;
+	        }
+	        TeamService teamService = new TeamService();
+	        Team team = teamService.selectTeamNo(teamNo);
 
-        int teamNo = Integer.parseInt(teamNoStr);
-        Team team = new TeamService().selectTeamNo(teamNo);
-
-        if (team == null) {
-            response.sendRedirect("/teamTeamList"); // 조회 실패 시 목록으로 이동
-            return;
-        }
-
-        request.setAttribute("team", team);
-        RequestDispatcher view = request.getRequestDispatcher("/views/team/teamDetail.jsp");
-        view.forward(request, response);
-    }
+	        // 팀 정보가 없으면 목록으로 리다이렉트
+	        if (team == null) {
+	            response.sendRedirect("/teamList");
+	            return;
+	        }
+	        request.setAttribute("team", team); 
+	        RequestDispatcher view = request.getRequestDispatcher("/views/team/teamDetail.jsp");
+	        view.forward(request, response);
+	    }
 	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
