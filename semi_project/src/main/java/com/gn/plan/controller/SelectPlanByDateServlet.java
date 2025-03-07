@@ -43,7 +43,6 @@ public class SelectPlanByDateServlet extends HttpServlet {
     				.build();
     		
     		List<Plan> planList = new PlanService().selectPlanByDate(plan);
-    		System.out.println("조회된 일정 리스트: " + planList);
     		
     		JSONArray jsonArray = new JSONArray();
     		for (Plan p : planList) {

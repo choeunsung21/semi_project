@@ -380,7 +380,6 @@ tbody tr:hover {
 	            data: { planDate: selectedDate },
 	            dataType: "JSON",
 	            success: function (data) {
-	            	console.log("서버 응답 데이터:", data); // 확인용
 	                updateTable(data);
 	            },
 	            error: function () {

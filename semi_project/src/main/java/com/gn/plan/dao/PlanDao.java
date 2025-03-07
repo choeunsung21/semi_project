@@ -52,5 +52,13 @@ public class PlanDao {
 	public List<Plan> selectPlanListByFieldNo(SqlSession session, int fieldNo) {
 		return session.selectList("planMapper.selectPlanListByFieldNo", fieldNo);
 	}
+
+	public List<Plan> selectAllPlanByDate(SqlSession session, String planDate) {
+		return session.selectList("planMapper.selectAllPlanByDate", planDate);
+	}
+
+	public int deleteOldPlans(SqlSession session, String today) {
+		return session.delete("planMapper.deleteOldPlans", today);
+	}
 	
 }

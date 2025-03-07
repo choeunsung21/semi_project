@@ -88,4 +88,18 @@ public class PlanService {
 		return resultList;
 	}
 
+	public List<Plan> selectAllPlanByDate(String planDate) {
+		SqlSession session = getSqlSession(true);
+		List<Plan> resultList = new PlanDao().selectAllPlanByDate(session, planDate);
+		session.close();
+		return resultList;
+	}
+
+	public int deleteOldPlans(String today) {
+		SqlSession session = getSqlSession(true);
+		int result = new PlanDao().deleteOldPlans(session, today);
+		session.close();
+		return result;
+	}
+
 }

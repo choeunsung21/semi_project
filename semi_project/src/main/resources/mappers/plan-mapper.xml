@@ -21,6 +21,8 @@
 			<result property="fieldName" column="field_name" />
 			<result property="fieldSize" column="field_size" />
 			<result property="fieldAddr" column="field_addr" />
+			<result property="fieldAddr1" column="field_addr1" />
+			<result property="fieldAddr2" column="field_addr2" />
 			<result property="fieldLimit" column="field_limit" />
 			<result property="fieldType" column="field_type" />
 			<result property="isIndoor" column="is_indoor" />
@@ -110,6 +112,17 @@
 		ON p.field_no = f.field_no
 	</select>
 	
+	<!-- 모든일정 날짜필터 조회 -->
+	<select id="selectAllPlanByDate" resultMap="planMap" parameterType="string">
+		SELECT p.plan_no  ,f.field_addr2 ,f.field_name ,p.plan_date ,p.plan_time ,p.res_status ,p.use_time  
+		FROM `plan` p
+		JOIN `field` f ON p.field_no = f.field_no
+		JOIN `user` u ON u.user_no = f.user_no
+		WHERE p.plan_date = #{planDate}
+		ORDER BY p.plan_time ASC
+	</select>
+	
+	
 	<!-- 일정 상세 조회 -->
 	<select id="selectPlanDetail" resultMap="planMap" parameterType="_int">
 		SELECT *
@@ -132,4 +145,10 @@
 		WHERE `field_no` = #{fieldNo}
 		AND STR_TO_DATE(`plan_date`, '%Y-%m-%d') >= CURRENT_DATE;
 	</select>
+	
+	<!-- 스케줄러 지난 일정 삭제 -->
+	<delete id="deleteOldPlans" parameterType="string">
+		DELETE FROM `plan`
+		WHERE plan_date &lt; #{today}
+	</delete>
 </mapper>

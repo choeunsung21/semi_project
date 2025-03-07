@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -314,6 +315,18 @@ public class RegularEventScheduler implements Job {
 		}
 		
 		System.out.println("RegularEventScheduler : 스케줄러가 정상적으로 동작완료되었습니다."+" ("+new Timestamp(System.currentTimeMillis())+")");
+		
+		
+		// 지난 일정 삭제
+		LocalDateTime nowTime = LocalDateTime.now();
+		
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		
+		String today = nowTime.format(dtf);
+		
+		int deletedCount = new PlanService().deleteOldPlans(today);
+		System.out.println("RegularEventScheduler : 지난 일정 " + deletedCount + "건 삭제 완료.");
+		
 	}
 }
 

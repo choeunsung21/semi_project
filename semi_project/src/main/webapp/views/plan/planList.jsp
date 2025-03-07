@@ -47,7 +47,7 @@
 <style>
 /* 등록한 일정표 CSS */
 table {
-	width: 95%; /* 너비를 70%에서 95%로 늘려 더 넓게 */
+	width: 100%; /* 너비를 70%에서 95%로 늘려 더 넓게 */
 	max-width: 1300px; /* 최대 너비 제한으로 화면에 맞게 조정 */
 	/*margin: 40px auto;  상하 여백 조금 더 늘림 */
 	border-collapse: separate;
@@ -159,10 +159,52 @@ tbody tr.active {
     color: green;
     font-weight: bold;
 }
+
 .unavailable {
     color: gray;
         opacity: 0.7;
 }
+
+/* 전체조회 및 날짜 선택을 위한 컨테이너 */
+.selecetDateDiv {
+    display: flex;
+    justify-content: space-between; /* 양쪽으로 배치 */
+    align-items: center; /* 세로로 가운데 정렬 */
+    margin-bottom: 10px; /* 여유 공간 증가 */
+}
+
+/* 왼쪽 영역(전체조회) */
+.left-div a {
+    color: gray; /* 회색 글자 */
+    opacity: 0.7; /* 투명도 */
+    text-decoration: underline; /* 밑줄 */
+    font-size: 14px; /* 글자 크기 */
+    font-weight: normal; /* 글자 두께 */
+    margin-left: 20px;
+}
+
+/* 오른쪽 영역(날짜 선택) */
+.right-div {
+    display: flex;
+    justify-content: flex-end; /* 오른쪽 정렬 */
+    margin-right: 20px;
+}
+
+.selectDateInput {
+    border: 1px solid #e0e0e0; /* 테두리 색상 */
+    border-radius: 16px; /* 둥글게 */
+    padding: 8px; /* 여유 공간 */
+    font-size: 14px;
+    width: 160px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 */
+    transition: border-color 0.3s ease;
+}
+
+.selectDateInput:focus {
+    border-color: #1a5f92; /* 포커스 시 테두리 색상 */
+    outline: none; /* 아웃라인 제거 */
+}
+
 </style>
 <body class="service-details-page">
 
@@ -199,17 +241,17 @@ tbody tr.active {
 						<!-- Contact Section -->
 						<section id="contact" class="contact section">
 						
-						<div>
-							<div>
-								<label>지역선택</label>
-								<select id="addr1"></select><select id="addr2"></select>
-								<label>날짜선택</label>
-								<input type="date" id="selectDate">
-							</div>
+						<div class="selecetDateDiv">
+						    <div class="left-div">
+						        <a href="/selectPlanList">전체일정</a>
+						    </div>
+						    <div class="right-div">
+						        <input type="date" class="selectDateInput" id="selectDateInput">
+						    </div>
 						</div>
 
 							<!-- Section Title -->
-							<table>
+							<table id="dataTable">
 								<thead>
 									<tr>
 										<th>구장 위치</th>
@@ -332,6 +374,56 @@ tbody tr.active {
 
 	<!-- Main JS File -->
 	<script src="<%=request.getContextPath()%>/resources/js/common.js"></script>
+	
+	<!-- 직접 작성한 스크립트 -->
+	<script>
+	$(document).ready(function () {
+	    $("#selectDateInput").on("change", function () {
+	        let selectedDate = $(this).val();
+	        
+	        $.ajax({
+	            url: "/selectAllPlanByDate",
+	            type: "GET",
+	            data: { planDate: selectedDate },
+	            dataType: "JSON",
+	            success: function (data) {
+	            	console.log("서버 응답 데이터:", data); // 확인용
+	                updateTable(data);
+	            },
+	            error: function () {
+	                alert("일정 데이터를 불러오는데 실패했습니다.");
+	            }
+	        });
+	    });
+	});
+
+	function updateTable(data) {
+	    let tbody = $("#dataTable tbody");
+	    tbody.empty(); // 기존 데이터 삭제
+
+	    // 받은 데이터가 비어 있지 않다면
+	    if (data.length > 0) {
+	        data.forEach((plan, index) => {
+	            let row = 
+	                "<tr class='plan-row' data-plan-no='" + plan.planNo + "' data-field-addr='" + plan.fieldAddr2 + "' data-field-name='" + plan.fieldName + "' data-plan-date='" + plan.planDate + "' data-plan-time='" + plan.planTime + "' data-use-time='" + plan.useTime + "' onclick=\"location.href='/selectPlanDetail?planNo=" + plan.planNo + "'\">" +
+	                    "<td>" + plan.fieldAddr2 + "</td>" + // 구장 위치
+	                    "<td>" + plan.fieldName + "</td>" + // 구장명
+	                    "<td>" + plan.planDate + "</td>" + // 일정 날짜
+	                    "<td>" + plan.planTime + "</td>" + // 일정 시간
+	                    "<td>" + plan.useTime + "시간</td>" + // 이용 시간
+	                    "<td>" + 
+	                        (plan.resStatus == 0 ? "<span class='available'>예약가능</span>" : "<span class='unavailable'>예약불가</span>") + // 예약 상태
+	                    "</td>" +
+	                "</tr>";
+	            tbody.append(row);
+	        });
+	    } else {
+	        // 일정이 없을 경우
+	        tbody.append("<tr><td colspan='6'>선택된 날짜에 일정이 없습니다.</td></tr>");
+	    }
+	}
+
+	</script>
 
 
 </body>
