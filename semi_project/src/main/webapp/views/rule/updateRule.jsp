@@ -165,12 +165,12 @@
                 					</div>
 									
 									<p class="update-hidden" id="rule-terms-target">
-                						<input id="chk_terms" type="checkbox">&nbsp; 일정 등록 관련 약관입니다.
+                						<input id="chk_terms" type="checkbox">&nbsp; 등록 규칙 수정 관련 약관입니다.
 									</p>                					
 									
 									<!-- #chk_term 체크되었을 때만 버튼이 눌러지고 아닐경우 alert창을 띄울 예정 -->
                 					<div class="col-md-12 text-center update-hidden" id="rule-form-btn-target">
-                  						<button type="submit" onclick="updateRuleForm();">일정 규칙 수정</button>
+                  						<button type="submit" onclick="updateRuleForm();">등록 규칙 수정</button>
                 					</div>
                 					
               					</div>

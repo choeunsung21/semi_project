@@ -40,8 +40,6 @@ public class UpdateRuleServlet extends HttpServlet {
 			/* 로그인 과정에서 만들어진 세션이 정상적으로 존재하는 경우 */
 			PlanRule planRule = new PlanRuleService().selectRuleOneByRuleNo(ruleNo);
 			
-			System.out.println("UpdateRuleServlet"+planRule);
-			
 			RequestDispatcher view = request.getRequestDispatcher("/views/rule/updateRule.jsp");
 			
 			request.setAttribute("planRule", planRule);
