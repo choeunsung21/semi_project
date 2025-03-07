@@ -157,7 +157,11 @@
                	 		<li><strong>제목</strong> ${board.boardTitle }</li>
                 		<li><strong>작성자</strong>${board.userId }</li>
                 		<fmt:parseDate value="${board.regDate }" pattern="yyyy-MM-dd'T'HH:mm:ss" var="thisDate" />
-                		<li><strong>등록일</strong><fmt:formatDate value="${thisDate }" pattern="yyyy-MM-dd" /></li>
+                		<li><strong>등록일</strong><fmt:formatDate value="${thisDate }" pattern="yyyy-MM-dd HH:mm" /></li>
+                		<c:if test="${board.regDate != board.modDate }">
+                		<fmt:parseDate value="${board.modDate }" pattern="yyyy-MM-dd'T'HH:mm:ss" var="upDate" />
+                		<li><strong>수정일</strong><fmt:formatDate value="${upDate }" pattern="yyyy-MM-dd HH:mm" /></li>
+                		</c:if>
               		</ul>
                 		<%-- <textarea id="summernote" class="" ><c:out>${board.boardContent }</c:out></textarea> --%>
                 		<c:out value="${board.boardContent }" escapeXml="false"/>
@@ -291,7 +295,10 @@
   		                	"<input type='hidden' value='${reply.replyNo}'>" +
   		                    "<span class='writer'>작성자: " + reply.userId + "</span> " +
   		                    "<span class='content'>" + reply.replyContent + "</span> " +
-  		                    "<span class='regdate'>" + reply.regDate + "</span>";
+  		                    "<span class='regdate' id='regdate' style='display: block'>" + reply.regDate + "</span>" +
+  		                    "<span class='moddate' style='display: none' id='moddate'>" + reply.modDate + "</span>";
+  		                   
+  		          
 
   		                if (userNo == reply.writerNo) {
   		                    replyList += " <button type='button' class='btn btn-outline-primary deletereplybtn delete-btn' data-replyno='" 

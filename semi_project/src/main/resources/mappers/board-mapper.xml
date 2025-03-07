@@ -42,17 +42,22 @@
 			(b.board_title LIKE CONCAT('%',#{boardTitle},'%') 
             OR b.board_content LIKE CONCAT('%',#{boardTitle},'%'))
 		</if>
-		</where>
-			<if test='orderType != null and orderType.equals("-1") == false'>
-			<choose>
-				<when test='orderType.equals("1") == true'>
-					ORDER BY b.reg_date DESC
-				</when>
-			<otherwise>
-					ORDER BY b.reg_date ASC
-			</otherwise>
-			</choose>
-		</if>
+		</where>	
+		<choose>
+        	<when test='orderType != null and orderType.equals("-1") == false'>
+            	<choose>
+                	<when test='orderType.equals("1") == true'>
+                    	ORDER BY b.reg_date DESC
+                	</when>
+                	<otherwise>
+                    	ORDER BY b.reg_date ASC
+                	</otherwise>
+          		</choose>
+        	</when>
+        		<otherwise>
+            		ORDER BY b.reg_date DESC  
+        		</otherwise>
+    	</choose>
 		LIMIT #{limitPageNo}, #{numPerPage}
 	</select>
 	

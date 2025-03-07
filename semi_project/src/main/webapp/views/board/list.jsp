@@ -19,7 +19,7 @@ body {
 }
 
 .form-select {
- 	width: 150px;
+ 	width: 50px;
     padding: 0.375rem 0.75rem;
     border-radius: 0.25rem;
     border: 1px solid #ced4da;
@@ -27,10 +27,10 @@ body {
 }
 
 .form-select:focus {
-    border-color: #2487ce; /* .search-form과 동일한 border-color */
+    border-color: #2487ce; 
     outline: none;
-    box-shadow: 0 0 5px rgba(36, 135, 206, 0.3); /* .search-form과 동일한 box-shadow */
-    border-width: 2px; /* border-width도 .search-form과 동일하게 설정 */
+    box-shadow: 0 0 5px rgba(36, 135, 206, 0.3); 
+    border-width: 2px; 
 }
 
 .form-select:hover {
@@ -45,43 +45,43 @@ body {
     margin-top: 2rem;
 }
 
-/* 테이블 스타일 */
+
 .board-table {
-    width: 98%; /* 테이블 너비를 페이지 거의 전체로 설정 */
-    margin: 0 auto; /* 수평 중앙 정렬 유지 */
-    border-collapse: separate; /* 둥근 모서리와 그림자 적용을 위해 변경 */
-    border-spacing: 0; /* 셀 간격 제거 */
+    width: 98%; 
+    margin: 0 auto; 
+    border-collapse: separate; 
+    border-spacing: 0; 
     font-family: 'Poppins', sans-serif;
-    font-size: 16px; /* 글자 크기 약간 키움 */
-    background-color: #fff; /* 배경색 흰색으로 통일 */
-    border-radius: 16px; /* 모서리 둥글게 */
-    overflow: hidden; /* 둥근 모서리 안쪽 잘림 방지 */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* 그림자 강화 */
+    font-size: 16px; 
+    background-color: #fff; 
+    border-radius: 16px; 
+    overflow: hidden; 
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); 
     cursor: pointer;
 }
 
 .board-table thead {
-    background: linear-gradient(135deg, #2487ce, #1a5f92); /* 테마 색상 그라데이션 */
+    background: linear-gradient(135deg, #2487ce, #1a5f92); 
     color: white;
     text-transform: uppercase;
-    letter-spacing: 1px; /* 글자 간격 추가로 고급스러움 강조 */
+    letter-spacing: 1px; 
     cursor: default;
 }
 
 .board-table th, .board-table td {
-    padding: 12px 16px; /* 패딩을 늘려 여유롭게 */
-    border-bottom: 1px solid #e0e0e0; /* 경계선 더 부드럽게 */
+    padding: 12px 16px; 
+    border-bottom: 1px solid #e0e0e0; 
 }
 
 .board-table th {
-    font-weight: 600; /* 글자 굵기 조정 */
+    font-weight: 600;
 }
 
 .board-table td {
-    color: #444; /* 텍스트 색상 약간 진하게 */
+    color: #444; 
 }
 
-/* 홀수/짝수 행 배경색 */
+
 .board-table tbody tr:nth-child(odd) {
     background-color: #ffffff; 
 }
@@ -90,13 +90,13 @@ body {
     background-color: #f8f9fa; 
 }
 
-/* 테이블 행 호버 효과 */
+
 .board-table tbody tr:hover {
-    background-color: rgba(36, 135, 206, 0.15); /* 호버 색상 약간 진하게 */
-    transition: background-color 0.3s ease; /* 부드러운 전환 */
+    background-color: rgba(36, 135, 206, 0.15); 
+    transition: background-color 0.3s ease; 
 }
 
-/* 페이징 스타일 */
+
 .pagination {
     display: flex;
     justify-content: center;
@@ -108,7 +108,7 @@ body {
 }
 
 .pagination .page-item {
-    margin: 0 2px; /* 버튼 간 간격 조정 */
+    margin: 0 2px; 
 }
 
 .pagination .page-link {
@@ -173,7 +173,7 @@ body {
 }
 
 .btn-outline-primary {
-    border-color: #2487ce; /* 테마 색상으로 변경 */
+    border-color: #2487ce; 
     color: #2487ce;
 }
 
@@ -183,17 +183,17 @@ body {
 }
 
 .btn-success {
-    background-color: #2487ce; /* 테마 색상으로 변경 */
+    background-color: #2487ce; 
     border-color: #2487ce;
     color: white;
 }
 
 .btn-success:hover {
-    background-color: #1a5f92; /* 호버 시 더 진한 파란색 */
+    background-color: #1a5f92; 
     border-color: #1a5f92;
 }
 
-/* 기존 스타일 유지 */
+
 .minitd {
     display: flex;
     justify-content: center;
@@ -257,12 +257,12 @@ body {
 					<td><fmt:formatDate value="${strRegDate }" pattern="yyyy년MM월dd일 HH시mm분" /></td>
 				</tr>
 			</c:forEach> 
-						</c:when>
-					<c:otherwise>
-					 <tr>	
-						<td colspan="5">조회된 데이터가 없습니다</td>
-					 <tr>	
-					</c:otherwise>
+		</c:when>
+		  <c:otherwise>
+			<tr>	
+				<td colspan="5">조회된 데이터가 없습니다</td>
+			<tr>	
+		  </c:otherwise>
 					
 	</c:choose>
 </tbody>
@@ -287,7 +287,7 @@ body {
 			</div>
 		</div>
 	</c:if>  
-	<!-- 정령 select창 -->
+	<!-- 정랼 select창 -->
 	<form action="selectBoardList" name="ordertype" method="get" class="d-flex"  id="orderForm" >
       <select name="ordertype" id="ordertype" class="form-select">
     	<option value="-1">선택</option>
