@@ -22,7 +22,7 @@ public class TeamDetailServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 String teamNoStr = request.getParameter("team_no");
+		 	String teamNoStr = request.getParameter("team_no");
 
 	        if (teamNoStr == null || teamNoStr.isEmpty()) {
 	            response.sendRedirect("/teamList");

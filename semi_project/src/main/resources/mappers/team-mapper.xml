@@ -17,7 +17,7 @@
 
    <!-- 팀 생성 -->
 	<insert id="insertTeam" parameterType="Team" useGeneratedKeys="true" keyProperty="teamNo">
-    	INSERT INTO team (team_name, leader_no, team_area, prefer_gender, team_level, team_count, team_limit, team_explanation, reg_date)
+    	INSERT INTO `team` (team_name, leader_no, team_area, prefer_gender, team_level, team_count, team_limit, team_explanation, reg_date)
     	VALUES (#{teamName}, #{leaderNo}, #{teamArea}, #{preferGender}, #{teamLevel}, #{teamCount}, #{teamLimit}, #{teamExplanation}, NOW());
 	</insert>
 
@@ -43,7 +43,7 @@
 
     <!-- 팀 수정 -->
 	<update id="updateTeam" parameterType="map">
-    	UPDATE team
+    	UPDATE `team`
     	SET team_name = #{teamName},
         	team_area = #{teamArea},
         	mod_date = NOW()
@@ -51,7 +51,7 @@
 	</update>
 	
 	<select id="selectTeamByName" parameterType="String" resultMap="teamMap">
-    	SELECT * FROM team WHERE team_name = #{teamName}
+    	SELECT * FROM `team` WHERE team_name = #{teamName}
 	</select>
 
     <!-- 팀 목록(페이징) -->
