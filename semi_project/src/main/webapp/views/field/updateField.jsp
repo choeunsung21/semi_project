@@ -76,8 +76,8 @@
         <div class="row gy-4">
 
           <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
-            <h2>일정 규칙 수정 : 정보 입력</h2>
-            <p id="h-p">하나의 구장에는 하나의 규칙만 등록할 수 있습니다.<br>
+            <h2>구장 정보 : 수정 및 삭제</h2>
+            <p id="h-p">이미 등록되어있는 구장의 정보를 수정 또는 삭제할 수 있습니다.<br>
             			수정하고 싶은 항목만 변경하시면 됩니다.</p>
             	
             <!-- Contact Section -->
@@ -103,37 +103,7 @@
 	
         			<div class="row gy-4">
 	
-          				<div class="col-lg-4">
-          					<h3 style="text-align:left; padding-bottom:20px;">Contact</h3>
-          					
-            				<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
-            					
-              					<i class="bi bi-geo-alt flex-shrink-0"></i>
-              					<div>
-                					<h3>Address</h3>
-                					<p>#임의의 주소</p>
-              					</div>
-            				</div><!-- End Info Item -->
-		
-            				<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
-              					<i class="bi bi-telephone flex-shrink-0"></i>
-              					<div>
-                					<h3>Call Us</h3>
-                					<p>#임의의 전화번호</p>
-              					</div>
-           					</div><!-- End Info Item -->
-							
-            				<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="500">
-              					<i class="bi bi-envelope flex-shrink-0"></i>
-              					<div>
-                					<h3>Email Us</h3>
-                					<p>#임의의 이메일@example.com</p>
-              					</div>
-            				</div><!-- End Info Item -->
-						
-          				</div>
-						
-          				<div class="col-lg-8">
+          				<div class="col-lg-12">
             				<form action="/updateFieldEnd" method="post" class="submit-form" name="update_field_end_form" data-aos="fade-up" data-aos-delay="200">
               					<div class="row gy-4">
 									
@@ -150,13 +120,15 @@
                 					-->
 
 									<div class="col-md-12">
-										<label for="field-name-select" id="field-name-select-label">적용할 구장명</label>
+										<label for="field-name-select" id="field-name-select-label">수정할 구장명</label>
 										<input type="text" class="form-control" name="field_name" id="field-name-input" value="${field.fieldName}" readonly>
 										
 										<br>
 										
-										<a href="javascript:void(0);" class="btn-visit align-self-start" style="padding-right:2px;" onclick="chgClass();">수정하기</a>
-										<a href="/deleteFieldEnd?field_no=${field.fieldNo}" class="btn-visit cancel align-self-start" style="padding-left:2px;" onclick="return confirm('해당 구장을 삭제하시겠습니까?')">삭제하기</a>
+										<div style="text-align:center;">
+											<a href="javascript:void(0);" class="btn-visit align-self-start" style="padding-right:2px;" onclick="chgClass();">수정하기</a>
+											<a href="/deleteFieldEnd?field_no=${field.fieldNo}" class="btn-visit cancel align-self-start" style="padding-left:2px;" onclick="return confirm('해당 구장을 삭제하시겠습니까?')">삭제하기</a>
+										</div>
                 					</div>
 									
 									<div class="col-md-12 update-hidden" id="dayoff-select">

@@ -103,37 +103,7 @@
 	
         			<div class="row gy-4">
 	
-          				<div class="col-lg-4">
-          					<h3 style="text-align:left; padding-bottom:20px;">Contact</h3>
-          					
-            				<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
-            					
-              					<i class="bi bi-geo-alt flex-shrink-0"></i>
-              					<div>
-                					<h3>Address</h3>
-                					<p>#임의의 주소</p>
-              					</div>
-            				</div><!-- End Info Item -->
-		
-            				<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
-              					<i class="bi bi-telephone flex-shrink-0"></i>
-              					<div>
-                					<h3>Call Us</h3>
-                					<p>#임의의 전화번호</p>
-              					</div>
-           					</div><!-- End Info Item -->
-							
-            				<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="500">
-              					<i class="bi bi-envelope flex-shrink-0"></i>
-              					<div>
-                					<h3>Email Us</h3>
-                					<p>#임의의 이메일@example.com</p>
-              					</div>
-            				</div><!-- End Info Item -->
-						
-          				</div>
-						
-          				<div class="col-lg-8">
+          				<div class="col-lg-12">
             				<form action="/insertRuleEnd" method="post" class="submit-form" name="insert_rule_end_form" data-aos="fade-up" data-aos-delay="200">
               					<div class="row gy-4">
 									
@@ -322,19 +292,19 @@
   <script>
   $(function(){
 		$('#field-no-select').change(function(){
-			const fieldIndex = $('#field-no-select option:selected').val();
+			const fieldNo = $('#field-no-select option:selected').val();
 
 			$.ajax({
 				url : "/selectFieldEnd",
 				type : "post",
 				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
 				data : {
-					"fieldIndex":fieldIndex
+					"fieldNo":fieldNo
 				},
 				dataType : "JSON",
 				success : function(data){
 					document.getElementById("field-name-span").innerText = data["fieldName"];
-					document.getElementById("field-addr-span").innerText = data["fieldAddr"];
+					document.getElementById("field-addr-span").innerText = data["fieldAddr1"]+' '+data["fieldAddr2"]+' '+data["fieldAddr"];
 					document.getElementById("field-size-span").innerText = data["fieldSize"];
 					document.getElementById("field-limit-span").innerText = data["fieldLimit"];
 					document.getElementById("field-type-span").innerText = data["fieldType"];
@@ -363,7 +333,7 @@
 				type : "post",
 				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
 				data : {
-					"fieldIndex":fieldIndex
+					"fieldNo":fieldNo
 				},
 				dataType : "JSON",
 				success : function(data) {

@@ -76,9 +76,9 @@
         <div class="row gy-4">
 
           <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
-            <h2>일정 규칙 수정 : 정보 입력</h2>
-            <p id="h-p">하나의 구장에는 하나의 규칙만 등록할 수 있습니다.<br>
-            			(*) 표시가 있는 항목은 반드시 입력해야합니다.</p>
+            <h2>등록 규칙 : 수정 및 삭제</h2>
+            <p id="h-p">해당 구장을 대상으로 한 일정등록 규칙을 수정 또는 삭제할 수 있습니다.<br>
+            			수정하고 싶은 항목만 변경하시면 됩니다.</p>
             	
             <!-- Contact Section -->
     		<section id="contact" class="contact section">
@@ -103,37 +103,7 @@
 	
         			<div class="row gy-4">
 	
-          				<div class="col-lg-4">
-          					<h3 style="text-align:left; padding-bottom:20px;">Contact</h3>
-          					
-            				<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
-            					
-              					<i class="bi bi-geo-alt flex-shrink-0"></i>
-              					<div>
-                					<h3>Address</h3>
-                					<p>#임의의 주소</p>
-              					</div>
-            				</div><!-- End Info Item -->
-		
-            				<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
-              					<i class="bi bi-telephone flex-shrink-0"></i>
-              					<div>
-                					<h3>Call Us</h3>
-                					<p>#임의의 전화번호</p>
-              					</div>
-           					</div><!-- End Info Item -->
-							
-            				<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="500">
-              					<i class="bi bi-envelope flex-shrink-0"></i>
-              					<div>
-                					<h3>Email Us</h3>
-                					<p>#임의의 이메일@example.com</p>
-              					</div>
-            				</div><!-- End Info Item -->
-						
-          				</div>
-						
-          				<div class="col-lg-8">
+          				<div class="col-lg-12">
             				<form action="/updateRuleEnd" method="post" class="submit-form" name="update_rule_end_form" data-aos="fade-up" data-aos-delay="200">
               					<div class="row gy-4">
 									
@@ -147,61 +117,51 @@
                   						<input type="text" class="form-control" name="rule_no" id="rule-no-input" value="${planRule.ruleNo}" placeholder="대상이 될 규칙번호">
                 					</div>
 
-									<div class="col-md-12">
+									<div class="col-md-12" >
 										<label for="field-name-select" id="field-name-select-label">적용할 구장명</label>
 										<input type="text" class="form-control" name="field_name" id="field-name-input" value="${planRule.fieldName}" readonly>
 										
 										<br>
 										
-										<a href="javascript:void(0);" class="btn-visit align-self-start" style="padding-right:2px;" onclick="chgClass();">수정하기</a>
-										<a href="/deletePlanRuleEnd?planRuleNo=${planRule.ruleNo}" class="btn-visit cancel align-self-start" style="padding-left:2px;" onclick="return confirm('해당 구장에 걸려있는 규칙을 삭제하시겠습니까?')">삭제하기</a>
+										<div style="text-align:center">
+											<a href="javascript:void(0);" class="btn-visit align-self-start" style="padding-right:2px;" onclick="chgClass();">수정하기</a>
+											<a href="/deletePlanRuleEnd?planRuleNo=${planRule.ruleNo}" class="btn-visit cancel align-self-start" style="padding-left:2px;" onclick="return confirm('해당 구장에 걸려있는 규칙을 삭제하시겠습니까?')">삭제하기</a>
+										</div>
                 					</div>
 									
                 					<div class="col-md-6 update-hidden" id="rule-open-select">
-                  						<label for="rule-open-select" id="rule-open-label">오픈 시간*</label>
-	                  					<select name="rule_open" id="rule-open-select" required>
-	                  								<option value="-1">선택</option>
-										    <%
-										        for (int i = 0; i < 24; i++) {
-										            String openTime = (i+"");
-										            String formattedOpen = String.format("%02d:00", i);
-										    %>
-										            <option value="<%= openTime %>"><%= formattedOpen %></option>
-										    <%
-										        }
-										    %>
+                  						<label for="rule-open-select" id="rule-open-label">오픈 시간</label>
+	                  					<select name="rule_open" id="rule-open-select" required>  						
+											<c:forEach var="i" begin="0" end="23">
+            									<c:set var="formattedOpen" value="${i lt 10 ? '0' : ''}${i}:00" />
+            									<option value="${i}" ${i == planRule.openTime ? 'selected="selected"' : ''}>${formattedOpen}</option>
+        									</c:forEach>
 										</select>
                 					</div>
                 					
                 					<div class="col-md-6 update-hidden" id="rule-close-select">
-                  						<label for="rule-close-select" id="rule-close-label">마감 시간*</label>
+                  						<label for="rule-close-select" id="rule-close-label">마감 시간</label>
 	                  					<select name="rule_close" id="rule-close-select" required>
-	                  								<option value="-1">선택</option>
-										    <%
-										        for (int i = 0; i < 24; i++) {
-										            String closeTime = (i+"");
-										            String formattedClose = String.format("%02d:00", i);
-										    %>
-										            <option value="<%= closeTime %>"><%= formattedClose %></option>
-										    <%
-										        }
-										    %>
+	                  						<c:forEach var="i" begin="0" end="23">
+            									<c:set var="formattedClose" value="${i lt 10 ? '0' : ''}${i}:00" />
+            									<option value="${i}" ${i == planRule.closeTime ? 'selected="selected"' : ''}>${formattedClose}</option>
+        									</c:forEach>	
 										</select>
                 					</div>
                 					
                 					<div class="col-md-12 update-hidden" id="rule-usetime-target">
                   						<label for="rule-usetime-input" id="rule-usetime-label">일정 등록 간격 <span>(둥록간격이 영업시간보다 길 경우 등록되지 않습니다.)</span></label>
                   						 <select id="rule-usetime-input" name="rule_usetime">
-										     <option value="1">1시간</option>
-										     <option value="2" selected="selected">2시간</option>
-										     <option value="3">3시간</option>
-										     <option value="4">4시간</option>
+										 	<option value="1" ${planRule.operating == '1' ? 'selected="selected"' : ''}>1시간</option>
+       										<option value="2" ${planRule.operating == '2' ? 'selected="selected"' : ''}>2시간</option>
+        									<option value="3" ${planRule.operating == '3' ? 'selected="selected"' : ''}>3시간</option>
+        									<option value="4" ${planRule.operating == '4' ? 'selected="selected"' : ''}>4시간</option>
 										</select>
                 					</div>
                 					
                 					<div class="col-md-12 update-hidden" id="rule-price-target">
                 						<label for="rule-price-input" id="rule-price-label">가격 <span></span></label>
-                  						<input type="number" class="form-control" name="rule_price" id="rule-price-input" min="0" value="0">
+                  						<input type="number" class="form-control" name="rule_price" id="rule-price-input" min="0" value="${planRule.price}">
                 					</div>
 									
 									<p class="update-hidden" id="rule-terms-target">
@@ -322,12 +282,12 @@
 			type : "post",
 			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
 			data : {
-				"fieldIndex":fieldNo
+				"fieldNo":fieldNo
 			},
 			dataType : "JSON",
-			success : function(data){
+			success : function(data){	
 				document.getElementById("field-name-span").innerText = data["fieldName"];
-				document.getElementById("field-addr-span").innerText = data["fieldAddr"];
+				document.getElementById("field-addr-span").innerText = data["fieldAddr1"]+' '+data["fieldAddr2"]+' '+data["fieldAddr"];
 				document.getElementById("field-size-span").innerText = data["fieldSize"];
 				document.getElementById("field-limit-span").innerText = data["fieldLimit"];
 				document.getElementById("field-type-span").innerText = data["fieldType"];
