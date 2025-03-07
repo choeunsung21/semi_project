@@ -30,6 +30,7 @@
 
     <!-- jQuery (기존 유지) -->
     <script src="<%= request.getContextPath() %>/resources/js/jquery-3.7.1.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
     <%@ include file="/views/include/header.jsp" %>
@@ -64,6 +65,7 @@
                             <div class="mb-3">
                                 <label for="teamArea" class="form-label">활동 지역:</label>
                                 <input type="text" class="form-control" id="teamArea" name="team_area" value="${team.teamArea}" required>
+                                <button type="button" onclick="searchAddress()">주소 검색</button><br>
                             </div>
 
                             <div class="text-center">
@@ -89,5 +91,16 @@
 
     <!-- Main JS File -->
     <script src="<%= request.getContextPath() %>/resources/js/common.js"></script>
+    <script>
+       function searchAddress() {
+           new daum.Postcode({
+           oncomplete: function(data) {
+             var city = data.sido; // 시/도
+             var district = data.sigungu; // 시/군/구
+                 document.getElementById('teamArea').value = city + " " + district;
+               }
+          }).open();
+     }
+</script>
 </body>
 </html>

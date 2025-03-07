@@ -88,50 +88,12 @@
                         <!-- 버튼 그룹 -->
                         <div class="text-center mt-4">
                             <a href="${pageContext.request.contextPath}/teamList" class="btn btn-secondary btn-block">목록으로 돌아가기</a>
-                            <!-- 팀 가입 신청 버튼 (모달 트리거) -->
-                            <button type="button" class="btn btn-primary btn-block" data-bs-toggle="modal" data-bs-target="#joinTeamModal">팀 가입 신청</button>
+                            <a href="/insertApply?apply_no=${apply.applyNo}" class="btn btn-primary btn-block">팀가입신청</a>
                         </div>
                     </div>
                 </div>
             </div>
         </section><!-- /Team Detail Section -->
-
-        <!-- 팀 가입 신청 모달 -->
-        <div class="modal fade" id="joinTeamModal" tabindex="-1" aria-labelledby="joinTeamModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="joinTeamModalLabel">팀 가입 신청</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="joinTeamForm" action="<%= request.getContextPath() %>/createTeamEnd" method="post">
-                            <input type="hidden" name="teamNo" value="${team.teamNo}">
-                            <input type="hidden" name="userNo" value="${sessionScope.userNo}">
-
-                            <div class="mb-3">
-                                <label for="position" class="form-label">포지션</label>
-                                <input type="text" class="form-control" id="position" name="position" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="activityArea" class="form-label">활동 지역</label>
-                                <input type="text" class="form-control" id="activityArea" name="activityArea" required>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="introduction" class="form-label">소개글</label>
-                                <textarea class="form-control" id="introduction" name="introduction" rows="3" required></textarea>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                        <button type="submit" class="btn btn-primary" form="joinTeamForm">신청 완료</button>
-                    </div>
-                </div>
-            </div>
-        </div><!-- /팀 가입 신청 모달 -->
     </main>
 
     <%@ include file="/views/include/footer.jsp" %>
@@ -147,37 +109,5 @@
 
     <!-- Main JS File -->
     <script src="/resources/js/common.js"></script>
-
-    <!-- 모달 제출 후 리다이렉션 스크립트 -->
-    <script>
-        document.getElementById('joinTeamForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // 기본 폼 제출 방지
-
-            // 폼 데이터 전송 (AJAX 사용)
-            const form = this;
-            const formData = new FormData(form);
-
-            fetch(form.action, {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => {
-                if (response.ok) {
-                    alert('팀 가입 신청이 완료되었습니다.');
-                    // 모달 닫기
-                    const modal = bootstrap.Modal.getInstance(document.getElementById('joinTeamModal'));
-                    modal.hide();
-                    // 팀 목록 페이지로 리다이렉션
-                    window.location.href = '<%= request.getContextPath() %>/teamList';
-                } else {
-                    alert('가입 신청에 실패했습니다.');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('오류가 발생했습니다.');
-            });
-        });
-    </script>
 </body>
 </html>

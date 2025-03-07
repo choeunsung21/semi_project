@@ -31,19 +31,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach var="app" items="${receivedApplications}">
+                        <c:forEach var="apply" items="${receiveApply}">
                             <tr>
-                                <td>${app.teamNo}</td>
-                                <td>${app.position}</td>
-                                <td>${app.activityArea}</td>
-                                <td>${app.introduction}</td>
+                                <td>${apply.teamNo}</td>
+                                <td>${apply.position}</td>
+                                <td>${apply.activityArea}</td>
+                                <td>${apply.introduction}</td>
                                 <td>
-                                    <c:if test="${app.status == 'PENDING'}">
-                                        <button class="btn btn-success btn-sm" onclick="updateStatus(${app.applicationId}, 'APPROVED')">승인</button>
-                                        <button class="btn btn-danger btn-sm" onclick="updateStatus(${app.applicationId}, 'REJECTED')">거절</button>
+                                    <c:if test="${apply.status == 'PENDING'}">
+                                        <button class="btn btn-success btn-sm" onclick="updateStatus(${apply.applicationId}, 'APPROVED')">승인</button>
+                                        <button class="btn btn-danger btn-sm" onclick="updateStatus(${apply.applicationId}, 'REJECTED')">거절</button>
                                     </c:if>
-                                    <c:if test="${app.status != 'PENDING'}">
-                                        ${app.status}
+                                    <c:if test="${apply.status != 'PENDING'}">
+                                        ${apply.status}
                                     </c:if>
                                 </td>
                             </tr>
@@ -57,12 +57,12 @@
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="/resources/js/common.js"></script>
     <script>
-        function updateStatus(applicationId, status) {
+        function updateStatus(applyNo, status) {
             if (confirm(status === 'APPROVED' ? '승인하시겠습니까?' : '거절하시겠습니까?')) {
-                fetch('<%= request.getContextPath() %>/updateApplicationStatus', {
+                fetch('<%= request.getContextPath() %>/', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: 'applicationId=' + applicationId + '&status=' + status
+                    body: 'applyNo=' + applyNo + '&status=' + status
                 })
                 .then(response => {
                     if (response.ok) {

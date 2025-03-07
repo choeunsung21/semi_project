@@ -22,6 +22,6 @@ public class Apply {
 	private String position; // 선호 포지션
 	private String applyArea; // 선호 지역
 	private String applyExplanation; // 소개글
-	private String status;
+	private String status; // 대기,승낙,거절 상태
 }
 

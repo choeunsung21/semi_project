@@ -163,6 +163,22 @@
 
     <!-- Main JS File -->
     <script src="/resources/js/common.js"></script>
+<!-- <script>
+	function getTeamLevelName(level){
+		switch(level){
+		case 1 : return "초보1";
+		case 2 : return "초보2";
+		case 3 : return "초보3";
+		case 4 : return "일반";
+		case 5 : return "중급";
+		case 6 : return "고급";
+		default: return "준프로급";
+		}
+	}
+	const teamLevel = 1;
+	const teamLevelName = getTeamLevelName(teamLevel);
+	console.log(teamLevelName);
+</script> -->
 
     <script>
         function deleteTeam(teamNo) {

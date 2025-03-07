@@ -5,6 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <title>가입 신청 목록</title>
+<link href='<%=request.getContextPath()%>/resources/css/kdy.css' rel="stylesheet" type="text/css">
+<script src="<%=request.getContextPath()%>/resources/js/jquery-3.7.1.js"></script>
 </head>
 <body>
     <h2>가입 신청 목록</h2>
