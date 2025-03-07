@@ -24,3 +24,4 @@ public class Apply {
 	private String applyExplanation; // 소개글
 	private String status;
 }
+

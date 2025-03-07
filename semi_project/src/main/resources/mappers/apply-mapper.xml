@@ -10,12 +10,13 @@
         <result property="applyExplanation" column="apply_explanation"/>
         <result property="status" column="status"/>
     </resultMap>
-	<insert id="insertApply" parameterType="com.gn.apply.vo.Apply">
-        INSERT INTO apply (user_no, team_no, position, apply_area, apply_explanation, status)
-        VALUES (#{userNo}, #{teamNo}, #{position}, #{applyArea}, #{applyExplanation}, #{status})
-    </insert>
+    <!-- PENDING(대기중 걸어둠) -->
+	<insert id="insertApply" parameterType="Apply" useGeneratedKeys="true" keyProperty="applyNo">
+    	INSERT INTO `apply` (user_no, team_no, position, apply_area, apply_explanation, status)
+    	VALUES (#{userNo}, #{teamNo}, #{position}, #{applyArea}, #{applyExplanation}, 'PENDING');
+	</insert>
 
     <select id="checkDuplicateApply" parameterType="map" resultType="int">
-        SELECT COUNT(*) FROM apply WHERE user_no = #{userNo} AND team_no = #{teamNo} AND status = 'PENDING'
+        SELECT COUNT(*) FROM `apply` WHERE user_no = #{userNo} AND team_no = #{teamNo} AND status = 'PENDING'
     </select>
 </mapper>
