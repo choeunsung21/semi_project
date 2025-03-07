@@ -29,6 +29,7 @@ public class SelectBoardList extends HttpServlet {
 		String boardTitle = request.getParameter("boardTitle");
 		String orderType = request.getParameter("ordertype");
 //		System.out.println(orderType + "!!!!!!!!!!!!!!!!!!!!!" );
+
 	
 		String nowPage = request.getParameter("nowPage");
 		Board board = new Board();
@@ -45,6 +46,7 @@ public class SelectBoardList extends HttpServlet {
 		//전체 데이터 조회
 		List<Board> list = new BoardService().selectBoardList(board);
 		request.setAttribute("list", list);
+//		System.out.println(list);
 		request.setAttribute("orderType", orderType);
 		//검색창에 정보가 넘어오는지 확인
 		// System.out.println(boardTitle); 

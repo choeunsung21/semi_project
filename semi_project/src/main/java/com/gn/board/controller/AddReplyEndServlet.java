@@ -30,9 +30,9 @@ public class AddReplyEndServlet extends HttpServlet {
 		String writerNo = request.getParameter("writerNo");
 		String replyContent = request.getParameter("replyContent");
 		
-		System.out.println(boardNo);
-		System.out.println(writerNo);
-		System.out.println(replyContent);
+//		System.out.println(boardNo);
+//		System.out.println(writerNo);
+//		System.out.println(replyContent);
 		
 		Reply reply = Reply.builder()
 				.boardNo(Integer.parseInt(boardNo))

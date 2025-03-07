@@ -30,7 +30,7 @@ public class BoardUpdate extends HttpServlet {
 		if(temp != null) {
 			boardNo = Integer.parseInt(temp);
 		}
-		System.out.println("수정중!!!!!!!!!!!!" +boardNo);
+//		System.out.println("수정중!!!!!!!!!!!!" +boardNo);
 
 		Board board = new BoardService().selectBoardOne(boardNo);
 		request.setAttribute("board", board);

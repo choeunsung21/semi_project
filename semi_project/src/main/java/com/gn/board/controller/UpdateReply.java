@@ -40,16 +40,16 @@ public class UpdateReply extends HttpServlet {
 		if(temp != null) {
 			replyNo = Integer.parseInt(temp);
 		}
-		System.out.println(boardNo);
-		System.out.println(replyContent);
-		System.out.println(replyNo);
+//		System.out.println(boardNo);
+//		System.out.println(replyContent);
+//		System.out.println(replyNo);
 		Reply reply = new Reply();
 		reply.setBoardNo(boardNo);
 		reply.setReplyNo(replyNo);
 		reply.setReplyContent(replyContent);
 		int result = new BoardService().updateReply(reply);
-		System.out.println(result);
-		
+//		System.out.println(result);
+//		
 		JSONObject obj = new JSONObject();
 		if(result > 0) {
 			obj.put("res_code", 200);

@@ -95,6 +95,10 @@ public class BoardDao {
 		return session.update("boardMapper.updateReply", reply);
 	}
 	
+	public int updateBoardHit(SqlSession session, int boardNo) {
+		return session.update("boardMapper.updateBoardHit", boardNo);
+	}
+	
 
 	
 	

@@ -26,10 +26,12 @@ public class BoardDetailServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int boardNo = Integer.parseInt(request.getParameter("board_no"));
-		System.out.println("상세조회(BoardDetailServelt) : " + boardNo);
+//		System.out.println("상세조회(BoardDetailServelt) : " + boardNo);
 		Board board = new BoardService().selectBoardOne(boardNo);
 		
-		System.out.println("상세조회(BoardDetailServelt) : " + board);
+		int result = new BoardService().updateBoardHit(boardNo);
+		
+//		System.out.println("상세조회(BoardDetailServelt) : " + board);
 		request.setAttribute("board", board);
 		RequestDispatcher view = request.getRequestDispatcher("views/board/boardDetail.jsp");
 		view.forward(request, response);

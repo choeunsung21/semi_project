@@ -30,7 +30,7 @@ public class DeleteReply extends HttpServlet {
 		if(temp != null) {
 			replyNo = Integer.parseInt(temp);
 		}
-		System.out.println("댓글번호는 몇번이니? " + replyNo);
+//		System.out.println("댓글번호는 몇번이니? " + replyNo);
 		int result = new BoardService().deleteReplyOne(replyNo);
 		JSONObject obj = new JSONObject();
 		if(result>0) {

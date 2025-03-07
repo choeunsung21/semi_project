@@ -28,15 +28,15 @@ public class FilePathServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//1. 읽어올 파일명
-		System.out.println("테스트");
+//		System.out.println("테스트");
 		int attachNo = Integer.parseInt(request.getParameter("attach_no"));
 		
-		System.out.println("이미지 파일: " + attachNo);
+//		System.out.println("이미지 파일: " + attachNo);
 		
 		
 			Attach attach = new BoardService().selectAttachOne(attachNo);
-			System.out.println("!!!!!!!!!!!" + attach);
-			
+//			System.out.println("!!!!!!!!!!!" + attach);
+//			
 			//2.파일명이 비어있는지 
 			String filePath = attach.getAttachPath();
 			if(filePath == null || filePath.trim().equals("")) {

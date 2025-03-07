@@ -224,6 +224,7 @@ body {
  
  <!--  부트스트랩 CSS --> <!-- 부트스트랩 cdn방식 나중에 수정 필요 -->
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <!--  kyk include css -->
 <script src ="<%=request.getContextPath()%>/resources/js/jquery-3.7.1.js"></script>
 </head>
@@ -241,6 +242,7 @@ body {
 		<th>제목</th>
 		<th>작성자</th>
 		<th>작성일시</th>
+		<th>조회수</th>
 	</tr>
 </thead>
 <tbody>
@@ -251,10 +253,17 @@ body {
 			<c:forEach var="list" items="${list }" varStatus="vs">
 				<tr data-board-no="${list.boardNo} ">
 					<td>${(page.nowPage-1)*page.numPerPage+ (vs.index + 1) }</td>
-					<td>${list.boardTitle }</td>
+					<td>
+    					${list.boardTitle }
+    						<c:if test="${list.replyCount != 0}">
+        						<i class="fa-solid fa-comment-dots" style="margin-left: 8px;"></i>
+        						${list.replyCount}
+    						</c:if>
+					</td>
 					<td>${list.userId }</td>
 					<fmt:parseDate value="${list.regDate }" pattern="yyyy-MM-dd'T'HH:mm" var="strRegDate"/>
 					<td><fmt:formatDate value="${strRegDate }" pattern="yyyy년MM월dd일 HH시mm분" /></td>
+					<td id="boardhit">${list.boardHit }</td>
 				</tr>
 			</c:forEach> 
 		</c:when>
@@ -293,6 +302,7 @@ body {
     	<option value="-1">선택</option>
     	<option value="1"  <c:if test="${orderType == '1'}">selected</c:if>>최신순</option>
     	<option value="2"  <c:if test="${orderType == '2'}">selected</c:if>>오래된순</option>
+    	<option value="3"  <c:if test="${orderType == '3'}">selected</c:if>>인기순</option>
       </select> 
 	</form>
  
