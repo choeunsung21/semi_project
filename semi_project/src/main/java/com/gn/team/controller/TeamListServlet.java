@@ -9,9 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.gn.team.service.TeamService;
 import com.gn.team.vo.Team;
+import com.gn.user.vo.User;
 
 // 전체 팀 목록
 @WebServlet("/teamList")
@@ -23,6 +25,7 @@ public class TeamListServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	    	
     	String teamNo = request.getParameter("team_no");
     	String nowPage = request.getParameter("nowPage");
 

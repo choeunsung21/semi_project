@@ -65,5 +65,4 @@
     	ORDER BY reg_date DESC
     	LIMIT #{limitPageNo}, #{numPerPage}
 	</select>
-	
 </mapper>

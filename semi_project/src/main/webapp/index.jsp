@@ -16,8 +16,8 @@
   <meta name="keywords" content="">
 
   <!-- Favicons -->
-  <link href="resources/img/reco_favicon.png" rel="icon">
-  <link href="resources/img/reco_favicon.png" rel="reco-favicon-icon">
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
