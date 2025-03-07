@@ -190,4 +190,12 @@ public class BoardService {
 		return result;
 	}
 	
+	//조회수 증가 메소드
+	public int updateBoardHit(int boardNo) {
+		SqlSession session = getSqlSession(true);
+		int result = new BoardDao().updateBoardHit(session,boardNo);
+		session.close();
+		return result;
+	}
+	
 }
