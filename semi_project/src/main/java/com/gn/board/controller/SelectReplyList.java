@@ -37,7 +37,7 @@ public class SelectReplyList extends HttpServlet {
 		//정보가 잘 넘어온다!
 //		System.out.println(boardNo);
 		List<Reply> reply = new BoardService().selctReplyList(boardNo);
-		System.out.println("(나는 selectReplyLIST에 있어)" + reply);
+//		System.out.println("(나는 selectReplyLIST에 있어)" + reply);
 		//reply를 set해준다 그리고 넘겨준다
 		//jason오브젝트로
 		JSONArray arr = new JSONArray();
@@ -55,7 +55,7 @@ public class SelectReplyList extends HttpServlet {
 		}
 		JSONObject obj1 = new JSONObject();
 		obj1.put("list", arr);
-		System.out.println(obj1);
+//		System.out.println(obj1);
 		
 		
 		JSONObject test = new JSONObject();

@@ -15,6 +15,8 @@
 		<result property="attachNo" column="attach_no" />
 		<result property="regDate" column="reg_date" />
 		<result property="modDate" column="mod_date" />
+		<result property="boardHit" column="board_hit" />
+		<result property="replyCount" column="reply_count" />
 	</resultMap>
 	<resultMap type="attach" id="attachMap">
 		<result property="attachNo" column="attach_no" />
@@ -34,7 +36,7 @@
 	</resultMap>
 		
 	<select id="boardList" resultMap="boardMap">
-		SELECT b.* ,u.* 
+		SELECT b.* ,u.* ,(SELECT COUNT(*) FROM reply r WHERE r.board_no = b.board_no) AS reply_count
 		FROM `board` b
 		JOIN `user` u ON b.writer_no = u.user_no
 		<where>
@@ -81,9 +83,9 @@
 	</insert>
 	
 	<select id="selectDetail" parameterType="int" resultMap="boardMap">
-    		SELECT b.board_no, b.writer_no, b.board_title, b.board_content, 
-            b.reg_date, b.mod_date, 
-            u.user_name, u.user_id, 
+    		SELECT b.board_no, b.writer_no, b.board_title, b.board_content,
+            b.reg_date, b.mod_date ,b.board_hit  
+            ,u.user_name, u.user_id, 
             o.attach_path, o.attach_no, o.ori_name
     		FROM `board` b
     		JOIN `user` u ON b.writer_no = u.user_no
@@ -169,6 +171,9 @@
 				<when test='orderType.equals("1") == true'>
 					ORDER BY b.reg_date DESC
 				</when>
+				<when test='orderType.equals("3") == true'>
+					ORDER BY b.board_hit ASC
+				</when>
 			<otherwise>
 					ORDER BY b.reg_date ASC
 			</otherwise>
@@ -180,6 +185,12 @@
 		UPDATE `reply`
 		SET reply_content = #{replyContent}
 		WHERE reply_no = #{replyNo}		
+	</update>
+	
+	<update id="updateBoardHit" parameterType="_int">
+		UPDATE `board`
+		SET board_hit = board_hit + 1
+		WHERE board_no = #{boardNo}
 	</update>
 	
 	

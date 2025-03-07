@@ -29,7 +29,7 @@ public class SelectOrderType extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String orderType = request.getParameter("ordertype");
-		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!"+orderType);
+//		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!"+orderType);
 		List<Board> list = new BoardService().selectOrderType(orderType);
 //		System.out.println(list);
 		request.setAttribute("list", list);

@@ -64,49 +64,7 @@
 
       <div class="container" data-aos="fade-up">
 
-		<div class="portfolio-details-slider swiper init-swiper">
-          <script type="application/json" class="swiper-config">
-            {
-              "loop": true,
-              "speed": 600,
-              "autoplay": {
-                "delay": 5000
-              },
-              "slidesPerView": "auto",
-              "navigation": {
-                "nextEl": ".swiper-button-next",
-                "prevEl": ".swiper-button-prev"
-              },
-              "pagination": {
-                "el": ".swiper-pagination",
-                "type": "bullets",
-                "clickable": true
-              }
-            }
-          </script>
-          <div class="swiper-wrapper align-items-center">
-
-            <div class="swiper-slide">
-              <img src="/resources/img/test_1920_1080.png" alt="">
-            </div>
-
-            <div class="swiper-slide">
-              <img src="assets/img/portfolio/product-1.jpg" alt="">
-            </div>
-
-            <div class="swiper-slide">
-              <img src="assets/img/portfolio/branding-1.jpg" alt="">
-            </div>
-
-            <div class="swiper-slide">
-              <img src="assets/img/portfolio/books-1.jpg" alt="">
-            </div>
-
-          </div>
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>
-          <div class="swiper-pagination"></div>
-        </div>
+		
 
 <style>
 .reply-list li {
@@ -154,13 +112,15 @@
             	<div class="portfolio-info">
                     
               		<ul>
+              			<li id="boardno" style="display: none;">${board.boardNo }</li>
                	 		<li><strong>제목</strong> ${board.boardTitle }</li>
                 		<li><strong>작성자</strong>${board.userId }</li>
-                		<fmt:parseDate value="${board.regDate }" pattern="yyyy-MM-dd'T'HH:mm:ss" var="thisDate" />
+                		<fmt:parseDate value="${board.regDate }" pattern="yyyy-MM-dd'T'HH:mm" var="thisDate" />
                 		<li><strong>등록일</strong><fmt:formatDate value="${thisDate }" pattern="yyyy-MM-dd HH:mm" /></li>
                 		<c:if test="${board.regDate != board.modDate }">
-                		<fmt:parseDate value="${board.modDate }" pattern="yyyy-MM-dd'T'HH:mm:ss" var="upDate" />
+                		<fmt:parseDate value="${board.modDate }" pattern="yyyy-MM-dd'T'HH:mm" var="upDate" />
                 		<li><strong>수정일</strong><fmt:formatDate value="${upDate }" pattern="yyyy-MM-dd HH:mm" /></li>
+                		<li><strong>조회수</strong>${board.boardHit }</li>
                 		</c:if>
               		</ul>
                 		<%-- <textarea id="summernote" class="" ><c:out>${board.boardContent }</c:out></textarea> --%>
@@ -168,6 +128,7 @@
             	</div>
           	  </div>
           	  
+          	  <BR><BR>
           	  
           	  <!-- 게시글을 쓴 사람만 삭제 수정버튼을 보이게 함  -->
           	  <div>
@@ -186,6 +147,9 @@
                 		disableDragAndDrop: true 
               		});
             	});
+            	
+            
+             
             	
           	  // 수정 버튼을 누를시
           	  $(function(){
