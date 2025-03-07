@@ -628,8 +628,6 @@ tbody tr.active {
 	        method: "GET",
 	        dataType: "json",
 	        success: function(response) {
-	            console.log("AJAX 요청 성공:", response);
-
 	            let rows = "";
 	            for (let i = 0; i < response.list.length; i++) {
 	                let plan = response.list[i];
@@ -757,7 +755,7 @@ tbody tr.active {
  			method: "POST",
  			data: {
  				userId: userId,
- 				userPw: userPw,
+ 				userPw: userPw
  			},
  			success : function(response){
  				if(response.success){

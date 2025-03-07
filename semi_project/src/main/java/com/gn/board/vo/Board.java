@@ -18,8 +18,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @Builder
-
-//board클래스에서 memberName에서 -> userName으로 수정
+// board클래스에서 memberName에서 -> userName으로 수정
 public class Board extends Paging  {
 	private int boardNo;
 	private int writerNo;

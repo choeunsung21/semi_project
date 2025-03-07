@@ -18,8 +18,8 @@ import lombok.ToString;
 @EqualsAndHashCode
 @Builder
 public class UserBoard{
-    private int boardNo;        // 글 번호
-    private String boardTitle;  // 글 제목
-    private LocalDateTime regDate;  // 작성일 (필요 시 추가)
-    private String userId;      // 작성자 ID (User와 연결)
+    private int boardNo;
+    private String boardTitle;
+    private LocalDateTime regDate;
+    private String userId;
 }

@@ -6,7 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PagingPlan {
-	
 	// 전체 게시글 개수
 	private int totalData;
 	// 전체 페이지 개수

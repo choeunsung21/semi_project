@@ -24,4 +24,3 @@ public class Apply {
 	private String applyExplanation; // 소개글
 	private String status; // 대기,승낙,거절 상태
 }
-
