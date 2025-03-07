@@ -47,7 +47,7 @@ public class InsertReservationServlet extends HttpServlet {
 
 			int result = new ReservationService().insertReservation(reservation);
 			if (result > 0) {
-				int resStatus = 1;
+				int resStatus = 1; // 예약상태 변경
 				Plan plan = Plan.builder()
 						.planNo(planNo)
 						.resStatus(resStatus)

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.gn.plan.service.PlanService;
 import com.gn.plan.vo.Plan;
 import com.gn.reservation.service.ReservationService;
 import com.gn.reservation.vo.Reservation;
@@ -47,6 +48,12 @@ public class DeleteReservationServlet extends HttpServlet {
 			
 			int result = new ReservationService().deleteReservation(reservation);
 			if(result > 0) {
+				int resStatus = 0; // 예약상태 변경
+				Plan plan = Plan.builder()
+						.planNo(planNo)
+						.resStatus(resStatus)
+						.build();
+				new PlanService().updatePlanStatus(plan);
 				// 성공시 홈페이지 이동
 				RequestDispatcher view = request.getRequestDispatcher("/selectPlanList");
 				request.setAttribute("reservation", reservation);
