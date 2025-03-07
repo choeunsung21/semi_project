@@ -37,6 +37,20 @@
 
   <script src="<%= request.getContextPath() %>/resources/js/jquery-3.7.1.js"></script>
 
+  <style>
+    #field-success-ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-left: 0;
+    }
+
+    #field-success-ul li {
+        list-style-type: none;
+        margin: 1px 0; 
+    }
+  </style>
+
   <!-- =======================================================
   * Template Name: OnePage
   * Template URL: https://bootstrapmade.com/onepage-multipurpose-bootstrap-template/

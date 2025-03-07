@@ -11,7 +11,7 @@
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>index.jsp</title>
+  <title>풋살장 중개 사이트 : 축구미</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -48,7 +48,7 @@
 
       <div class="container">
         <div class="row gy-4 mt-5">
-          <div class="col-md-6 col-lg-3" data-aos="zoom-out" data-aos-delay="100">
+          <div class="col-md-4 col-lg-4" data-aos="zoom-out" data-aos-delay="100">
             <div class="icon-box">
               <div class="icon"><i class="bi bi-easel"></i></div>
               <h4 class="title"><a href="/selectPlanList">예약 가능한 구장</a></h4>
@@ -56,15 +56,15 @@
             </div>
           </div><!--End Icon Box -->
 
-          <div class="col-md-6 col-lg-3" data-aos="zoom-out" data-aos-delay="200">
+          <div class="col-md-4 col-lg-4" data-aos="zoom-out" data-aos-delay="200">
             <div class="icon-box">
               <div class="icon"><i class="bi bi-gem"></i></div>
-              <h4 class="title"><a href="/service-details.jsp">가입 가능한 팀</a></h4>
+              <h4 class="title"><a href="/teamList">가입 가능한 팀</a></h4>
               <p class="description">List of Teams available for Registration</p>
             </div>
           </div><!--End Icon Box -->
 
-          <div class="col-md-6 col-lg-3" data-aos="zoom-out" data-aos-delay="300">
+          <div class="col-md-4 col-lg-4" data-aos="zoom-out" data-aos-delay="300">
             <div class="icon-box">
               <div class="icon"><i class="bi bi-geo-alt"></i></div>
               <h4 class="title"><a href="/selectBoardList">자유게시판</a></h4>
@@ -72,13 +72,16 @@
             </div>
           </div><!--End Icon Box -->
  
+ 		  <!--
           <div class="col-md-6 col-lg-3" data-aos="zoom-out" data-aos-delay="400">
             <div class="icon-box">
               <div class="icon"><i class="bi bi-command"></i></div>
-              <h4 class="title"><a href="/index-backup.jsp">구장 및 일정 관리</a></h4>
+              <h4 class="title"><a href="/selectRegisteredFieldList">구장 및 일정 관리</a></h4>
               <p class="description">Field and Schedule Management</p>
             </div>
-          </div><!--End Icon Box -->
+          </div>
+          -->
+          <!--End Icon Box -->
           
         </div>
         

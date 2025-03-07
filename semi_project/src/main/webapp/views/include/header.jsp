@@ -26,7 +26,9 @@
 					<c:otherwise>
 						<!-- 로그인이 되어있는 상태라면 -->
 						<li><a href="/logout">로그아웃</a></li>
+						<!--
 						<li><a href="/123">[알림이미지]</a></li>
+						-->
 						<li class="dropdown"><a href="#"><c:out value="${user.userName}"/>님<i class="bi bi-chevron-down toggle-dropdown"></i></a>
 							<ul>
 								<!-- 모든 회원에게 보이는 드롭다운 메뉴 -->
@@ -36,7 +38,9 @@
 								<li><a href="/selectBoardList">게시판</a></li>
 								<li><a href="/boardWrite">글쓰기</a></li>
 								
+								<!--
 								<li><a href="/insertReservation">일정 예약</a></li>
+								-->
 								
 								<!-- 팀 관련 드롭다운 메뉴 -->
 								
