@@ -21,7 +21,7 @@
 						<!-- 로그인이 되어있지 않은 상태라면 -->
 						<li><a href="/login">로그인</a></li>
 						<li><a href="/signup">회원가입</a></li>
-						<li><img class="img-profile" src="/resources/img/sponge.png" alt="profile"></li>
+						<li><img class="img-profile" src="/resources/img/pngwing.png" alt="profile"></li>
 					</c:when>
 					<c:otherwise>
 						<!-- 로그인이 되어있는 상태라면 -->
@@ -97,7 +97,7 @@
 								<li><a href="/logout">로그아웃</a></li>
 							</ul>
 						</li>
-						<li><img class="img-profile" src="/resources/img/dung.png" alt="profile"></li>
+						<li><img class="img-profile" src="/resources/img/pngwing.png" alt="profile"></li>
 					</c:otherwise>
 				</c:choose>
 
