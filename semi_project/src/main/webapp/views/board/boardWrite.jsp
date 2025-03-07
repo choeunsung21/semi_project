@@ -142,7 +142,7 @@
             <form action="BoardWriteEnd" name="boardWrite" method="post" enctype="multipart/form-data">
             	<input type="hidden" name="writerNo" value="<c:out value='${sessionScope.user.userNo}' />" >
                 <input type="text" name="title" placeholder="제목을 입력하세요" >
-                <input type="file" name="file" accept=".png,.jpg,.jpeg" >
+                <input type="file" name="file" accept=".png,.jpg,.jpeg" style='display: none'>
                 <textarea id="summernote" name="content" rows="5" placeholder="내용을 입력하세요"></textarea>
                 <input type="button" value="등록" onclick="writeBoard()" >
             </form>
@@ -176,7 +176,7 @@
     		const idx = val.lastIndexOf('.');
     		//'.' 앞에서 부터 파일 이름의 끝까지
     		const type = val.substring(idx+1, val.length);
-    		if(type == 'jpg' || type == 'png' || type == 'jpeg'){
+    		if(type == 'pdf' || type == 'xls' || type == 'xlsx'){
     			insertBoardForm();
     		}else{
     			alert('이미지 파일만 선택할 수 있습니다!');
