@@ -2,8 +2,6 @@ package com.gn.reservation.service;
 
 import static com.gn.common.sql.SqlSessionTemplate.getSqlSession;
 
-import java.util.List;
-
 import org.apache.ibatis.session.SqlSession;
 
 import com.gn.reservation.dao.ReservationDao;

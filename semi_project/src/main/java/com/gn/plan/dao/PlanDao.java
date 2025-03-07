@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import com.gn.plan.vo.Plan;
-import com.gn.user.vo.User;
 
 public class PlanDao {
 

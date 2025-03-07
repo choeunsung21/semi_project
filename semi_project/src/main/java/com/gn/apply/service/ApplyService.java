@@ -1,9 +1,8 @@
 package com.gn.apply.service;
 
-import org.apache.ibatis.session.SqlSession;
 import static com.gn.common.sql.SqlSessionTemplate.getSqlSession;
 
-import java.util.Map;
+import org.apache.ibatis.session.SqlSession;
 
 import com.gn.apply.dao.ApplyDao;
 import com.gn.apply.vo.Apply;

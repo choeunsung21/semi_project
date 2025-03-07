@@ -8,7 +8,6 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.gn.plan.dao.PlanDao;
 import com.gn.plan.vo.Plan;
-import com.gn.user.vo.User;
 
 public class PlanService {
 
