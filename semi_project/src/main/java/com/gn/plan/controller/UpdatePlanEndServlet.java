@@ -12,15 +12,14 @@ import javax.servlet.http.HttpSession;
 
 import com.gn.plan.service.PlanService;
 import com.gn.plan.vo.Plan;
-import com.gn.user.vo.User;
 
 
-@WebServlet("/deletePlan")
-public class DeletePlanServlet extends HttpServlet {
+@WebServlet("/updatePlanEnd")
+public class UpdatePlanEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
-    public DeletePlanServlet() {
+    public UpdatePlanEndServlet() {
         super();
     }
 
@@ -29,25 +28,41 @@ public class DeletePlanServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
     	// 세션확인
     	if(session != null && session.getAttribute("user") != null) {
-    		// 세션 유저정보 get
     		// User user = (User)session.getAttribute("user");
     		// int userNo = user.getUserNo();
-    		
-    		String temp = request.getParameter("planNo");
+    		String temp = request.getParameter("plan_no");
     		int planNo = 0;
-    		if(temp != null)
+    		if(temp != null) {
     			planNo = Integer.parseInt(temp);
-    		Plan plan = new Plan();
-    		plan.setPlanNo(planNo);
-    		
-    		int result = new PlanService().deletePlan(plan);
-    		System.out.println("deletePlanServlet : " + result);
-    		if(result != 0) {
-    			response.sendRedirect("/selectRegisteredPlanList");
-    		} else {
-    			RequestDispatcher view = request.getRequestDispatcher("/views/plan/deleteFail.jsp");
-    			view.forward(request, response);
     		}
+    		temp = request.getParameter("field_no");
+    		int fieldNo = 0;
+    		if(temp != null) {
+    			fieldNo = Integer.parseInt(temp);
+    		}
+    		String planDate = request.getParameter("plan_date");
+    		String planTime = request.getParameter("plan_time");
+    		String planPrice = request.getParameter("plan_price");
+    		String useTime = request.getParameter("use_time");
+    		
+    		Plan plan = Plan.builder()
+    				.planNo(planNo)
+    				.fieldNo(fieldNo)
+    				.planDate(planDate)
+    				.planTime(planTime)
+    				.planPrice(planPrice)
+    				.useTime(useTime)
+    				.build();
+    		
+    		int result = new PlanService().updatePlan(plan);
+    		
+    		if(result > 0) {
+    			RequestDispatcher view = request.getRequestDispatcher("/selectRegisteredPlanList");
+    			view.forward(request, response);
+    		} else {
+    			System.out.println("UpdatePlanEnd : 수정 중 오류");
+    		}
+    		
     	} else {
     		request.getRequestDispatcher("/views/user/login.jsp").forward(request, response);
     	}

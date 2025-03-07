@@ -14,6 +14,8 @@ import javax.servlet.http.HttpSession;
 import com.gn.plan.service.PlanService;
 import com.gn.plan.vo.PagingPlan;
 import com.gn.plan.vo.Plan;
+import com.gn.reservation.service.ReservationService;
+import com.gn.reservation.vo.Reservation;
 import com.gn.user.vo.User;
 
 
@@ -43,17 +45,16 @@ public class SelectRegisteredPlanListServlet extends HttpServlet {
             option.setNowPage(nowPage);
             option.setNumPerPage(numPerPage);
             int totalData = new PlanService().selectRegPlanCount(option);
-            option.setTotalData(totalData);
-            
+            option.setTotalData(totalData);        
 			
-			List<Plan> registeredPlanList = new PlanService().selelctRegisteredPlanList(option);
+			List<Plan> registeredPlanList = new PlanService().selectRegisteredPlanList(option);
 			
 			RequestDispatcher view = request.getRequestDispatcher("/views/plan/registeredPlanList.jsp");
 			request.setAttribute("registeredPlanList", registeredPlanList);
 			request.setAttribute("paging", option);
 			view.forward(request, response);
 		} else {
-			System.out.println("SelectRegPlanList : 세션에 유저정보가 존재하지 않습니다.");
+			request.getRequestDispatcher("/views/user/login.jsp").forward(request, response);
 		}
 	}
 

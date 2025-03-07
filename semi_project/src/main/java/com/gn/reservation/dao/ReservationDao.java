@@ -21,5 +21,9 @@ public class ReservationDao {
 		return session.selectOne("reservationMapper.selectReservationDetail", reservation);
 	}
 
+	public Reservation selectReservationByPlanNo(SqlSession session, int planNo) {
+		return session.selectOne("reservationMapper.selectReservationByPlanNo", planNo);
+	}
+
 	
 }

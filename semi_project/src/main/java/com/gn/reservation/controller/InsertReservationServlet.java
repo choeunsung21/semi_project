@@ -13,6 +13,8 @@ import javax.servlet.http.HttpSession;
 
 import com.gn.field.service.FieldService;
 import com.gn.field.vo.Field;
+import com.gn.plan.service.PlanService;
+import com.gn.plan.vo.Plan;
 import com.gn.reservation.service.ReservationService;
 import com.gn.reservation.vo.Reservation;
 import com.gn.user.vo.User;
@@ -45,9 +47,15 @@ public class InsertReservationServlet extends HttpServlet {
 
 			int result = new ReservationService().insertReservation(reservation);
 			if (result > 0) {
+				int resStatus = 1;
+				Plan plan = Plan.builder()
+						.planNo(planNo)
+						.resStatus(resStatus)
+						.build();
+				new PlanService().updatePlanStatus(plan);
 				// 성공 시 예약 상세 페이지로 이동
 				// 상세 페이지 만들긴 했으나 해당 예약에 맞는 페이지로 이동하는지는 아직 테스트 불가
-				RequestDispatcher view = request.getRequestDispatcher("/views/reservation/reservationDetail.jsp");
+				RequestDispatcher view = request.getRequestDispatcher("/selectPlanDetail");
 				request.setAttribute("reservation_info", reservation);
 				view.forward(request, response);
 			} else {

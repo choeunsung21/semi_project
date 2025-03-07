@@ -19,7 +19,7 @@ public class PlanService {
 		return result;
 	}
 
-	public List<Plan> selelctRegisteredPlanList(Plan plan) {
+	public List<Plan> selectRegisteredPlanList(Plan plan) {
 		SqlSession session = getSqlSession(true);
 		List<Plan> planList = new PlanDao().selectRegisteredPlanList(session, plan);
 		session.close();
@@ -60,6 +60,26 @@ public class PlanService {
 		session.close();
 		return result;
 	}
+
+	public int updatePlan(Plan plan) {
+		SqlSession session = getSqlSession(true);
+		int result = new PlanDao().updatePlan(session, plan);
+		session.close();
+		return result;
+	}
+
+	public void updatePlanStatus(Plan plan) {
+		SqlSession session = getSqlSession(true);
+		new PlanDao().updatePlanStatus(session, plan);
+		session.close();
+	}
+
+	public List<Plan> selectPlanByDate(Plan plan) {
+		SqlSession session = getSqlSession(true);
+		List<Plan> planList = new PlanDao().selectPlanByDate(session, plan);
+		session.close();
+		return planList;
+	}
 	
 	public List<Plan> selectPlanListByFieldNo(int fieldNo) {
 		SqlSession session = getSqlSession(true);
@@ -67,4 +87,19 @@ public class PlanService {
 		session.close();
 		return resultList;
 	}
+
+	public List<Plan> selectAllPlanByDate(String planDate) {
+		SqlSession session = getSqlSession(true);
+		List<Plan> resultList = new PlanDao().selectAllPlanByDate(session, planDate);
+		session.close();
+		return resultList;
+	}
+
+	public int deleteOldPlans(String today) {
+		SqlSession session = getSqlSession(true);
+		int result = new PlanDao().deleteOldPlans(session, today);
+		session.close();
+		return result;
+	}
+
 }

@@ -102,8 +102,8 @@
 	
         			<div class="row gy-4">
 	
-          				<div class="col-lg-4">
-          					<h3 style="text-align:left; padding-bottom:20px;">Contact</h3>
+          				<div class="col-lg-2">
+          					<!-- <h3 style="text-align:left; padding-bottom:20px;">Contact</h3>
           					
             				<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
             					
@@ -112,7 +112,7 @@
                 					<h3>Address</h3>
                 					<p>#임의의 주소</p>
               					</div>
-            				</div><!-- End Info Item -->
+            				</div>End Info Item
 		
             				<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
               					<i class="bi bi-telephone flex-shrink-0"></i>
@@ -120,7 +120,7 @@
                 					<h3>Call Us</h3>
                 					<p>#임의의 전화번호</p>
               					</div>
-           					</div><!-- End Info Item -->
+           					</div>End Info Item
 		
             				<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="500">
               					<i class="bi bi-envelope flex-shrink-0"></i>
@@ -128,7 +128,8 @@
                 					<h3>Email Us</h3>
                 					<p>#임의의 이메일@example.com</p>
               					</div>
-            				</div><!-- End Info Item -->
+            				</div> -->
+            				<!-- End Info Item -->
 		
           				</div>
 		
@@ -143,6 +144,7 @@
 									<div class="col-md-12">
 										<label for="field-no-select" id="field-no-label">구장 선택</label>
 										<select id="field-no-select" name="field_no">
+											<option value="" selected>선택</option>
 											<c:forEach var="field_list" items="${fieldList}" varStatus="vs">
 												<option value="${field_list.fieldNo}">
 													<c:out value="(${vs.index+1}) ${field_list.fieldName}"/>
@@ -202,7 +204,9 @@
                 					
               					</div>
             				</form>
-          				</div><!-- End Contact Form -->
+          				</div>
+          				<div class="col-lg-2">
+          				<!-- End Contact Form -->
 	
         			</div>
 	
@@ -228,15 +232,17 @@
 
           <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
 		  	 
-            <div class="services-list">
-              <a href="" class="active">구장명 : </a>
-              <a href="">주소 : </a>
-              <a href="">구장크기 : </a>
-              <a href="">수용인원 : </a>
-              <a href="">잔디타입 : </a>
-              <a href="">실내/실외 : </a>
-              <a href="">주차장 : </a>
-              <a href="">풋살화대여 : </a>
+            <div class="services-list" id="services-list-div">
+              <a href="javascript:void(0);" class="active">구장명 : <span id="field-name-span"></span></a>
+              <a href="javascript:void(0);" class="active">주소 : <span id="field-addr-span"></span></a>
+              <a href="javascript:void(0);" class="active">구장크기 : <span id="field-size-span"></span></a>
+              <a href="javascript:void(0);" class="active">수용인원 : <span id="field-limit-span"></span></a>
+              <a href="javascript:void(0);" class="active">잔디타입 : <span id="field-type-span"></span></a>
+              <a href="javascript:void(0);" class="active">실내/실외 : <span id="is-indoor-span"></span></a>
+              <a href="javascript:void(0);" class="active">주차장 : <span id="is-park-span"></span></a>
+              <a href="javascript:void(0);" class="active">샤워실 : <span id="is-shower-span"></span></a>
+              <a href="javascript:void(0);" class="active">풋살화대여 : <span id="rent-price-span"></span></a>
+              <a href="javascript:void(0);" class="active">휴무요일 : <span id="dayoff-span"></span></a>
             </div>
            
 			<!-- 
@@ -273,6 +279,66 @@
 
   <!-- Main JS File -->
   <script src="<%= request.getContextPath() %>/resources/js/common.js"></script>
+  
+  <!-- 직접 작성한 스크립트 -->
+  <script>
+  $(function(){
+		$('#field-no-select').change(function(){
+			const fieldNo = $('#field-no-select option:selected').val();
+
+			$.ajax({
+				url : "/selectFieldEnd",
+				type : "post",
+				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+				data : {
+					"fieldNo":fieldNo
+				},
+				dataType : "JSON",
+				success : function(data){
+					document.getElementById("field-name-span").innerText = data["fieldName"];
+					document.getElementById("field-addr-span").innerText = data["fieldAddr1"]+' '+data["fieldAddr2"]+' '+data["fieldAddr"];
+					document.getElementById("field-size-span").innerText = data["fieldSize"];
+					document.getElementById("field-limit-span").innerText = data["fieldLimit"];
+					document.getElementById("field-type-span").innerText = data["fieldType"];
+					document.getElementById("is-indoor-span").innerText = data["isIndoor"];
+					document.getElementById("is-park-span").innerText = data["isPark"];
+					document.getElementById("is-shower-span").innerText = data["isShower"];
+					document.getElementById("rent-price-span").innerText = data["rentPrice"];
+					document.getElementById("dayoff-span").innerText = data["dayoff"];
+				},
+				error : function(){
+					document.getElementById("field-name-span").innerText = "";
+					document.getElementById("field-addr-span").innerText = "";
+					document.getElementById("field-size-span").innerText = "";
+					document.getElementById("field-limit-span").innerText = "";
+					document.getElementById("field-type-span").innerText = "";
+					document.getElementById("is-indoor-span").innerText = "";
+					document.getElementById("is-park-span").innerText = "";
+					document.getElementById("is-shower-span").innerText = "";
+					document.getElementById("rent-price-span").innerText = "";
+					document.getElementById("dayoff-span").innerText = "";
+				}
+			});
+			
+			$.ajax({
+				url : "/selectRuleEnd",
+				type : "post",
+				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+				data : {
+					"fieldNo":fieldNo
+				},
+				dataType : "JSON",
+				success : function(data) {
+					document.getElementById("print-msg-span").innerText = data["printMsg"];
+					document.getElementById("print-flag-span").innerText = data["printFlag"];
+				},
+				error : function() {
+					
+				}
+			});
+		});
+	});
+  </script>
 
 </body>
 
