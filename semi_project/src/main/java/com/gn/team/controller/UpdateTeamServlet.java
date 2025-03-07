@@ -2,6 +2,7 @@ package com.gn.team.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,62 +12,49 @@ import javax.servlet.http.HttpServletResponse;
 import com.gn.team.service.TeamService;
 import com.gn.team.vo.Team;
 
-// 팀 수정
+
 @WebServlet("/updateTeam")
 public class UpdateTeamServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
+    private static final long serialVersionUID = 1L;
+
     public UpdateTeamServlet() {
         super();
     }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
-	}
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	 String teamNoParam = request.getParameter("team_no");
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String teamNoStr = request.getParameter("team_no");
-	    
-	    if (teamNoStr == null || teamNoStr.isEmpty()) {
-	        response.sendError(HttpServletResponse.SC_BAD_REQUEST, "팀 번호가 필요합니다.");
-	        return;
-	    }
-	    
-	    int teamNo = Integer.parseInt(teamNoStr);
-	    String teamName = request.getParameter("team_name");
-	    String teamArea = request.getParameter("team_area");
-	    String teamLevelStr = request.getParameter("team_level"); // String 형태로 받음
+         // 팀 번호가 제공되지 않은 경우 에러 처리
+         if (teamNoParam == null || teamNoParam.isEmpty()) {
+             request.setAttribute("message", "팀 번호가 제공되지 않았습니다.");
+             RequestDispatcher view = request.getRequestDispatcher("/views/team/error.jsp");
+             view.forward(request, response);
+             return; // 더 이상 진행하지 않음
+         }
 
-	    Integer teamLevel = null;
-	    if (teamLevelStr != null && !teamLevelStr.isEmpty()) {
-	        teamLevel = Integer.parseInt(teamLevelStr); // Integer로 변환
-	    }
+         // 팀 번호를 정수로 변환
+         int teamNo = Integer.parseInt(teamNoParam);
 
-	    String teamCountStr = request.getParameter("team_count");
+         // TeamService를 사용하여 팀 정보를 조회
+         TeamService teamService = new TeamService();
+         Team team = teamService.selectTeamNo(teamNo);
 
-	    if (teamCountStr == null || teamCountStr.isEmpty()) {
-	        response.sendError(HttpServletResponse.SC_BAD_REQUEST, "팀원 수가 필요합니다.");
-	        return;
-	    }
+         // 팀 정보가 존재하지 않는 경우 에러 처리
+         if (team == null) {
+             request.setAttribute("message", "팀 정보를 찾을 수 없습니다.");
+             RequestDispatcher view = request.getRequestDispatcher("/views/team/error.jsp");
+             view.forward(request, response);
+             return; // 더 이상 진행하지 않음
+         }
 
-	    int teamCount = Integer.parseInt(teamCountStr);
+         // 팀 정보를 request에 저장
+         request.setAttribute("team", team);
 
-	    // 팀 수정 로직 추가
-	    Team team = new Team();
-	    team.setTeamNo(teamNo);
-	    team.setTeamName(teamName);
-	    team.setTeamArea(teamArea);
-	    team.setTeamLevel(teamLevel); // Integer 타입으로 설정
-	    team.setTeamCount(teamCount);
-
-	    TeamService teamService = new TeamService();
-	    boolean isUpdated = teamService.updateTeam(team);
-
-	    if (isUpdated) {
-	        response.sendRedirect("views/team/teamList.jsp");
-	    } else {
-	        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "수정 실패");
-	    }
-	}
+         // 팀 수정 페이지로 포워드
+         RequestDispatcher view = request.getRequestDispatcher("/views/team/updateTeam.jsp");
+         view.forward(request, response);
+     }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
+    }
 }
-

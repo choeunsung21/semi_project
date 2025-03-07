@@ -14,10 +14,10 @@ import com.gn.rule.service.PlanRuleService;
 import com.gn.rule.vo.PlanRule;
 
 @WebServlet("/selectRuleEnd")
-public class SelelctRuleOneByFieldNo extends HttpServlet {
+public class SelelctRuleOneByFieldNoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public SelelctRuleOneByFieldNo() {
+    public SelelctRuleOneByFieldNoServlet() {
         super();
     }
 
@@ -25,7 +25,7 @@ public class SelelctRuleOneByFieldNo extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 
 		// 셀렉트 창에서 넘어오기 때문에 null 일 수가 없는 데이터이긴 함
-		String tmp = request.getParameter("fieldIndex");
+		String tmp = request.getParameter("fieldNo");
 		
 		if(tmp != null) {
 			int fieldNo = Integer.parseInt(tmp);

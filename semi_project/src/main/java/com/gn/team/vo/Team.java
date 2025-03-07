@@ -31,7 +31,6 @@ public class Team extends Paging{
     private String teamExplanation; // 팀 설명
     private LocalDateTime regDate; // 팀 생성일
     private LocalDateTime modDate; // 팀 수정일
-    
 // 추가된 코드
     private int nowPage = 1; // 현재 페이지 (기본값 1)
     private int numPerPage = 10; // 한 페이지당 게시글 수
@@ -39,5 +38,6 @@ public class Team extends Paging{
     private int totalPage; // 전체 페이지 개수
     private int limitPageNo; // LIMIT 시작 값
 }
+
 
 

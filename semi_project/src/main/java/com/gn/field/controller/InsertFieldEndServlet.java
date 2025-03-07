@@ -52,6 +52,8 @@ public class InsertFieldEndServlet extends HttpServlet {
 		/* 필수로 받을거라서 null 일 수가 없는 속성들 */
 		int userNo = 0;
 		String fieldName = "";
+		String fieldAddr1 = "";
+		String fieldAddr2 = "";
 		String fieldAddr = "";
 		int fieldLimit = 0;
 		String fieldSize = "";
@@ -87,6 +89,14 @@ public class InsertFieldEndServlet extends HttpServlet {
 					case "field_name":
 						fieldName = fileItem.getString("UTF-8");
 						field.setFieldName(fieldName);
+						break;
+					case "addr_1":
+						fieldAddr1 = fileItem.getString("UTF-8");
+						field.setFieldAddr1(fieldAddr1);
+						break;
+					case "addr_2":
+						fieldAddr2 = fileItem.getString("UTF-8");
+						field.setFieldAddr2(fieldAddr2);
 						break;
 					case "field_addr":
 						fieldAddr = fileItem.getString("UTF-8");
@@ -217,13 +227,17 @@ public class InsertFieldEndServlet extends HttpServlet {
 			}
 		}
 		
-		/* 서비스로 넘겨서 트랜잭션 처리 */		
+		/* 서비스로 넘겨서 트랜잭션 처리 */
 		int result = new FieldService().insertField(field, dayoff, attach);
 		
 		if(result > 0) {
-			System.out.println("InsertFieldEndServlet : 트랜잭션에 성공하였습니다.");
+//			System.out.println("InsertFieldEndServlet : 트랜잭션에 성공하였습니다.");
+			
+			RequestDispatcher view = request.getRequestDispatcher("/views/field/insertField_success.jsp");
+			view.forward(request, response);
+			
 		} else {
-			System.out.println("InsertFieldEndServlet : 트랜잭션에 실패하였습니다.");
+//			System.out.println("InsertFieldEndServlet : 트랜잭션에 실패하였습니다.");
 			
 			String deletePath = attach.getFilePath();
 			File deleteFile = new File(deletePath);
@@ -231,14 +245,14 @@ public class InsertFieldEndServlet extends HttpServlet {
 			if(deleteFile.exists()) {
 				deleteFile.delete();
 			}
+			
+			RequestDispatcher view = request.getRequestDispatcher("/views/field/insertField_fail.jsp");
+			view.forward(request, response);
 		}
 		
-		RequestDispatcher view = request.getRequestDispatcher("/views/field/insertField_success.jsp");
-		view.forward(request, response);
 }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 }
-; 

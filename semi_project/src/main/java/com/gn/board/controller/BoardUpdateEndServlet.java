@@ -32,9 +32,7 @@ public class BoardUpdateEndServlet extends HttpServlet {
     }
 
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-				
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		
 		//1. 요청 시 전달된 데이터를 담을 바구니 생성
 				Board board = new Board();
@@ -76,11 +74,12 @@ public class BoardUpdateEndServlet extends HttpServlet {
 							break;
 						case "boardNo" : board.setBoardNo(Integer.parseInt(fileItem.getString("utf-8")));
 							break;
-						case "attachNo" : board.setAttachNo(fileItem.getString("utf-8"));
+						case "attachNo" : board.setAttachNo(Integer.parseInt(fileItem.getString("utf-8")));
 						System.out.println("테스트 : boardupdateEndServelt " + board.getAttachNo());
+						
 							break;
-							}
-						}else {
+						}
+					}else {
 							//파일이면 attach를 재할당
 							if(fileItem.getSize() > 0) {
 								attach = new Attach();
@@ -104,22 +103,25 @@ public class BoardUpdateEndServlet extends HttpServlet {
 							}
 						}
 					}
-					int result = new BoardService().writeBoard(board,attach);
-					JSONObject obj = new JSONObject();
-					
-					//null체크
+				}catch(Exception e){
+					e.printStackTrace();	
+				}
+				int result = new BoardService().updateBoard(board,attach);
+				JSONObject obj = new JSONObject();
+				
+				//null체크
 //					if(result > 0) {
-//						System.out.println("(BoardWriterEndServlet에 있습니다)게시글이 작성 완료!");
+//						System.out.println("(BoardUPDATEEndServlet에 있습니다)게시글이 수정 완료!");
 //					}else {
-//						System.out.println("게시글이 작성 실패 ㅠㅠ");
+//						System.out.println("게시글이 수정 실패 ㅠㅠ");
 //					}
-					if(result > 0) {
-						obj.put("res_code", 200);
-						obj.put("res_msg", "정삭적으로 수정이 되었습니다");
-					}else {
-						obj.put("res_code", 500);
-						obj.put("res_msg", "수정실패");
-						if(attach != null) {
+				if(result > 0) {
+					obj.put("res_code", 200);
+					obj.put("res_msg", "정상적으로 수정이 되었습니다");
+				}else {
+					obj.put("res_code", 500);
+					obj.put("res_msg", "수정실패");
+					if(attach != null) {
 						String deletePath = attach.getAttachPath();
 						File deleteFile = new File(deletePath);
 						if(deleteFile.exists()) {
@@ -127,16 +129,11 @@ public class BoardUpdateEndServlet extends HttpServlet {
 						}
 					}
 				}
-					response.setContentType("application/json; charset=utf-8");
-					response.getWriter().print(obj);
-				}catch(Exception e){
-					e.printStackTrace();
-				}
-		
-		
-		
+				response.setContentType("application/json; charset=utf-8");
+				response.getWriter().print(obj);
+			}
 			
-	}
+	
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

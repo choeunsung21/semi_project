@@ -124,4 +124,12 @@
 		SET res_status = #{resStatus}
 		WHERE plan_no = #{planNo}
 	</update>
+
+	<!-- 필드번호 기준으로 List<Plan> 조회 -->
+	<select id="selectPlanListByFieldNo" parameterType="_int" resultMap="planMap">
+		SELECT *
+		FROM `plan`
+		WHERE `field_no` = #{fieldNo}
+		AND STR_TO_DATE(`plan_date`, '%Y-%m-%d') >= CURRENT_DATE;
+	</select>
 </mapper>

@@ -35,6 +35,7 @@ public class FilePathServlet extends HttpServlet {
 		
 		
 			Attach attach = new BoardService().selectAttachOne(attachNo);
+			System.out.println("!!!!!!!!!!!" + attach);
 			
 			//2.파일명이 비어있는지 
 			String filePath = attach.getAttachPath();

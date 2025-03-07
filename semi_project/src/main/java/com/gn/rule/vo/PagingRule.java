@@ -6,7 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PagingRule {
-	
 	// 전체 게시글 개수
 	private int totalData;
 	

@@ -11,7 +11,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Service Details - OnePage Bootstrap Template</title>
+  <title>규칙 등록</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -76,7 +76,7 @@
         <div class="row gy-4">
 
           <div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
-            <h2>일정 등록 : 규칙 설정</h2>
+            <h2>일정 규칙 등록 : 정보 입력</h2>
             <p id="h-p">하나의 구장에는 하나의 규칙만 등록할 수 있습니다.<br>
             			(*) 표시가 있는 항목은 반드시 입력해야합니다.</p>
             	
@@ -103,37 +103,7 @@
 	
         			<div class="row gy-4">
 	
-          				<div class="col-lg-4">
-          					<h3 style="text-align:left; padding-bottom:20px;">Contact</h3>
-          					
-            				<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
-            					
-              					<i class="bi bi-geo-alt flex-shrink-0"></i>
-              					<div>
-                					<h3>Address</h3>
-                					<p>#임의의 주소</p>
-              					</div>
-            				</div><!-- End Info Item -->
-		
-            				<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
-              					<i class="bi bi-telephone flex-shrink-0"></i>
-              					<div>
-                					<h3>Call Us</h3>
-                					<p>#임의의 전화번호</p>
-              					</div>
-           					</div><!-- End Info Item -->
-							
-            				<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="500">
-              					<i class="bi bi-envelope flex-shrink-0"></i>
-              					<div>
-                					<h3>Email Us</h3>
-                					<p>#임의의 이메일@example.com</p>
-              					</div>
-            				</div><!-- End Info Item -->
-						
-          				</div>
-						
-          				<div class="col-lg-8">
+          				<div class="col-lg-12">
             				<form action="/insertRuleEnd" method="post" class="submit-form" name="insert_rule_end_form" data-aos="fade-up" data-aos-delay="200">
               					<div class="row gy-4">
 									
@@ -289,6 +259,8 @@
         	event.preventDefault();
         } else if(form.rule_open.value == form.rule_close.value) {
 			alert('오픈 시간과 마감 시간이 동일합니다. 다시 확인해주세요.');
+        	form.rule_open.focus();
+        	event.preventDefault();
         } else if(!chkTerms) {
             alert("약관을 읽고 체크해주세요.");
 			event.preventDefault();
@@ -320,19 +292,19 @@
   <script>
   $(function(){
 		$('#field-no-select').change(function(){
-			const fieldIndex = $('#field-no-select option:selected').val();
+			const fieldNo = $('#field-no-select option:selected').val();
 
 			$.ajax({
 				url : "/selectFieldEnd",
 				type : "post",
 				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
 				data : {
-					"fieldIndex":fieldIndex
+					"fieldNo":fieldNo
 				},
 				dataType : "JSON",
 				success : function(data){
 					document.getElementById("field-name-span").innerText = data["fieldName"];
-					document.getElementById("field-addr-span").innerText = data["fieldAddr"];
+					document.getElementById("field-addr-span").innerText = data["fieldAddr1"]+' '+data["fieldAddr2"]+' '+data["fieldAddr"];
 					document.getElementById("field-size-span").innerText = data["fieldSize"];
 					document.getElementById("field-limit-span").innerText = data["fieldLimit"];
 					document.getElementById("field-type-span").innerText = data["fieldType"];
@@ -361,7 +333,7 @@
 				type : "post",
 				contentType : "application/x-www-form-urlencoded; charset=UTF-8",
 				data : {
-					"fieldIndex":fieldIndex
+					"fieldNo":fieldNo
 				},
 				dataType : "JSON",
 				success : function(data) {

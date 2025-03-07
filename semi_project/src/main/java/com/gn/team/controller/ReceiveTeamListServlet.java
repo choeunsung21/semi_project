@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.gn.team.service.TeamService;
 import com.gn.team.vo.Team;
@@ -23,12 +24,8 @@ public class ReceiveTeamListServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int leaderNo = Integer.parseInt(request.getParameter("leaderNo"));
-        TeamService teamService = new TeamService();
-        List<Team> list = teamService.receiveTeamList(leaderNo);
-        request.setAttribute("receivedList", list);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/views/team/receiveTeam.jsp");
-        dispatcher.forward(request, response);
+		RequestDispatcher view = request.getRequestDispatcher("/views/team/receiveTeam.jsp");
+		view.forward(request, response);
     }
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
