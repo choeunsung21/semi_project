@@ -160,9 +160,16 @@
           			  let writerNo = $(this).data("writerno");
           			  let boardNo = $(this).data("boardno");
           			  let oriName = $(this).data("oriname");
-          			  console.log("boardno" + boardNo);
-          			  console.log("내가 몇번이니?" + attachNo);
-          			  location.href = "/boardUpdate?boardNo=" + boardNo;
+
+          			 // console.log("boardno" + boardNo);
+          			 // console.log("내가 몇번이니?" + attachNo);
+          			  location.href = "/boardUpdate?attachNo=" + attachNo + 
+                      "&boardTitle=" + boardTitle + 
+                      "&boardContent=" +boardContent + 
+                      "&writerNo=" + writerNo +
+                      "&boardNo=" + boardNo +
+                      "&oriName=" + oriName;
+          			  
           		  })
           	  })
 

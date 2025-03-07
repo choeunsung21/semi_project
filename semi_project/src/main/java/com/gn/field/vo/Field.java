@@ -2,6 +2,8 @@ package com.gn.field.vo;
 
 import java.time.LocalDateTime;
 
+import com.gn.user.vo.User;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

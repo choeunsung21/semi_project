@@ -31,5 +31,8 @@ public class User {
 	 private int isManager;
 	 private LocalDateTime regDate;
 	 private LocalDateTime modDate;	 
+	 private int boardNo;
+	 private String boardTitle;
+	 private int teamNo;
 }
 

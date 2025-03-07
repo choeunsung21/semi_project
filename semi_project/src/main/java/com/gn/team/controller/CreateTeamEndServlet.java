@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.gn.team.service.TeamService;
-import com.gn.team.vo.Team;
 
 // 팀 가입 신청
 @WebServlet("/createTeamEnd")
@@ -39,6 +38,9 @@ public class CreateTeamEndServlet extends HttpServlet {
 
 	        TeamService teamService = new TeamService();
 	        boolean isJoined = teamService.insertPlayer(userNo, teamNo); // 팀 가입 신청
+	        
+//	        System.out.println(teamNo);
+//	        System.out.println(userNo);
 
 	        // 삽입 성공 시 성공 페이지로 이동
 	        if (isJoined) {

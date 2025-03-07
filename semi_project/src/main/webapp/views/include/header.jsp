@@ -9,7 +9,7 @@
 	<div class="container-fluid container-xl position-relative d-flex align-items-center">
 		<a href="index.jsp" class="logo d-flex align-items-center me-auto">
         <!-- Uncomment the line below if you also wish to use an image logo -->
-        <img src="/resources/img/logo.png" alt="logo">
+        <img src="/resources/img/reco_logo.png" alt="logo">
         <!-- <h1 class="sitename">OnePage</h1> -->
       	</a>
 		
@@ -21,12 +21,12 @@
 						<!-- 로그인이 되어있지 않은 상태라면 -->
 						<li><a href="/login">로그인</a></li>
 						<li><a href="/signup">회원가입</a></li>
-						<li><img class="img-profile" src="/resources/img/sponge.png" alt="profile"></li>
+						<li><img class="img-profile" src="/resources/img/pngwing.png" alt="profile"></li>
 					</c:when>
 					<c:otherwise>
 						<!-- 로그인이 되어있는 상태라면 -->
 						<li><a href="/logout">로그아웃</a></li>
-						<li><a href="#">[알림이미지]</a></li>
+						<li><a href="/123">[알림이미지]</a></li>
 						<li class="dropdown"><a href="#"><c:out value="${user.userName}"/>님<i class="bi bi-chevron-down toggle-dropdown"></i></a>
 							<ul>
 								<!-- 모든 회원에게 보이는 드롭다운 메뉴 -->
@@ -41,20 +41,17 @@
 								<!-- 팀 관련 드롭다운 메뉴 -->
 								
 								<!-- 팀 관리 href만 추가 -->
-								<li class="dropdown"><a href="/teamManagement"><span>팀 관리</span><i class="bi bi-chevron-down toggle-dropdown"></i></a>
+								<li class="dropdown"><a href="#"><span>팀 관리</span><i class="bi bi-chevron-down toggle-dropdown"></i></a>
 									<ul>
 										<!--새로운 팀 생성(완료가 됐지만, 주소API, 인원수 제한)  -->
 										<li><a href="/insertTeam">새로운 팀 생성</a></li>
 								   		<!-- 팀 목록 추가(중간 완료) -->
 								   		<li><a href="/teamList">팀 목록</a></li>
 								   		<!-- 받은 가입신청 목록 추가 -->								   		
- 										<li><a href="/receiveTeam">받은 신청 목록</a></li>
+ 										<li><a href="/receiveApply">받은 신청 목록</a></li>
  										<!-- 보낸 가입신청 목록 -->
-										<li><a href="/sendTeam">보낸 신청 목록</a></li>
-										
-										
-<!--  										<li><a href="/updateTeam">팀 수정</a></li>
-										<li><a href="/deleteTeam">팀 삭제</a></li> -->
+										<li><a href="/sendApply">보낸 신청 목록</a></li>
+										<!-- <li><a href="#">팀 탈퇴</a></li> -->
 									</ul>
 								</li>
 								
@@ -97,7 +94,7 @@
 								<li><a href="/logout">로그아웃</a></li>
 							</ul>
 						</li>
-						<li><img class="img-profile" src="/resources/img/dung.png" alt="profile"></li>
+						<li><img class="img-profile" src="/resources/img/pngwing.png" alt="profile"></li>
 					</c:otherwise>
 				</c:choose>
 

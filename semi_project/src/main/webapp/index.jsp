@@ -16,8 +16,8 @@
   <meta name="keywords" content="">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="resources/img/reco_favicon.png" rel="icon">
+  <link href="resources/img/reco_favicon.png" rel="reco-favicon-icon">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -52,7 +52,7 @@
             <div class="icon-box">
               <div class="icon"><i class="bi bi-easel"></i></div>
               <h4 class="title"><a href="/selectPlanList">예약 가능한 구장</a></h4>
-              <p class="description">Fields available for reservation</p>
+              <p class="description">List of available Fields for Reservation</p>
             </div>
           </div><!--End Icon Box -->
 
@@ -60,7 +60,7 @@
             <div class="icon-box">
               <div class="icon"><i class="bi bi-gem"></i></div>
               <h4 class="title"><a href="/service-details.jsp">가입 가능한 팀</a></h4>
-              <p class="description">Teams you can join</p>
+              <p class="description">List of Teams available for Registration</p>
             </div>
           </div><!--End Icon Box -->
 
@@ -68,23 +68,22 @@
             <div class="icon-box">
               <div class="icon"><i class="bi bi-geo-alt"></i></div>
               <h4 class="title"><a href="/selectBoardList">자유게시판</a></h4>
-              <p class="description">Bulletin board</p>
+              <p class="description">Bulletin Board for Communication Purposes</p>
             </div>
           </div><!--End Icon Box -->
  
           <div class="col-md-6 col-lg-3" data-aos="zoom-out" data-aos-delay="400">
             <div class="icon-box">
               <div class="icon"><i class="bi bi-command"></i></div>
-              <h4 class="title"><a href="/index-backup.jsp"><img src="/resources/img/dung.png"/></a></h4>
-              <!--
-              <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
-              -->
+              <h4 class="title"><a href="/index-backup.jsp">구장 및 일정 관리</a></h4>
+              <p class="description">Field and Schedule Management</p>
             </div>
           </div><!--End Icon Box -->
           
         </div>
         
         <!-- `예약 가능한 구장` 탭을 누르면 보이는 화면 : Ajax로 해당 화면에 바로 구성 -->
+        <!-- 
         <div class="row justify-content-center" data-aos="zoom-out" style="margin-top:50px;">
         	<div class="col-xl-7 col-lg-9 text-center">
          		<h1>예약 가능한 구장 목록</h1>
@@ -95,8 +94,10 @@
         <div class="text-center" data-aos="zoom-out" data-aos-delay="100">
         	<a href="#about" class="btn-get-started">Get Started</a>
         </div>
+        -->
         
         <!-- `가입 가능한 팀` 탭을 누르면 보이는 화면 : Ajax로 해당 화면에 바로 구성 -->
+        <!--
         <div class="row justify-content-center" data-aos="zoom-out" style="margin-top:50px;">
         	<div class="col-xl-7 col-lg-9 text-center">
          		<h1>가입 가능한 팀</h1>
@@ -107,8 +108,10 @@
         <div class="text-center" data-aos="zoom-out" data-aos-delay="100">
         	<a href="#about" class="btn-get-started">Get Started</a>
         </div>
+        -->
         
         <!-- `자유게시판` 탭을 누르면 보이는 화면 : Ajax로 해당 화면에 바로 구성 -->
+        <!--
         <div class="row justify-content-center" data-aos="zoom-out" style="margin-top:50px;">
         	<div class="col-xl-7 col-lg-9 text-center">
          		<h1>자유게시판</h1>
@@ -119,6 +122,7 @@
         <div class="text-center" data-aos="zoom-out" data-aos-delay="100">
         	<a href="/views/api/jusoSample.jsp" class="btn-get-started">Get Started</a>
         </div>
+        -->
         
       </div>
     </section><!-- /Hero Section -->

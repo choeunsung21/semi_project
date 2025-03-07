@@ -40,7 +40,10 @@ public class LoginEndServlet extends HttpServlet {
 				response.sendRedirect("/");
 			
 			}
-		}
+		}else {
+            request.setAttribute("loginError", "아이디나 비밀번호가 틀렸습니다.");
+            request.getRequestDispatcher("/views/user/login.jsp").forward(request, response);
+        }
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

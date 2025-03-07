@@ -47,7 +47,7 @@
 <style>
 /* 등록한 일정표 CSS */
 table {
-	width: 95%; /* 너비를 70%에서 95%로 늘려 더 넓게 */
+	width: 100%; /* 너비를 70%에서 95%로 늘려 더 넓게 */
 	max-width: 1300px; /* 최대 너비 제한으로 화면에 맞게 조정 */
 	/*margin: 40px auto;  상하 여백 조금 더 늘림 */
 	border-collapse: separate;
@@ -59,6 +59,7 @@ table {
 	overflow: hidden;
 	box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* 그림자 더 부드럽고 입체적으로 */
 	cursor: pointer;
+	text-align: center;
 }
 
 thead {
@@ -99,7 +100,7 @@ tbody tr.active {
 	background-color: rgba(36, 135, 206, 0.15); /* 선택된 행 강조 */
 }
 
-/* 페이징 CSS (기존 유지) */
+/* 페이징 CSS */
 .pagination {
 	display: flex;
 	justify-content: center;
@@ -153,58 +154,57 @@ tbody tr.active {
 	font-weight: 500;
 	font-size: 13px;
 }
-/* 사이드바 고정 및 크기 조정 */
-.fixed-sidebar {
-	position: fixed; /* 위치 고정 유지 */
-	top: 350px; /* 상단에서 350px 떨어짐 (헤더 고려) */
-	right: 200px; /* 오른쪽에서 200px 간격 */
-	width: 500px; /* 너비 유지 */
-	height: auto; /* 높이는 내용에 맞게 자동 */
-	max-height: 80vh; /* 화면 높이의 80%까지만 */
-	background-color: #fff; /* 배경색 흰색 */
-	border-radius: 10px; /* 둥근 모서리 */
-	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
-	padding: 20px; /* 내부 여백 */
-	overflow-y: auto; /* 내용이 길어지면 스크롤 */
-	z-index: 0;
-	다른
-	요소
-	위에
-	표시
-	*/
+
+.available {
+    color: green;
+    font-weight: bold;
 }
 
-.fixed-sidebar h3 {
-	font-size: 20px; /* 제목 크기 */
-	margin-bottom: 15px;
+.unavailable {
+    color: gray;
+        opacity: 0.7;
 }
 
-.fixed-sidebar .info-item {
-	margin-bottom: 15px; /* 각 항목 간 간격 */
+/* 전체조회 및 날짜 선택을 위한 컨테이너 */
+.selecetDateDiv {
+    display: flex;
+    justify-content: space-between; /* 양쪽으로 배치 */
+    align-items: center; /* 세로로 가운데 정렬 */
+    margin-bottom: 10px; /* 여유 공간 증가 */
 }
 
-.fixed-sidebar .info-item i {
-	font-size: 20px; /* 아이콘 크기 */
-	margin-right: 10px;
-	color: #2487ce; /* 아이콘 색상 */
+/* 왼쪽 영역(전체조회) */
+.left-div a {
+    color: gray; /* 회색 글자 */
+    opacity: 0.7; /* 투명도 */
+    text-decoration: underline; /* 밑줄 */
+    font-size: 14px; /* 글자 크기 */
+    font-weight: normal; /* 글자 두께 */
+    margin-left: 20px;
 }
 
-.fixed-sidebar .info-item h3 {
-	font-size: 16px; /* 소제목 크기 */
-	margin-bottom: 5px;
+/* 오른쪽 영역(날짜 선택) */
+.right-div {
+    display: flex;
+    justify-content: flex-end; /* 오른쪽 정렬 */
+    margin-right: 20px;
 }
 
-.fixed-sidebar .info-item p {
-	font-size: 14px; /* 본문 크기 */
-	color: #555;
+.selectDateInput {
+    border: 1px solid #e0e0e0; /* 테두리 색상 */
+    border-radius: 16px; /* 둥글게 */
+    padding: 8px; /* 여유 공간 */
+    font-size: 14px;
+    width: 160px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 */
+    transition: border-color 0.3s ease;
 }
 
-/* 화면이 좁아질 때 사이드바 숨기기 */
-@media ( max-width : 1600px) {
-	.fixed-sidebar {
-		display: none; /* 화면 너비 1600px 이하에서 숨김 */
-	}
+.selectDateInput:focus {
+    border-color: #1a5f92; /* 포커스 시 테두리 색상 */
+    outline: none; /* 아웃라인 제거 */
 }
+
 </style>
 <body class="service-details-page">
 
@@ -234,15 +234,24 @@ tbody tr.active {
 			<div class="container">
 
 				<div class="row gy-4">
-
-					<div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
+					<div class="col-lg-1"></div>
+					<div class="col-lg-10" data-aos="fade-up" data-aos-delay="200">
 						<h2>일정 조회</h2>
 
 						<!-- Contact Section -->
 						<section id="contact" class="contact section">
+						
+						<div class="selecetDateDiv">
+						    <div class="left-div">
+						        <a href="/selectPlanList">전체일정</a>
+						    </div>
+						    <div class="right-div">
+						        <input type="date" class="selectDateInput" id="selectDateInput">
+						    </div>
+						</div>
 
 							<!-- Section Title -->
-							<table>
+							<table id="dataTable">
 								<thead>
 									<tr>
 										<th>구장 위치</th>
@@ -257,7 +266,8 @@ tbody tr.active {
 									<c:choose>
 										<c:when test="${not empty planList}">
 											<c:forEach var="plan" items="${planList}">
-												<tr class="plan-row" data-plan-no="${plan.planNo}"
+												<tr class="plan-row" 
+												data-plan-no="${plan.planNo}"
 												data-field-addr="${plan.field.fieldAddr}"
 												data-field-name="${plan.field.fieldName}"
 												data-plan-date="${plan.planDate}"
@@ -269,7 +279,16 @@ tbody tr.active {
 													<td>${plan.planDate}</td>
 													<td>${plan.planTime}</td>
 													<td>${plan.useTime}시간</td>
-													<td>null</td>
+													<td>
+													    <c:choose>
+													        <c:when test="${plan.resStatus == 0}">
+													            <span class="available">예약가능</span>
+													        </c:when>
+													        <c:when test="${plan.resStatus == 1}">
+													            <span class="unavailable">예약불가</span>
+													        </c:when>
+													    </c:choose>
+													</td>
 												</tr>
 											</c:forEach>
 										</c:when>
@@ -310,60 +329,21 @@ tbody tr.active {
 						</section>
 						<!-- /Contact Section -->
 					</div>
+					<div class="col-lg-1"></div>
 
-					<div class="col-lg-4 fixed-sidebar" data-aos="fade-up" data-aos-delay="200">
-						
+					<!-- <div class="col-lg-4 fixed-sidebar" data-aos="fade-up" data-aos-delay="200">
+
 						<div class="services-list">
-			              <a href="" class="active">구장명 : </a>
-			              <a href="">주소 : </a>
-			              <a href="">구장크기 : </a>
-			              <a href="">수용인원 : </a>
-			              <a href="">잔디타입 : </a>
-			              <a href="">실내/실외 : </a>
-			              <a href="">주차장 : </a>
-			              <a href="">풋살화대여 : </a>
-			            </div>
-					
-<!-- 
-					<h3 style="text-align: left; padding-bottom: 20px;">Contact</h3>
-
-						<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
-							<i class="bi bi-geo-alt flex-shrink-0"></i>
-							<div>
-								<h3>Address</h3>
-								<p>#임의의 주소</p>
-							</div>
+							<a href="" class="active">구장명 : </a>
+							<a href="">주소 : </a>
+							<a href="">구장크기 : </a>
+							<a href="">수용인원 : </a>
+							<a href="">잔디타입 : </a>
+							<a href="">실내/실외 : </a>
+							<a href="">주차장 : </a>
+							<a href="">풋살화대여 : </a>
 						</div>
-						<!-- End Info Item -->
-<!-- 
-						<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
-							<i class="bi bi-telephone flex-shrink-0"></i>
-							<div>
-								<h3>Call Us</h3>
-								<p>#임의의 전화번호</p>
-							</div>
-						</div>
-						<!-- End Info Item -->
-<!-- 
-						<div class="info-item d-flex" data-aos="fade-up" data-aos-delay="500">
-							<i class="bi bi-envelope flex-shrink-0"></i>
-							<div>
-								<h3>Email Us</h3>
-								<p>#임의의 이메일@example.com</p>
-							</div>
-						</div>
-						<!-- End Info Item -->
-
-						<!-- 
-            <div class="services-list">
-              # img 파일을 선택하고 점부를 위한 공간입니다.
-            </div>
-           
-            <h4>파일 첨부 규칙</h4>
-            <p>10MB 이하의 파일만 업로드 가능하며, .jpg .jpeg .png만을 허용합니다.</p>
-             -->
-
-					</div>
+					</div> -->
 
 				</div>
 
@@ -395,6 +375,56 @@ tbody tr.active {
 	<!-- Main JS File -->
 	<script src="<%=request.getContextPath()%>/resources/js/common.js"></script>
 	
+	<!-- 직접 작성한 스크립트 -->
+	<script>
+	$(document).ready(function () {
+	    $("#selectDateInput").on("change", function () {
+	        let selectedDate = $(this).val();
+	        
+	        $.ajax({
+	            url: "/selectAllPlanByDate",
+	            type: "GET",
+	            data: { planDate: selectedDate },
+	            dataType: "JSON",
+	            success: function (data) {
+	            	console.log("서버 응답 데이터:", data); // 확인용
+	                updateTable(data);
+	            },
+	            error: function () {
+	                alert("일정 데이터를 불러오는데 실패했습니다.");
+	            }
+	        });
+	    });
+	});
+
+	function updateTable(data) {
+	    let tbody = $("#dataTable tbody");
+	    tbody.empty(); // 기존 데이터 삭제
+
+	    // 받은 데이터가 비어 있지 않다면
+	    if (data.length > 0) {
+	        data.forEach((plan, index) => {
+	            let row = 
+	                "<tr class='plan-row' data-plan-no='" + plan.planNo + "' data-field-addr='" + plan.fieldAddr2 + "' data-field-name='" + plan.fieldName + "' data-plan-date='" + plan.planDate + "' data-plan-time='" + plan.planTime + "' data-use-time='" + plan.useTime + "' onclick=\"location.href='/selectPlanDetail?planNo=" + plan.planNo + "'\">" +
+	                    "<td>" + plan.fieldAddr2 + "</td>" + // 구장 위치
+	                    "<td>" + plan.fieldName + "</td>" + // 구장명
+	                    "<td>" + plan.planDate + "</td>" + // 일정 날짜
+	                    "<td>" + plan.planTime + "</td>" + // 일정 시간
+	                    "<td>" + plan.useTime + "시간</td>" + // 이용 시간
+	                    "<td>" + 
+	                        (plan.resStatus == 0 ? "<span class='available'>예약가능</span>" : "<span class='unavailable'>예약불가</span>") + // 예약 상태
+	                    "</td>" +
+	                "</tr>";
+	            tbody.append(row);
+	        });
+	    } else {
+	        // 일정이 없을 경우
+	        tbody.append("<tr><td colspan='6'>선택된 날짜에 일정이 없습니다.</td></tr>");
+	    }
+	}
+
+	</script>
+
 
 </body>
 

@@ -49,7 +49,7 @@ public class DeletePlanServlet extends HttpServlet {
     			view.forward(request, response);
     		}
     	} else {
-    		System.out.println("InsertRuleServlet : 세션에 유저정보가 존재하지 않습니다.");
+    		request.getRequestDispatcher("/views/user/login.jsp").forward(request, response);
     	}
 	}
 

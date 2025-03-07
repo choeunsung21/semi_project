@@ -24,12 +24,13 @@ public class Plan extends PagingPlan {
 	private String planDate;
 	private String planTime;
 	private String planPrice;
+	private int resStatus;
 	private String useTime;
 	private LocalDateTime regDate;
 	private LocalDateTime modDate;
 	private String fieldName;
 	private int userNo;
 	private int fieldNo;
-	
 	private Field field;
+	
 }

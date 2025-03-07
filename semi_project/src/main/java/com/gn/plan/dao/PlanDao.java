@@ -36,9 +36,29 @@ public class PlanDao {
 	public int selectPlanCount(SqlSession session, Plan option) {
 		return session.selectOne("planMapper.selectPlanListCount", option);
 	}
+
+	public int updatePlan(SqlSession session, Plan plan) {
+		return session.update("planMapper.updatePlan", plan);
+	}
+
+	public void updatePlanStatus(SqlSession session, Plan plan) {
+		session.update("planMapper.updatePlanStatus", plan);
+	}
+
+	public List<Plan> selectPlanByDate(SqlSession session, Plan plan) {
+		return session.selectList("planMapper.selectPlanByDate", plan);
+	}
 	
 	public List<Plan> selectPlanListByFieldNo(SqlSession session, int fieldNo) {
 		return session.selectList("planMapper.selectPlanListByFieldNo", fieldNo);
+	}
+
+	public List<Plan> selectAllPlanByDate(SqlSession session, String planDate) {
+		return session.selectList("planMapper.selectAllPlanByDate", planDate);
+	}
+
+	public int deleteOldPlans(SqlSession session, String today) {
+		return session.delete("planMapper.deleteOldPlans", today);
 	}
 	
 }

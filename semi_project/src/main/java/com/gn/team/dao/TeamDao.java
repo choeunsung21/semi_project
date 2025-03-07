@@ -33,16 +33,6 @@ public class TeamDao {
         return session.insert("teamMapper.createTeam", team);
     }
 
-    // 받은 가입 신청 목록 조회 (팀장용)
-    public List<Team> receiveTeamList(SqlSession session, int leaderNo) {
-        return session.selectList("teamMapper.receiveTeamList", leaderNo);
-    }
-
-    // 보낸 신청 목록 (사용자용)
-    public List<Team> sendTeamList(SqlSession session, int userNo) {
-        return session.selectList("teamMapper.sendTeamList", userNo);
-    }
-
     // 팀 수정
     public int updateTeam(SqlSession session, Team team) {
         Map<String, Object> params = new HashMap<>();

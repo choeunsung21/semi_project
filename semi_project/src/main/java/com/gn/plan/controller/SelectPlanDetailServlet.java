@@ -29,9 +29,11 @@ public class SelectPlanDetailServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		// 세션확인
 		int userNo = 0;
+		int userType = 0;
 		if(session != null && session.getAttribute("user") != null) {
 			User user = (User)session.getAttribute("user");
 			userNo = user.getUserNo();
+			userType = user.getUserType();
 		}
 		
 		String temp = request.getParameter("planNo");
@@ -49,6 +51,7 @@ public class SelectPlanDetailServlet extends HttpServlet {
 		RequestDispatcher view = request.getRequestDispatcher("/views/plan/planDetail.jsp");
 		request.setAttribute("plan", plan);
 		request.setAttribute("reservation", reservation);
+		request.setAttribute("userType", userType);
 		view.forward(request, response);
 	}
 
