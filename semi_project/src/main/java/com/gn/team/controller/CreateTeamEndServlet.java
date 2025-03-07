@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.gn.team.service.TeamService;
-import com.gn.team.vo.Team;
 
 // 팀 가입 신청
 @WebServlet("/createTeamEnd")
