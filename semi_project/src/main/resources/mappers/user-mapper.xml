@@ -16,6 +16,97 @@
 		<result property="regDate" column="reg_date"/>
 		<result property="modDate" column="mod_date"/>
 	</resultMap>
+	<resultMap type="board" id="boardMap">
+		<result property="boardNo" column="board_no" />
+		<result property="writerNo" column="writer_no" />
+		<result property="boardTitle" column="board_title" />
+		<result property="boardContent" column="board_content" />
+		<result property="userName" column="user_name" />
+		<result property="userId" column="user_id" />
+		<result property="attachPath" column="attach_path" />
+		<result property="attachNo" column="attach_no" />
+		<result property="regDate" column="reg_date" />
+		<result property="modDate" column="mod_date" />
+	</resultMap>
+	 <resultMap type="com.gn.team.vo.Team" id="teamMap">
+        <result property="teamNo" column="team_no"/>
+        <result property="teamName" column="team_name"/>
+        <result property="leaderNo" column="leader_no"/>
+        <result property="teamArea" column="team_area"/>
+        <result property="preferGender" column="prefer_gender"/>
+        <result property="teamLevel" column="team_level"/>
+        <result property="teamCount" column="team_count"/>
+        <result property="teamLimit" column="team_limit"/>
+        <result property="teamExplanation" column="team_explanation"/>
+        <result property="regDate" column="reg_date"/>
+        <result property="modDate" column="mod_date"/>
+    </resultMap>
+    <resultMap type="com.gn.user.vo.Player" id="playerMap">
+    	<result property="playerNo" column="player_no"/>
+        <result property="userNo" column="user_no"/>
+        <result property="teamNo" column="team_no"/>
+    </resultMap>
+    <resultMap type="plan" id="planMap">
+		<result property="planNo" column="plan_no" />
+		<result property="userNo" column="user_no" />
+		<result property="planDate" column="plan_date" />
+		<result property="planTime" column="plan_time" />
+		<result property="planPrice" column="plan_price" />
+		<result property="useTime" column="use_time" />
+		<result property="regDate" column="reg_date" />
+		<result property="modDate" column="mod_date" />
+		<association property="field" resultMap="fieldMap" />
+	</resultMap>
+	<resultMap type="field" id="fieldMap">
+			<result property="fieldNo" column="field_no" />
+			<result property="fieldName" column="field_name" />
+			<result property="fieldSize" column="field_size" />
+			<result property="fieldAddr" column="field_addr" />
+			<result property="fieldLimit" column="field_limit" />
+			<result property="fieldType" column="field_type" />
+			<result property="isIndoor" column="is_indoor" />
+			<result property="isPark" column="is_park" />
+			<result property="isShower" column="is_shower" />
+			<result property="rentPrice" column="rent_price" />
+			<result property="dayoffNo" column="dayoff_no" />
+			<result property="message" column="message" />
+			<result property="regDate" column="reg_date" />
+			<result property="modDate" column="mod_date" />
+	</resultMap>
+	<select id="selectPlanByUse" parameterType="int" resultMap="planMap">
+  	SELECT p.*, f.*
+    FROM plan p
+    JOIN field f ON p.field_no = f.field_no
+    WHERE f.user_no = #{userNo}
+	</select>	
+    <!-- <delete id="leaveTeam" parameterType="com.gn.user.vo.Player" >
+    	 DELETE 
+    	 FROM player
+    	 WHERE user_no = #{userNo} AND team_no = #{teamNo}
+    </delete> -->
+    <select id="selectMyTeam" parameterType="_int" resultMap="teamMap">
+    	SELECT t.*, u.*
+    	FROM team t
+    	JOIN user u ON t.team_no = u.user_no
+    	WHERE t.team_no = #{userNo}
+    </select>
+	<select id="selectBoardsByUser" parameterType="_int" resultMap="boardMap">
+		SELECT b.*, u.*,  boardAttach.attach_no, boardAttach.ori_name
+    	FROM board b
+    	JOIN user u ON b.writer_no = u.user_no
+    	LEFT JOIN board_attach boardAttach ON b.board_no = boardAttach.board_no
+    	WHERE b.writer_no = #{userNo}
+	</select>
+	<update id="MyPageUpdatePw" parameterType="user">
+		UPDATE `user`
+		SET `user_pw` = #{userPw}
+		WHERE `user_id` = #{userId}
+	</update>
+	<update id="changeUserData" parameterType="user">
+		UPDATE `user`
+		SET `user_name` = #{userName}, `user_email` = #{userEmail}, `user_phone` = #{userPhone}
+		WHERE `user_id` = #{userId}	
+	</update>
 	<select id="userLogin" parameterType="user" resultMap="userMap">
 		SELECT *
 		FROM `user`

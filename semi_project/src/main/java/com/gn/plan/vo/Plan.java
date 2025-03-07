@@ -31,6 +31,6 @@ public class Plan extends PagingPlan {
 	private String fieldName;
 	private int userNo;
 	private int fieldNo;
-	
 	private Field field;
+	
 }

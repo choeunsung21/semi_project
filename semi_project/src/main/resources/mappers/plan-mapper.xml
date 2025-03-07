@@ -103,7 +103,7 @@
 		ORDER BY p.plan_date
 		LIMIT #{limitPageNo} ,#{numPerPage}
 	</select>
-	
+
 	<!-- 일정 목록 페이징 -->
 	<select id="selectPlanListCount" resultType="int" parameterType="plan">
 		SELECT COUNT(*)
