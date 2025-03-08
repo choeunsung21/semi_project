@@ -31,8 +31,9 @@
   
   	<!-- cjs 데이터 받아서 insertApplyEnd 넘길 것 -->
     <form action="/insertApplyEnd" method="post" class="form-group">
-      <input type="hidden" name="user_no" value="${userNo}">
-      <input type="hidden" name="team_no" value="${teamNo}">
+      <input type="hidden" id="user-no-input" name="user_no" value="${userNo}">
+      <input type="hidden" id="team-no-input" name="team_no" value="${teamNo}">
+      <input type="hidden" id="d" name="leader_no" value="${team.leaderNo}">
       
       <label for="position">선호 포지션</label>
       <input type="text" id="position" name="position" class="form-control" placeholder="선호 포지션">
@@ -43,7 +44,7 @@
 
       <label for="applyExplanation">소개글</label>
       <textarea name="apply_explanation" id="applyExplanation" class="form-control" placeholder="소개글"></textarea>
-      <button type="submit" class="btn btn-primary mt-3">신청하기</button>
+      <button type="submit" class="btn btn-primary mt-3" onclick="submitForm();">신청하기</button>
     </form>
   </main>
 
@@ -57,6 +58,9 @@
                }
            }).open();
        }
+  </script>
+  <script>
+
   </script>
 
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

@@ -1,6 +1,7 @@
 package com.gn.apply.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gn.apply.service.ApplyService;
 import com.gn.apply.vo.Apply;
+import com.gn.team.service.TeamService;
+import com.gn.team.vo.Team;
 
 // 가입 신청
 @WebServlet("/insertApplyEnd")
@@ -52,6 +55,20 @@ public class InsertApplyEndServlet extends HttpServlet {
 	        	RequestDispatcher view = request.getRequestDispatcher("/views/apply/apply_fail_duple.jsp");
 	        	view.forward(request, response);
 	        	return;
+	        }
+	        
+	        /* 본인 팀은 가입이 안 되어야함 */
+	        List<Team> chkTeamList = new TeamService().selectTeamListByUser(userNo);
+	        
+	        for(int i=0; i<chkTeamList.size(); i++) {
+	        	int leaderNo = chkTeamList.get(i).getLeaderNo();
+	        	
+	        	if(leaderNo == userNo) {
+	        		// 일단 프론트에서 가입신청 버튼이 아예 안 눌리게 막아놓긴 했음 - 여기는 만약을 위해 대비하는 느낌임
+	        		RequestDispatcher view = request.getRequestDispatcher("/views/apply/apply_fail.jsp");
+		        	view.forward(request, response);
+		        	return;
+	        	}
 	        }
 	        
 	        String position = request.getParameter("position");

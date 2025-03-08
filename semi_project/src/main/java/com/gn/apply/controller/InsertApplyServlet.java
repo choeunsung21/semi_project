@@ -9,7 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.gn.user.vo.User;
+import com.gn.team.service.TeamService;
+import com.gn.team.vo.Team;
 
 // 가입 신청
 @WebServlet("/insertApply")
@@ -24,17 +25,25 @@ public class InsertApplyServlet extends HttpServlet {
 	
 		/* cjs 팀 신청 데이터 넘기는 과정 */
 		
-		String userNo = request.getParameter("userNo");
-		String teamNo = request.getParameter("teamNo");
+		String strUserNo = request.getParameter("userNo");
+		String strTeamNo = request.getParameter("teamNo");
 		
-		RequestDispatcher view = request.getRequestDispatcher("/views/apply/insertApply.jsp");
-		request.setAttribute("userNo", userNo);
-		request.setAttribute("teamNo", teamNo);
-		view.forward(request, response);
-		
-		/* cjs 팀 신청 데이터 넘기는 과정 */
-		
+		if(strTeamNo != null && strUserNo != null) {
+			int userNo = Integer.parseInt(strUserNo);
+			int teamNo = Integer.parseInt(strTeamNo);
+			
+			Team team = new TeamService().selectTeamByTeamNo(teamNo);
+			
+			RequestDispatcher view = request.getRequestDispatcher("/views/apply/insertApply.jsp");
+			request.setAttribute("userNo", userNo);
+			request.setAttribute("teamNo", teamNo);
+			request.setAttribute("team", team);
+			view.forward(request, response);
+		} else {
+			/* 상세보기 버튼을 눌렀을 때 제대로 안 들어오는 경우임 - 앞단이 제대로 구성되어있다면 이쪽으로 올 수 없음 */
+		}
 	}
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request,response);
 	}
