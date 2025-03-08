@@ -33,14 +33,14 @@
     <form action="/insertApplyEnd" method="post" class="form-group">
       <input type="hidden" id="user-no-input" name="user_no" value="${userNo}">
       <input type="hidden" id="team-no-input" name="team_no" value="${teamNo}">
-      <input type="hidden" id="d" name="leader_no" value="${team.leaderNo}">
+      <input type="hidden" id="leader-no-input" name="leader_no" value="${team.leaderNo}">
       
       <label for="position">선호 포지션</label>
       <input type="text" id="position" name="position" class="form-control" placeholder="선호 포지션">
 
       <label for="applyArea">선호 지역</label>
       <input type="text" id="applyArea" name="apply_area" class="form-control" placeholder="선호 지역">
-      <button type="button" class="btn btn-secondary mt-2" onclick="searchAddress()">주소 검색</button><br>
+      <button type="button" class="btn btn-secondary mt-2" onclick="searchAddress();">주소 검색</button><br>
 
       <label for="applyExplanation">소개글</label>
       <textarea name="apply_explanation" id="applyExplanation" class="form-control" placeholder="소개글"></textarea>
@@ -49,7 +49,7 @@
   </main>
 
   <script>
-       function searchAddress() {
+       const searchAddress = function(){
            new daum.Postcode({
                oncomplete: function(data) {
                    var city = data.sido; // 시/도
@@ -57,10 +57,20 @@
                    document.getElementById('applyArea').value = city + " " + district;
                }
            }).open();
-       }
-  </script>
-  <script>
+       };
+       
+	const submitForm = function(){
+    	let userNo = document.getElementById("user-no-input").value;
+    	let leaderNo = document.getElementById("leader-no-input").value;
 
+    	if (userNo === leaderNo) {
+    		alert("본인 팀에는 신청할 수 없습니다.");
+    		event.preventDefault();
+    		return false;
+    	}
+
+    	document.querySelector("form").submit();
+	};
   </script>
 
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

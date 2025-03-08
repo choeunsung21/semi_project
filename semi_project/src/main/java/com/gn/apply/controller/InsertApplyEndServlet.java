@@ -61,9 +61,9 @@ public class InsertApplyEndServlet extends HttpServlet {
 	        List<Team> chkTeamList = new TeamService().selectTeamListByUser(userNo);
 	        
 	        for(int i=0; i<chkTeamList.size(); i++) {
-	        	int leaderNo = chkTeamList.get(i).getLeaderNo();
+	        	int chkTeamNo = chkTeamList.get(i).getTeamNo();
 	        	
-	        	if(leaderNo == userNo) {
+	        	if(chkTeamNo == teamNo) {
 	        		// 일단 프론트에서 가입신청 버튼이 아예 안 눌리게 막아놓긴 했음 - 여기는 만약을 위해 대비하는 느낌임
 	        		RequestDispatcher view = request.getRequestDispatcher("/views/apply/apply_fail.jsp");
 		        	view.forward(request, response);
