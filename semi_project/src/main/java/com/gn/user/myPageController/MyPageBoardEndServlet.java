@@ -16,9 +16,7 @@ public class MyPageBoardEndServlet extends HttpServlet {
        
     public MyPageBoardEndServlet() {
         super();
-       
     }
-
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String boardNo = request.getParameter("boardNo");
@@ -27,7 +25,7 @@ public class MyPageBoardEndServlet extends HttpServlet {
 		String writerNo = request.getParameter("writerNo");
 		String attachNo = request.getParameter("attachNo");
 		String oriName = request.getParameter("oriName");
-		System.out.println("잘되가고 있나요?"+boardNo);
+
 		request.setAttribute("boardNo", boardNo);
 		request.setAttribute("boardTitle", boardTitle);
 		request.setAttribute("boardContent", boardContent);

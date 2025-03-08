@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="teamMapper">
-    <resultMap type="com.gn.team.vo.Team" id="teamMap">
+    <resultMap type="team" id="teamMap">
         <result property="teamNo" column="team_no"/>
         <result property="teamName" column="team_name"/>
         <result property="leaderNo" column="leader_no"/>
@@ -66,4 +66,10 @@
     	LIMIT #{limitPageNo}, #{numPerPage}
 	</select>
 	
+	<select id="selectTeamListByUser" parameterType="_int" resultMap="teamMap">
+		SELECT * FROM `team` WHERE `leader_no` = #{userNo}
+	</select>
+	<select id="selectTeamByTeamNo" parameterType="_int" resultMap="teamMap">
+		SELECT * FROM `team` WHERE `team_no` = #{teamNo}
+	</select>
 </mapper>

@@ -16,6 +16,11 @@
         <div class="page-title accent-background">
             <div class="container">
                 <h1 class="text-center">보낸 신청 목록</h1>
+                <nav class="breadcrumbs">
+					<ol>
+						<li><a href="javascript:void(0);">가입 신청한 팀의 정보를 볼 수 있습니다.</a></li>
+					</ol>
+				</nav>
             </div>
         </div>
         <section class="section">
@@ -23,23 +28,44 @@
                 <table class="table table-hover text-center">
                     <thead>
                         <tr>
-                            <th>팀 번호</th>
-                            <th>포지션</th>
-                            <th>활동 지역</th>
-                            <th>소개글</th>
+                            <th>팀명</th>
+                            <th>팀장</th>
+                            <th>지역</th>
+                            <th>수준</th>
                             <th>상태</th>
                         </tr>
                     </thead>
                     <tbody>
                         <c:choose>
-                            <c:when test="${not empty sentApplications}">
-                                <c:forEach var="app" items="${sentApplications}">
+                            <c:when test="${not empty applyList}">
+                                <c:forEach var="applyList" items="${applyList}">
                                     <tr>
-                                        <td>${app.teamNo}</td>
-                                        <td>${app.position}</td>
-                                        <td>${app.activityArea}</td>
-                                        <td>${app.introduction}</td>
-                                        <td>${app.status}</td>
+                                        <td>${applyList.teamName}</td>
+                                        <td>${applyList.userName}</td>
+                                        <td>${applyList.teamArea}</td>
+										<td>
+   											<c:choose>
+       											<c:when test="${applyList.teamLevel == 1}">초보1</c:when>
+        										<c:when test="${applyList.teamLevel == 2}">초보2</c:when>
+        										<c:when test="${applyList.teamLevel == 3}">초보3</c:when>
+       											<c:when test="${applyList.teamLevel == 4}">일반</c:when>
+        										<c:when test="${applyList.teamLevel == 5}">중급</c:when>
+        										<c:when test="${applyList.teamLevel == 6}">고급</c:when>
+    										</c:choose>
+										</td>
+										<td>
+    										<c:choose>
+       											<c:when test="${applyList.status == 'PENDING'}">
+            										<span style="color: orange; font-weight: bold;">대기중</span>
+        										</c:when>
+        										<c:when test="${applyList.status == 'APPROVED'}">
+            										<span style="color: green; font-weight: bold;">수락</span>
+        										</c:when>
+        										<c:when test="${applyList.status == 'REJECTED'}">
+            										<span style="color: red; font-weight: bold;">거절</span>
+        										</c:when>
+    										</c:choose>
+										</td>
                                     </tr>
                                 </c:forEach>
                             </c:when>

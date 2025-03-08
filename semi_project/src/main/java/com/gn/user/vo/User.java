@@ -17,7 +17,6 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @Builder
-
 public class User {
 	 private int userNo;
 	 private String userId;
@@ -35,4 +34,3 @@ public class User {
 	 private String boardTitle;
 	 private int teamNo;
 }
-

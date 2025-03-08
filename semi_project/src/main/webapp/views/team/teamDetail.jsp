@@ -2,6 +2,12 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<!-- [cjs] 작업 건드리지 말아주세요. -->
+<%@ page import="com.gn.user.vo.User" %>
+<%@ page import="com.gn.team.vo.Team" %>
+<!-- [cjs] 작업 건드리지 말아주세요. -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -88,7 +94,18 @@
                         <!-- 버튼 그룹 -->
                         <div class="text-center mt-4">
                             <a href="${pageContext.request.contextPath}/teamList" class="btn btn-secondary btn-block">목록으로 돌아가기</a>
-                            <a href="/insertApply?apply_no=${apply.applyNo}" class="btn btn-primary btn-block">팀가입신청</a>
+                            <!-- [cjs] 작업 건드리지 말아주세요. -->
+                            
+							<%
+   								User user = (User) session.getAttribute("user");
+    							Integer userNo = (user != null) ? user.getUserNo() : null;
+    							Team team = (Team) request.getAttribute("team");
+    							Integer teamNo = (team != null) ? team.getTeamNo() : null;
+							%>
+
+							<a href="<%= (user != null) ? ("/insertApply?userNo=" + userNo + "&teamNo=" + teamNo) : "/login" %>" class="btn btn-primary btn-block">팀가입신청</a>
+							
+							<!-- [cjs] 작업 건드리지 말아주세요. -->
                         </div>
                     </div>
                 </div>

@@ -241,7 +241,7 @@ tbody tr:hover {
 				<h1>등록한 일정</h1>
 				<nav class="breadcrumbs">
 					<ol>
-						<li><a href="index.jsp">Home</a></li>
+						<li><a href="javascript:void(0);">일정을 선택하시면 상세 내역을 확인하실 수 있습니다.</a></li>
 					</ol>
 				</nav>
 			</div>

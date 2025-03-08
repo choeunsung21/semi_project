@@ -40,7 +40,7 @@
         }
         .pagination {
             display: flex;
-            gap: 10px; /* 링크 간 간격 */
+            gap: 10px;
         }
         .pagination a {
             padding: 8px 16px;
@@ -119,7 +119,7 @@
                         </table>
                     </div>
                 </div>
-
+				
                 <!-- Pagination -->
                 <c:if test="${not empty page}">
                     <div class="center" data-aos="fade-up" data-aos-delay="200">
@@ -141,6 +141,7 @@
                     </div>
                 </c:if>
             </div>
+    	</section>
     </main>
 
     <%@ include file="/views/include/footer.jsp" %>

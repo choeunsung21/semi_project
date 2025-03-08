@@ -11,7 +11,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>ERROR : 500</title>
+  <title>팀 가입신청 실패</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -36,7 +36,7 @@
   <link href="<%= request.getContextPath() %>/resources/css/cjs.css" rel="stylesheet" type="text/css">
 
   <script src="<%= request.getContextPath() %>/resources/js/jquery-3.7.1.js"></script>
-  
+
   <style>
     #field-success-ul {
         display: flex;
@@ -47,7 +47,7 @@
 
     #field-success-ul li {
         list-style-type: none;
-        margin: 1px 0;
+        margin: 1px 0; 
     }
     
     #header {
@@ -76,25 +76,25 @@
       <div class="container" style="text-align:center">
 
         <div class="row gy-4" style="text-align:center">
-          <div class="col-lg-2 content">
+          <div class="col-lg-4 content">
           </div>
           
-          <div class="col-lg-8 content" data-aos="fade-up" data-aos-delay="200">
-            <h3 style="color:crimson">ERROR : 500</h3>
+          <div class="col-lg-4 content" data-aos="fade-up" data-aos-delay="200">
+            <h3 style="color:crimson">팀 가입신청 실패</h3>
             <p class="fst-italic" style="font-size:14px; padding-top:10px;">
-              요청을 처리하는 중에 문제가 발생했습니다.<br>
-    		  잠시 후 다시 시도해 주시고,<br>
-    		  같은 문제가 반복되면 관리자에게 문의해 주세요.
+           	  이미 가입신청한 팀입니다.<br>
+    		  팀장님의 승인을 기다려주세요.
             </p>
             
             <ul id="field-success-ul">
               <li><i class="bi bi-check2-all"></i> <a href="/">메인화면으로 이동하기</a></li>
               <li></li>
-              <li><i class="bi bi-check2-all"></i> <a href="javascript:history.back();">이전 화면으로 이동하기</a></li>
+              <li><i class="bi bi-check2-all"></i> <a href="/teamList">팀 목록으로 이동하기</a></li>
+              <li><i class="bi bi-check2-all"></i> <a href="/sendApply">보낸 가입 신청으로 이동하기</a></li>
             </ul>
           </div>
           
-          <div class="col-lg-2 content">
+          <div class="col-lg-4 content">
           </div>  
         </div>
       </div>

@@ -34,8 +34,9 @@
         <label for="teamExplanation">소개글 :</label>
         <textarea name="team_explanation" required></textarea><br>
         
-        <input type="hidden" name="user_no" value="${team.userNo}"> <!-- 세션에서 사용자 번호 가져오기 -->
-        <input type="hidden" name="teamNo" value="${team.teamNo}"> <!-- 팀 번호 추가 -->
+        
+        <input type="hidden" name="user_no" value="${team.userNo}">  
+        <input type="hidden" name="team_no" value="${team.teamNo}">
         
         <button type="submit">신청하기</button>
     </form>

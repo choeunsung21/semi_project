@@ -8,6 +8,7 @@
 <script src="<%=request.getContextPath()%>/resources/js/jquery-3.7.1.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
+
 <body>
     <h1>팀 생성</h1>
     <form id="teamForm" action="<%=request.getContextPath()%>/insertTeamEnd" method="post">
@@ -41,7 +42,10 @@
 		<textarea name="team_explanation" required oninput="checkLength(this)"></textarea>
 <!-- 		<div id="charCount">0/100</div>
 		<div id="message" style="color:red;"></div><br> -->
-        <input type="hidden" name="user_no" value="1">
+		
+		<!-- cjs : 계속 userNo가 1이 들어오는 이유 발견 -->
+		<!-- <input type="hidden" name="user_no" value="1"> -->
+        <input type="hidden" name="user_no" value="${userNo}">
         <button type="submit">팀 생성</button>
     </form>
 <script>
