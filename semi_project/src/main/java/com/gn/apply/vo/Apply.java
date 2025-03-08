@@ -23,4 +23,11 @@ public class Apply {
 	private String applyArea; // 선호 지역
 	private String applyExplanation; // 소개글
 	private String status; // 대기,승낙,거절 상태
+	
+	private String teamName;
+	private int leaderNo;
+	private String teamArea;
+	private int teamLevel;
+	
+	private String userName;
 }

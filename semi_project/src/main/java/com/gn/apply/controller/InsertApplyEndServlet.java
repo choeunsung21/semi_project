@@ -2,6 +2,7 @@ package com.gn.apply.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,15 +24,17 @@ public class InsertApplyEndServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request,response);
 	}
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// cjs - 굳이 post에 쓸 필요 없었다고 생각함 - 중요하지 않으므로 일단 진행
 		try {
 	        String userNoStr = request.getParameter("user_no");
 	        String teamNoStr = request.getParameter("team_no");
       
-	        // null 체크
+	        // cjs - null 체크
 	        if (userNoStr == null || teamNoStr == null) {
-	            response.sendRedirect(request.getContextPath() + "/views/team/fail.jsp");
-	            return; // 처리 중단
+	        	RequestDispatcher view = request.getRequestDispatcher("/views/apply/apply_fail.jsp");
+	        	view.forward(request, response);
 	        }
 
 	        int userNo = Integer.parseInt(userNoStr);
@@ -46,7 +49,8 @@ public class InsertApplyEndServlet extends HttpServlet {
 	        Apply chkApply = new ApplyService().selectApplyByOptApply(opt);
 	        
 	        if(chkApply != null) {
-	        	response.sendRedirect(request.getContextPath() + "/views/team/fail.jsp");
+	        	RequestDispatcher view = request.getRequestDispatcher("/views/apply/apply_fail_duple.jsp");
+	        	view.forward(request, response);
 	        	return;
 	        }
 	        
@@ -68,13 +72,19 @@ public class InsertApplyEndServlet extends HttpServlet {
 	        int result = new ApplyService().insertApply(apply);
 
 	        if (result > 0) {
-	            response.sendRedirect(request.getContextPath() + "/views/team/success.jsp");
+	        	RequestDispatcher view = request.getRequestDispatcher("/views/apply/apply_success.jsp");
+	        	view.forward(request, response);
 	        } else {
-	            response.sendRedirect(request.getContextPath() + "/views/team/fail.jsp");
+	        	/* 
+	        	 * 중복신청인 경우 앞에서 return 시켜버렸기 때문에 올 수 없긴함
+	        	 * 만약을 위해 에러 페이지로 넘겨주는 것도 좋을듯
+	        	 */
+	        	RequestDispatcher view = request.getRequestDispatcher("/views/apply/apply_fail.jsp");
+	        	view.forward(request, response);
 	        }
 	    } catch (Exception e) {
-	        e.printStackTrace(); // 예외 발생 시 로그 출력
-	        response.sendRedirect(request.getContextPath() + "/views/team/fail.jsp");
+	    	RequestDispatcher view = request.getRequestDispatcher("/views/apply/apply_fail.jsp");
+        	view.forward(request, response);
 	    }
 	}
 }

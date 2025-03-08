@@ -9,9 +9,16 @@
         <result property="applyArea" column="apply_area"/>
         <result property="applyExplanation" column="apply_explanation"/>
         <result property="status" column="status"/>
+        
+        <result property="teamName" column="team_name"/>
+        <result property="leaderNo" column="leader_no"/>
+        <result property="teamArea" column="team_area"/>
+        <result property="teamLevel" column="team_level"/>
+        
+        <result property="userName" column="user_name"/>
     </resultMap>
     <!-- PENDING(대기중 걸어둠) -->
-	<insert id="insertApply" parameterType="apply" useGeneratedKeys="true" keyProperty="applyNo">
+	<insert id="insertApply" parameterType="apply">
     	INSERT INTO `apply` (user_no, team_no, position, apply_area, apply_explanation, status)
     	VALUES (#{userNo}, #{teamNo}, #{position}, #{applyArea}, #{applyExplanation}, 'PENDING');
 	</insert>
@@ -19,5 +26,12 @@
 		SELECT *
 		FROM `apply`
 		WHERE `user_no` = #{userNo} AND `team_no` = #{teamNo} LIMIT 1
+	</select>
+	<select id="selectApplyAllByUser" parameterType="user" resultMap="applyMap">
+		SELECT *
+		FROM `apply` a
+		JOIN `team` t ON t.team_no = a.team_no	
+		JOIN `user` u ON u.user_no = t.leader_no
+		WHERE a.user_no = #{userNo}
 	</select>
 </mapper>
