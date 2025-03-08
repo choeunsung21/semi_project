@@ -29,5 +29,6 @@ public class Apply {
 	private String teamArea;
 	private int teamLevel;
 	
+	private String userId;
 	private String userName;
 }

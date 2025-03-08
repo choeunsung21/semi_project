@@ -69,6 +69,7 @@
 	<select id="selectTeamListByUser" parameterType="_int" resultMap="teamMap">
 		SELECT * FROM `team` WHERE `leader_no` = #{userNo}
 	</select>
+	
 	<select id="selectTeamByTeamNo" parameterType="_int" resultMap="teamMap">
 		SELECT * FROM `team` WHERE `team_no` = #{teamNo}
 	</select>

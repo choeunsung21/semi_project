@@ -22,6 +22,15 @@ public class ApplyDao {
 	public List<Apply> selectApplyAllByUser(SqlSession session, User user) {
 		return session.selectList("applyMapper.selectApplyAllByUser", user);
 	}
+	
+	// cjs 팀장 번호 기준으로 가입신청 목록 조회
+	public List<Apply> selectApplyAllByLeaderNo(SqlSession session, int leaderNo) {
+		return session.selectList("applyMapper.selectApplyAllByLeaderNo", leaderNo);
+	}
+	
+	public User selectUserByApplyNo(SqlSession session, int applyNo) {
+		return session.selectOne("applyMapper.selectUserByApplyNo", applyNo);
+	}
 }
 	
    

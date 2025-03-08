@@ -103,6 +103,7 @@ public class TeamService {
 	    	session.close();
 	    	return teamList;
 	    }
+	    
 	    // cjs - 프론트에 넘겨주기 위해 팀 번호 기준으로 팀 객체 조회
 	    public Team selectTeamByTeamNo(int teamNo) {
 	    	SqlSession session = getSqlSession(true);

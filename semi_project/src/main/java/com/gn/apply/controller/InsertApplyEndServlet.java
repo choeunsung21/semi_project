@@ -57,7 +57,7 @@ public class InsertApplyEndServlet extends HttpServlet {
 	        	return;
 	        }
 	        
-	        /* 본인 팀은 가입이 안 되어야함 */
+	        /* cjs 본인 팀은 가입이 안 되어야함 */
 	        List<Team> chkTeamList = new TeamService().selectTeamListByUser(userNo);
 	        
 	        for(int i=0; i<chkTeamList.size(); i++) {

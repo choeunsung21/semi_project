@@ -34,4 +34,19 @@ public class ApplyService {
 		session.close();
 		return resultList;
 	}
+	
+	// cjs 팀장 번호 기준으로 가입신청 목록 조회
+	public List<Apply> selectApplyAllByLeaderNo(int leaderNo) {
+		SqlSession session = getSqlSession(true);
+		List<Apply> resultList = new ApplyDao().selectApplyAllByLeaderNo(session, leaderNo);
+		session.close();
+		return resultList;
+	}
+	
+	public User selectUserByApplyNo(int applyNo) {
+		SqlSession session = getSqlSession(true);
+		User user = new ApplyDao().selectUserByApplyNo(session, applyNo);
+		session.close();
+		return user;
+	}
 }

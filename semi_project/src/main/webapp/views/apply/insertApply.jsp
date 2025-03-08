@@ -66,6 +66,7 @@
     	if (userNo === leaderNo) {
     		alert("본인 팀에는 신청할 수 없습니다.");
     		event.preventDefault();
+    		history.back();
     		return false;
     	}
 
