@@ -73,4 +73,10 @@
 	<select id="selectTeamByTeamNo" parameterType="_int" resultMap="teamMap">
 		SELECT * FROM `team` WHERE `team_no` = #{teamNo}
 	</select>
+	
+	<update id="updateTeamCount" parameterType="_int">
+		UPDATE `team`
+		SET `team_count` = `team_count` + 1
+		WHERE `team_no` = #{teamNo}
+	</update>
 </mapper>

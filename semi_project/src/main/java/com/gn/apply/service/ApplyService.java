@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.gn.apply.dao.ApplyDao;
 import com.gn.apply.vo.Apply;
 import com.gn.player.dao.PlayerDao;
+import com.gn.team.dao.TeamDao;
 import com.gn.user.vo.User;
 
 public class ApplyService {
@@ -71,9 +72,17 @@ public class ApplyService {
 			int resultInsert = new PlayerDao().insertPlayer(session, apply);
 			
 			if(resultInsert > 0) {
-				session.commit();
-				session.close();
-				return 1;
+				int teamNo = apply.getTeamNo();
+				int result = new TeamDao().updateTeamCount(session, teamNo);
+				
+				if(result > 0) {
+					session.commit();
+					session.close();
+					return 1;					
+				} else {
+					session.rollback();
+					return 0;
+				}
 			} else {
 				session.rollback();
 				return 0;

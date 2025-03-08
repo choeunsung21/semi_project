@@ -67,6 +67,11 @@ public class TeamDao {
     public Team selectTeamByTeamNo(SqlSession session, int teamNo) {
     	return session.selectOne("teamMapper.selectTeamByTeamNo", teamNo);
     }
+    
+    // cjs - 팀 인원 파악을 위해 카운팅을 올려줌
+    public int updateTeamCount(SqlSession session, int teamNo) {
+    	return session.update("teamMapper.updateTeamCount", teamNo);
+    }
 }
 
 
