@@ -34,7 +34,7 @@
 		VALUES (#{userNo} ,#{fieldName} ,#{fieldAddr1} ,#{fieldAddr2} ,#{fieldAddr} ,#{fieldSize} ,#{fieldLimit} ,#{rentPrice} ,#{fieldType} ,#{isIndoor} ,#{isPark} ,${isShower} ,#{dayoffNo} ,#{message})
 	</insert>
 	<select id="selectFieldOneRecent" resultMap="fieldMap">
-		SELECT * FROM `field` ORDER BY `reg_date` DESC LIMIT 1;
+		SELECT * FROM `field` ORDER BY `reg_date` DESC LIMIT 1
 	</select>
 	<select id="selectFieldList" parameterType="user" resultMap="fieldMap">
 		SELECT * FROM `field` f
@@ -50,13 +50,13 @@
 	<select id="selectFieldCount" parameterType="field" resultType="_int">
 		SELECT COUNT(*)
 		FROM `field`
-		WHERE `user_no` = #{userNo};
+		WHERE `user_no` = #{userNo}
 	</select>
 	<select id="selectFieldOneByFieldNo" parameterType="_int" resultMap="fieldMap">
 		SELECT *
 		FROM `field` f
 		JOIN `dayoff` d ON d.dayoff_no = f.dayoff_no
-		WHERE `field_no` = #{fieldNo};
+		WHERE `field_no` = #{fieldNo}
 	</select>
 	<select id="selectAddr2ByFieldNo" parameterType="_int" resultType="string">
 		SELECT `field_addr2` FROM `field` WHERE `field_no` = #{fieldNo}

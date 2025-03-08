@@ -62,7 +62,7 @@
 								<!-- 업체 회원이라면 보이는 드롭다운 메뉴 -->
 								<c:choose>
 									<c:when test="${user.userType eq 1}">
-									<li class="dropdown"><a href="#"><span>구장 및 스케줄</span><i class="bi bi-chevron-down toggle-dropdown"></i></a>
+									<li class="dropdown"><a href="#"><span>구장 및 일정</span><i class="bi bi-chevron-down toggle-dropdown"></i></a>
 										<ul>
 											<li><a href="/insertField">구장 등록</a></li>
 											<li><a href="/insertPlan">일정 직접 등록</a></li>
@@ -86,7 +86,7 @@
 											
 											
 
-											<li><a href="/selectPlanDetail">일정 상세 조회</a></li>
+
 											<!-- <li><a href="#">Deep Dropdown 4</a></li> -->
 											<!-- <li><a href="#">Deep Dropdown 5</a></li> -->
 										</ul>

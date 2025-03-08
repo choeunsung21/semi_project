@@ -62,4 +62,19 @@
 		JOIN `apply` a ON a.user_no = u.user_no
 		WHERE a.apply_no = #{applyNo}
 	</select>
+	<update id="updateApplyToRejected" parameterType="_int">
+		UPDATE `apply`
+		SET `status` = "REJECTED"
+		WHERE `apply_no` = #{applyNo}
+	</update>
+	<update id="updateApplyToApproved" parameterType="_int">
+		UPDATE `apply`
+		SET `status` = "APPROVED"
+		WHERE `apply_no` = #{applyNo}
+	</update>
+	<select id="selectApplyByApplyNo" parameterType="_int" resultMap="applyMap">
+		SELECT *
+		FROM `apply`
+		WHERE `apply_no` = #{applyNo}
+	</select>
 </mapper>

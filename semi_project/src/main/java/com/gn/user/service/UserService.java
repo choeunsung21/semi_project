@@ -52,16 +52,13 @@ public class UserService {
 	}
 	
 	public int changeUserData(User user) {
-		System.out.println("서비스"+user);
 		SqlSession session = getSqlSession(true);
 		int result = new UserDao().changeUserData(session, user);
-		System.out.println(result);
 		session.close();
 		return result;
 		
 	}
 	
-
 	public User loginUser(User chkUser) {
 		SqlSession session = getSqlSession(true);
 		User user = new UserDao().loginUser(session, chkUser);

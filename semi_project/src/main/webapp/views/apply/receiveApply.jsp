@@ -74,20 +74,20 @@
                                 <td></td>
                                 <td>${apply.position}</td>
                                 <td>${apply.applyExplanation}</td>
-                                <td>
-                                    <c:choose>
-                                    	<c:when test="${apply.status == 'PENDING'}">
-                                    		<button class="btn btn-success btn-sm">승인</button>
-                                        	<button class="btn btn-danger btn-sm">거절</button>
-                                    	</c:when>
-  										<c:when test="${apply.status == 'APPROVED'}">
-        									<span style="color: green; font-weight: bold;">승인됨</span>
-    									</c:when>
-    									<c:when test="${apply.status == 'REJECTED'}">
-        									<span style="color: red; font-weight: bold;">거절됨</span>
-    									</c:when>
-									</c:choose>
-                                </td>
+                                <td id="status-target-${apply.applyNo}">
+    								<c:choose>
+       									<c:when test="${apply.status == 'PENDING'}">
+            								<button class="btn btn-success btn-sm" onclick="changeStatus(${apply.applyNo}, 'APPROVED')">승인</button>
+            								<button class="btn btn-danger btn-sm" onclick="changeStatus(${apply.applyNo}, 'REJECTED')">거절</button>
+        								</c:when>
+        								<c:when test="${apply.status == 'APPROVED'}">
+            								<span style="color: green; font-weight: bold;">승인됨</span>
+        								</c:when>
+        								<c:when test="${apply.status == 'REJECTED'}">
+            								<span style="color: red; font-weight: bold;">거절됨</span>
+        								</c:when>
+    								</c:choose>
+								</td>
                             </tr>
                         </c:forEach>
                     </tbody>
@@ -99,10 +99,10 @@
     
     <!-- Scroll Top -->
     <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
+	
     <!-- Preloader -->
     <div id="preloader"></div>
-
+	
     <!-- Vendor JS Files -->
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="assets/vendor/php-email-form/validate.js"></script>
@@ -118,7 +118,7 @@
     
     <script>
     $(function(){
-    	var applyNoList = [];
+    	let applyNoList = [];
         $("input[name='apply_no']").each(function() {
         	applyNoList.push($(this).val());
         });
@@ -137,10 +137,32 @@
                 });
             },
             error: function() {
-
+			
             }
         });
     });
+    // 버튼을 눌렀을 때 인서트 및 화면단 전환
+    const changeStatus = function(applyNo, status){
+    	$.ajax({
+            url: "/receiveApplyEnd",
+            type: "post",
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+            data: {
+                "apply_no": applyNo,
+                "status": status
+            },
+            success: function(data) {
+            	if (data.status === "APPROVED") {
+                    $("#status-target-" + applyNo).html('<span style="color: green; font-weight: bold;">승인됨</span>');
+                } else if (data.status === "REJECTED") {
+                    $("#status-target-" + applyNo).html('<span style="color: red; font-weight: bold;">거절됨</span>');
+                }
+            },
+            error: function() {
+			
+            }
+        });
+    };
 	</script>
 </body>
 </html>

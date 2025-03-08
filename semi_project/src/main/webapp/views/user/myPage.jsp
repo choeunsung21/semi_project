@@ -1,42 +1,49 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Starter Page - OnePage Bootstrap Template</title>
-  <meta name="description" content="">
-  <meta name="keywords" content="">
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>마이 페이지</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
 
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+<!-- Favicons -->
+<link href="assets/img/favicon.png" rel="icon">
+<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+	rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+<!-- Vendor CSS Files -->
+<link href="assets/vendor/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
+<link href="assets/vendor/bootstrap-icons/bootstrap-icons.css"
+	rel="stylesheet">
+<link href="assets/vendor/aos/aos.css" rel="stylesheet">
+<link href="assets/vendor/glightbox/css/glightbox.min.css"
+	rel="stylesheet">
+<link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-  <!-- Main CSS File -->
-  <link href="<%= request.getContextPath() %>/resources/css/include/common.css" rel="stylesheet" type="text/css">
+<!-- Main CSS File -->
+<link
+	href="<%=request.getContextPath()%>/resources/css/include/common.css"
+	rel="stylesheet" type="text/css">
 
-  <script src="<%=request.getContextPath()%>/resources/js/jquery-3.7.1.js"></script>
+<script src="<%=request.getContextPath()%>/resources/js/jquery-3.7.1.js"></script>
 
-  <!-- =======================================================
+<!-- =======================================================
   * Template Name: OnePage
   * Template URL: https://bootstrapmade.com/onepage-multipurpose-bootstrap-template/
   * Updated: Aug 07 2024 with Bootstrap v5.3.3
@@ -46,573 +53,542 @@
 </head>
 
 <style>
-/* 등록한 일정표 CSS */
-#reservation{
-table {
-    width: 100%; /* 너비를 70%에서 95%로 늘려 더 넓게 */
-    max-width: 1300px; /* 최대 너비 제한으로 화면에 맞게 조정 */
-    margin: 0 auto; /* 가운데 정렬 추가 */
-    border-collapse: separate;
-    border-spacing: 0;
-    font-family: 'Poppins', sans-serif;
-    font-size: 16px; /* 글자 크기 14px → 16px로 키움 */
-    background-color: #fff;
-    border-radius: 16px; /* 둥근 모서리 조금 더 크게 */
-    overflow: hidden;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* 그림자 더 부드럽고 입체적으로 */
-    cursor: pointer;
-    text-align: center;
+/* 전체구조 */
+.wrapper {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	padding: 0 300px; /* 좌우 여백 줄임 */
 }
 
-thead {
-    background: linear-gradient(135deg, #2487ce, #1a5f92); /* 그라데이션 유지 */
-    color: #fff;
-    text-transform: uppercase;
-    letter-spacing: 1px; /* 글자 간격 넓혀 깔끔하게 */
-    cursor: default;
+#hideDiv {
+	background-color: #ffffff; /* 흰색 배경 */
+	width: 75%; /* 오른쪽 div의 너비 */
+	padding: 20px; /* 내부 여백 */
+	border: 1px solid #ddd; /* 연한 회색 테두리 */
+	border-radius: 10px; /* 모서리 둥글게 */
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 효과 */
+	color: #333; /* 글자 색상 */
+	font-size: 16px; /* 글자 크기 */
+	display: flex; /* 플렉스 박스 사용 */
+	flex-direction: column; /* 세로 방향 정렬 */
+	gap: 10px; /* 요소 간 간격 */
 }
 
-th {
-    padding: 16px 20px; /* 패딩을 10px 12px → 16px 20px로 늘려 더 큼직하게 */
-    font-weight: 700; /* 글자 굵기 증가 */
-    font-size: 17px; /* 헤더 글자 크기 살짝 키움 */
-    border-bottom: 3px solid rgba(255, 255, 255, 0.3); /* 헤더 하단 라인 강조 */
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #f8f9fa; /* 배경색 */
 }
 
-td {
-    padding: 14px 20px; /* 패딩을 8px 12px → 14px 20px로 늘려 여유롭게 */
-    color: #333; /* 글자색 더 진하게 */
-    border-bottom: 1px solid #eef2f6; /* 구분선 더 부드럽게 */
-    transition: background-color 0.3s ease;
+#containerLeft {
+	max-width: 300px; /* 최대 너비 설정 */
+	margin: 20px auto; /* 중앙 정렬 */
+	padding: 15px; /* 내부 여백 줄임 */
+	background-color: #ffffff; /* 흰색 배경 */
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+	border-radius: 8px; /* 모서리 둥글게 */
 }
 
-tbody tr {
-    background-color: #fff;
+.starter-section {
+	margin-bottom: 10px; /* 섹션 간 여백 줄임 */
 }
 
-tbody tr:nth-child(even) {
-    background-color: #fafcff; /* 짝수 행에 아주 연한 파란 톤 */
-}
-
-tbody tr:hover {
-    background-color: rgba(36, 135, 206, 0.08); /* 호버 시 부드러운 색상 변화 */
-}
-
-tbody tr.active {
-    background-color: rgba(36, 135, 206, 0.15); /* 선택된 행 강조 */
-}
-}
-/* 내 정보 수정 css */
-#myDataChangeForm {
-    max-width: 500px; /* 폼 너비 제한 */
-    margin: 0 auto; /* 페이지 중앙 정렬 */
-    padding: 20px;
-    background-color: #f9f9f9; /* 배경색 추가 */
-    border-radius: 8px; /* 모서리 둥글게 */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
-}
-
-/* 섹션 제목 스타일 */
 .section-title {
-    text-align: center;
-    margin-bottom: 20px;
+	font-size: 24px; /* 제목 크기 */
+	margin-bottom: 10px; /* 제목 아래 여백 줄임 */
+	color: #333; /* 제목 색상 */
+}
+
+.action-panel {
+	margin-top: 5px; /* 패널 위 여백 줄임 */
+}
+
+.action-panel a {
+	display: flex; /* 아이콘과 텍스트 정렬 */
+	align-items: center; /* 수직 정렬 */
+	text-decoration: none; /* 밑줄 제거 */
+	color: #007bff; /* 링크 색상 */
+	padding: 5px 0; /* 링크 여백 줄임 */
+	transition: color 0.3s; /* 색상 전환 효과 */
+}
+
+.action-panel a:hover {
+	color: #0056b3; /* 호버 시 색상 변화 */
+}
+
+.link-icon {
+	margin-right: 6px; /* 아이콘과 텍스트 간격 줄임 */
+	font-size: 20px; /* 아이콘 크기 */
+}
+
+/* 사용자 정보 */
+#myDataForm {
+    background-color: #ffffff; /* 흰색 배경 */
+    padding: 25px; /* 내부 여백 */
+    border-radius: 10px; /* 모서리 둥글게 */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 효과 */
+    display: flex;
+    flex-direction: column; /* 세로 방향으로 정렬 */
+    gap: 15px; /* 요소 간 간격 */
 }
 
 .section-title h3 {
-    color: #333;
-    font-size: 24px;
+    margin: 0; /* 제목 아래 여백 제거 */
+    font-size: 26px; /* 제목 크기 */
+    color: #333; /* 제목 색상 */
+    font-weight: 600; /* 제목 두께 */
+    text-align: center; /* 중앙 정렬 */
 }
 
-/* 폼 스타일 */
-#userProfileForm {
-    display: flex;
-    flex-direction: column;
-    gap: 15px; /* 입력 필드 간격 */
-}
-
-/* 라벨 스타일 */
-#userProfileForm label {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    font-weight: bold;
-    color: #555;
-}
-
-/* 입력 필드 스타일 */
-#userProfileForm input {
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
-    width: 100%; /* 입력 필드 너비 조정 */
-    box-sizing: border-box; /* 패딩 포함 너비 계산 */
-}
-
-#userProfileForm input:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-
-/* 전화번호 메시지 스타일 (기존 스타일 유지) */
-#phoneMsg {
-    text-align: center; /* 메시지 가운데 정렬 */
-}
-
-/* 버튼 스타일 */
-#updateBtn, #cancleBtn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    margin: 5px; /* 버튼 간격 */
-}
-
-/* 버튼 그룹 가운데 정렬 */
-#myDataChangeForm > button {
-    display: inline-block;
-}
-
-#myDataChangeForm > button:nth-child(1) {
-    margin-right: 10px; /* 수정 완료와 취소 버튼 간격 */
-}
-
-#updateBtn {
-    background-color: #007bff;
-    color: white;
-}
-
-#updateBtn:hover {
-    background-color: #0056b3;
-}
-
-#cancleBtn {
-    background-color: #dc3545;
-    color: white;
-}
-
-#cancleBtn:hover {
-    background-color: #c82333;
-}
-
-/* 버튼 그룹 가운데 정렬을 위한 래퍼 */
-#myDataChangeForm {
-    text-align: center; /* 버튼을 가운데 정렬 */
-}
-
-/*비밀번호 변경 css  */
-#passWord {
-    max-width: 500px; /* 폼 너비 제한 */
-    margin: 0 auto; /* 페이지 중앙 정렬 */
-    padding: 20px;
-    background-color: #f9f9f9; /* 배경색 추가 */
-    border-radius: 8px; /* 모서리 둥글게 */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
-}
-
-/* 섹션 제목 스타일 */
-.section-title {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.section-title h3 {
-    color: #333;
-    font-size: 24px;
-}
-
-/* Bootstrap 컬럼 스타일 */
 .col-md-12 {
-    margin-bottom: 15px; /* 각 입력 필드 간 간격 */
-    text-align: center; /* 기본 정렬 (d-flex로 조정됨) */
+    background-color: #f8f9fa; /* 연한 회색 배경 */
+    padding: 15px; /* 내부 여백 */
+    border-radius: 8px; /* 모서리 둥글게 */
+    border-left: 4px solid #007bff; /* 왼쪽 테두리 색상 */
+    font-size: 18px; /* 폰트 크기 */
+    color: #555; /* 글자 색상 */
 }
 
-/* d-flex 컨테이너 스타일 */
-.col-md-12.d-flex {
-    justify-content: center; /* 입력 필드와 버튼을 가로 중앙 정렬 */
-    gap: 10px; /* 입력 필드와 버튼 간격 */
+.col-md-12 p {
+    margin: 0; /* 문단 여백 제거 */
 }
 
-/* 입력 필드 스타일 */
-#userPw, #checkUserPw {
-    flex: 1; /* 입력 필드가 컨테이너에 맞게 확장 */
-    max-width: 70%; /* 입력 필드 너비 제한 */
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
+/* 내 정보 수정 */
+#myDataChangeForm {
+    background-color: #ffffff; /* 흰색 배경 */
+    padding: 30px; /* 내부 여백 */
+    border-radius: 10px; /* 모서리 둥글게 */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* 깊은 그림자 효과 */
+    display: flex;
+    flex-direction: column; /* 세로 방향으로 정렬 */
+    gap: 20px; /* 요소 간 간격 */
 }
 
-#userPw:focus, #checkUserPw:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+.section-title h3 {
+    margin: 0; /* 제목 아래 여백 제거 */
+    font-size: 26px; /* 제목 크기 */
+    color: #333; /* 제목 색상 */
+    font-weight: 600; /* 제목 두께 */
+    text-align: center; /* 중앙 정렬 */
 }
 
-/* 토글 버튼 스타일 */
+label {
+    display: flex; /* 레이블과 입력을 세로로 정렬 */
+    flex-direction: column; /* 세로 방향으로 정렬 */
+    font-size: 16px; /* 폰트 크기 */
+    color: #555; /* 글자 색상 */
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"] {
+    padding: 12px; /* 내부 여백 */
+    margin-top: 5px; /* 레이블과 입력 사이의 여백 */
+    border: 1px solid #ccc; /* 테두리 색상 */
+    border-radius: 5px; /* 둥근 모서리 */
+    font-size: 16px; /* 입력 폰트 크기 */
+    transition: border-color 0.3s; /* 테두리 색상 전환 효과 */
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus {
+    border-color: #007bff; /* 포커스 시 테두리 색상 */
+    outline: none; /* 기본 아웃라인 제거 */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* 포커스 시 그림자 효과 */
+}
+
+button {
+    padding: 12px 20px; /* 버튼 내부 여백 */
+    background-color: #007bff; /* 버튼 배경색 */
+    color: white; /* 버튼 글자 색상 */
+    border: none; /* 테두리 없음 */
+    border-radius: 5px; /* 둥근 모서리 */
+    cursor: pointer; /* 커서 모양 변경 */
+    font-size: 16px; /* 버튼 폰트 크기 */
+    transition: background-color 0.3s, transform 0.2s; /* 배경색과 변환 효과 */
+    font-weight: 500; /* 버튼 글자 두께 */
+}
+
+button:hover {
+    background-color: #0056b3; /* 호버 시 배경색 변화 */
+    transform: scale(1.05); /* 호버 시 약간 확대 */
+}
+
+#phoneMsg {
+    font-size: 14px; /* 메시지 폰트 크기 */
+    color: red; /* 메시지 색상 */
+    text-align: center; /* 중앙 정렬 */
+}
+
+/* 비밀번호 변경 */
+#passWord {
+    background-color: #ffffff; /* 흰색 배경 */
+    padding: 25px; /* 내부 여백 */
+    border-radius: 10px; /* 모서리 둥글게 */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 효과 */
+    display: flex;
+    flex-direction: column; /* 세로 방향으로 정렬 */
+    gap: 20px; /* 요소 간 간격 */
+}
+
+.section-title h3 {
+    margin: 0; /* 제목 아래 여백 제거 */
+    font-size: 26px; /* 제목 크기 */
+    color: #333; /* 제목 색상 */
+    font-weight: 600; /* 제목 두께 */
+    text-align: center; /* 중앙 정렬 */
+}
+
+.col-md-12 {
+    display: flex; /* 플렉스 박스 사용 */
+    align-items: center; /* 세로 중앙 정렬 */
+    gap: 10px; /* 입력 필드와 버튼 간의 간격 */
+}
+
+.form-control {
+    flex: 1; /* 입력 필드가 가능한 공간을 모두 차지하도록 설정 */
+    padding: 10px; /* 내부 여백 */
+    border: 1px solid #ccc; /* 테두리 색상 */
+    border-radius: 5px; /* 둥근 모서리 */
+    font-size: 16px; /* 입력 폰트 크기 */
+    transition: border-color 0.3s; /* 테두리 색상 전환 효과 */
+}
+
+.form-control:focus {
+    border-color: #007bff; /* 포커스 시 테두리 색상 */
+    outline: none; /* 기본 아웃라인 제거 */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* 포커스 시 그림자 효과 */
+}
+
+.btn {
+    padding: 10px; /* 버튼 내부 여백 */
+    font-size: 16px; /* 버튼 폰트 크기 */
+    cursor: pointer; /* 커서 모양 변경 */
+}
+
 #togglePassword1, #togglePassword2 {
-    padding: 8px;
-    font-size: 16px;
-    color: #007bff;
+    border: none; /* 테두리 없음 */
+    background: transparent; /* 배경 투명 */
+    font-size: 18px; /* 아이콘 크기 */
 }
 
 #togglePassword1:hover, #togglePassword2:hover {
-    color: #0056b3;
-    background-color: #e9ecef;
-    border-radius: 4px;
+    color: #007bff; /* 호버 시 색상 변화 */
 }
 
-/* 메시지 스타일 */
-#passWord p {
-    text-align: center; /* 메시지 가운데 정렬 */
-    margin: 5px 0;
-    color: #696969; /* 기존 색상 유지 */
+#pwMsg2, #pwMsg {
+    font-size: 14px; /* 메시지 폰트 크기 */
+    color: rgb(105, 105, 105); /* 메시지 색상 */
+    text-align: center; /* 중앙 정렬 */
 }
 
-#pwMsg2 {
-    font-size: 14px;
+button {
+    padding: 12px 20px; /* 버튼 내부 여백 */
+    background-color: #007bff; /* 버튼 배경색 */
+    color: white; /* 버튼 글자 색상 */
+    border: none; /* 테두리 없음 */
+    border-radius: 5px; /* 둥근 모서리 */
+    cursor: pointer; /* 커서 모양 변경 */
+    font-size: 16px; /* 버튼 폰트 크기 */
+    transition: background-color 0.3s, transform 0.2s; /* 배경색과 변환 효과 */
 }
 
-#pwMsg {
-    font-size: 12px;
+button:hover {
+    background-color: #0056b3; /* 호버 시 배경색 변화 */
+    transform: scale(1.05); /* 호버 시 약간 확대 */
 }
 
-/* 버튼 스타일 */
-#updateBtn1, #cancleBtn1 {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    margin: 5px;
-    display: inline-block; /* 버튼을 인라인 블록으로 설정 */
-}
-
-#updateBtn1 {
-    background-color: #007bff;
-    color: white;
-}
-
-#updateBtn1:hover {
-    background-color: #0056b3;
-}
-
-#cancleBtn1 {
-    background-color: #dc3545;
-    color: white;
-}
-
-#cancleBtn1:hover {
-    background-color: #c82333;
-}
-
-/* 버튼 그룹 가운데 정렬 */
-#passWord {
-    text-align: center; /* 버튼을 가운데 정렬 */
-}
-
-/*내가 쓴 글 css  */
+/* 내가 쓴 글 */
 #write {
-    max-width: 800px; /* 테이블 너비 제한 */
-    margin: 0 auto; /* 페이지 중앙 정렬 */
-    padding: 20px;
-    background-color: #f9f9f9; /* 배경색 추가 */
-    border-radius: 8px; /* 모서리 둥글게 */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
-}
-
-/* 섹션 제목 스타일 */
-.section-title {
-    text-align: center;
-    margin-bottom: 20px;
+    background-color: #ffffff; /* 흰색 배경 */
+    padding: 30px; /* 내부 여백 */
+    border-radius: 12px; /* 모서리 둥글게 */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 효과 */
+    margin-top: 20px; /* 위쪽 여백 */
 }
 
 .section-title h3 {
-    color: #333;
-    font-size: 24px;
+    margin: 0 0 20px; /* 제목 아래 여백 */
+    font-size: 28px; /* 제목 크기 */
+    color: #333; /* 제목 색상 */
+    font-weight: 600; /* 제목 두께 */
+    text-align: center; /* 중앙 정렬 */
 }
 
-/* 테이블 스타일 */
 .table {
-    width: 100%; /* 테이블 너비를 컨테이너에 맞춤 */
-    margin: 0 auto; /* 테이블을 가운데 정렬 */
-    border-collapse: collapse;
+    width: 100%; /* 테이블 너비 */
+    border-collapse: collapse; /* 테두리 합치기 */
+    margin-top: 10px; /* 테이블 위 여백 */
 }
 
-/* 테이블 헤더 스타일 */
-.table thead th {
-    background-color: #007bff;
-    color: white;
-    padding: 12px;
-    text-align: center; /* 헤더 텍스트 가운데 정렬 */
+.table th, .table td {
+    padding: 12px; /* 셀 내부 여백 */
+    text-align: left; /* 텍스트 왼쪽 정렬 */
+    border-bottom: 1px solid #ddd; /* 셀 아래 테두리 */
 }
 
-/* 테이블 셀 스타일 */
-.table tbody td {
-    padding: 10px;
-    text-align: center; /* 셀 텍스트 가운데 정렬 */
-    border-bottom: 1px solid #ddd;
+.table th {
+    background-color: #f8f9fa; /* 테이블 헤더 배경색 */
+    color: #333; /* 헤더 글자 색상 */
+    font-weight: bold; /* 헤더 두께 */
 }
 
-/* 호버 효과 (Bootstrap table-hover 유지) */
-.table-hover tbody tr:hover {
-    background-color: #e9ecef; /* Bootstrap 기본 호버 색상 유지 */
+.table tr:hover {
+    background-color: #f1f1f1; /* 행 호버 시 배경색 */
 }
 
-/* 반응형 디자인 (선택 사항) */
+#boardListContainer {
+    /* tbody의 스타일 설정 */
+}
+
 @media (max-width: 768px) {
-    #write {
-        max-width: 100%; /* 작은 화면에서 전체 폭 사용 */
-        padding: 10px;
-    }
-
-    .table {
-        font-size: 14px; /* 작은 화면에서 글꼴 크기 조정 */
+    .table th, .table td {
+        padding: 8px; /* 모바일에서 셀 내부 여백 조정 */
     }
 }
 
-/* 마이 팀 */
+/* 마이팀 정보 */
 #team {
-    max-width: 600px; /* 컨테이너 너비 제한 */
-    margin: 0 auto; /* 페이지 중앙 정렬 */
-    padding: 20px;
-    background-color: #f9f9f9; /* 배경색 추가 */
-    border-radius: 8px; /* 모서리 둥글게 */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
-}
-
-/* 섹션 제목 스타일 */
-.section-title {
-    text-align: center;
-    margin-bottom: 20px;
+    background-color: #ffffff; /* 흰색 배경 */
+    padding: 30px; /* 내부 여백 */
+    border-radius: 12px; /* 모서리 둥글게 */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 효과 */
+    margin-top: 20px; /* 위쪽 여백 */
 }
 
 .section-title h3 {
-    color: #333;
-    font-size: 24px;
+    margin: 0 0 20px; /* 제목 아래 여백 */
+    font-size: 28px; /* 제목 크기 */
+    color: #333; /* 제목 색상 */
+    font-weight: 600; /* 제목 두께 */
+    text-align: center; /* 중앙 정렬 */
 }
 
-/* 내용 컨테이너 스타일 */
 #myteamdiv {
-    text-align: center; /* 내용 가운데 정렬 */
-    margin-bottom: 20px; /* 버튼과의 간격 */
-    padding: 15px;
-    background-color: #fff; /* 내부 배경색 */
-    border: 1px solid #ddd; /* 테두리 추가 */
-    border-radius: 4px;
+    margin: 20px 0; /* 팀 정보와 버튼 간의 여백 */
+    padding: 15px; /* 내부 여백 */
+    border: 1px solid #ddd; /* 테두리 설정 */
+    border-radius: 8px; /* 둥근 모서리 */
+    background-color: #f9f9f9; /* 연한 배경색 */
 }
 
-/* 버튼 스타일 */
-#myteamleavebtn {
-    display: block; /* 블록 요소로 설정 */
-    margin: 0 auto; /* 버튼을 가로 중앙 정렬 */
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    background-color: #dc3545; /* 탈퇴 버튼 색상 (빨간색) */
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
+/* 예약 내역 */
+#reservation {
+    background-color: #ffffff; /* 흰색 배경 */
+    padding: 30px; /* 내부 여백 */
+    border-radius: 12px; /* 모서리 둥글게 */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 효과 */
+    margin-top: 20px; /* 위쪽 여백 */
 }
 
-#myteamleavebtn:hover {
-    background-color: #c82333; /* 호버 시 색상 변화 */
+.section-title h3 {
+    margin: 0 0 20px; /* 제목 아래 여백 */
+    font-size: 28px; /* 제목 크기 */
+    color: #333; /* 제목 색상 */
+    font-weight: 600; /* 제목 두께 */
+    text-align: center; /* 중앙 정렬 */
 }
 
-/* 반응형 디자인 (선택 사항) */
+table {
+    width: 100%; /* 테이블 너비 */
+    border-collapse: collapse; /* 테두리 합치기 */
+    margin-top: 10px; /* 테이블 위 여백 */
+}
+
+th, td {
+    padding: 12px; /* 셀 내부 여백 */
+    text-align: left; /* 텍스트 왼쪽 정렬 */
+    border-bottom: 1px solid #ddd; /* 셀 아래 테두리 */
+}
+
+th {
+    background-color: #f8f9fa; /* 헤더 배경색 */
+    color: #333; /* 헤더 글자 색상 */
+    font-weight: bold; /* 헤더 두께 */
+}
+
+tr:hover {
+    background-color: #f1f1f1; /* 행 호버 시 배경색 */
+}
+
+#reservationContent {
+    /* tbody의 스타일 설정 */
+}
+
 @media (max-width: 768px) {
-    #team {
-        max-width: 100%; /* 작은 화면에서 전체 폭 사용 */
-        padding: 10px;
-    }
-
-    #myteamleavebtn {
-        width: 80%; /* 작은 화면에서 버튼 너비 조정 */
-        font-size: 14px;
+    th, td {
+        padding: 10px; /* 모바일에서 셀 내부 여백 조정 */
     }
 }
+
 </style>
 
 <body class="starter-page-page">
 
-  <%@ include file="/views/include/header.jsp" %>
+	<%@ include file="/views/include/header.jsp"%>
 
-  <main class="main">
+	<main class="main">
 
-    <!-- Page Title -->
-    <div class="page-title accent-background">
-      <div class="container">
-        <h1>Starter Page</h1>
-        <nav class="breadcrumbs">
-          <ol>
-            <li><a href="index.html">Home</a></li>
-            <li class="current">Starter Page</li>
-          </ol>
-        </nav>
-      </div>
-    </div><!-- End Page Title -->
+		<!-- Starter Section Section -->
+		<section id="starter-section" class="starter-section section">
+			<div class="wrapper">
+				<div class="containerLeft">
+					<section class="starter-section" data-aos="fade-up">
+						<div class="content-wrapper">
+							<h1 class="section-title">사용자의 바르셀로나</h1>
+							<div class="action-panel">
+								<a href="#" id="changeProfileBtn"> <i
+									class="bi bi-person link-icon"></i> 내 정보 수정
+								</a> <br> <a href="#" id="changePassWord"> <i
+									class="bi bi-person-lock link-icon"></i> 비밀번호 변경
+								</a> <br> <a href="#" id="updateWrite"> <i
+									class="bi bi-pencil-square link-icon"></i> 내가 쓴 글
+								</a> <br> <a href="#" id="myteam"> <i
+									class="bi bi-people link-icon"></i> 마이팀 정보
+								</a> <br> <a href="#" id="myReservation"> <i
+									class="bi bi-list-task link-icon"></i> 예약 내역
+								</a>
+							</div>
+						</div>
+					</section>
+				</div>
+				<!-- 마이페이지를 들어가면 보이는 초기 상태의 사용자 정보-->
+				<div id="hideDiv">
+					<div id="myDataForm">
+						<div class="section-title" data-aos="fade-up">
+							<h3>사용자의 정보</h3>
+						</div>
+						<div class="col-md-12">
+							<p>이름: ${user.userName }</p>
+						</div>
+						<div class="col-md-12">
+							<p>이메일 정보: ${user.userEmail }</p>
+						</div>
+						<div class="col-md-12">
+							<p>전화번호: ${user.userPhone }</p>
+						</div>
+						<div class="col-md-12">
+							<p>성별: ${user.userGender }</p>
+						</div>
+					</div>
+					<!-- 내 정보 수정 a 태그를 눌러야지만 보이는 곳. 초기 사용자 정보는 display-none 상태? 가 되고 밑에 div가 보이게 한다.-->
+					<!-- 내 정보 수정 -->
+					<div id="myDataChangeForm" style="display: none;">
+						<div class="section-title" data-aos="fade-up">
+							<h3>내 정보 수정</h3>
+						</div>
+						<form id="userProfileForm">
+							<input type="text" id="userId" value="${user.userId }"
+								style="display: none"> <label>이름 <input
+								type="text" id="userName" value="${user.userName }"></label> <label>이메일
+								<input type="email" id="userEmail" value="${user.userEmail }">
+							</label> <label>전화번호 <input type="tel" id="userPhone"
+								name="user_phone" value="${user.userPhone }">
+							</label>
+							<div>
+								<p id="phoneMsg" style="font-size: 14px; color: red;"></p>
+							</div>
+						</form>
+						<button type="button" id="updateBtn">수정 완료</button>
+						<button type="button" id="cancleBtn">취소</button>
+					</div>
+					<!-- 비밀번호 변경 -->
+					<div id="passWord" style="display: none;">
+						<div class="section-title" data-aos="fade-up">
+							<h3>비밀번호 변경</h3>
+						</div>
+						<div class="col-md-12 d-flex align-items-center">
+							<input type="password" id="userPw" class="form-control"
+								name="user_pw" placeholder="비밀번호" required>
+							<button type="button" id="togglePassword1"
+								class="btn btn-outline-secondary ms-2"
+								style="border: none; background: transparent;">👁️‍🗨️</button>
+						</div>
+						<div>
+							<p
+								style="font-size: 14px; margin-top: 5px; color: rgb(105, 105, 105);">비밀번호는
+								길이 8자 이상, 영문자,숫자,특수문자가 최소 하나씩은 포함되어야 합니다.</p>
+							<p id="pwMsg2"
+								style="font-size: 14px; margin-top: 5px; color: rgb(105, 105, 105);"></p>
+						</div>
 
-    <!-- Starter Section Section -->
-    <section id="starter-section" class="starter-section section">
 
-   <div class="container">
-    <section class="starter-section" data-aos="fade-up">
-        <div class="content-wrapper">
-            <h1 class="section-title">사용자의 바르셀로나</h1>
-            <div class="action-panel">
-                <a href="#" id="changeProfileBtn">
-                    <i class="bi bi-person link-icon"></i>
-                    내 정보 수정
-                </a>
-                <br>
-                <a href="#" id="changePassWord">
-                    <i class="bi bi-person-lock link-icon"></i>
-                    비밀번호 변경
-                </a>
-                <br>
-                <a href="#" id="updateWrite">
-                    <i class="bi bi-pencil-square link-icon"></i>
-                    내가 쓴 글
-                </a>
-                <br>
-                <a href="#" id="myteam">
-                    <i class="bi bi-people link-icon"></i>
-                    마이팀 정보
-                </a>
-                <br>
-                <a href="#" id="myReservation">
-                    <i class="bi bi-list-task link-icon"></i>
-                    예약 내역
-                </a>
-            </div>
-        </div>
-    </section>
-</div>
- <!-- 마이페이지를 들어가면 보이는 초기 상태의 사용자 정보-->
-<div id="myDataForm">
-	<div class="section-title" data-aos="fade-up">
-		<h3>사용자의 정보</h3>
-	</div>
-	<div class="col-md-12">
-		<p>이름: ${user.userName }</p>
-	</div>
-	<div class="col-md-12">
-		<p>이메일 정보: ${user.userEmail }</p>
-	</div>
-	<div class="col-md-12">
-		<p>전화번호: ${user.userPhone }</p>
-	</div> 
-	<div class="col-md-12">
-		<p>성별: ${user.userGender }</p>
-	</div>
-</div>
-	<!-- 내 정보 수정 a 태그를 눌러야지만 보이는 곳. 초기 사용자 정보는 display-none 상태? 가 되고 밑에 div가 보이게 한다.-->
-	<!-- 내 정보 수정 -->
-<div id="myDataChangeForm" style="display: none;">	
-	<div class="section-title" data-aos="fade-up">
-		<h3>내 정보 수정</h3>
-	</div>
-	<form id="userProfileForm">
-	<input type="text" id="userId" value="${user.userId }" style="display : none">
-   <label>이름 <input type="text" id="userName" value="${user.userName }"></label>
-   <label>이메일 <input type="email" id="userEmail" value="${user.userEmail }"></label>
-   <label>전화번호 <input type="tel" id="userPhone" name="user_phone" value="${user.userPhone }">
-   </label>
-   <div>
-    <p id="phoneMsg" style="font-size: 14px; color: red;"></p>
-	</div>
-</form>
-    <button type="button" id="updateBtn">수정 완료</button>
-    <button type="button" id="cancleBtn">취소</button>
-</div>	
-<!-- 비밀번호 변경 -->
-<div id="passWord" style="display : none;">
-	<div class="section-title" data-aos="fade-up">
-		<h3>비밀번호 변경</h3>
-	</div>
-	<div class="col-md-12 d-flex align-items-center">
-                  <input type="password" id="userPw" class="form-control" name="user_pw" placeholder="비밀번호" required>
-                	<button type="button" id="togglePassword1" class="btn btn-outline-secondary ms-2" 
-          			style="border: none; background: transparent;">
-    				👁️‍🗨️
-  					</button>
-  					</div>
-  					<div>
-                	<p style="font-size: 14px; margin-top: 5px; color: rgb(105, 105, 105);">비밀번호는 길이 8자 이상, 영문자,숫자,특수문자가 최소 하나씩은 포함되어야 합니다.</p>
-               		<p id="pwMsg2" style="font-size: 14px; margin-top: 5px; color: rgb(105, 105, 105);"></p>
-               		</div>
-               	              	
+						<div class="col-md-12 d-flex align-items-center">
+							<input type="password" id="checkUserPw" class="form-control"
+								name="check_user_pw" placeholder="비밀번호 확인" required>
+							<button type="button" id="togglePassword2"
+								class="btn btn-outline-secondary ms-2"
+								style="border: none; background: transparent;">👁️‍🗨️</button>
+						</div>
+						<div>
+							<p id="pwMsg"
+								style="font-size: 12px; margin-top: 5px; color: rgb(105, 105, 105);"></p>
+						</div>
+						<button type="button" id="updateBtn1">수정 완료</button>
+						<button type="button" id="cancleBtn1">취소</button>
 
-                <div class="col-md-12 d-flex align-items-center">
-                  <input type="password" id="checkUserPw" class="form-control" name="check_user_pw" placeholder="비밀번호 확인" required>
-                	<button type="button" id="togglePassword2" class="btn btn-outline-secondary ms-2" 
-          			style="border: none; background: transparent;">
-    				👁️‍🗨️
-  					</button>
-                </div>
-                 <div>
-                	<p id="pwMsg" style="font-size: 12px; margin-top: 5px; color: rgb(105, 105, 105);"></p>
-              	</div> 
-  					<button type="button" id="updateBtn1">수정 완료</button>
-    				<button type="button" id="cancleBtn1">취소</button>
-                
-</div>
-	
-<div id="write" style="display: none;">
-    <div class="section-title" data-aos="fade-up">
-        <h3>내가 쓴 글</h3>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>번호</th>
-                    <th>제목</th>
-                    <th>작성자</th>
-                    <th>작성일시</th>
-                </tr>
-            </thead>
-            <tbody id="boardListContainer">
-            	
-            </tbody>
-        </table>
-    </div>	
-</div>
+					</div>
+					
+					<!-- 작성한 게시글 목록 -->
+					<div id="write" style="display: none;">
+						<div class="section-title" data-aos="fade-up">
+							<h3>내가 쓴 글</h3>
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th>번호</th>
+										<th>제목</th>
+										<th>작성자</th>
+										<th>작성일시</th>
+									</tr>
+								</thead>
+								<tbody id="boardListContainer">
 
-	<div id="team" style="display: none;">
-		<div class="section-title" data-aos="fade-up">
-		<h3>마이팀 정보</h3>
-		</div>
-		<div id="myteamdiv">
-		
-		</div>
-		<button id="myteamleavebtn">탈퇴</button>
-	</div>
-	<c:set var="user" value="${sessionScope.user}"/>
-	
-<div id="reservation" style="display: none;">
-	<div class="section-title" data-aos="fade-up">
-	<h3>예약 내역</h3>
-	</div>
-	<table>
-		<thead>
-			<tr>
-				<th>구장 위치</th>
-				<th>구장명</th>
-				<th>일정 날짜</th>
-				<th>일정 시간</th>
-				<th>이용 시간</th>
-				<th>예약 상태</th>
-			</tr>
-		</thead>
-		<tbody id="reservationContent">
-		
-		</tbody>
-	</table>
-</div>
-	
- <!-- a태그를 누르면 변형이 되기 위한 script 태그 -->
- <script>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					
+					<!-- 마이팀 정보 -->
+					<div id="team" style="display: none;">
+						<div class="section-title" data-aos="fade-up">
+							<h3>마이팀 정보</h3>
+						</div>
+						<div id="myteamdiv"></div>
+						<button id="myteamleavebtn">탈퇴</button>
+					</div>
+					<c:set var="user" value="${sessionScope.user}" />
+
+					<!-- 예약내역 -->
+					<div id="reservation" style="display: none;">
+						<div class="section-title" data-aos="fade-up">
+							<h3>예약 내역</h3>
+						</div>
+						<table>
+							<thead>
+								<tr>
+									<th>구장 위치</th>
+									<th>구장명</th>
+									<th>일정 날짜</th>
+									<th>일정 시간</th>
+									<th>이용 시간</th>
+									<th>예약 상태</th>
+								</tr>
+							</thead>
+							<tbody id="reservationContent">
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- a태그를 누르면 변형이 되기 위한 script 태그 -->
+		<script>
  document.getElementById("myReservation").addEventListener("click", function(event) {
 	    event.preventDefault();	
 	    document.getElementById("myDataForm").style.display = "none";
@@ -661,8 +637,8 @@ tbody tr.active {
 	});
  	
  </script>
- 
- <script>					
+
+		<script>					
  	document.getElementById("changeProfileBtn").addEventListener("click",function(){
  	event.preventDefault();	
  	document.getElementById("myDataForm").style.display = "none";
@@ -730,8 +706,8 @@ tbody tr.active {
 		}	
 	}	
  </script>
- 	<!-- 비번 변경 script -->
- 	<script>
+		<!-- 비번 변경 script -->
+		<script>
 		document.getElementById("changePassWord").addEventListener("click", function(){
 		event.preventDefault();
 		document.getElementById("myDataChangeForm").style.display = "none";
@@ -844,8 +820,8 @@ tbody tr.active {
 		pw_eye.type = pw_eye.type === "password" ? "text" : "password";
 	})	
  </script>
- 	<!-- 내가 쓴 글 수정 ajax 작성할 예정-->
-<script>
+		<!-- 내가 쓴 글 수정 ajax 작성할 예정-->
+		<script>
   // "내가 쓴 글 수정" 버튼 클릭 시
   document.getElementById("updateWrite").addEventListener("click", function(event) {
     event.preventDefault();
@@ -909,7 +885,7 @@ tbody tr.active {
     });
   });
 </script>
-	<script>
+		<script>
 	document.getElementById("myteam").addEventListener("click", function(event) {   	
 		event.preventDefault();
 	    document.getElementById("myDataForm").style.display = "none";
@@ -971,31 +947,31 @@ tbody tr.active {
 		}
 	})
 	</script>
-	
-	
-    </section><!-- /Starter Section Section -->
-  </main>
 
-  <%@ include file="/views/include/footer.jsp" %>
+	</main>
 
-  <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+	<%-- <%@ include file="/views/include/footer.jsp"%> --%>
 
-  <!-- Preloader -->
-  <div id="preloader"></div>
+	<!-- Scroll Top -->
+	<a href="#" id="scroll-top"
+		class="scroll-top d-flex align-items-center justify-content-center"><i
+		class="bi bi-arrow-up-short"></i></a>
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+	<!-- Preloader -->
+	<div id="preloader"></div>
 
-  <!-- Main JS File -->
-  <script src="/resources/js/common.js"></script>
+	<!-- Vendor JS Files -->
+	<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="assets/vendor/php-email-form/validate.js"></script>
+	<script src="assets/vendor/aos/aos.js"></script>
+	<script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+	<script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+	<script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+	<script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+	<script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+
+	<!-- Main JS File -->
+	<script src="/resources/js/common.js"></script>
 
 </body>
 

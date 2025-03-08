@@ -11,7 +11,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Starter Page - OnePage Bootstrap Template</title>
+  <title>로그인</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -42,6 +42,10 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 </head>
+
+<style>
+
+</style>
 
 <body class="starter-page-page">
 
@@ -86,13 +90,17 @@
 						<form action="/loginEnd" method="post" class="submit-form" data-aos="fade-up" data-aos-delay="200">
              			 	<div class="row gy-4">
 								
-                				<div class="col-md-12">
+								<div class="col-md-4"></div>
+                				<div class="col-md-4">
                   					<input type="text" class="form-control" name="user_id" placeholder="아이디" required>
                 				</div>
-								
-                				<div class="col-md-12">
+                				<div class="col-md-4"></div>
+                				
+								<div class="col-md-4"></div>
+                				<div class="col-md-4">
                 					 <input type="password" class="form-control" name="user_pw" placeholder="비밀번호" required>
                 				</div>
+                				<div class="col-md-4"></div>
 								
 								<!-- 필수정보가 다 입력되었으면 submit 할 수 있게 됨 -->
                 				<div class="col-md-12 text-center">

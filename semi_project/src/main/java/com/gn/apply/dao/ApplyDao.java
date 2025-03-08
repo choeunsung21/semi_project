@@ -31,6 +31,21 @@ public class ApplyDao {
 	public User selectUserByApplyNo(SqlSession session, int applyNo) {
 		return session.selectOne("applyMapper.selectUserByApplyNo", applyNo);
 	}
+	
+	// rejected일 경우 apply 테이블을 update
+	public int updateApplyToRejected(SqlSession session, int applyNo) {
+		return session.update("applyMapper.updateApplyToRejected", applyNo);
+	}
+	
+	// approved일 경우 apply 테이블을 update
+	public int updateApplyToApproved(SqlSession session, int applyNo) {
+		return session.update("applyMapper.updateApplyToApproved", applyNo);
+	}
+	
+	// 변경 후에 apply 객체를 조회함
+	public Apply selectApplyByApplyNo(SqlSession session, int applyNo) {
+		return session.selectOne("applyMapper.selectApplyByApplyNo", applyNo);
+	}
 }
 	
    

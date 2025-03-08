@@ -57,10 +57,10 @@
                 <table class="table table-hover text-center">
                     <thead>
                         <tr>
-                            <th>팀명</th>
-                            <th>팀장</th>
-                            <th>지역</th>
-                            <th>수준</th>
+                            <th>팀 이름</th>
+                            <th>팀장 아이디</th>
+                            <th>활동 지역</th>
+                            <th>팀 수준</th>
                             <th>상태</th>
                         </tr>
                     </thead>
@@ -70,7 +70,7 @@
                                 <c:forEach var="applyList" items="${applyList}">
                                     <tr>
                                         <td>${applyList.teamName}</td>
-                                        <td>${applyList.userName}</td>
+                                        <td>${applyList.userId}</td>
                                         <td>${applyList.teamArea}</td>
 										<td>
    											<c:choose>

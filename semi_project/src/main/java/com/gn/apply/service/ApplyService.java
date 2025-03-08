@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.gn.apply.dao.ApplyDao;
 import com.gn.apply.vo.Apply;
+import com.gn.player.dao.PlayerDao;
 import com.gn.user.vo.User;
 
 public class ApplyService {
@@ -48,5 +49,38 @@ public class ApplyService {
 		User user = new ApplyDao().selectUserByApplyNo(session, applyNo);
 		session.close();
 		return user;
+	}
+	
+	// rejected일 경우 apply 테이블을 update
+	public int updateApplyToRejected(int applyNo) {
+		SqlSession session = getSqlSession(true);
+		int result = new ApplyDao().updateApplyToRejected(session, applyNo);
+		session.close();
+		return result;
+	}
+	
+	// approved일 경우 apply 테이블을 update해주고 그 내역을 select해서 player테이블에 insert
+	public int updateApplyToApproved(int applyNo) {
+		SqlSession session = getSqlSession(false);
+		
+		int resultUpdate = new ApplyDao().updateApplyToApproved(session, applyNo);
+		
+		if(resultUpdate > 0) {
+			Apply apply = new ApplyDao().selectApplyByApplyNo(session, applyNo);
+			
+			int resultInsert = new PlayerDao().insertPlayer(session, apply);
+			
+			if(resultInsert > 0) {
+				session.commit();
+				session.close();
+				return 1;
+			} else {
+				session.rollback();
+				return 0;
+			}
+		} else {
+			session.rollback();
+			return 0;
+		}
 	}
 }
