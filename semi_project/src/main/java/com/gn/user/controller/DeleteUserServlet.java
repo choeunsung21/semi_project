@@ -23,6 +23,7 @@ public class DeleteUserServlet extends HttpServlet {
 
 	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// [cjs] 비밀번호 유효성 끝난 상황에서 유저아이디 기준으로 조회되는 객체를 딜리트하는 절차
 		String userId = request.getParameter("user_id");
 		
 		int result = new UserService().deleteUser(userId);
@@ -36,7 +37,8 @@ public class DeleteUserServlet extends HttpServlet {
 				session.removeAttribute("user");
 				session.invalidate();
 			}
-
+			
+			// 유지보수 측면에서 확인하기 편하라고 일단 JSON객체에 담아주긴 했는데 딱히 사용하진 않음
 			obj.put("msg_delete_user", "탈퇴완료");
 		} else {
 			obj.put("msg_delete_user", "탈퇴실패");
