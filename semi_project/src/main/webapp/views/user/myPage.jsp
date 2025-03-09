@@ -424,6 +424,14 @@ tr:hover {
     }
 }
 
+/* 회원 탈퇴 CSS */
+#chk-password-label span {
+	font-size:14px;
+	color: #124265;
+	font-family: "Raleway",  sans-serif;
+	font-weight: bold;
+}
+
 </style>
 
 <body class="starter-page-page">
@@ -450,7 +458,14 @@ tr:hover {
 									class="bi bi-people link-icon"></i> 마이팀 정보
 								</a> <br> <a href="#" id="myReservation"> <i
 									class="bi bi-list-task link-icon"></i> 예약 내역
+								</a> <br>
+								
+								<!-- [cjs] 회원 탈퇴 버튼 구성 -->
+								<a href="#" id="delete-user-a" style="padding-top: 60px;">
+									<i class="bi bi-person-x link-icon"></i> 회원 탈퇴
 								</a>
+								<!-- ----------------------- -->
+								
 							</div>
 						</div>
 					</section>
@@ -583,6 +598,34 @@ tr:hover {
 							</tbody>
 						</table>
 					</div>
+					
+					
+					
+					<!-- [cjs] 회원탈퇴 -->
+
+					<div id="delete-user-div" style="display: none;">
+						<div class="section-title" data-aos="fade-up">
+							<h3 style="padding-top:40px;">회원 탈퇴</h3>
+						</div>
+						
+						<div class="col-md-12">
+							<label for="chk-password-input" id="chk-password-label"><span>비밀번호 재확인</span></label>
+							<div class="col-md-8">
+								<input style="display:none" type="text" class="form-control" name="session_user_id" id="session-user-id-input" value="${user.userId}">
+                  				<input type="password" class="form-control" name="chk_password" id="chk-password-input">
+                  			</div>	
+                  			<div>	
+                  				<input type="submit" id="chk-password-btn" value="확인" style="font-size:14px;">
+                			</div>
+						</div>
+               			<p id="msg-incorrect-pw-p"></p>
+					</div>
+					
+					
+					
+					
+					
+					<!-- ------------- -->
 				</div>
 			</div>
 		</section>
@@ -597,6 +640,7 @@ tr:hover {
 	    document.getElementById("write").style.display = "none";
 	    document.getElementById("team").style.display = "none";
 	    document.getElementById("reservation").style.display = "block";
+	    document.getElementById("delete-user-div").style.display = "none";
 	    $('#reservationContent').empty();
 
 	    $.ajax({
@@ -647,6 +691,7 @@ tr:hover {
  	document.getElementById("write").style.display = "none";
  	document.getElementById("team").style.display = "none";
  	document.getElementById("reservation").style.display = "none";
+ 	document.getElementById("delete-user-div").style.display = "none";
  	
  	})
  	
@@ -716,6 +761,7 @@ tr:hover {
  		document.getElementById("passWord").style.display = "block";
  		document.getElementById("team").style.display = "none";
  		document.getElementById("reservation").style.display = "none";
+ 		document.getElementById("delete-user-div").style.display = "none";
 		})
  	$("#updateBtn1").click(function(){
  		console.log("수정 버튼 클릭됨")
@@ -832,6 +878,7 @@ tr:hover {
     document.getElementById("write").style.display = "block";
     document.getElementById("team").style.display = "none";
     document.getElementById("reservation").style.display = "none";
+    document.getElementById("delete-user-div").style.display = "none";
     $('#boardListContainer').empty();
     // AJAX 호출로 사용자 글 목록 가져오기
     $.ajax({
@@ -894,6 +941,7 @@ tr:hover {
 	    document.getElementById("write").style.display = "none";
 	    document.getElementById("team").style.display = "block";
 	    document.getElementById("reservation").style.display = "none";
+	    document.getElementById("delete-user-div").style.display = "none";
 	    $('#team').empty();
 	   	console.log("a 태그 잘 눌러지니?")
 	    let rows = "";
@@ -946,6 +994,71 @@ tr:hover {
 			})
 		}
 	})
+	
+	
+	/* [cjs] 회원 탈퇴 관련 스크립트 */
+	document.getElementById("delete-user-a").addEventListener("click", function(){
+		event.preventDefault();
+		document.getElementById("myDataChangeForm").style.display = "none";
+ 		document.getElementById("myDataForm").style.display = "none";
+ 		document.getElementById("write").style.display = "none";
+ 		document.getElementById("passWord").style.display = "none";
+ 		document.getElementById("team").style.display = "none";
+ 		document.getElementById("reservation").style.display = "none";
+ 		document.getElementById("delete-user-div").style.display = "block";
+	});
+	 
+	document.getElementById("chk-password-btn").addEventListener("click", function(){
+		const user_id = document.getElementById("session-user-id-input").value;
+		const user_pw = document.getElementById("chk-password-input").value;
+		
+ 		$.ajax({
+			url : "/selectUserByIdAndPw",
+			type : "post",
+			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+			data : {
+				"user_id" : user_id,
+				"user_pw" : user_pw
+			},
+			dataType : "JSON",
+			success : function(data){
+				if (data.resultMsg === "탈퇴가능") {
+					if (confirm("정말로 탈퇴하시겠습니까?")) {
+						$.ajax({
+		                    url: "/deleteUser",
+		                    type : "post",
+		        			contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+		        			data : {
+		        				"user_id" : user_id
+		        			},
+		        			dataType : "JSON",
+		                    success: function () {
+		                        alert("회원 탈퇴가 완료되었습니다.");
+		                        location.href = "/";
+		                    },
+		                    error: function () {
+		                        alert("회원 탈퇴 중 오류가 발생했습니다.");
+		                    }
+		                });
+					} else {
+						alert('탈퇴 절차 취소 : 확인을 누르시면 홈화면으로 이동합니다.');
+						
+						window.location.href = "/index.jsp";
+					}
+				} else {
+					$("#msg-incorrect-pw-p").html("<p style='color: red; font-size:12px;'>비밀번호를 확인해주세요 : 잠시 후 홈화면으로 이동합니다.</p>");
+					
+					setTimeout(function() {
+					    window.location.href = "/index.jsp";
+					}, 3000);
+				}
+			},
+			error : function(){
+
+			}
+		});
+	 });
+	
 	</script>
 
 	</main>

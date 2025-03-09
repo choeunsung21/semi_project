@@ -80,4 +80,19 @@ public class UserService {
 		return result;
 	}
 	
+	// [cjs] user객체에 Id, Pw 담아서 해당하는 객체를 조회
+	public User selectUserByIdAndPw(User opt) {
+		SqlSession session = getSqlSession(true);
+		User user = new UserDao().selectUserByIdAndPw(session, opt);
+		session.close();
+		return user;
+	}
+	
+	// [cjs] 비밀번호 재검사를 했기 때문에 userId 기준으로 조회해서 해당 레코드 삭제
+	public int deleteUser(String userId) {
+		SqlSession session = getSqlSession(true);
+		int result = new UserDao().deleteUser(session, userId);
+		session.close();
+		return result;
+	}
 }
