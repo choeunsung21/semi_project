@@ -72,6 +72,11 @@ public class TeamDao {
     public int updateTeamCount(SqlSession session, int teamNo) {
     	return session.update("teamMapper.updateTeamCount", teamNo);
     }
+    
+    // cjs - 프론트에 넘겨주기 위해 유저 번호 기준으로 내 팀 번호 목록을 조회
+    public List<Team> selectMyTeamAll(SqlSession session, int userNo) {
+    	return session.selectList("teamMapper.selectMyTeamAll", userNo);
+    }
 }
 
 

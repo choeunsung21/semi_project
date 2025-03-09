@@ -111,6 +111,14 @@ public class TeamService {
 	    	session.close();
 	    	return team;
 	    }
+	    
+	    // cjs - 프론트에 넘겨주기 위해 유저 번호 기준으로 내 팀 목록을 조회
+	    public List<Team> selectMyTeamAll(int userNo) {
+	    	SqlSession session = getSqlSession(true);
+	    	List<Team> myTeamList = new TeamDao().selectMyTeamAll(session, userNo);
+	    	session.close();
+	    	return myTeamList;
+	    }
 }
 
 

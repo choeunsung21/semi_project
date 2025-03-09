@@ -37,6 +37,14 @@
       <input type="hidden" id="team-count-input" name="team_count" value="${team.teamCount}">
       <input type="hidden" id="team-limit-input" name="team_limit" value="${team.teamLimit}">
       
+      <c:choose>
+      	<c:when test="${not empty myTeamList}">
+      		<c:forEach var="team" items="${myTeamList}">
+      			<input type="hidden" id="my-team-no-input" name="my_team_no" value="${team.teamNo}">
+      		</c:forEach>
+	  	</c:when>
+	  </c:choose>
+      
       <label for="position">선호 포지션</label>
       <input type="text" id="position" name="position" class="form-control" placeholder="선호 포지션">
 
@@ -59,14 +67,28 @@
     	let teamCount = Number(document.getElementById("team-count-input").value);
     	let teamLimit = Number(document.getElementById("team-limit-input").value);
     	
-    	if (userNo === leaderNo) {
+    	let myTeamInputElements = document.querySelectorAll("#my-team-no-input"); // 모든 teamNo를 가져옵니다
+    	let currentTeamNo = document.getElementById("team-no-input").value;
+    	
+    	if(userNo === leaderNo) {
     		alert("본인 팀에는 신청할 수 없습니다.");
     		event.preventDefault();
     		history.back();
     		return false;
     	}
     	
-    	if (teamCount >= teamLimit) {
+    	for(let i=0; i<myTeamInputElements.length; i++) {
+            let teamNo = myTeamInputElements[i].value;
+
+            if (teamNo === currentTeamNo) {
+                alert("이미 해당 팀 소속입니다.");
+                event.preventDefault();
+                history.back();
+                return false;
+            }
+        }
+    	
+    	if(teamCount >= teamLimit) {
 			alert("현재 팀원 수가 제한 인원에 도달하였습니다.");
 			event.preventDefault();
 			history.back();

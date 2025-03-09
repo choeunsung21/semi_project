@@ -1,6 +1,7 @@
 package com.gn.apply.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,16 +29,20 @@ public class InsertApplyServlet extends HttpServlet {
 		String strUserNo = request.getParameter("userNo");
 		String strTeamNo = request.getParameter("teamNo");
 		
+		
 		if(strTeamNo != null && strUserNo != null) {
 			int userNo = Integer.parseInt(strUserNo);
 			int teamNo = Integer.parseInt(strTeamNo);
 			
 			Team team = new TeamService().selectTeamByTeamNo(teamNo);
+
+			List<Team> myTeamList = new TeamService().selectMyTeamAll(userNo);
 			
 			RequestDispatcher view = request.getRequestDispatcher("/views/apply/insertApply.jsp");
 			request.setAttribute("userNo", userNo);
 			request.setAttribute("teamNo", teamNo);
 			request.setAttribute("team", team);
+			request.setAttribute("myTeamList", myTeamList);
 			view.forward(request, response);
 		} else {
 			/* 상세보기 버튼을 눌렀을 때 제대로 안 들어오는 경우임 - 앞단이 제대로 구성되어있다면 이쪽으로 올 수 없음 */

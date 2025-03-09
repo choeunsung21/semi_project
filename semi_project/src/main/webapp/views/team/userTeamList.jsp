@@ -6,7 +6,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>일반사용자 목록</title>
+    <title>일반 사용자 목록</title>
     <link href="assets/img/favicon.png" rel="icon">
     <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
