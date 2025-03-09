@@ -27,7 +27,7 @@ public class CreateTeamEndServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		  	String teamNoParam = request.getParameter("team_no");
 	        String userNoParam = request.getParameter("user_no"); // 수정: userNoParam에서 "user_no"로 변경
-
+	        
 	        if (teamNoParam == null || userNoParam == null || teamNoParam.trim().isEmpty() || userNoParam.trim().isEmpty()) {
 	            response.sendRedirect(request.getContextPath() + "/views/team/error.jsp");
 	            return;

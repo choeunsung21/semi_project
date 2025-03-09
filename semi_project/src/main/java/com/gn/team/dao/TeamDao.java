@@ -57,6 +57,26 @@ public class TeamDao {
         params.put("teamNo", teamNo);
         return session.insert("teamMapper.insertPlayer", params);
     }
+    
+    // cjs - 본인이 팀장인 팀 리스트 조회
+    public List<Team> selectTeamListByUser(SqlSession session, int userNo) {
+    	return session.selectList("teamMapper.selectTeamListByUser", userNo);
+    }
+    
+    // cjs - 프론트에 넘겨주기 위해 팀 번호 기준으로 팀 객체 조회
+    public Team selectTeamByTeamNo(SqlSession session, int teamNo) {
+    	return session.selectOne("teamMapper.selectTeamByTeamNo", teamNo);
+    }
+    
+    // cjs - 팀 인원 파악을 위해 카운팅을 올려줌
+    public int updateTeamCount(SqlSession session, int teamNo) {
+    	return session.update("teamMapper.updateTeamCount", teamNo);
+    }
+    
+    // cjs - 프론트에 넘겨주기 위해 유저 번호 기준으로 내 팀 번호 목록을 조회
+    public List<Team> selectMyTeamAll(SqlSession session, int userNo) {
+    	return session.selectList("teamMapper.selectMyTeamAll", userNo);
+    }
 }
 
 

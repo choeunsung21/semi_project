@@ -19,9 +19,9 @@ public class MyPageUpdatePassWordServlet extends HttpServlet {
        
     public MyPageUpdatePassWordServlet() {
         super();
-       
     }
 
+	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("userId");
 		String pw = request.getParameter("userPw");

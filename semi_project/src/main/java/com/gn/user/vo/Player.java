@@ -15,8 +15,6 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @Builder
-
-
 public class Player {
 	private int playerNo;
 	private int userNo;

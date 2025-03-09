@@ -12,10 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.gn.plan.service.PlanService;
-import com.gn.plan.vo.PagingPlan;
 import com.gn.plan.vo.Plan;
-import com.gn.reservation.service.ReservationService;
-import com.gn.reservation.vo.Reservation;
 import com.gn.user.vo.User;
 
 

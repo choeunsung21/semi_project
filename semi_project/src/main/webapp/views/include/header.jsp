@@ -26,7 +26,9 @@
 					<c:otherwise>
 						<!-- 로그인이 되어있는 상태라면 -->
 						<li><a href="/logout">로그아웃</a></li>
+						<!--
 						<li><a href="/123">[알림이미지]</a></li>
+						-->
 						<li class="dropdown"><a href="#"><c:out value="${user.userName}"/>님<i class="bi bi-chevron-down toggle-dropdown"></i></a>
 							<ul>
 								<!-- 모든 회원에게 보이는 드롭다운 메뉴 -->
@@ -36,7 +38,9 @@
 								<li><a href="/selectBoardList">게시판</a></li>
 								<li><a href="/boardWrite">글쓰기</a></li>
 								
+								<!--
 								<li><a href="/insertReservation">일정 예약</a></li>
+								-->
 								
 								<!-- 팀 관련 드롭다운 메뉴 -->
 								
@@ -58,7 +62,7 @@
 								<!-- 업체 회원이라면 보이는 드롭다운 메뉴 -->
 								<c:choose>
 									<c:when test="${user.userType eq 1}">
-									<li class="dropdown"><a href="#"><span>구장 및 스케줄</span><i class="bi bi-chevron-down toggle-dropdown"></i></a>
+									<li class="dropdown"><a href="#"><span>구장 및 일정</span><i class="bi bi-chevron-down toggle-dropdown"></i></a>
 										<ul>
 											<li><a href="/insertField">구장 등록</a></li>
 											<li><a href="/insertPlan">일정 직접 등록</a></li>
@@ -82,7 +86,7 @@
 											
 											
 
-											<li><a href="/selectPlanDetail">일정 상세 조회</a></li>
+
 											<!-- <li><a href="#">Deep Dropdown 4</a></li> -->
 											<!-- <li><a href="#">Deep Dropdown 5</a></li> -->
 										</ul>

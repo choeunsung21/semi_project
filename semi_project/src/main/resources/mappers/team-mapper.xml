@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="teamMapper">
-    <resultMap type="com.gn.team.vo.Team" id="teamMap">
+    <resultMap type="team" id="teamMap">
         <result property="teamNo" column="team_no"/>
         <result property="teamName" column="team_name"/>
         <result property="leaderNo" column="leader_no"/>
@@ -14,7 +14,20 @@
         <result property="regDate" column="reg_date"/>
         <result property="modDate" column="mod_date"/>
     </resultMap>
-
+	<resultMap type="user" id="userMap">
+		<result property="userNo" column="user_no"/>
+		<result property="userId" column="user_id"/>
+		<result property="userPw" column="user_pw"/>
+		<result property="userName" column="user_name"/>
+		<result property="userGender" column="user_gender"/>
+		<result property="userPhone" column="user_phone"/>
+		<result property="userEmail" column="user_email"/>
+		<result property="userType" column="user_type"/>
+		<result property="isManager" column="is_manager"/>
+		<result property="regDate" column="reg_date"/>
+		<result property="modDate" column="mod_date"/>
+	</resultMap>
+	
    <!-- 팀 생성 -->
 	<insert id="insertTeam" parameterType="Team" useGeneratedKeys="true" keyProperty="teamNo">
     	INSERT INTO `team` (team_name, leader_no, team_area, prefer_gender, team_level, team_count, team_limit, team_explanation, reg_date)
@@ -66,4 +79,26 @@
     	LIMIT #{limitPageNo}, #{numPerPage}
 	</select>
 	
+	<select id="selectTeamListByUser" parameterType="_int" resultMap="teamMap">
+		SELECT * FROM `team` WHERE `leader_no` = #{userNo}
+	</select>
+	
+	<select id="selectTeamByTeamNo" parameterType="_int" resultMap="teamMap">
+		SELECT * FROM `team` WHERE `team_no` = #{teamNo}
+	</select>
+	
+	<select id="selectMyTeamAll" parameterType="_int" resultMap="teamMap">
+		SELECT *
+		FROM `user` u
+		JOIN `player` p ON p.user_no = u.user_no
+		JOIN `team` t ON t.team_no = p.team_no
+		WHERE u.user_no = #{userNo}
+	</select>
+	
+	<update id="updateTeamCount" parameterType="_int">
+		UPDATE `team`
+		SET `team_count` = `team_count` + 1
+		WHERE `team_no` = #{teamNo}
+		AND `team_count` &lt; `team_limit`
+	</update>
 </mapper>

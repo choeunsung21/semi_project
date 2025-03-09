@@ -12,17 +12,15 @@ import org.json.simple.JSONObject;
 
 import com.gn.board.service.BoardService;
 
-
 @WebServlet("/deleteAttach")
 public class DeleteAttach extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
     
     public DeleteAttach() {
       
     }
 
-	
+	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String temp = request.getParameter("attachNo");
 		int attachNo = 0;
@@ -43,10 +41,7 @@ public class DeleteAttach extends HttpServlet {
 		response.getWriter().print(obj);
 	}
 
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }

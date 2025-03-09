@@ -11,7 +11,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Service Details - OnePage Bootstrap Template</title>
+  <title>일정 등록</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -199,7 +199,7 @@
 									
 									<!-- #chk_term 체크되었을 때만 버튼이 눌러지고 아닐경우 alert창을 띄울 예정 -->
                 					<div class="col-md-12 text-center">
-                  						<button type="submit">스케줄 등록</button>
+                  						<button type="submit">일정 등록</button>
                 					</div>
                 					
               					</div>

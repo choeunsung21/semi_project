@@ -1,7 +1,5 @@
 package com.gn.board.vo;
 
-import java.time.LocalDateTime;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,5 +19,4 @@ public class Attach {
 	private String newName;
 	private int boardNo;
 	private String attachPath;
-
 }

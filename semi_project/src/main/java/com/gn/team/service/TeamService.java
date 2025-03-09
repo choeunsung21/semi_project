@@ -95,6 +95,30 @@ public class TeamService {
 
 	        return result > 0; // 삽입 성공 여부 반환
 	    }
+	    
+	    // cjs - 본인이 팀장인 팀 리스트 조회
+	    public List<Team> selectTeamListByUser(int userNo) {
+	    	SqlSession session = getSqlSession(true);
+	    	List<Team> teamList = new TeamDao().selectTeamListByUser(session, userNo);
+	    	session.close();
+	    	return teamList;
+	    }
+	    
+	    // cjs - 프론트에 넘겨주기 위해 팀 번호 기준으로 팀 객체 조회
+	    public Team selectTeamByTeamNo(int teamNo) {
+	    	SqlSession session = getSqlSession(true);
+	    	Team team = new TeamDao().selectTeamByTeamNo(session, teamNo);
+	    	session.close();
+	    	return team;
+	    }
+	    
+	    // cjs - 프론트에 넘겨주기 위해 유저 번호 기준으로 내 팀 목록을 조회
+	    public List<Team> selectMyTeamAll(int userNo) {
+	    	SqlSession session = getSqlSession(true);
+	    	List<Team> myTeamList = new TeamDao().selectMyTeamAll(session, userNo);
+	    	session.close();
+	    	return myTeamList;
+	    }
 }
 
 

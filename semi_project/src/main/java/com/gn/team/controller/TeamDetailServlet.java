@@ -43,8 +43,9 @@ public class TeamDetailServlet extends HttpServlet {
 	            response.sendRedirect("/teamList");
 	            return;
 	        }
-	        request.setAttribute("team", team); 
+	        
 	        RequestDispatcher view = request.getRequestDispatcher("/views/team/teamDetail.jsp");
+	        request.setAttribute("team", team);
 	        view.forward(request, response);
 	    }
 	

@@ -11,7 +11,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>Starter Page - OnePage Bootstrap Template</title>
+  <title>로그인</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
@@ -42,6 +42,10 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 </head>
+
+<style>
+
+</style>
 
 <body class="starter-page-page">
 
@@ -77,7 +81,7 @@
       	  		<!-- Section Title -->
       	  		<div class="container section-title" data-aos="fade-up">
         			<h2>로그인</h2>
-        			<p>#. 환영메시지 : 저희 페이지에 오신 것을 환영합니다.</p>
+        			<p style="font-size:14px;">축구미에 오신 것을 환영합니다.</p>
       			</div><!-- End Section Title -->
 
       			<div class="container" data-aos="fade-up" data-aos-delay="100">
@@ -86,19 +90,24 @@
 						<form action="/loginEnd" method="post" class="submit-form" data-aos="fade-up" data-aos-delay="200">
              			 	<div class="row gy-4">
 								
-                				<div class="col-md-12">
+								<div class="col-md-4"></div>
+                				<div class="col-md-4">
                   					<input type="text" class="form-control" name="user_id" placeholder="아이디" required>
                 				</div>
-								
-                				<div class="col-md-12">
+                				<div class="col-md-4"></div>
+                				
+								<div class="col-md-4"></div>
+                				<div class="col-md-4">
                 					 <input type="password" class="form-control" name="user_pw" placeholder="비밀번호" required>
                 				</div>
-		
+                				<div class="col-md-4"></div>
+								
 								<!-- 필수정보가 다 입력되었으면 submit 할 수 있게 됨 -->
                 				<div class="col-md-12 text-center">
                   					<button type="submit">로그인</button>
                   					<p style="padding-top:25px;">
-                  					<a href="/LoginId">아이디 찾기</a><br>
+                  					<a href="/LoginId">아이디 찾기</a>
+                  					ㅣ
                   					<a href="/LoginPw">비밀번호 찾기</a></p>
                   					<p>계정이 없으신가요? <a href="/signup">회원가입</a></p>
                 				</div>

@@ -54,7 +54,6 @@ public class MyPageReservationServlet extends HttpServlet {
 		}
 		JSONObject obj1 = new JSONObject();
 		obj1.put("list", arr);
-		System.out.println(obj1);
 			
 		response.setContentType("application/json;charset=utf-8");
 		response.getWriter().print(obj1.toString());

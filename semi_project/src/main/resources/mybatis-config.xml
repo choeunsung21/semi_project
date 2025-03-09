@@ -18,6 +18,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<typeAlias type="com.gn.board.vo.Attach" alias="attach"/>
 		<typeAlias type="com.gn.team.vo.Team" alias="team"/>
 		<typeAlias type="com.gn.apply.vo.Apply" alias="apply"/>
+		<typeAlias type="com.gn.player.vo.Player" alias="player"/>
 	</typeAliases>
 	<environments default="development">
 		<environment id="development">
@@ -42,5 +43,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="/mappers/board-mapper.xml"/>
 		<mapper resource="/mappers/team-mapper.xml"/>
 		<mapper resource="/mappers/apply-mapper.xml"/>
+		<mapper resource="/mappers/player-mapper.xml"/>
 	</mappers>
 </configuration>

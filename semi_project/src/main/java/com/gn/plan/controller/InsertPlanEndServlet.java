@@ -2,7 +2,6 @@ package com.gn.plan.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpSession;
 
 import com.gn.plan.service.PlanService;
 import com.gn.plan.vo.Plan;
-import com.gn.user.vo.User;
 
 @WebServlet("/insertPlanEnd")
 public class InsertPlanEndServlet extends HttpServlet {

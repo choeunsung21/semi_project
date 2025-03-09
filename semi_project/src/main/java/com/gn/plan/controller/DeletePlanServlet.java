@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 
 import com.gn.plan.service.PlanService;
 import com.gn.plan.vo.Plan;
-import com.gn.user.vo.User;
 
 
 @WebServlet("/deletePlan")

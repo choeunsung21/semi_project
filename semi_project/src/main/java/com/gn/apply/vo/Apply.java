@@ -1,5 +1,7 @@
 package com.gn.apply.vo;
 
+import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -23,5 +25,14 @@ public class Apply {
 	private String applyArea; // 선호 지역
 	private String applyExplanation; // 소개글
 	private String status; // 대기,승낙,거절 상태
+	private LocalDateTime regDate;
+	private LocalDateTime modDate;
+	
+	private String teamName;
+	private int leaderNo;
+	private String teamArea;
+	private int teamLevel;
+	
+	private String userId;
+	private String userName;
 }
-

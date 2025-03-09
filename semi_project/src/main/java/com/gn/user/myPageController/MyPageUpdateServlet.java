@@ -19,11 +19,10 @@ public class MyPageUpdateServlet extends HttpServlet {
        
     public MyPageUpdateServlet() {
         super();
-      
     }
 
+	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		String id = request.getParameter("userId");
 		String name = request.getParameter("userName");
 		String email = request.getParameter("userEmail");
@@ -35,7 +34,6 @@ public class MyPageUpdateServlet extends HttpServlet {
 		user.setUserEmail(email);
 		user.setUserPhone(phone);
 		
-		System.out.println("서블렛 확인");
 		int result = new UserService().changeUserData(user);
 	
 		JSONObject obj = new JSONObject();

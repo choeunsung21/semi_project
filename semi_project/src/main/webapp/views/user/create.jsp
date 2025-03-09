@@ -7,7 +7,7 @@
 	<script src="<%=request.getContextPath()%>/resources/js/jquery-3.7.1.js"></script>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>회원가입 - OnePage Bootstrap Template</title>
+  <title>회원가입</title>
 
   <!-- Favicons -->
   <link href="assets/img/favicon.png" rel="icon">

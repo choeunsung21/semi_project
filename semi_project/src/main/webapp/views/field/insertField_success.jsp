@@ -67,9 +67,7 @@
             <ul id="field-success-ul">
               <li><i class="bi bi-check2-all"></i> <a href="/">메인화면으로 이동하기</a></li>
               <li></li>
-              <li></li>
               <li><i class="bi bi-check2-all"></i> <a href="/selectRegisteredFieldList">등록한 구장 목록으로 이동하기</a></li>
-              <li></li>
               <li></li>
               <li><i class="bi bi-check2-all"></i> <a href="/insertPlan">일정 직접 등록으로 이동하기</a></li>
               <li><i class="bi bi-check2-all"></i> <a href="/insertRule">일정 규칙 등록으로 이동하기</a></li>

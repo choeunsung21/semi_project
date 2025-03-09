@@ -11,7 +11,7 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>플랜 상세 조회</title>
+  <title>예약 상세 조회</title>
   <meta name="description" content="">
   <meta name="keywords" content="">
 
