@@ -46,6 +46,11 @@ public class ApplyDao {
 	public Apply selectApplyByApplyNo(SqlSession session, int applyNo) {
 		return session.selectOne("applyMapper.selectApplyByApplyNo", applyNo);
 	}
+	
+	// 문제가 발생하였을 때 apply 테이블을 update - 다시 PENDING으로
+	public int updateApplyToPending(SqlSession session, int applyNo) {
+		return session.update("applyMapper.updateApplyToPending", applyNo);
+	}
 }
 	
    

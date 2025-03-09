@@ -34,6 +34,8 @@
       <input type="hidden" id="user-no-input" name="user_no" value="${userNo}">
       <input type="hidden" id="team-no-input" name="team_no" value="${teamNo}">
       <input type="hidden" id="leader-no-input" name="leader_no" value="${team.leaderNo}">
+      <input type="hidden" id="team-count-input" name="team_count" value="${team.teamCount}">
+      <input type="hidden" id="team-limit-input" name="team_limit" value="${team.teamLimit}">
       
       <label for="position">선호 포지션</label>
       <input type="text" id="position" name="position" class="form-control" placeholder="선호 포지션">
@@ -54,12 +56,21 @@
 	const submitForm = function(){
     	let userNo = document.getElementById("user-no-input").value;
     	let leaderNo = document.getElementById("leader-no-input").value;
-
+    	let teamCount = Number(document.getElementById("team-count-input").value);
+    	let teamLimit = Number(document.getElementById("team-limit-input").value);
+    	
     	if (userNo === leaderNo) {
     		alert("본인 팀에는 신청할 수 없습니다.");
     		event.preventDefault();
     		history.back();
     		return false;
+    	}
+    	
+    	if (teamCount >= teamLimit) {
+			alert("현재 팀원 수가 제한 인원에 도달하였습니다.");
+			event.preventDefault();
+			history.back();
+			return false;
     	}
 
     	document.querySelector("form").submit();

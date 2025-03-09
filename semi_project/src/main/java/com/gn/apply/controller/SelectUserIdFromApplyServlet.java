@@ -31,7 +31,7 @@ public class SelectUserIdFromApplyServlet extends HttpServlet {
 		for (String tmp : applyNoList) {
             
             // apply_no를 기준으로 user_id를 추출해옴
-            if(tmp != null) {
+            if(tmp != null && tmp.length() != 0) {
             	int applyNo = Integer.parseInt(tmp);
             	User user = new ApplyService().selectUserByApplyNo(applyNo);
             	

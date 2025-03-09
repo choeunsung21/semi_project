@@ -73,6 +73,7 @@ public class ApplyService {
 			
 			if(resultInsert > 0) {
 				int teamNo = apply.getTeamNo();
+				
 				int result = new TeamDao().updateTeamCount(session, teamNo);
 				
 				if(result > 0) {
@@ -91,5 +92,13 @@ public class ApplyService {
 			session.rollback();
 			return 0;
 		}
+	}
+	
+	// 문제가 발생하여 보류했을 경우 다시 PENDING으로 되돌리는 기능
+	public int updateApplyToPending(int applyNo) {
+		SqlSession session = getSqlSession(true);
+		int result = new ApplyDao().updateApplyToPending(session, applyNo);
+		session.close();
+		return result;
 	}
 }

@@ -82,7 +82,7 @@ public class InsertApplyEndServlet extends HttpServlet {
 	            .position(position)
 	            .applyArea(applyArea)
 	            .applyExplanation(applyExplanation)
-	            .status("PENDING") // 쓰기 너무 어려움
+	            .status("PENDING")
 	            .build();
 
 	        // 서비스 호출

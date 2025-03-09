@@ -66,30 +66,40 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach var="apply" items="${applyList}" varStatus="vs">
-                       		<input type="hidden" name="apply_no" value="${apply.applyNo}">
-                            <tr>
-                            	<td>${vs.index+1}</td>
-                                <td>${apply.teamName}</td>
-                                <td></td>
-                                <td>${apply.position}</td>
-                                <td>${apply.applyExplanation}</td>
-                                <td id="status-target-${apply.applyNo}">
-    								<c:choose>
-       									<c:when test="${apply.status == 'PENDING'}">
-            								<button class="btn btn-success btn-sm" onclick="changeStatus(${apply.applyNo}, 'APPROVED')">승인</button>
-            								<button class="btn btn-danger btn-sm" onclick="changeStatus(${apply.applyNo}, 'REJECTED')">거절</button>
-        								</c:when>
-        								<c:when test="${apply.status == 'APPROVED'}">
-            								<span style="color: green; font-weight: bold;">승인됨</span>
-        								</c:when>
-        								<c:when test="${apply.status == 'REJECTED'}">
-            								<span style="color: red; font-weight: bold;">거절됨</span>
-        								</c:when>
-    								</c:choose>
-								</td>
-                            </tr>
-                        </c:forEach>
+                    	<c:choose>
+                    		<c:when test="${not empty applyList}">
+                     			<c:forEach var="apply" items="${applyList}" varStatus="vs">
+                       				<input type="hidden" name="apply_no" value="${apply.applyNo}">
+                         			
+                         			<tr>
+                            			<td>${vs.index+1}</td>
+                            			<td>${apply.teamName}</td>
+                             			<td></td>
+                            			<td>${apply.position}</td>
+                          		    	<td>${apply.applyExplanation}</td>
+                         		    	<td id="status-target-${apply.applyNo}">
+    										<c:choose>
+       											<c:when test="${apply.status == 'PENDING'}">
+            										<button class="btn btn-success btn-sm" onclick="changeStatus(${apply.applyNo}, 'APPROVED')">승인</button>
+            										<button class="btn btn-danger btn-sm" onclick="changeStatus(${apply.applyNo}, 'REJECTED')">거절</button>
+        										</c:when>
+        										<c:when test="${apply.status == 'APPROVED'}">
+            										<span style="color: green; font-weight: bold;">승인됨</span>
+        										</c:when>
+        										<c:when test="${apply.status == 'REJECTED'}">
+            										<span style="color: red; font-weight: bold;">거절됨</span>
+        										</c:when>
+    										</c:choose>
+										</td>
+                            		</tr>
+                       			</c:forEach>
+                       		</c:when>
+                       		<c:otherwise>
+                                <tr>
+                                    <td colspan="6">받은 신청이 없습니다.</td>
+                                </tr>
+                            </c:otherwise>
+                        </c:choose>
                     </tbody>
                 </table>
             </div>
@@ -156,6 +166,10 @@
                     $("#status-target-" + applyNo).html('<span style="color: green; font-weight: bold;">승인됨</span>');
                 } else if (data.status === "REJECTED") {
                     $("#status-target-" + applyNo).html('<span style="color: red; font-weight: bold;">거절됨</span>');
+                } else if (data.status === "PENDING") {
+                    if(data.opt_msg == "정원초과") {
+						alert("보류 : 해당 팀은 정원이 가득찼습니다.");
+                    }
                 }
             },
             error: function() {

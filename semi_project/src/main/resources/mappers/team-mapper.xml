@@ -78,5 +78,6 @@
 		UPDATE `team`
 		SET `team_count` = `team_count` + 1
 		WHERE `team_no` = #{teamNo}
+		AND `team_count` &lt; `team_limit`
 	</update>
 </mapper>

@@ -9,6 +9,8 @@
         <result property="applyArea" column="apply_area"/>
         <result property="applyExplanation" column="apply_explanation"/>
         <result property="status" column="status"/>
+        <result property="regDate" column="reg_date"/>
+        <result property="modDate" column="mod_date"/>
         
         <result property="teamName" column="team_name"/>
         <result property="leaderNo" column="leader_no"/>
@@ -39,7 +41,7 @@
 	<select id="selectApplyByOptApply" parameterType="apply" resultMap="applyMap">
 		SELECT *
 		FROM `apply`
-		WHERE `user_no` = #{userNo} AND `team_no` = #{teamNo} LIMIT 1
+		WHERE `user_no` = #{userNo} AND `team_no` = #{teamNo} AND `status` = "PENDING" LIMIT 1
 	</select>
 	<select id="selectApplyAllByUser" parameterType="user" resultMap="applyMap">
 		SELECT *
@@ -47,6 +49,7 @@
 		JOIN `team` t ON t.team_no = a.team_no	
 		JOIN `user` u ON u.user_no = t.leader_no
 		WHERE a.user_no = #{userNo}
+		ORDER BY a.reg_date DESC
 	</select>
 	<select id="selectApplyAllByLeaderNo" parameterType="_int" resultMap="applyMap">
 		SELECT *
@@ -54,7 +57,7 @@
 		JOIN `team` t ON t.team_no = a.team_no
 		JOIN `user` u ON u.user_no = t.leader_no
 		WHERE t.leader_no = #{leaderNo}
-		ORDER BY t.team_no
+		ORDER BY a.reg_date DESC
 	</select>
 	<select id="selectUserByApplyNo" parameterType="_int" resultMap="userMap">
 		SELECT *
@@ -77,4 +80,9 @@
 		FROM `apply`
 		WHERE `apply_no` = #{applyNo}
 	</select>
+	<update id="updateApplyToPending" parameterType="_int">
+		UPDATE `apply`
+		SET `status` = "PENDING"
+		WHERE `apply_no` = #{applyNo}
+	</update>
 </mapper>

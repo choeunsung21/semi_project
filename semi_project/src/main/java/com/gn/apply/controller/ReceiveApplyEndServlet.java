@@ -49,9 +49,17 @@ public class ReceiveApplyEndServlet extends HttpServlet {
 			} else if("APPROVED".equals(status)) {
 				int result = new ApplyService().updateApplyToApproved(applyNo);
 				
-				obj.put("apply_no", applyNo);
-				obj.put("status", "APPROVED");
-				obj.put("message", (result > 0) ? "거절 처리 완료" : "거절 처리 실패");
+				if(result > 0) {
+					obj.put("apply_no", applyNo);
+					obj.put("status", "APPROVED");
+					obj.put("message", "승인 처리 완료");
+				} else {
+					new ApplyService().updateApplyToPending(applyNo);
+					obj.put("apply_no", applyNo);
+					obj.put("status", "PENDING");
+					obj.put("message","승인 처리 실패");
+					obj.put("opt_msg", "정원초과");
+				}
 				
 				response.setContentType("application/json;charset=utf-8");
 				response.getWriter().print(obj);
