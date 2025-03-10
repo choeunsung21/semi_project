@@ -120,8 +120,8 @@
                 		<c:if test="${board.regDate != board.modDate }">
                 		<fmt:parseDate value="${board.modDate }" pattern="yyyy-MM-dd'T'HH:mm" var="upDate" />
                 		<li><strong>수정일</strong><fmt:formatDate value="${upDate }" pattern="yyyy-MM-dd HH:mm" /></li>
-                		<li><strong>조회수</strong>${board.boardHit }</li>
                 		</c:if>
+                		<li><strong>조회수</strong>${board.boardHit }</li>
               		</ul>
                 		<%-- <textarea id="summernote" class="" ><c:out>${board.boardContent }</c:out></textarea> --%>
                 		<c:out value="${board.boardContent }" escapeXml="false"/>
