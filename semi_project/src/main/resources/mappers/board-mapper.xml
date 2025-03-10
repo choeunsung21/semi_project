@@ -51,6 +51,9 @@
                 	<when test='orderType.equals("1") == true'>
                     	ORDER BY b.reg_date DESC
                 	</when>
+                	<when test='orderType.equals("3") == true'>
+                    	ORDER BY b.board_hit DESC
+                	</when>
                 	<otherwise>
                     	ORDER BY b.reg_date ASC
                 	</otherwise>
