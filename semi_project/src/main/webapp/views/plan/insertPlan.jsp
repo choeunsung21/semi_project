@@ -194,7 +194,7 @@
                 					</div>
 
 									<p>
-                						<input id="chk_terms" type="checkbox">&nbsp; 스케줄 등록 관련 약관입니다.
+                						<input id="chk_terms" type="checkbox">&nbsp; 일정 등록 관련 약관입니다.
 									</p>                					
 									
 									<!-- #chk_term 체크되었을 때만 버튼이 눌러지고 아닐경우 alert창을 띄울 예정 -->
@@ -208,9 +208,10 @@
           				<div class="col-lg-2">
           				<!-- End Contact Form -->
 	
-        			</div>
+        				</div>
 	
-      			</div>
+      				</div>
+      		</div>
 
     		</section><!-- /Contact Section -->
             
