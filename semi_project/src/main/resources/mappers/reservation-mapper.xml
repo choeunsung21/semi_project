@@ -8,7 +8,59 @@
 		<result property="userNo" column="user_no" />
 		<result property="planNo" column="plan_no" />
 		<result property="regDate" column="reg_date" />
+		<association property="field" resultMap="fieldMap" />
+		<association property="plan" resultMap="planMap" />
 	</resultMap>
+	<resultMap type="plan" id="planMap">
+		<result property="planNo" column="plan_no" />
+		<result property="userNo" column="user_no" />
+		<result property="planDate" column="plan_date" />
+		<result property="planTime" column="plan_time" />
+		<result property="planPrice" column="plan_price" />
+		<result property="resStatus" column="res_status" />
+		<result property="useTime" column="use_time" />
+		<result property="regDate" column="reg_date" />
+		<result property="modDate" column="mod_date" />
+		<association property="field" resultMap="fieldMap" />
+	</resultMap>
+	<resultMap type="field" id="fieldMap">
+			<result property="fieldNo" column="field_no" />
+			<result property="fieldName" column="field_name" />
+			<result property="fieldSize" column="field_size" />
+			<result property="fieldAddr" column="field_addr" />
+			<result property="fieldAddr1" column="field_addr1" />
+			<result property="fieldAddr2" column="field_addr2" />
+			<result property="fieldLimit" column="field_limit" />
+			<result property="fieldType" column="field_type" />
+			<result property="isIndoor" column="is_indoor" />
+			<result property="isPark" column="is_park" />
+			<result property="isShower" column="is_shower" />
+			<result property="rentPrice" column="rent_price" />
+			<result property="dayoffNo" column="dayoff_no" />
+			<result property="message" column="message" />
+			<result property="regDate" column="reg_date" />
+			<result property="modDate" column="mod_date" />
+	</resultMap>
+	<resultMap type="user" id="userMap">
+		<result property="userNo" column="user_no"/>
+		<result property="userId" column="user_id"/>
+		<result property="userPw" column="user_pw"/>
+		<result property="userName" column="user_name"/>
+		<result property="userGender" column="user_gender"/>
+		<result property="userPhone" column="user_phone"/>
+		<result property="userEmail" column="user_email"/>
+		<result property="userType" column="user_type"/>
+		<result property="isManager" column="is_manager"/>
+		<result property="regDate" column="reg_date"/>
+		<result property="modDate" column="mod_date"/>
+	</resultMap>
+	<select id="selectReservationByUserNo" parameterType="int" resultMap="reservationMap">
+		SELECT * 
+    	FROM reservation r
+    	JOIN plan p ON p.plan_no = r.plan_no
+    	JOIN field f ON f.field_no = p.field_no
+    	WHERE r.user_no = #{userNo}
+	</select>
 	
 	<!-- 예약하기 -->
 	<insert id="insertReservationOne" parameterType="reservation">

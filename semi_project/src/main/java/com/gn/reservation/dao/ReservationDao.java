@@ -8,6 +8,11 @@ import org.mariadb.jdbc.client.socket.impl.CompressOutputStream;
 import com.gn.reservation.vo.Reservation;
 
 public class ReservationDao {
+	
+	public List<Reservation> selectReservationByUserNo(SqlSession session, int userNo){
+		List<Reservation> reservationList = session.selectList("reservationMapper.selectReservationByUserNo",userNo);
+		return reservationList;
+	}
 
 	public int insertReservation(SqlSession session, Reservation reservation) {
 		return session.insert("reservationMapper.insertReservationOne", reservation);

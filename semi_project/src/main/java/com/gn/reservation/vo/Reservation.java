@@ -2,6 +2,9 @@ package com.gn.reservation.vo;
 
 import java.time.LocalDateTime;
 
+import com.gn.field.vo.Field;
+import com.gn.plan.vo.Plan;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -22,4 +25,6 @@ public class Reservation {
 	private int userNo;
 	private int planNo;
 	private LocalDateTime regDate;
+	private Field field;
+	private Plan plan;
 }
