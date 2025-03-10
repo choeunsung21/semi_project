@@ -28,11 +28,11 @@ public class Apply {
 	private LocalDateTime regDate;
 	private LocalDateTime modDate;
 	
-	private String teamName;
-	private int leaderNo;
-	private String teamArea;
-	private int teamLevel;
+	private String teamName; // 팀 이름
+	private int leaderNo; // 팀장 번호
+	private String teamArea; // 선호 지역(팀)
+	private int teamLevel; // 팀 실력
 	
-	private String userId;
-	private String userName;
+	private String userId; // 유저 아이디
+	private String userName; // 유저 이름
 }
