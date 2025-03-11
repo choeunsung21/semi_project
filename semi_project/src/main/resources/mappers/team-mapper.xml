@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="teamMapper">
+    <resultMap type="team" id="teamMap">
+        <result property="teamNo" column="team_no"/>
+        <result property="teamName" column="team_name"/>
+        <result property="leaderNo" column="leader_no"/>
+        <result property="teamArea" column="team_area"/>
+        <result property="preferGender" column="prefer_gender"/>
+        <result property="teamLevel" column="team_level"/>
+        <result property="teamCount" column="team_count"/>
+        <result property="teamLimit" column="team_limit"/>
+        <result property="teamExplanation" column="team_explanation"/>
+        <result property="regDate" column="reg_date"/>
+        <result property="modDate" column="mod_date"/>
+    </resultMap>
+	<resultMap type="user" id="userMap">
+		<result property="userNo" column="user_no"/>
+		<result property="userId" column="user_id"/>
+		<result property="userPw" column="user_pw"/>
+		<result property="userName" column="user_name"/>
+		<result property="userGender" column="user_gender"/>
+		<result property="userPhone" column="user_phone"/>
+		<result property="userEmail" column="user_email"/>
+		<result property="userType" column="user_type"/>
+		<result property="isManager" column="is_manager"/>
+		<result property="regDate" column="reg_date"/>
+		<result property="modDate" column="mod_date"/>
+	</resultMap>
+	
+   <!-- 팀 생성 -->
+	<insert id="insertTeam" parameterType="Team" useGeneratedKeys="true" keyProperty="teamNo">
+    	INSERT INTO `team` (team_name, leader_no, team_area, prefer_gender, team_level, team_count, team_limit, team_explanation, reg_date)
+    	VALUES (#{teamName}, #{leaderNo}, #{teamArea}, #{preferGender}, #{teamLevel}, #{teamCount}, #{teamLimit}, #{teamExplanation}, NOW());
+	</insert>
+
+    <!-- 전체 팀 개수 조회 (페이징 처리용) -->
+    <select id="selectTeamCount" resultType="int">
+        SELECT COUNT(*) FROM `team`
+        <where>
+            <if test="teamName != null and teamName != ''">
+                team_name LIKE CONCAT('%', #{teamName}, '%')
+            </if>
+        </where>
+    </select>
+
+    <!-- 특정 팀 상세 조회 -->
+    <select id="selectTeamNo" resultMap="teamMap">
+        SELECT * FROM `team` WHERE team_no = #{teamNo}
+    </select>
+
+    <!-- 팀 삭제 -->
+    <delete id="deleteTeam" parameterType="int">
+        DELETE FROM `team` WHERE team_no = #{teamNo}
+    </delete>
+
+    <!-- 팀 수정 -->
+	<update id="updateTeam" parameterType="map">
+    	UPDATE `team`
+    	SET team_name = #{teamName},
+        	team_area = #{teamArea},
+        	mod_date = NOW()
+    	WHERE team_no = #{teamNo} <!-- 팀 번호로 조건 설정 -->
+	</update>
+	
+	<select id="selectTeamByName" parameterType="String" resultMap="teamMap">
+    	SELECT * FROM `team` WHERE team_name = #{teamName}
+	</select>
+
+    <!-- 팀 목록(페이징) -->
+    <select id="teamList" resultMap="teamMap">
+    	SELECT * FROM `team`
+        <where>
+            <if test="teamName != null and teamName != ''">
+                team_name LIKE CONCAT('%', #{teamName}, '%')
+            </if>
+        </where>
+    	ORDER BY reg_date DESC
+    	LIMIT #{limitPageNo}, #{numPerPage}
+	</select>
+	
+	<select id="selectTeamListByUser" parameterType="_int" resultMap="teamMap">
+		SELECT * FROM `team` WHERE `leader_no` = #{userNo}
+	</select>
+	
+	<select id="selectTeamByTeamNo" parameterType="_int" resultMap="teamMap">
+		SELECT * FROM `team` WHERE `team_no` = #{teamNo}
+	</select>
+	
+	<select id="selectMyTeamAll" parameterType="_int" resultMap="teamMap">
+		SELECT *
+		FROM `user` u
+		JOIN `player` p ON p.user_no = u.user_no
+		JOIN `team` t ON t.team_no = p.team_no
+		WHERE u.user_no = #{userNo}
+	</select>
+	
+	<update id="updateTeamCount" parameterType="_int">
+		UPDATE `team`
+		SET `team_count` = `team_count` + 1
+		WHERE `team_no` = #{teamNo}
+		AND `team_count` &lt; `team_limit`
+	</update>
+</mapper>

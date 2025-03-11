@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="planMapper">
+	<resultMap type="plan" id="planMap">
+		<result property="planNo" column="plan_no" />
+		<result property="userNo" column="user_no" />
+		<result property="planDate" column="plan_date" />
+		<result property="planTime" column="plan_time" />
+		<result property="planPrice" column="plan_price" />
+		<result property="resStatus" column="res_status" />
+		<result property="useTime" column="use_time" />
+		<result property="regDate" column="reg_date" />
+		<result property="modDate" column="mod_date" />
+		<association property="field" resultMap="fieldMap" />
+	</resultMap>
+	
+	<resultMap type="field" id="fieldMap">
+			<result property="fieldNo" column="field_no" />
+			<result property="fieldName" column="field_name" />
+			<result property="fieldSize" column="field_size" />
+			<result property="fieldAddr" column="field_addr" />
+			<result property="fieldAddr1" column="field_addr1" />
+			<result property="fieldAddr2" column="field_addr2" />
+			<result property="fieldLimit" column="field_limit" />
+			<result property="fieldType" column="field_type" />
+			<result property="isIndoor" column="is_indoor" />
+			<result property="isPark" column="is_park" />
+			<result property="isShower" column="is_shower" />
+			<result property="rentPrice" column="rent_price" />
+			<result property="dayoffNo" column="dayoff_no" />
+			<result property="message" column="message" />
+			<result property="regDate" column="reg_date" />
+			<result property="modDate" column="mod_date" />
+	</resultMap>
+	
+	<!-- 일정 등록 -->
+	<insert id="insertPlanOne" parameterType="plan">
+		INSERT INTO `plan`
+		(field_no ,plan_date ,plan_time ,plan_price ,use_time)
+		VALUES (#{fieldNo} ,#{planDate} ,#{planTime} ,#{planPrice} ,#{useTime})
+	</insert>
+	
+	<!-- 특정 업체가 등록한 일정 목록 조회 -->
+	<select id="selectRegisteredPlanList" resultMap="planMap" parameterType="plan">
+		SELECT p.plan_no ,f.field_name ,p.plan_date ,p.plan_time ,p.res_status ,p.use_time  
+		FROM `plan` p
+		JOIN `field` f ON p.field_no = f.field_no
+		JOIN `user` u ON u.user_no = f.user_no
+		WHERE f.user_no = #{userNo}
+		ORDER BY p.plan_date ,p.plan_time ASC
+		LIMIT #{limitPageNo} ,#{numPerPage}
+	</select>
+	
+	<!-- 특정 업체가 등록한 일정 목록 페이징 -->
+	<select id="selectRegPlanCount" resultType="int" parameterType="plan">
+		SELECT COUNT(*)
+		FROM `plan` p
+		JOIN `field` f
+		ON p.field_no = f.field_no
+		WHERE f.user_no = #{userNo}
+	</select>
+	
+	<!-- 등록한 일정 날짜필터 조회 -->
+	<select id="selectPlanByDate" resultMap="planMap" parameterType="plan">
+		SELECT p.plan_no ,f.field_name ,p.plan_date ,p.plan_time ,p.res_status ,p.use_time  
+		FROM `plan` p
+		JOIN `field` f ON p.field_no = f.field_no
+		JOIN `user` u ON u.user_no = f.user_no
+		WHERE f.user_no = #{userNo}
+		AND p.plan_date = #{planDate}
+		ORDER BY p.plan_time ASC
+	</select>
+	
+	<!-- 특정 업체가 등록한 일정 상세 조회 -->
+	<select id="selectRegisteredPlanDetail" resultMap="planMap" parameterType="_int">
+		SELECT * FROM `plan`
+		WHERE plan_no = #{planNo}
+	</select>
+	
+	<!-- 특정 업체가 등록한 일정 삭제 -->
+	<delete id="deletePlan" parameterType="plan">
+		DELETE FROM `plan`
+		WHERE plan_no = #{planNo}
+	</delete>
+	
+	<!-- 특정 업체가 등록한 일정 수정 -->
+	<update id="updatePlan" parameterType="plan">
+		UPDATE `plan`
+		SET field_no = #{fieldNo},
+			 plan_date = #{planDate},
+			 plan_time = #{planTime},
+			 plan_price = #{planPrice},
+			 use_time = #{useTime}
+		WHERE plan_no = #{planNo};
+	</update>
+	
+	<!-- 일정 목록 조회 -->
+	<select id="selectPlanList" resultMap="planMap" parameterType="plan">
+		SELECT * FROM `plan` p
+		JOIN `field` f ON p.field_no = f.field_no
+		ORDER BY p.plan_date
+		LIMIT #{limitPageNo} ,#{numPerPage}
+	</select>
+
+	<!-- 일정 목록 페이징 -->
+	<select id="selectPlanListCount" resultType="int" parameterType="plan">
+		SELECT COUNT(*)
+		FROM `plan` p
+		JOIN `field` f
+		ON p.field_no = f.field_no
+	</select>
+	
+	<!-- 모든일정 날짜필터 조회 -->
+	<select id="selectAllPlanByDate" resultMap="planMap" parameterType="string">
+		SELECT p.plan_no  ,f.field_addr2 ,f.field_name ,p.plan_date ,p.plan_time ,p.res_status ,p.use_time  
+		FROM `plan` p
+		JOIN `field` f ON p.field_no = f.field_no
+		JOIN `user` u ON u.user_no = f.user_no
+		WHERE p.plan_date = #{planDate}
+		ORDER BY p.plan_time ASC
+	</select>
+	
+	
+	<!-- 일정 상세 조회 -->
+	<select id="selectPlanDetail" resultMap="planMap" parameterType="_int">
+		SELECT *
+		FROM `plan` p
+		JOIN `field` f ON p.field_no = f.field_no
+		WHERE p.plan_no = #{planNo}
+	</select>
+	
+	<!-- 예약시 예약 상태 업데이트 -->
+	<update id="updatePlanStatus" parameterType="plan">
+		UPDATE `plan`
+		SET res_status = #{resStatus}
+		WHERE plan_no = #{planNo}
+	</update>
+
+	<!-- 필드번호 기준으로 List<Plan> 조회 -->
+	<select id="selectPlanListByFieldNo" parameterType="_int" resultMap="planMap">
+		SELECT *
+		FROM `plan`
+		WHERE `field_no` = #{fieldNo}
+		AND STR_TO_DATE(`plan_date`, '%Y-%m-%d') >= CURRENT_DATE;
+	</select>
+	
+	<!-- 스케줄러 지난 일정 삭제 -->
+	<delete id="deleteOldPlans" parameterType="string">
+		DELETE FROM `plan`
+		WHERE plan_date &lt; #{today}
+	</delete>
+</mapper>

@@ -237,4 +237,8 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 /build
+
+*.png
+*.jpg
+*.jpeg
 # End of https://www.toptal.com/developers/gitignore/api/java,windows,eclipse,intellij
