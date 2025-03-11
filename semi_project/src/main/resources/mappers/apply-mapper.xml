@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="applyMapper">
+    <resultMap type="apply" id="applyMap">
+        <result property="applyNo" column="apply_no"/>
+        <result property="userNo" column="user_no"/>
+        <result property="teamNo" column="team_no"/>
+        <result property="position" column="position"/>
+        <result property="applyArea" column="apply_area"/>
+        <result property="applyExplanation" column="apply_explanation"/>
+        <result property="status" column="status"/>
+        <result property="regDate" column="reg_date"/>
+        <result property="modDate" column="mod_date"/>
+        
+        <result property="teamName" column="team_name"/>
+        <result property="leaderNo" column="leader_no"/>
+        <result property="teamArea" column="team_area"/>
+        <result property="teamLevel" column="team_level"/>
+        
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+    </resultMap>
+    <resultMap type="user" id="userMap">
+		<result property="userNo" column="user_no"/>
+		<result property="userId" column="user_id"/>
+		<result property="userPw" column="user_pw"/>
+		<result property="userName" column="user_name"/>
+		<result property="userGender" column="user_gender"/>
+		<result property="userPhone" column="user_phone"/>
+		<result property="userEmail" column="user_email"/>
+		<result property="userType" column="user_type"/>
+		<result property="isManager" column="is_manager"/>
+		<result property="regDate" column="reg_date"/>
+		<result property="modDate" column="mod_date"/>
+	</resultMap>
+    <!-- PENDING(대기중 걸어둠) -->
+	<insert id="insertApply" parameterType="apply">
+    	INSERT INTO `apply` (user_no, team_no, position, apply_area, apply_explanation, status)
+    	VALUES (#{userNo}, #{teamNo}, #{position}, #{applyArea}, #{applyExplanation}, 'PENDING');
+	</insert>
+	<select id="selectApplyByOptApply" parameterType="apply" resultMap="applyMap">
+		SELECT *
+		FROM `apply`
+		WHERE `user_no` = #{userNo} AND `team_no` = #{teamNo} AND `status` = "PENDING" LIMIT 1
+	</select>
+	<select id="selectApplyAllByUser" parameterType="user" resultMap="applyMap">
+		SELECT *
+		FROM `apply` a
+		JOIN `team` t ON t.team_no = a.team_no	
+		JOIN `user` u ON u.user_no = t.leader_no
+		WHERE a.user_no = #{userNo}
+		ORDER BY a.reg_date DESC
+	</select>
+	<select id="selectApplyAllByLeaderNo" parameterType="_int" resultMap="applyMap">
+		SELECT *
+		FROM `apply` a
+		JOIN `team` t ON t.team_no = a.team_no
+		JOIN `user` u ON u.user_no = t.leader_no
+		WHERE t.leader_no = #{leaderNo}
+		ORDER BY a.reg_date DESC
+	</select>
+	<select id="selectUserByApplyNo" parameterType="_int" resultMap="userMap">
+		SELECT *
+		FROM `user` u
+		JOIN `apply` a ON a.user_no = u.user_no
+		WHERE a.apply_no = #{applyNo}
+	</select>
+	<update id="updateApplyToRejected" parameterType="_int">
+		UPDATE `apply`
+		SET `status` = "REJECTED"
+		WHERE `apply_no` = #{applyNo}
+	</update>
+	<update id="updateApplyToApproved" parameterType="_int">
+		UPDATE `apply`
+		SET `status` = "APPROVED"
+		WHERE `apply_no` = #{applyNo}
+	</update>
+	<select id="selectApplyByApplyNo" parameterType="_int" resultMap="applyMap">
+		SELECT *
+		FROM `apply`
+		WHERE `apply_no` = #{applyNo}
+	</select>
+	<update id="updateApplyToPending" parameterType="_int">
+		UPDATE `apply`
+		SET `status` = "PENDING"
+		WHERE `apply_no` = #{applyNo}
+	</update>
+</mapper>

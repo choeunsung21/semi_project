@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dayoffMapper">
+	<resultMap type="dayoff" id="dayoffMap">
+		<result property="dayoffNo" column="dayoff_no" />
+		<result property="isSun" column="is_sun" />
+		<result property="isMon" column="is_mon" />
+		<result property="isTue" column="is_tue" />
+		<result property="isWed" column="is_wed" />
+		<result property="isThu" column="is_thu" />
+		<result property="isFri" column="is_fri" />
+		<result property="isSat" column="is_sat" />
+		<result property="regDate" column="reg_date" />
+		<result property="modDate" column="mod_date" />
+	</resultMap>
+	<resultMap type="field" id="fieldMap">
+		<result property="fieldNo" column="field_no" />
+		<result property="userNo" column="user_no" />
+		<result property="fieldName" column="field_name" />
+		<result property="fieldAddr1" column="field_addr1" />
+		<result property="fieldAddr2" column="field_addr2" />
+		<result property="fieldAddr" column="field_addr" />
+		<result property="fieldSize" column="field_size" />
+		<result property="fieldLimit" column="field_limit" />
+		<result property="rentPrice" column="rent_price" />
+		<result property="fieldType" column="field_type" />
+		<result property="isIndoor" column="is_indoor" />
+		<result property="isPark" column="is_park" />
+		<result property="isShower" column="is_shower" />
+		<result property="dayoffNo" column="dayoff_no" />
+		<result property="message" column="message" />
+		<result property="regDate" column="reg_date" />
+		<result property="modDate" column="mod_date" />
+		<result property="isSun" column="is_sun" />
+		<result property="isMon" column="is_mon" />
+		<result property="isTue" column="is_tue" />
+		<result property="isWed" column="is_wed" />
+		<result property="isThu" column="is_thu" />
+		<result property="isFri" column="is_fri" />
+		<result property="isSat" column="is_sat" />
+	</resultMap>
+	<insert id="insertDayoffOne" parameterType="dayoff">
+		INSERT INTO `dayoff` (`is_sun` ,`is_mon` ,`is_tue` ,`is_wed` ,`is_thu` ,`is_fri` ,`is_sat`)
+		VALUES (#{isSun} ,#{isMon} ,#{isTue} ,#{isWed} ,#{isThu} ,#{isFri} ,#{isSat})
+	</insert>
+	<select id="selectDayoffOneRecent" resultMap="dayoffMap">
+		SELECT * FROM `dayoff` ORDER BY `reg_date` DESC LIMIT 1;
+	</select>
+	<update id="updateDayoff" parameterType="field">
+		UPDATE `dayoff`
+		SET `is_sun` = #{isSun}
+		,`is_mon` = #{isMon}
+		,`is_tue` = #{isTue}
+		,`is_wed` = #{isWed}
+		,`is_thu` = #{isThu}
+		,`is_fri` = #{isFri}
+		,`is_sat` = #{isSat}
+		WHERE `dayoff_no` = #{dayoffNo}
+	</update>
+	<delete id="deleteDayoff" parameterType="field">
+		DELETE FROM `dayoff`
+		WHERE `dayoff_no` = #{dayoffNo}
+	</delete>
+</mapper>

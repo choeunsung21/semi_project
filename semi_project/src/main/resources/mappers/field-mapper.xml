@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fieldMapper">
+	<resultMap type="field" id="fieldMap">
+		<result property="fieldNo" column="field_no" />
+		<result property="userNo" column="user_no" />
+		<result property="fieldName" column="field_name" />
+		<result property="fieldAddr1" column="field_addr1" />
+		<result property="fieldAddr2" column="field_addr2" />
+		<result property="fieldAddr" column="field_addr" />
+		<result property="fieldSize" column="field_size" />
+		<result property="fieldLimit" column="field_limit" />
+		<result property="rentPrice" column="rent_price" />
+		<result property="fieldType" column="field_type" />
+		<result property="isIndoor" column="is_indoor" />
+		<result property="isPark" column="is_park" />
+		<result property="isShower" column="is_shower" />
+		<result property="dayoffNo" column="dayoff_no" />
+		<result property="message" column="message" />
+		<result property="regDate" column="reg_date" />
+		<result property="modDate" column="mod_date" />
+		<result property="isSun" column="is_sun" />
+		<result property="isMon" column="is_mon" />
+		<result property="isTue" column="is_tue" />
+		<result property="isWed" column="is_wed" />
+		<result property="isThu" column="is_thu" />
+		<result property="isFri" column="is_fri" />
+		<result property="isSat" column="is_sat" />
+	</resultMap>
+	<insert id="insertFieldOne" parameterType="field">
+		INSERT INTO `field` (`user_no` ,`field_name` ,`field_addr1` ,`field_addr2` ,`field_addr` ,`field_size` ,`field_limit` ,`rent_price` ,`field_type` ,`is_indoor` ,`is_park` ,`is_shower` ,`dayoff_no` ,`message`)
+		VALUES (#{userNo} ,#{fieldName} ,#{fieldAddr1} ,#{fieldAddr2} ,#{fieldAddr} ,#{fieldSize} ,#{fieldLimit} ,#{rentPrice} ,#{fieldType} ,#{isIndoor} ,#{isPark} ,${isShower} ,#{dayoffNo} ,#{message})
+	</insert>
+	<select id="selectFieldOneRecent" resultMap="fieldMap">
+		SELECT * FROM `field` ORDER BY `reg_date` DESC LIMIT 1
+	</select>
+	<select id="selectFieldList" parameterType="user" resultMap="fieldMap">
+		SELECT * FROM `field` f
+		JOIN `dayoff` d ON d.dayoff_no = f.dayoff_no
+		WHERE `user_no` = #{userNo}
+	</select>
+	<select id="selectFieldByField" parameterType="field" resultMap="fieldMap">
+		SELECT * FROM `field`
+		WHERE user_no = #{userNo}
+		ORDER BY `field_no`
+		LIMIT #{limitPageNo} ,#{numPerPage}
+	</select>
+	<select id="selectFieldCount" parameterType="field" resultType="_int">
+		SELECT COUNT(*)
+		FROM `field`
+		WHERE `user_no` = #{userNo}
+	</select>
+	<select id="selectFieldOneByFieldNo" parameterType="_int" resultMap="fieldMap">
+		SELECT *
+		FROM `field` f
+		JOIN `dayoff` d ON d.dayoff_no = f.dayoff_no
+		WHERE `field_no` = #{fieldNo}
+	</select>
+	<select id="selectAddr2ByFieldNo" parameterType="_int" resultType="string">
+		SELECT `field_addr2` FROM `field` WHERE `field_no` = #{fieldNo}
+	</select>
+	<update id="updateField" parameterType="field">
+		UPDATE `field`
+		SET `field_name` = #{fieldName}
+		,`field_addr1` = #{fieldAddr1}
+		,`field_addr2` = #{fieldAddr2}
+		,`field_addr` = #{fieldAddr}
+		,`field_limit` = #{fieldLimit}
+		,`field_size` = #{fieldSize}
+		,`is_indoor` = #{isIndoor}
+		,`field_type` = #{fieldType}
+		,`is_park` = #{isPark}
+		,`is_shower` = #{isShower}
+		,`rent_price` = #{rentPrice}
+		,`message` = #{message}
+		WHERE `field_no` = #{fieldNo}
+	</update>
+	<delete id="deleteFieldByField" parameterType="field">
+		DELETE FROM `field`
+		WHERE `field_no` = #{fieldNo}
+	</delete>
+</mapper>

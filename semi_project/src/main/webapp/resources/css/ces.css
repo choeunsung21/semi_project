@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+#field-no-label,
+#plan-date-label,
+#plan-time-label,
+#use-time-label,
+#plan-price-label {
+	font-size:14px;
+	color: #124265;
+	font-family: "Raleway",  sans-serif;
+	font-weight: bold;
+}
