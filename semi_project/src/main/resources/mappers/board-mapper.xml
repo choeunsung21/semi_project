@@ -45,21 +45,7 @@
             OR b.board_content LIKE CONCAT('%',#{boardTitle},'%'))
 		</if>
 		</where>	
-		<choose>
-        	<when test='orderType != null and orderType.equals("-1") == false'>
-            	<choose>
-                	<when test='orderType.equals("1") == true'>
-                    	ORDER BY b.reg_date DESC
-                	</when>
-                	<otherwise>
-                    	ORDER BY b.reg_date ASC
-                	</otherwise>
-          		</choose>
-        	</when>
-        		<otherwise>
-            		ORDER BY b.reg_date DESC  
-        		</otherwise>
-    	</choose>
+"C:/Users/권용규/Desktop/로그인 목록조회.mp4"
 		LIMIT #{limitPageNo}, #{numPerPage}
 	</select>
 	
