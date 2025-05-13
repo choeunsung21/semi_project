@@ -296,7 +296,7 @@ body {
 		</div>
 	</c:if>  
 	<!-- 정랼 select창 -->
-	<form action="selectBoardList" name="ordertype" method="get" class="d-flex"  id="orderForm" >
+	<form action="/selectBoardList" name="ordertype" method="get" class="d-flex"  id="orderForm" >
       <select name="ordertype" id="ordertype" class="form-select">
     	<option value="-1">선택</option>
     	<option value="1"  <c:if test="${orderType == '1'}">selected</c:if>>최신순</option>
