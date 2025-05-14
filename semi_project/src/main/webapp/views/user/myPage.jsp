@@ -631,6 +631,7 @@ tr:hover {
 		</section>
 
 		<!-- a태그를 누르면 변형이 되기 위한 script 태그 -->
+		<!-- 예약 -->
 		<script>
  document.getElementById("myReservation").addEventListener("click", function(event) {
 	    event.preventDefault();	
@@ -650,22 +651,22 @@ tr:hover {
 	        success: function(response) {
 	            let rows = "";
 	            for (let i = 0; i < response.list.length; i++) {
-	                let plan = response.list[i];
+	                let reservation = response.list[i];
 
-	                rows += '<tr data-planno="' + plan.planNo
-	                + '" data-fieldaddr="' + plan.fieldAddr
-	                + '" data-fieldname="' + plan.fieldName
-	                + '" data-plandate="' + plan.planDate
-	                + '" data-plantime="' + plan.planTime
-	                + '" data-usetime="' + plan.useTime
-	                + '" data-regdate="' + plan.regDate
-	                + '" onclick="location.href=\'/selectPlanDetail?planNo=' + plan.planNo + '\'">'
-	                + '<td>' + plan.fieldAddr + '</td>'
-	                + '<td>' + plan.fieldName + '</td>'
-	                + '<td>' + plan.planDate + '</td>'
-	                + '<td>' + plan.planTime + '</td>'
-	                + '<td>' + plan.useTime + '시간</td>'
-	                + '<td>' + plan.regDate + '</td>'
+	                rows += '<tr data-planno="' + reservation.planNo
+	                + '" data-fieldaddr="' + reservation.fieldAddr
+	                + '" data-fieldname="' + reservation.fieldName
+	                + '" data-plandate="' + reservation.planDate
+	                + '" data-plantime="' + reservation.planTime
+	                + '" data-usetime="' + reservation.useTime
+	                + '" data-regdate="' + reservation.regDate
+	                + '" onclick="location.href=\'/selectPlanDetail?planNo=' + reservation.planNo + '\'">'
+	                + '<td>' + reservation.fieldAddr + '</td>'
+	                + '<td>' + reservation.fieldName + '</td>'
+	                + '<td>' + reservation.planDate + '</td>'
+	                + '<td>' + reservation.planTime + '</td>'
+	                + '<td>' + reservation.useTime + '시간</td>'
+	                + '<td>' + reservation.regDate + '</td>'
 	                + '</tr>';
 	            }
 

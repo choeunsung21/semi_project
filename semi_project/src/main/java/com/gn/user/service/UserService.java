@@ -14,12 +14,12 @@ import com.gn.user.vo.User;
 
 public class UserService {
 	
-	public List<Plan> selectPlanByUse(int userNo){
-		SqlSession session = getSqlSession(true);
-		List<Plan> planList = new UserDao().selectPlanByUse(session, userNo);
-		session.close();
-		return planList;
-	}
+	/*
+	 * public List<Plan> selectPlanByUse(int userNo){ SqlSession session =
+	 * getSqlSession(true); List<Plan> planList = new
+	 * UserDao().selectPlanByUse(session, userNo); session.close(); return planList;
+	 * }
+	 */
 	
 	//탈퇴 기능 아직 못함
 //	public int leaveTeam(Player player) {

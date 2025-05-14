@@ -128,7 +128,7 @@
             				</div><!-- End Info Item -->
 		
           				</div> --%>
-
+          						<div class="col-lg-2"></div>
 									<div class="col-lg-8">
 										<form action="/updatePlanEnd?plan_no=${plan.planNo}" method="post" class="submit-form" data-aos="fade-up" data-aos-delay="200">
 											<div class="row gy-4">

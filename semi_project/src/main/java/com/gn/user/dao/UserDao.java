@@ -11,10 +11,11 @@ import com.gn.user.vo.User;
 
 public class UserDao {
 	
-	public List<Plan> selectPlanByUse(SqlSession session, int userNo){
-		List<Plan> planList = session.selectList("userMapper.selectPlanByUse", userNo);
-		return planList;
-	}
+	/*
+	 * public List<Plan> selectPlanByUse(SqlSession session, int userNo){ List<Plan>
+	 * planList = session.selectList("userMapper.selectPlanByUse", userNo); return
+	 * planList; }
+	 */
 	
 	
 //	public int leaveTeam(SqlSession session, Player player) {

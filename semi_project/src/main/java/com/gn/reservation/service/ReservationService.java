@@ -2,12 +2,20 @@ package com.gn.reservation.service;
 
 import static com.gn.common.sql.SqlSessionTemplate.getSqlSession;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 
 import com.gn.reservation.dao.ReservationDao;
 import com.gn.reservation.vo.Reservation;
 
 public class ReservationService {
+	public List<Reservation> selectReservationByUserNo(int userNo){
+		SqlSession session = getSqlSession(true);
+		List<Reservation> reservationList = new ReservationDao().selectReservationByUserNo(session, userNo);
+		session.close();
+		return reservationList;
+	}
 
 	public int insertReservation(Reservation reservation) {
 		SqlSession session = getSqlSession(true);
