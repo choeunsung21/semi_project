@@ -2,9 +2,9 @@
 ‘축구미’는 축구를 사랑하는 사람들을 위한 풋살장 예약 중개 서비스를 제공하는 웹애플리케이션입니다.
 
 ## 🔗 프로젝트 링크
-**GitHub: https://github.com/choeunsung21/semi_project**
-**요구사항정의서: https://docs.google.com/spreadsheets/d/1othyuyoCUbrIazbWy5xdtVGBpGsuPJ27ZUn6Iu_c77w/edit?pli=1&gid=0#gid=0**
-**화면설계서: https://www.figma.com/design/a1ySCXIbOrH1Mn4ikzwQo5/SoccerMe?node-id=2-2&p=f**
+- GitHub: https://github.com/choeunsung21/semi_project
+- 요구사항정의서: https://docs.google.com/spreadsheets/d/1othyuyoCUbrIazbWy5xdtVGBpGsuPJ27ZUn6Iu_c77w/edit?pli=1&gid=0#gid=0
+- 화면설계서: https://www.figma.com/design/a1ySCXIbOrH1Mn4ikzwQo5/SoccerMe?node-id=2-2&p=f
 
 ## 🧩 개요
 - 사용자들은 개인회원과 업체회원으로 분류되어 각각의 기능을 이용할 수 있습니다.
